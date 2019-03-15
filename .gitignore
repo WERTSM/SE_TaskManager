@@ -1,9 +1,11 @@
-# IntellijIdea files
-targer/*
-.idea/*
-*.iml
+# Binary files
 out/*
 bin/*
+targer/*
+
+# IntellijIdea files
+.idea/*
+*.iml
 
 # Compiled class file
 *.class

@@ -11,6 +11,8 @@ import java.util.List;
 public class Command {
     private List<Project> projectsList = new ArrayList<>();
     private List<Task> taskList = new ArrayList<>();
+    private List<Task> taskListIdProject = new ArrayList<>();
+
     private BufferedReader reader;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -54,6 +56,10 @@ public class Command {
                 this.project = project;
         }
         project.viewProject();
+        System.out.println("Tasks: ");
+        for (Task task : getTaskListIdProject(idProject)) {
+            task.viewTask();
+        }
         System.out.println("!!!DONE!!!");
     }
 
@@ -93,6 +99,11 @@ public class Command {
             if (project.getId() == idProject)
                 this.project = project;
         }
+
+        for (Task task : getTaskListIdProject(idProject)) {
+            taskList.remove(task);
+        }
+
         idProject--;
         projectsList.remove(project);
         System.out.println("!!!DONE!!!");
@@ -131,6 +142,14 @@ public class Command {
             task.viewTask();
         }
         System.out.println("!!!DONE!!!");
+    }
+
+    List<Task> getTaskListIdProject(int idProject) {
+        for (Task task : taskList) {
+            if (task.getIdProject() == idProject)
+                taskListIdProject.add(task);
+        }
+        return taskListIdProject;
     }
 
     public void taskEdit() throws IOException, ParseException {

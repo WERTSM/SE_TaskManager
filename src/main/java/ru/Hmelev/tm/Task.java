@@ -9,6 +9,11 @@ public class Task {
     private String description;
     private Date startDate;
     private Date finishDate;
+
+    public int getIdProject() {
+        return idProject;
+    }
+
     private int idProject;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
