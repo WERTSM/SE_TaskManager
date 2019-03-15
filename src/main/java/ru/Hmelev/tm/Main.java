@@ -6,6 +6,20 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 
 public class Main {
+    public static final String HELP = "help";
+    public static final String PROJECT_CREATE = "project-create";
+    public static final String PROJECT_CLEAR = "project-clear";
+    public static final String PROJECT_LIST = "project-list";
+    public static final String PROJECT_EDIT = "project-edit";
+    public static final String PROJECT_SHOW = "project-show";
+    public static final String PROJECT_REMOVE = "project-remove";
+    public static final String TASK_CREATE = "task-create";
+    public static final String TASK_CLEAR = "task-clear";
+    public static final String TASK_LIST = "task-list";
+    public static final String TASK_EDIT = "task-edit";
+    public static final String TASK_SHOW = "task-show";
+    public static final String TASK_REMOVE = "task-remove";
+
     public static void main(String[] args) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Command command = new Command(reader);
@@ -13,29 +27,46 @@ public class Main {
         while (true) {
             System.out.println("Enter the command:");
             commandReader = reader.readLine();
-            if (commandReader.equals("project-create")) {
-                command.projectCreate();
-            } else if (commandReader.equals("project-show")) {
-                command.projectShow();
-            } else if (commandReader.equals("project-list")) {
-                command.projectList();
-            } else if (commandReader.equals("project-edit")) {
-                command.projectEdit();
-            } else if (commandReader.equals("project-remove")) {
-                command.projectRemove();
-            } else if (commandReader.equals("task-create")) {
-                command.taskCreate();
-            } else if (commandReader.equals("task-show")) {
-                command.taskShow();
-            } else if (commandReader.equals("task-list")) {
-                command.taskList();
-            } else if (commandReader.equals("task-edit")) {
-                command.taskEdit();
-            } else if (commandReader.equals("task-remove")) {
-                command.taskRemove();
-            }
-            if (commandReader.equals("help")) {
-                command.help();
+            switch (commandReader) {
+                case HELP:
+                    command.help();
+                    break;
+                case PROJECT_CREATE:
+                    command.projectCreate();
+                    break;
+                case PROJECT_CLEAR:
+                    command.projectClear();
+                    break;
+                case PROJECT_LIST:
+                    command.projectList();
+                    break;
+                case PROJECT_EDIT:
+                    command.projectEdit();
+                    break;
+                case PROJECT_SHOW:
+                    command.projectShow();
+                    break;
+                case PROJECT_REMOVE:
+                    command.projectRemove();
+                    break;
+                case TASK_CREATE:
+                    command.taskCreate();
+                    break;
+                case TASK_CLEAR:
+                    command.taskClear();
+                    break;
+                case TASK_LIST:
+                    command.taskList();
+                    break;
+                case TASK_EDIT:
+                    command.taskEdit();
+                    break;
+                case TASK_SHOW:
+                    command.taskShow();
+                    break;
+                case TASK_REMOVE:
+                    command.taskRemove();
+                    break;
             }
         }
     }

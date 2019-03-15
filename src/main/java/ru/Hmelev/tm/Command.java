@@ -181,4 +181,14 @@ public class Command {
         System.out.println("\"task-remove\" : Remove selected task.\n");
         System.out.println("-----------------**********************************************-----------------\n");
     }
+
+    public void projectClear() {
+        projectsList.clear();
+        System.out.println("!!!DONE!!!");
+    }
+
+    public void taskClear() {
+        taskList.clear();
+        System.out.println("!!!DONE!!!");
+    }
 }
