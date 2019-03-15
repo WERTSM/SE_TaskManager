@@ -16,6 +16,8 @@ public class Command {
 
     private int idProject;
     private int idTask;
+    private int iProjectfromTask;
+
 
     private String name;
     private String description;
@@ -99,14 +101,16 @@ public class Command {
     public void taskCreate() throws IOException, ParseException {
         System.out.println("Name task: ");
         name = reader.readLine();
-        System.out.println("Description: ");
+        System.out.println("Description task: ");
         description = reader.readLine();
         System.out.println("Start date: \"dd.MM.yyyy\" ");
         startDate = dateFormat.parse(reader.readLine());
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         finishDate = dateFormat.parse(reader.readLine());
         idTask++;
-        task = new Task(idTask, name, description, startDate, finishDate);
+        System.out.println("Id project in the task: ");
+        iProjectfromTask = Integer.parseInt(reader.readLine());
+        task = new Task(idTask, name, description, startDate, finishDate, iProjectfromTask);
         taskList.add(task);
         System.out.println("!!!DONE!!!");
     }
@@ -148,6 +152,9 @@ public class Command {
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         finishDate = dateFormat.parse(reader.readLine());
         task.setFinishDate(finishDate);
+        System.out.println("Id project in the task: ");
+        iProjectfromTask = Integer.parseInt(reader.readLine());
+        task.setIdProject(iProjectfromTask);
         System.out.println("!!!DONE!!!");
     }
 

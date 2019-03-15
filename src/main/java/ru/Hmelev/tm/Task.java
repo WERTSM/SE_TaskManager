@@ -9,21 +9,26 @@ public class Task {
     private String description;
     private Date startDate;
     private Date finishDate;
+    private int idProject;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-    public Task(int id, String name, String description, Date startDate, Date finishDate) {
+    public Task(int id, String name, String description, Date startDate, Date finishDate, int idProject) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.finishDate = finishDate;
+        this.idProject = idProject;
     }
 
     public int getId() {
         return id;
     }
 
+    public void setIdProject(int idProject) {
+        this.idProject = idProject;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -43,6 +48,6 @@ public class Task {
 
 
     public void viewTask() {
-        System.out.println("[ ID = " + id + "; Name = " + name + "; Description = " + description + "; Start date = " + dateFormat.format(startDate) + "; Finish date = " + dateFormat.format(finishDate) + " ]");
+        System.out.println("[ ID = " + id + "; Name = " + name + "; Description = " + description + "; Start date = " + dateFormat.format(startDate) + "; Finish date = " + dateFormat.format(finishDate) + "; idProject = " + idProject + " ]");
     }
 }
