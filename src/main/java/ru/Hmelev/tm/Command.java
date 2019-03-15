@@ -16,7 +16,7 @@ public class Command {
 
     private int idProject;
     private int idTask;
-    private int iProjectfromTask;
+    private int idProjectFromTask;
 
 
     private String name;
@@ -109,8 +109,8 @@ public class Command {
         finishDate = dateFormat.parse(reader.readLine());
         idTask++;
         System.out.println("Id project in the task: ");
-        iProjectfromTask = Integer.parseInt(reader.readLine());
-        task = new Task(idTask, name, description, startDate, finishDate, iProjectfromTask);
+        idProjectFromTask = Integer.parseInt(reader.readLine());
+        task = new Task(idTask, name, description, startDate, finishDate, idProjectFromTask);
         taskList.add(task);
         System.out.println("!!!DONE!!!");
     }
@@ -153,8 +153,8 @@ public class Command {
         finishDate = dateFormat.parse(reader.readLine());
         task.setFinishDate(finishDate);
         System.out.println("Id project in the task: ");
-        iProjectfromTask = Integer.parseInt(reader.readLine());
-        task.setIdProject(iProjectfromTask);
+        idProjectFromTask = Integer.parseInt(reader.readLine());
+        task.setIdProject(idProjectFromTask);
         System.out.println("!!!DONE!!!");
     }
 
@@ -171,22 +171,21 @@ public class Command {
     }
 
     public void help() {
-        System.out.println("-----------------***********WELCOME TO TASK MANAGER************-----------------\n");
-        System.out.println("\"help\" : Show all commands.\n");
-
-        System.out.println("\"project-create\" : Create new project.");
-        System.out.println("\"project-clear\" : Remove all projects.");
-        System.out.println("\"project-list\"\" : Show all projects.");
-        System.out.println("\"project-show\" : Show selected project.");
-        System.out.println("\"project-edit\" : Edit selected project");
-        System.out.println("\"project-remove\" : Remove selected project.\n");
-        System.out.println("\"task-create\" : Create new task.");
-        System.out.println("\"task-clear\" : Remove all tasks.");
-        System.out.println("\"task-list\"\" : Show all tasks.");
-        System.out.println("\"task-show\" : Show selected project.");
-        System.out.println("\"task-edit\" : Edit selected task");
-        System.out.println("\"task-remove\" : Remove selected task.\n");
-        System.out.println("-----------------**********************************************-----------------\n");
+        System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n" +
+                "\"help\" : Show all commands.\n\n" +
+                "\"project-create\" : Create new project.\n" +
+                "\"project-clear\" : Remove all projects.\n" +
+                "\"project-list\"\" : Show all projects.\n" +
+                "\"project-show\" : Show selected project.\n" +
+                "\"project-edit\" : Edit selected project\n" +
+                "\"project-remove\" : Remove selected project.\n\n" +
+                "\"task-create\" : Create new task.\n" +
+                "\"task-clear\" : Remove all tasks.\n" +
+                "\"task-list\"\" : Show all tasks.\n" +
+                "\"task-show\" : Show selected project.\n" +
+                "\"task-edit\" : Edit selected task\n" +
+                "\"task-remove\" : Remove selected task.\n\n" +
+                "----------------- ********************************************** -----------------\n");
     }
 
     public void projectClear() {
