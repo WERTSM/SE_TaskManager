@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Project {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private UUID id;
     private String name;
     private String description;

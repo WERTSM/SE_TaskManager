@@ -13,29 +13,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class Command {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    private List<Project> projectsList = new ArrayList<>();
-    private List<Task> taskList = new ArrayList<>();
-    private List<Task> taskListIdProject = new ArrayList<>();
-    private BufferedReader reader;
-    private UUID idProject;
-    private UUID idTask;
-    private UUID idProjectFromTask;
-
-
-    private String name;
-    private String description;
-    private Date startDate;
-    private Date finishDate;
-
-    private Project project;
-    private Task task;
-
     public Command(BufferedReader reader) {
         this.reader = reader;
     }
 
-    public void projectCreate() throws IOException, ParseException {
+    void projectCreate() throws IOException, ParseException {
         System.out.println("Name project: ");
         name = reader.readLine();
         System.out.println("Description: ");
@@ -50,7 +32,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void projectShow() throws IOException {
+    void projectShow() throws IOException {
         System.out.println("Id project: ");
         idProject = UUID.fromString(reader.readLine());
         for (Project project : projectsList) {
@@ -65,14 +47,14 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void projectList() {
+    void projectList() {
         for (Project project : projectsList) {
             project.viewProject();
         }
         System.out.println("!!!DONE!!!");
     }
 
-    public void projectEdit() throws IOException, ParseException {
+    void projectEdit() throws IOException, ParseException {
         System.out.println("Id project: ");
         idProject = UUID.fromString(reader.readLine());
         for (Project project : projectsList) {
@@ -94,7 +76,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void projectRemove() throws IOException {
+    void projectRemove() throws IOException {
         System.out.println("Id project: ");
         idProject = UUID.fromString(reader.readLine());
 
@@ -112,7 +94,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskCreate() throws IOException, ParseException {
+    void taskCreate() throws IOException, ParseException {
         System.out.println("Name task: ");
         name = reader.readLine();
         System.out.println("Description task: ");
@@ -129,7 +111,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskShow() throws IOException {
+    void taskShow() throws IOException {
         System.out.println("Id task: ");
         idTask = UUID.fromString(reader.readLine());
         for (Task task : taskList) {
@@ -140,22 +122,14 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskList() {
+    void taskList() {
         for (Task task : taskList) {
             task.viewTask();
         }
         System.out.println("!!!DONE!!!");
     }
 
-    List<Task> getTaskListIdProject(UUID idProject) {
-        for (Task task : taskList) {
-            if (task.getIdProject().equals(idProject))
-                taskListIdProject.add(task);
-        }
-        return taskListIdProject;
-    }
-
-    public void taskEdit() throws IOException, ParseException {
+    void taskEdit() throws IOException, ParseException {
         System.out.println("Id task: ");
         idTask = UUID.fromString(reader.readLine());
         for (Task task : taskList) {
@@ -180,7 +154,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskRemove() throws IOException {
+    void taskRemove() throws IOException {
         System.out.println("Id task: ");
         idTask = UUID.fromString(reader.readLine());
         for (Task task : taskList) {
@@ -191,7 +165,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void help() {
+    void help() {
         System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n" +
                 "\"help\" : Show all commands.\n\n" +
                 "\"project-create\" : Create new project.\n" +
@@ -209,17 +183,44 @@ public class Command {
                 "----------------- ********************************************** -----------------\n");
     }
 
-    public void projectClear() {
+    void projectClear() {
         projectsList.clear();
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskClear() {
+    void taskClear() {
         taskList.clear();
         System.out.println("!!!DONE!!!");
     }
 
-    public void exit() {
+    private List<Task> getTaskListIdProject(UUID idProject) {
+        for (Task task : taskList) {
+            if (task.getIdProject().equals(idProject))
+                taskListIdProject.add(task);
+        }
+        return taskListIdProject;
+    }
+
+    void exit() {
         System.exit(0);
     }
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private BufferedReader reader;
+
+    private Project project;
+    private List<Project> projectsList = new ArrayList<>();
+
+    private Task task;
+    private List<Task> taskList = new ArrayList<>();
+    private List<Task> taskListIdProject = new ArrayList<>();
+
+    private String name;
+    private String description;
+    private Date startDate;
+    private Date finishDate;
+
+    private UUID idProject;
+    private UUID idTask;
+    private UUID idProjectFromTask;
 }

@@ -6,20 +6,20 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 
 public class Main {
-    public static final String HELP = "help";
-    public static final String PROJECT_CREATE = "project-create";
-    public static final String PROJECT_CLEAR = "project-clear";
-    public static final String PROJECT_LIST = "project-list";
-    public static final String PROJECT_EDIT = "project-edit";
-    public static final String PROJECT_SHOW = "project-show";
-    public static final String PROJECT_REMOVE = "project-remove";
-    public static final String TASK_CREATE = "task-create";
-    public static final String TASK_CLEAR = "task-clear";
-    public static final String TASK_LIST = "task-list";
-    public static final String TASK_EDIT = "task-edit";
-    public static final String TASK_SHOW = "task-show";
-    public static final String TASK_REMOVE = "task-remove";
-    public static final String EXIT = "exit";
+    private static final String HELP = "help";
+    private static final String PROJECT_CREATE = "project-create";
+    private static final String PROJECT_CLEAR = "project-clear";
+    private static final String PROJECT_LIST = "project-list";
+    private static final String PROJECT_EDIT = "project-edit";
+    private static final String PROJECT_SHOW = "project-show";
+    private static final String PROJECT_REMOVE = "project-remove";
+    private static final String TASK_CREATE = "task-create";
+    private static final String TASK_CLEAR = "task-clear";
+    private static final String TASK_LIST = "task-list";
+    private static final String TASK_EDIT = "task-edit";
+    private static final String TASK_SHOW = "task-show";
+    private static final String TASK_REMOVE = "task-remove";
+    private static final String EXIT = "exit";
 
 
     public static void main(String[] args) throws IOException, ParseException {
