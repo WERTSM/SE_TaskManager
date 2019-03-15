@@ -1,18 +1,18 @@
-package ru.Hmelev.tm;
+package ru.Hmelev.tm.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class Project {
-    private int id;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private UUID id;
     private String name;
     private String description;
     private Date startDate;
     private Date finishDate;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-    public Project(int id, String name, String description, Date startDate, Date finishDate) {
+    public Project(UUID id, String name, String description, Date startDate, Date finishDate) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,7 +36,7 @@ public class Project {
         this.finishDate = finishDate;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 

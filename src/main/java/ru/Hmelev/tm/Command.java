@@ -1,5 +1,8 @@
 package ru.Hmelev.tm;
 
+import ru.Hmelev.tm.entity.Project;
+import ru.Hmelev.tm.entity.Task;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -7,18 +10,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Command {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private List<Project> projectsList = new ArrayList<>();
     private List<Task> taskList = new ArrayList<>();
     private List<Task> taskListIdProject = new ArrayList<>();
-
     private BufferedReader reader;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-    private int idProject;
-    private int idTask;
-    private int idProjectFromTask;
+    private UUID idProject;
+    private UUID idTask;
+    private UUID idProjectFromTask;
 
 
     private String name;
@@ -42,7 +44,7 @@ public class Command {
         startDate = dateFormat.parse(reader.readLine());
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         finishDate = dateFormat.parse(reader.readLine());
-        idProject++;
+        idProject = UUID.randomUUID();
         project = new Project(idProject, name, description, startDate, finishDate);
         projectsList.add(project);
         System.out.println("!!!DONE!!!");
@@ -50,9 +52,9 @@ public class Command {
 
     public void projectShow() throws IOException {
         System.out.println("Id project: ");
-        idProject = Integer.parseInt(reader.readLine());
+        idProject = UUID.fromString(reader.readLine());
         for (Project project : projectsList) {
-            if (project.getId() == idProject)
+            if (project.getId().equals(idProject))
                 this.project = project;
         }
         project.viewProject();
@@ -72,9 +74,9 @@ public class Command {
 
     public void projectEdit() throws IOException, ParseException {
         System.out.println("Id project: ");
-        idProject = Integer.parseInt(reader.readLine());
+        idProject = UUID.fromString(reader.readLine());
         for (Project project : projectsList) {
-            if (project.getId() == idProject)
+            if (project.getId().equals(idProject))
                 this.project = project;
         }
         System.out.println("Name project: ");
@@ -94,9 +96,10 @@ public class Command {
 
     public void projectRemove() throws IOException {
         System.out.println("Id project: ");
-        idProject = Integer.parseInt(reader.readLine());
+        idProject = UUID.fromString(reader.readLine());
+
         for (Project project : projectsList) {
-            if (project.getId() == idProject)
+            if (project.getId().equals(idProject))
                 this.project = project;
         }
 
@@ -104,7 +107,7 @@ public class Command {
             taskList.remove(task);
         }
 
-        idProject--;
+        taskListIdProject.clear();
         projectsList.remove(project);
         System.out.println("!!!DONE!!!");
     }
@@ -118,9 +121,9 @@ public class Command {
         startDate = dateFormat.parse(reader.readLine());
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         finishDate = dateFormat.parse(reader.readLine());
-        idTask++;
         System.out.println("Id project in the task: ");
-        idProjectFromTask = Integer.parseInt(reader.readLine());
+        idProjectFromTask = UUID.fromString(reader.readLine());
+        idTask = UUID.randomUUID();
         task = new Task(idTask, name, description, startDate, finishDate, idProjectFromTask);
         taskList.add(task);
         System.out.println("!!!DONE!!!");
@@ -128,9 +131,9 @@ public class Command {
 
     public void taskShow() throws IOException {
         System.out.println("Id task: ");
-        idTask = Integer.parseInt(reader.readLine());
+        idTask = UUID.fromString(reader.readLine());
         for (Task task : taskList) {
-            if (task.getId() == idTask)
+            if (task.getId().equals(idTask))
                 this.task = task;
         }
         task.viewTask();
@@ -144,9 +147,9 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    List<Task> getTaskListIdProject(int idProject) {
+    List<Task> getTaskListIdProject(UUID idProject) {
         for (Task task : taskList) {
-            if (task.getIdProject() == idProject)
+            if (task.getIdProject().equals(idProject))
                 taskListIdProject.add(task);
         }
         return taskListIdProject;
@@ -154,9 +157,9 @@ public class Command {
 
     public void taskEdit() throws IOException, ParseException {
         System.out.println("Id task: ");
-        idTask = Integer.parseInt(reader.readLine());
+        idTask = UUID.fromString(reader.readLine());
         for (Task task : taskList) {
-            if (task.getId() == idTask)
+            if (task.getId().equals(idTask))
                 this.task = task;
         }
         System.out.println("Name task: ");
@@ -172,19 +175,18 @@ public class Command {
         finishDate = dateFormat.parse(reader.readLine());
         task.setFinishDate(finishDate);
         System.out.println("Id project in the task: ");
-        idProjectFromTask = Integer.parseInt(reader.readLine());
+        idProjectFromTask = UUID.fromString(reader.readLine());
         task.setIdProject(idProjectFromTask);
         System.out.println("!!!DONE!!!");
     }
 
     public void taskRemove() throws IOException {
         System.out.println("Id task: ");
-        idTask = Integer.parseInt(reader.readLine());
+        idTask = UUID.fromString(reader.readLine());
         for (Task task : taskList) {
-            if (task.getId() == idTask)
+            if (task.getId().equals(idTask))
                 this.task = task;
         }
-        idTask--;
         taskList.remove(task);
         System.out.println("!!!DONE!!!");
     }
