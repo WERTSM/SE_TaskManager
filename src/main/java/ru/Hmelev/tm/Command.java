@@ -198,4 +198,8 @@ public class Command {
         taskList.clear();
         System.out.println("!!!DONE!!!");
     }
+
+    public void exit() {
+        System.exit(0);
+    }
 }

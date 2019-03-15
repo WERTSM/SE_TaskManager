@@ -19,6 +19,8 @@ public class Main {
     public static final String TASK_EDIT = "task-edit";
     public static final String TASK_SHOW = "task-show";
     public static final String TASK_REMOVE = "task-remove";
+    public static final String EXIT = "exit";
+
 
     public static void main(String[] args) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -67,6 +69,10 @@ public class Main {
                 case TASK_REMOVE:
                     command.taskRemove();
                     break;
+                case EXIT:
+                    command.exit();
+                    break;
+
             }
         }
     }
