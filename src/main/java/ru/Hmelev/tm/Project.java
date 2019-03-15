@@ -1,13 +1,18 @@
 package ru.Hmelev.tm;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Project {
     private int id;
     private String name;
     private String description;
-    private String startDate;
-    private String finishDate;
+    private Date startDate;
+    private Date finishDate;
 
-    public Project(int id, String name, String description, String startDate, String finishDate) {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+    public Project(int id, String name, String description, Date startDate, Date finishDate) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -23,11 +28,11 @@ public class Project {
         this.description = description;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public void setFinishDate(String finishDate) {
+    public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -36,6 +41,6 @@ public class Project {
     }
 
     public void viewProject() {
-        System.out.println("[ ID = " + id + "; Name = " + name + "; Description = " + description + "; Start date = " + startDate + "; Finish date = " + finishDate + " ]");
+        System.out.println("[ ID = " + id + "; Name = " + name + "; Description = " + description + "; Start date = " + dateFormat.format(startDate) + "; Finish date = " + dateFormat.format(finishDate) + " ]");
     }
 }

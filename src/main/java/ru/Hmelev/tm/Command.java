@@ -2,21 +2,25 @@ package ru.Hmelev.tm;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Command {
     private List<Project> projectsList = new ArrayList<>();
     private List<Task> taskList = new ArrayList<>();
     private BufferedReader reader;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     private int idProject;
     private int idTask;
 
     private String name;
     private String description;
-    private String startDate;
-    private String finishDate;
+    private Date startDate;
+    private Date finishDate;
 
     private Project project;
     private Task task;
@@ -25,15 +29,15 @@ public class Command {
         this.reader = reader;
     }
 
-    public void projectCreate() throws IOException {
+    public void projectCreate() throws IOException, ParseException {
         System.out.println("Name project: ");
         name = reader.readLine();
         System.out.println("Description: ");
         description = reader.readLine();
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = reader.readLine();
+        startDate = dateFormat.parse(reader.readLine());
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = reader.readLine();
+        finishDate = dateFormat.parse(reader.readLine());
         idProject++;
         project = new Project(idProject, name, description, startDate, finishDate);
         projectsList.add(project);
@@ -58,7 +62,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void projectEdit() throws IOException {
+    public void projectEdit() throws IOException, ParseException {
         System.out.println("Id project: ");
         idProject = Integer.parseInt(reader.readLine());
         for (Project project : projectsList) {
@@ -72,10 +76,10 @@ public class Command {
         description = reader.readLine();
         project.setDescription(description);
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = reader.readLine();
+        startDate = dateFormat.parse(reader.readLine());
         project.setStartDate(startDate);
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = reader.readLine();
+        finishDate = dateFormat.parse(reader.readLine());
         project.setFinishDate(finishDate);
         System.out.println("!!!DONE!!!");
     }
@@ -92,15 +96,15 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskCreate() throws IOException {
+    public void taskCreate() throws IOException, ParseException {
         System.out.println("Name task: ");
         name = reader.readLine();
         System.out.println("Description: ");
         description = reader.readLine();
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = reader.readLine();
+        startDate = dateFormat.parse(reader.readLine());
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = reader.readLine();
+        finishDate = dateFormat.parse(reader.readLine());
         idTask++;
         task = new Task(idTask, name, description, startDate, finishDate);
         taskList.add(task);
@@ -125,7 +129,7 @@ public class Command {
         System.out.println("!!!DONE!!!");
     }
 
-    public void taskEdit() throws IOException {
+    public void taskEdit() throws IOException, ParseException {
         System.out.println("Id task: ");
         idTask = Integer.parseInt(reader.readLine());
         for (Task task : taskList) {
@@ -139,10 +143,10 @@ public class Command {
         description = reader.readLine();
         task.setDescription(description);
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = reader.readLine();
+        startDate = dateFormat.parse(reader.readLine());
         task.setStartDate(startDate);
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = reader.readLine();
+        finishDate = dateFormat.parse(reader.readLine());
         task.setFinishDate(finishDate);
         System.out.println("!!!DONE!!!");
     }
