@@ -13,6 +13,21 @@ import java.util.List;
 import java.util.UUID;
 
 public class Command {
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private BufferedReader reader;
+    private Project project;
+    private List<Project> projectsList = new ArrayList<>();
+    private Task task;
+    private List<Task> taskList = new ArrayList<>();
+    private List<Task> taskListIdProject = new ArrayList<>();
+    private String name;
+    private String description;
+    private Date startDate;
+    private Date finishDate;
+    private UUID idProject;
+    private UUID idTask;
+    private UUID idProjectFromTask;
+
     public Command(BufferedReader reader) {
         this.reader = reader;
     }
@@ -166,21 +181,21 @@ public class Command {
     }
 
     void help() {
-        System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n" +
-                "\"help\" : Show all commands.\n\n" +
-                "\"project-create\" : Create new project.\n" +
-                "\"project-clear\" : Remove all projects.\n" +
-                "\"project-list\"\" : Show all projects.\n" +
-                "\"project-show\" : Show selected project.\n" +
-                "\"project-edit\" : Edit selected project\n" +
-                "\"project-remove\" : Remove selected project.\n\n" +
-                "\"task-create\" : Create new task.\n" +
-                "\"task-clear\" : Remove all tasks.\n" +
-                "\"task-list\"\" : Show all tasks.\n" +
-                "\"task-show\" : Show selected project.\n" +
-                "\"task-edit\" : Edit selected task\n" +
-                "\"task-remove\" : Remove selected task.\n\n" +
-                "----------------- ********************************************** -----------------\n");
+        System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n"
+                + "\"help\" : Show all commands.\n\n"
+                + "\"project-create\" : Create new project.\n"
+                + "\"project-clear\" : Remove all projects.\n"
+                + "\"project-list\"\" : Show all projects.\n"
+                + "\"project-show\" : Show selected project.\n"
+                + "\"project-edit\" : Edit selected project\n"
+                + "\"project-remove\" : Remove selected project.\n\n"
+                + "\"task-create\" : Create new task.\n"
+                + "\"task-clear\" : Remove all tasks.\n"
+                + "\"task-list\"\" : Show all tasks.\n"
+                + "\"task-show\" : Show selected project.\n"
+                + "\"task-edit\" : Edit selected task\n"
+                + "\"task-remove\" : Remove selected task.\n\n"
+                + "----------------- ********************************************** -----------------\n");
     }
 
     void projectClear() {
@@ -204,23 +219,4 @@ public class Command {
     void exit() {
         System.exit(0);
     }
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    private BufferedReader reader;
-
-    private Project project;
-    private List<Project> projectsList = new ArrayList<>();
-
-    private Task task;
-    private List<Task> taskList = new ArrayList<>();
-    private List<Task> taskListIdProject = new ArrayList<>();
-
-    private String name;
-    private String description;
-    private Date startDate;
-    private Date finishDate;
-
-    private UUID idProject;
-    private UUID idTask;
-    private UUID idProjectFromTask;
 }

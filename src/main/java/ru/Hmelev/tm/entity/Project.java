@@ -41,6 +41,12 @@ public class Project {
     }
 
     public void viewProject() {
-        System.out.println("[ ID = " + id + "; Name = " + name + "; Description = " + description + "; Start date = " + dateFormat.format(startDate) + "; Finish date = " + dateFormat.format(finishDate) + " ]");
+        System.out.println(
+                "[ ID = " + id
+                        + "; Name = " + name
+                        + "; Description = " + description
+                        + "; Start date = " + dateFormat.format(startDate)
+                        + "; Finish date = " + dateFormat.format(finishDate)
+                        + " ]");
     }
 }

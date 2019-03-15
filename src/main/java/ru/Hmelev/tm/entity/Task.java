@@ -52,6 +52,13 @@ public class Task {
 
 
     public void viewTask() {
-        System.out.println("[ ID = " + id + "; Name = " + name + "; Description = " + description + "; Start date = " + dateFormat.format(startDate) + "; Finish date = " + dateFormat.format(finishDate) + "; idProject = " + idProject + " ]");
+        System.out.println(
+                "[ ID = " + id
+                        + "; Name = " + name
+                        + "; Description = " + description
+                        + "; Start date = " + dateFormat.format(startDate)
+                        + "; Finish date = " + dateFormat.format(finishDate)
+                        + "; idProject = " + idProject
+                        + " ]");
     }
 }
