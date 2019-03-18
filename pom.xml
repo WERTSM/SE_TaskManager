@@ -38,7 +38,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>ru.Hmelev.tm.Main</mainClass>
+                            <mainClass>ru.Hmelev.tm.Application</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Built-By>WERTSM</Built-By>

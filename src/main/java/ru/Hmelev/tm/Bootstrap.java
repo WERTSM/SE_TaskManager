@@ -26,7 +26,7 @@ public class Bootstrap {
     private static final String TASK_REMOVE = "task-remove";
     private static final String EXIT = "exit";
 
-    public void go() throws IOException, ParseException {
+    public void init() throws IOException, ParseException {
         ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
         TasksRepository tasksRepository = TasksRepository.getInstance();
 
