@@ -13,20 +13,17 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Bootstrap {
-
+class Bootstrap {
     private Map<String, Command> commandMap = new HashMap<>();
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
-    TasksRepository tasksRepository = TasksRepository.getInstance();
+    private ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
+    private TasksRepository tasksRepository = TasksRepository.getInstance();
 
-    ServiceProject serviceProject = new ServiceProject(projectsRepository);
-    ServiceTask serviceTask = new ServiceTask(tasksRepository);
+    private ServiceProject serviceProject = new ServiceProject(projectsRepository);
+    private ServiceTask serviceTask = new ServiceTask(tasksRepository);
 
-    String str;
-
-    Command command[] = new Command[]{
+    private Command command[] = new Command[]{
             new HelpCommand(),
             new ExitCommand(),
             new ProjectCreateCommand(reader, serviceProject, serviceTask),
@@ -43,12 +40,13 @@ public class Bootstrap {
             new TaskRemoveCommand(reader, serviceProject, serviceTask)
     };
 
-    public void init() throws IOException, ParseException {
+    void init() throws IOException, ParseException {
         for (Command commands : command) {
             commandMap.put(commands.getNameCommand(), commands);
         }
         while (!Thread.currentThread().isInterrupted()) {
-            str = reader.readLine();
+            System.out.println("Enter the command:");
+            String str = reader.readLine();
             for (Map.Entry<String, Command> item : commandMap.entrySet()) {
                 if (str.equals(item.getKey())) {
                     item.getValue().execute();

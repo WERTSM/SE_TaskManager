@@ -10,7 +10,6 @@ import java.util.UUID;
 public class ServiceProject extends Service {
     private ProjectsRepository projectsRepository;
     private Project project;
-    ServiceTask serviceTask = new ServiceTask();
 
     public ServiceProject(ProjectsRepository projectsRepository) {
         this.projectsRepository = projectsRepository;
@@ -21,7 +20,7 @@ public class ServiceProject extends Service {
         projectsRepository.persist(id, project);
     }
 
-    public Collection<Project> findAllProjects(){
+    public Collection<Project> findAllProjects() {
         return projectsRepository.findAllProjects();
     }
 
@@ -41,12 +40,11 @@ public class ServiceProject extends Service {
         project.setFinishDate(finishDate);
     }
 
-    public boolean showProject(UUID id) {
+    public void showProject(UUID id) {
         project = projectsRepository.findOne(id);
         if (project != null) {
             project.viewProject();
         }
-        return true;
     }
 
     public void removeProject(UUID id) {

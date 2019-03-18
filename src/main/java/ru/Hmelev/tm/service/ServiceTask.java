@@ -15,9 +15,6 @@ public class ServiceTask {
 
     private List<Task> list = new ArrayList<>();
 
-    ServiceTask() {
-    }
-
     public ServiceTask(TasksRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
