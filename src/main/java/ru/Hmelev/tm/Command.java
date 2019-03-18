@@ -1,27 +1,28 @@
 package ru.Hmelev.tm;
 
-import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Task;
+import ru.Hmelev.tm.service.ServiceProject;
+import ru.Hmelev.tm.service.ServiceTask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public class Command {
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     private BufferedReader reader;
-    private Project project;
-    private List<Project> projectsList = new ArrayList<>();
-    private Task task;
-    private List<Task> taskList = new ArrayList<>();
-    private List<Task> taskListIdProject = new ArrayList<>();
+
+    private ServiceProject serviceProject = ServiceProject.getInstance();
+    private ServiceTask serviceTask = ServiceTask.getInstance();
+
+    private String id;
     private String name;
     private String description;
+    private String date;
+
     private Date startDate;
     private Date finishDate;
     private UUID idProject;
@@ -33,150 +34,191 @@ public class Command {
     }
 
     void projectCreate() throws IOException, ParseException {
+        System.out.println("!!!Start command!!!");
+
         System.out.println("Name project: ");
         name = reader.readLine();
+
         System.out.println("Description: ");
         description = reader.readLine();
+
+
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = dateFormat.parse(reader.readLine());
+        date = reader.readLine();
+        startDate = DEFAULT_DATE_FORMAT.parse(date);
+
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = dateFormat.parse(reader.readLine());
+        date = reader.readLine();
+        finishDate = DEFAULT_DATE_FORMAT.parse(date);
+
         idProject = UUID.randomUUID();
-        project = new Project(idProject, name, description, startDate, finishDate);
-        projectsList.add(project);
+        serviceProject.createProject(idProject, name, description, startDate, finishDate);
+
         System.out.println("!!!DONE!!!");
     }
 
     void projectShow() throws IOException {
-        System.out.println("Id project: ");
-        idProject = UUID.fromString(reader.readLine());
-        for (Project project : projectsList) {
-            if (project.getId().equals(idProject))
-                this.project = project;
-        }
-        project.viewProject();
+        System.out.println("!!!Start command!!!");
+        serviceProject.listProject();
+
+        System.out.println("ID project: ");
+        id = reader.readLine();
+
+        idProject = UUID.fromString(id);
+        serviceProject.showProject(idProject);
+
         System.out.println("Tasks: ");
-        for (Task task : getTaskListIdProject(idProject)) {
+        for (Task task : serviceTask.listTaskIdProject(idProject)) {
             task.viewTask();
         }
-        System.out.println("!!!DONE!!!");
-    }
 
-    void projectList() {
-        for (Project project : projectsList) {
-            project.viewProject();
-        }
         System.out.println("!!!DONE!!!");
     }
 
     void projectEdit() throws IOException, ParseException {
-        System.out.println("Id project: ");
-        idProject = UUID.fromString(reader.readLine());
-        for (Project project : projectsList) {
-            if (project.getId().equals(idProject))
-                this.project = project;
-        }
+        System.out.println("!!!Start command!!!");
+        serviceProject.listProject();
+
+        System.out.println("ID project: ");
+        id = reader.readLine();
+        idProject = UUID.fromString(id);
+
         System.out.println("Name project: ");
         name = reader.readLine();
-        project.setName(name);
+
         System.out.println("Description: ");
         description = reader.readLine();
-        project.setDescription(description);
+
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = dateFormat.parse(reader.readLine());
-        project.setStartDate(startDate);
+        date = reader.readLine();
+        startDate = DEFAULT_DATE_FORMAT.parse(date);
+
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = dateFormat.parse(reader.readLine());
-        project.setFinishDate(finishDate);
+        date = reader.readLine();
+        finishDate = DEFAULT_DATE_FORMAT.parse(date);
+
+        serviceProject.editProject(idProject, name, description, startDate, finishDate);
+
         System.out.println("!!!DONE!!!");
     }
 
     void projectRemove() throws IOException {
-        System.out.println("Id project: ");
-        idProject = UUID.fromString(reader.readLine());
+        System.out.println("!!!Start command!!!");
+        serviceProject.listProject();
 
-        for (Project project : projectsList) {
-            if (project.getId().equals(idProject))
-                this.project = project;
-        }
+        System.out.println("ID project: ");
+        id = reader.readLine();
+        idProject = UUID.fromString(id);
 
-        for (Task task : getTaskListIdProject(idProject)) {
-            taskList.remove(task);
-        }
+        serviceTask.listTaskNoIdProject(idProject);
+        serviceProject.removeProject(idProject);
 
-        taskListIdProject.clear();
-        projectsList.remove(project);
         System.out.println("!!!DONE!!!");
     }
 
     void taskCreate() throws IOException, ParseException {
+        System.out.println("!!!Start command!!!");
+
         System.out.println("Name task: ");
         name = reader.readLine();
+
         System.out.println("Description task: ");
         description = reader.readLine();
-        System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = dateFormat.parse(reader.readLine());
-        System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = dateFormat.parse(reader.readLine());
-        System.out.println("Id project in the task: ");
-        idProjectFromTask = UUID.fromString(reader.readLine());
-        idTask = UUID.randomUUID();
-        task = new Task(idTask, name, description, startDate, finishDate, idProjectFromTask);
-        taskList.add(task);
+
+        System.out.println("Start date task: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
+        startDate = DEFAULT_DATE_FORMAT.parse(date);
+
+        System.out.println("Finish date task: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
+        finishDate = DEFAULT_DATE_FORMAT.parse(date);
+
+        System.out.println("Id project or \'0\': ");
+        serviceProject.listProject();
+
+        id = reader.readLine();
+        if (id.equals("0")) {
+            id = "00000000-0000-0000-0000-000000000000";
+            idProjectFromTask = UUID.fromString(id);
+        } else
+            idProjectFromTask = UUID.fromString(id);
+
+        idTask= UUID.randomUUID();
+
+        serviceTask.createTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
+
         System.out.println("!!!DONE!!!");
     }
 
     void taskShow() throws IOException {
-        System.out.println("Id task: ");
-        idTask = UUID.fromString(reader.readLine());
-        for (Task task : taskList) {
-            if (task.getId().equals(idTask))
-                this.task = task;
-        }
-        task.viewTask();
+        System.out.println("!!!Start command!!!");
+        serviceTask.listTask();
+
+        System.out.println("ID task: ");
+        id = reader.readLine();
+        idTask = UUID.fromString(id);
+
+        serviceTask.showTask(idTask);
+
         System.out.println("!!!DONE!!!");
     }
 
     void taskList() {
-        for (Task task : taskList) {
-            task.viewTask();
-        }
+        System.out.println("!!!Start command!!!");
+
+        serviceTask.listTask();
+
         System.out.println("!!!DONE!!!");
     }
 
     void taskEdit() throws IOException, ParseException {
-        System.out.println("Id task: ");
-        idTask = UUID.fromString(reader.readLine());
-        for (Task task : taskList) {
-            if (task.getId().equals(idTask))
-                this.task = task;
-        }
+        System.out.println("!!!Start command!!!");
+        serviceTask.listTask();
+
+        System.out.println("ID task: ");
+        id = reader.readLine();
+        idTask = UUID.fromString(id);
+
         System.out.println("Name task: ");
         name = reader.readLine();
-        task.setName(name);
+
         System.out.println("Description task: ");
         description = reader.readLine();
-        task.setDescription(description);
-        System.out.println("Start date: \"dd.MM.yyyy\" ");
-        startDate = dateFormat.parse(reader.readLine());
-        task.setStartDate(startDate);
-        System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        finishDate = dateFormat.parse(reader.readLine());
-        task.setFinishDate(finishDate);
-        System.out.println("Id project in the task: ");
-        idProjectFromTask = UUID.fromString(reader.readLine());
-        task.setIdProject(idProjectFromTask);
+
+        System.out.println("Start date task: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
+        startDate = DEFAULT_DATE_FORMAT.parse(date);
+
+        System.out.println("Finish date task: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
+        finishDate = DEFAULT_DATE_FORMAT.parse(date);
+
+        System.out.println("Id project or \'0\': ");
+
+        serviceProject.listProject();
+
+        id = reader.readLine();
+        if (id.equals("0")) {
+            id = "00000000-0000-0000-0000-000000000000";
+            idProjectFromTask = UUID.fromString(id);
+        } else {
+            idProjectFromTask = UUID.fromString(id);
+        }
+        serviceTask.editTask(idTask, name, description, startDate, finishDate, idProject);
+
         System.out.println("!!!DONE!!!");
     }
 
     void taskRemove() throws IOException {
-        System.out.println("Id task: ");
-        idTask = UUID.fromString(reader.readLine());
-        for (Task task : taskList) {
-            if (task.getId().equals(idTask))
-                this.task = task;
-        }
-        taskList.remove(task);
+        System.out.println("!!!Start command!!!");
+        serviceTask.listTask();
+
+        System.out.println("ID task: ");
+        id = reader.readLine();
+        idTask = UUID.fromString(id);
+
+        serviceTask.removeTask(idTask);
+
         System.out.println("!!!DONE!!!");
     }
 
@@ -199,24 +241,24 @@ public class Command {
     }
 
     void projectClear() {
-        projectsList.clear();
+        System.out.println("!!!Start command!!!");
+        serviceProject.clearProject();
         System.out.println("!!!DONE!!!");
     }
 
     void taskClear() {
-        taskList.clear();
+        System.out.println("!!!Start command!!!");
+        serviceTask.clearTask();
         System.out.println("!!!DONE!!!");
-    }
-
-    private List<Task> getTaskListIdProject(UUID idProject) {
-        for (Task task : taskList) {
-            if (task.getIdProject().equals(idProject))
-                taskListIdProject.add(task);
-        }
-        return taskListIdProject;
     }
 
     void exit() {
         System.exit(0);
+    }
+
+    void projectList() {
+        System.out.println("!!!Start command!!!");
+        serviceProject.listProject();
+        System.out.println("!!!DONE!!!");
     }
 }

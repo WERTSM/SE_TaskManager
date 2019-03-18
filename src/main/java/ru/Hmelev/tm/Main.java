@@ -72,7 +72,6 @@ public class Main {
                 case EXIT:
                     command.exit();
                     break;
-
             }
         }
     }

@@ -36,10 +36,6 @@ public class Project {
         this.finishDate = finishDate;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
     public void viewProject() {
         System.out.println(
                 "[ ID = " + id
