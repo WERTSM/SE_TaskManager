@@ -9,6 +9,7 @@ import ru.Hmelev.tm.service.ServiceTask;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,33 +22,32 @@ public class Bootstrap {
     TasksRepository tasksRepository = TasksRepository.getInstance();
 
     ServiceProject serviceProject = new ServiceProject(projectsRepository);
-    ServiceTask serviceTask = new ServiceTask (tasksRepository);
+    ServiceTask serviceTask = new ServiceTask(tasksRepository);
 
     String str;
 
     Command command[] = new Command[]{
             new HelpCommand(),
             new ExitCommand(),
-            new ProjectCreateCommand(),
-            new ProjectClearCommand(),
-            new ProjectListCommand(),
-            new ProjectEditCommand(),
-            new ProjectShowCommand(),
-            new ProjectRemoveCommand(),
-            new TaskCreateCommand(),
-            new TaskClearCommand(),
-            new TaskListCommand(),
-            new TaskEditCommand(),
-            new TaskShowCommand(),
-            new TaskRemoveCommand()
+            new ProjectCreateCommand(reader, serviceProject, serviceTask),
+            new ProjectClearCommand(reader, serviceProject, serviceTask),
+            new ProjectListCommand(reader, serviceProject, serviceTask),
+            new ProjectEditCommand(reader, serviceProject, serviceTask),
+            new ProjectShowCommand(reader, serviceProject, serviceTask),
+            new ProjectRemoveCommand(reader, serviceProject, serviceTask),
+            new TaskCreateCommand(reader, serviceProject, serviceTask),
+            new TaskClearCommand(reader, serviceProject, serviceTask),
+            new TaskListCommand(reader, serviceProject, serviceTask),
+            new TaskEditCommand(reader, serviceProject, serviceTask),
+            new TaskShowCommand(reader, serviceProject, serviceTask),
+            new TaskRemoveCommand(reader, serviceProject, serviceTask)
     };
 
-    public void init() throws IOException {
+    public void init() throws IOException, ParseException {
         for (Command commands : command) {
-            commandMap.put(commands.getName(), commands);
+            commandMap.put(commands.getNameCommand(), commands);
         }
         while (!Thread.currentThread().isInterrupted()) {
-            System.out.println("Enter the command:");
             str = reader.readLine();
             for (Map.Entry<String, Command> item : commandMap.entrySet()) {
                 if (str.equals(item.getKey())) {

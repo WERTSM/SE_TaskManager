@@ -9,16 +9,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Iterator;
 
-
 public class ServiceTask {
-
-
     private TasksRepository taskRepository;
     private Task task;
 
     private List<Task> list = new ArrayList<>();
 
-    private ServiceTask() {
+    ServiceTask() {
     }
 
     public ServiceTask(TasksRepository taskRepository) {

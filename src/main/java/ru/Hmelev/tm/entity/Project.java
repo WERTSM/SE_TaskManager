@@ -12,6 +12,10 @@ public class Project {
     private Date startDate;
     private Date finishDate;
 
+    public UUID getId() {
+        return id;
+    }
+
     public Project(UUID id, String name, String description, Date startDate, Date finishDate) {
         this.id = id;
         this.name = name;

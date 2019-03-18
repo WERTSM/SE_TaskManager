@@ -3,12 +3,14 @@ package ru.Hmelev.tm.service;
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.repository.ProjectsRepository;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
 public class ServiceProject extends Service {
     private ProjectsRepository projectsRepository;
     private Project project;
+    ServiceTask serviceTask = new ServiceTask();
 
     public ServiceProject(ProjectsRepository projectsRepository) {
         this.projectsRepository = projectsRepository;
@@ -17,6 +19,10 @@ public class ServiceProject extends Service {
     public void createProject(UUID id, String name, String description, Date startDate, Date finishDate) {
         project = new Project(id, name, description, startDate, finishDate);
         projectsRepository.persist(id, project);
+    }
+
+    public Collection<Project> findAllProjects(){
+        return projectsRepository.findAllProjects();
     }
 
     public void clearProject() {
@@ -46,4 +52,5 @@ public class ServiceProject extends Service {
     public void removeProject(UUID id) {
         projectsRepository.remove(id);
     }
+
 }

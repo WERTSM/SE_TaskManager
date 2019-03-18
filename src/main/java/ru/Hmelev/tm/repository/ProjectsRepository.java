@@ -2,6 +2,7 @@ package ru.Hmelev.tm.repository;
 
 import ru.Hmelev.tm.entity.Project;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -26,13 +27,16 @@ public class ProjectsRepository implements Repository {
             item.getValue().viewProject();
         }
     }
+    public Collection<Project> findAllProjects() {
+        return mapProject.values();
+    }
 
     public Project findOne(UUID uuid) {
         return this.mapProject.get(uuid);
     }
 
-    public void persist(UUID uuid, Project project) {
-        mapProject.put(uuid, project);
+    public void persist(UUID id, Project project) {
+        mapProject.put(id, project);
     }
 
     public void merge() {
@@ -43,7 +47,7 @@ public class ProjectsRepository implements Repository {
         mapProject.clear();
     }
 
-    public void remove(UUID uuid) {
-        mapProject.remove(uuid);
+    public void remove(UUID id) {
+        mapProject.remove(id);
     }
 }

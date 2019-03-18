@@ -1,10 +1,5 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
-
-import java.io.BufferedReader;
-
 public class HelpCommand extends Command {
 
     public HelpCommand() {
