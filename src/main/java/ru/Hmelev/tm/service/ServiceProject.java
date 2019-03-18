@@ -9,7 +9,7 @@ import java.util.UUID;
 public class ServiceProject extends Service{
     private static ServiceProject _instance = new ServiceProject();
 
-    private ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
+    private final ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
     private Project project;
 
     public ServiceProject() {

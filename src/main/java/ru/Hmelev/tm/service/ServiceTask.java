@@ -3,10 +3,16 @@ package ru.Hmelev.tm.service;
 import ru.Hmelev.tm.entity.Task;
 import ru.Hmelev.tm.repository.TasksRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.Iterator;
+
 
 public class ServiceTask {
     private static ServiceTask _instance = new ServiceTask();
+
     private final TasksRepository taskRepository = TasksRepository.getInstance();
     private Task task;
 
