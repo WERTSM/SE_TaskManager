@@ -238,7 +238,8 @@ public class Command {
                 + "\"task-list\"\" : Show all tasks.\n"
                 + "\"task-show\" : Show selected project.\n"
                 + "\"task-edit\" : Edit selected task\n"
-                + "\"task-remove\" : Remove selected task.\n\n"
+                + "\"task-remove\" : Remove selected task.\n"
+                + "\"exit\" : Exit from the program.\n\n"
                 + "----------------- ********************************************** -----------------\n");
     }
 
