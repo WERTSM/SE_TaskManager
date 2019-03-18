@@ -1,8 +1,9 @@
 package ru.Hmelev.tm.command;
 
 public class TaskClearCommand extends Command {
-    private String name = "task-clear";
-    private String description = "Remove all tasks.";
+    public TaskClearCommand() {
+        super("task-clear", "Remove all tasks.");
+    }
 
     @Override
     public void execute() {

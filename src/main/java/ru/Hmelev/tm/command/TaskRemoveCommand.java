@@ -1,8 +1,9 @@
 package ru.Hmelev.tm.command;
 
 public class TaskRemoveCommand extends Command {
-    private String name = "task-remove";
-    private String description = "Remove selected task.";
+    public TaskRemoveCommand() {
+        super("task-remove", "Remove selected task.");
+    }
 
     @Override
     public void execute() {

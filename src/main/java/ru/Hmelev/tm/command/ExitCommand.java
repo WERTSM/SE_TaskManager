@@ -1,10 +1,12 @@
 package ru.Hmelev.tm.command;
 
 public class ExitCommand extends Command {
-    private String name = "exit";
-    private String description = "Exit from the program";
+    public ExitCommand() {
+        super("exit", "Exit from the program");
+    }
 
     @Override
     public void execute() {
+        Thread.currentThread().interrupt();
     }
 }

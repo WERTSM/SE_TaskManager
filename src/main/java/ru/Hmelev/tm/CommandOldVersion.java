@@ -11,14 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class Command {
+public class CommandOldVersion {
     private SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     private BufferedReader reader;
 
     private ServiceProject serviceProject;
     private ServiceTask serviceTask;
 
-    public Command(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
+    public CommandOldVersion(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
         this.reader = reader;
         this.serviceProject = serviceProject;
         this.serviceTask = serviceTask;

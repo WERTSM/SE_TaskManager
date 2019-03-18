@@ -1,5 +1,6 @@
 package ru.Hmelev.tm;
 
+import ru.Hmelev.tm.command.*;
 import ru.Hmelev.tm.repository.ProjectsRepository;
 import ru.Hmelev.tm.repository.TasksRepository;
 import ru.Hmelev.tm.service.ServiceProject;
@@ -8,81 +9,50 @@ import ru.Hmelev.tm.service.ServiceTask;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bootstrap {
-    private static final String HELP = "help";
-    private static final String PROJECT_CREATE = "project-create";
-    private static final String PROJECT_CLEAR = "project-clear";
-    private static final String PROJECT_LIST = "project-list";
-    private static final String PROJECT_EDIT = "project-edit";
-    private static final String PROJECT_SHOW = "project-show";
-    private static final String PROJECT_REMOVE = "project-remove";
-    private static final String TASK_CREATE = "task-create";
-    private static final String TASK_CLEAR = "task-clear";
-    private static final String TASK_LIST = "task-list";
-    private static final String TASK_EDIT = "task-edit";
-    private static final String TASK_SHOW = "task-show";
-    private static final String TASK_REMOVE = "task-remove";
-    private static final String EXIT = "exit";
 
-    public void init() throws IOException, ParseException {
-        ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
-        TasksRepository tasksRepository = TasksRepository.getInstance();
+    private Map<String, Command> commandMap = new HashMap<>();
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        ServiceProject serviceProject = new ServiceProject(projectsRepository);
-        ServiceTask serviceTask = new ServiceTask (tasksRepository);
+    ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
+    TasksRepository tasksRepository = TasksRepository.getInstance();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    ServiceProject serviceProject = new ServiceProject(projectsRepository);
+    ServiceTask serviceTask = new ServiceTask (tasksRepository);
 
-        Command command = new Command(reader,serviceProject,serviceTask );
-        String commandReader;
-        while (true) {
+    String str;
+
+    Command command[] = new Command[]{
+            new HelpCommand(),
+            new ExitCommand(),
+            new ProjectCreateCommand(),
+            new ProjectClearCommand(),
+            new ProjectListCommand(),
+            new ProjectEditCommand(),
+            new ProjectShowCommand(),
+            new ProjectRemoveCommand(),
+            new TaskCreateCommand(),
+            new TaskClearCommand(),
+            new TaskListCommand(),
+            new TaskEditCommand(),
+            new TaskShowCommand(),
+            new TaskRemoveCommand()
+    };
+
+    public void init() throws IOException {
+        for (Command commands : command) {
+            commandMap.put(commands.getName(), commands);
+        }
+        while (!Thread.currentThread().isInterrupted()) {
             System.out.println("Enter the command:");
-            commandReader = reader.readLine();
-            switch (commandReader) {
-                case HELP:
-                    command.help();
-                    break;
-                case PROJECT_CREATE:
-                    command.projectCreate();
-                    break;
-                case PROJECT_CLEAR:
-                    command.projectClear();
-                    break;
-                case PROJECT_LIST:
-                    command.projectList();
-                    break;
-                case PROJECT_EDIT:
-                    command.projectEdit();
-                    break;
-                case PROJECT_SHOW:
-                    command.projectShow();
-                    break;
-                case PROJECT_REMOVE:
-                    command.projectRemove();
-                    break;
-                case TASK_CREATE:
-                    command.taskCreate();
-                    break;
-                case TASK_CLEAR:
-                    command.taskClear();
-                    break;
-                case TASK_LIST:
-                    command.taskList();
-                    break;
-                case TASK_EDIT:
-                    command.taskEdit();
-                    break;
-                case TASK_SHOW:
-                    command.taskShow();
-                    break;
-                case TASK_REMOVE:
-                    command.taskRemove();
-                    break;
-                case EXIT:
-                    command.exit();
-                    break;
+            str = reader.readLine();
+            for (Map.Entry<String, Command> item : commandMap.entrySet()) {
+                if (str.equals(item.getKey())) {
+                    item.getValue().execute();
+                }
             }
         }
     }
