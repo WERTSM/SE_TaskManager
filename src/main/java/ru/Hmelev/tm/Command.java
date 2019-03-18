@@ -15,8 +15,14 @@ public class Command {
     private SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     private BufferedReader reader;
 
-    private ServiceProject serviceProject = ServiceProject.getInstance();
-    private ServiceTask serviceTask = ServiceTask.getInstance();
+    private ServiceProject serviceProject;
+    private ServiceTask serviceTask;
+
+    public Command(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
+        this.reader = reader;
+        this.serviceProject = serviceProject;
+        this.serviceTask = serviceTask;
+    }
 
     private String id;
     private String name;
@@ -28,10 +34,6 @@ public class Command {
     private UUID idProject;
     private UUID idTask;
     private UUID idProjectFromTask;
-
-    public Command(BufferedReader reader) {
-        this.reader = reader;
-    }
 
     void projectCreate() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
@@ -143,7 +145,7 @@ public class Command {
         } else
             idProjectFromTask = UUID.fromString(id);
 
-        idTask= UUID.randomUUID();
+        idTask = UUID.randomUUID();
 
         serviceTask.createTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
 

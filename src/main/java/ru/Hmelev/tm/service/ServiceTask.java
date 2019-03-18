@@ -11,9 +11,9 @@ import java.util.Iterator;
 
 
 public class ServiceTask {
-    private static ServiceTask _instance = new ServiceTask();
 
-    private final TasksRepository taskRepository = TasksRepository.getInstance();
+
+    private TasksRepository taskRepository;
     private Task task;
 
     private List<Task> list = new ArrayList<>();
@@ -21,10 +21,8 @@ public class ServiceTask {
     private ServiceTask() {
     }
 
-    public static ServiceTask getInstance() {
-        if (_instance == null)
-            _instance = new ServiceTask();
-        return _instance;
+    public ServiceTask(TasksRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
     public void createTask(UUID id, String name, String description, Date startDate, Date finishDate, UUID idProject) {

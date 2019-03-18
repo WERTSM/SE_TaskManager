@@ -6,19 +6,12 @@ import ru.Hmelev.tm.repository.ProjectsRepository;
 import java.util.Date;
 import java.util.UUID;
 
-public class ServiceProject extends Service{
-    private static ServiceProject _instance = new ServiceProject();
-
-    private final ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
+public class ServiceProject extends Service {
+    private ProjectsRepository projectsRepository;
     private Project project;
 
-    public ServiceProject() {
-    }
-
-    public static ServiceProject getInstance() {
-        if (_instance == null)
-            _instance = new ServiceProject();
-        return _instance;
+    public ServiceProject(ProjectsRepository projectsRepository) {
+        this.projectsRepository = projectsRepository;
     }
 
     public void createProject(UUID id, String name, String description, Date startDate, Date finishDate) {
