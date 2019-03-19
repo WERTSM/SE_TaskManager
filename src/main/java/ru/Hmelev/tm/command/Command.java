@@ -2,8 +2,8 @@ package ru.Hmelev.tm.command;
 
 import com.google.common.base.Strings;
 import ru.Hmelev.tm.Bootstrap;
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.service.ProjectService;
+import ru.Hmelev.tm.service.TaskService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,28 +13,28 @@ import java.util.Date;
 import java.util.UUID;
 
 public abstract class Command {
-    BufferedReader reader;
-    ServiceProject serviceProject;
-    ServiceTask serviceTask;
-    String name;
-    String description;
-    String id;
-    String date;
-    Date startDate;
-    Date finishDate;
-    UUID idProject;
-    UUID idTask;
-    UUID idProjectFromTask;
+    protected BufferedReader reader;
+    protected ProjectService projectService;
+    protected TaskService taskService;
+    protected String name;
+    protected String description;
+    protected String id;
+    protected String date;
+    protected Date startDate;
+    protected Date finishDate;
+    protected UUID idProject;
+    protected UUID idTask;
+    protected UUID idProjectFromTask;
 
-    SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    protected SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
     private String nameCommand;
     private String descriptionCommand;
 
     public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand) {
         this.reader = bootstrap.getReader();
-        this.serviceProject = bootstrap.getServiceProject();
-        this.serviceTask = bootstrap.getServiceTask();
+        this.projectService = bootstrap.getProjectService();
+        this.taskService = bootstrap.getTaskService();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
     }
@@ -44,7 +44,7 @@ public abstract class Command {
         this.descriptionCommand = descriptionCommand;
     }
 
-    static boolean isStringValid(String str) {
+    protected static boolean isStringValid(String str) {
         if (Strings.isNullOrEmpty(str)) {
             System.err.println("Введите название!");
             return false;
@@ -53,7 +53,7 @@ public abstract class Command {
         }
     }
 
-    boolean isDateValid(String date) {
+    protected boolean isDateValid(String date) {
         DEFAULT_DATE_FORMAT.setLenient(false);
         try {
             DEFAULT_DATE_FORMAT.parse(date);
@@ -64,7 +64,7 @@ public abstract class Command {
         }
     }
 
-    boolean isUUIDValid(String id) {
+    protected boolean isUUIDValid(String id) {
         try {
             UUID.fromString(id);
             return true;

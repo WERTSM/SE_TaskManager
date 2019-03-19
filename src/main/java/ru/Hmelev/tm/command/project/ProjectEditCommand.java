@@ -1,19 +1,28 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
-public class ProjectCreateCommand extends Command {
-    public ProjectCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap, "project-create", "Create new project.");
+public class ProjectEditCommand extends Command {
+    public ProjectEditCommand(Bootstrap bootstrap) {
+        super(bootstrap, "project-edit", "Edit selected project");
     }
 
     @Override
     public void execute() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
+        projectService.listProject();
+
+        do {
+            System.out.println("ID project: ");
+            id = reader.readLine();
+        } while (!isUUIDValid(id));
+        idProject = UUID.fromString(id);
+
         do {
             System.out.println("Name project: ");
             name = reader.readLine();
@@ -36,8 +45,7 @@ public class ProjectCreateCommand extends Command {
         } while (!isDateValid(date));
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        idProject = UUID.randomUUID();
-        serviceProject.createProject(idProject, name, description, startDate, finishDate);
+        projectService.editProject(idProject, name, description, startDate, finishDate);
         System.out.println("!!!DONE!!!");
     }
 }

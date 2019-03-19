@@ -7,11 +7,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
-public class ServiceProject extends Service {
+public class ProjectService extends Service {
     private ProjectsRepository projectsRepository;
     private Project project;
 
-    public ServiceProject(ProjectsRepository projectsRepository) {
+    public ProjectService(ProjectsRepository projectsRepository) {
         this.projectsRepository = projectsRepository;
     }
 

@@ -1,6 +1,7 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 
 public class TaskClearCommand extends Command {
     public TaskClearCommand(Bootstrap bootstrap) {
@@ -10,7 +11,7 @@ public class TaskClearCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        serviceTask.clearTask();
+        taskService.clearTask();
         System.out.println("!!!DONE!!!");
     }
 }

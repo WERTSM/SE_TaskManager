@@ -1,6 +1,7 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 
 public class TaskListCommand extends Command {
     public TaskListCommand(Bootstrap bootstrap) {
@@ -10,7 +11,7 @@ public class TaskListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        serviceTask.listTask();
+        taskService.listTask();
         System.out.println("!!!DONE!!!");
     }
 }

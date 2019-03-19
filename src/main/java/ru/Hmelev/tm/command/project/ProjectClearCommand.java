@@ -1,6 +1,7 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Project;
 
 public class ProjectClearCommand extends Command {
@@ -11,10 +12,10 @@ public class ProjectClearCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        for (Project project : serviceProject.findAllProjects()) {
-            serviceTask.listTaskNoIdProject(project.getId());
+        for (Project project : projectService.findAllProjects()) {
+            taskService.listTaskNoIdProject(project.getId());
         }
-        serviceProject.clearProject();
+        projectService.clearProject();
         System.out.println("!!!DONE!!!");
     }
 }

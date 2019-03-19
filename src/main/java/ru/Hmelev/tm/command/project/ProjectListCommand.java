@@ -1,6 +1,7 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 
 public class ProjectListCommand extends Command {
     public ProjectListCommand(Bootstrap bootstrap) {
@@ -11,7 +12,7 @@ public class ProjectListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        serviceProject.listProject();
+        projectService.listProject();
         System.out.println("!!!DONE!!!");
     }
 }

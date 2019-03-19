@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Iterator;
 
-public class ServiceTask {
+public class TaskService {
     private TasksRepository taskRepository;
     private Task task;
 
     private List<Task> list = new ArrayList<>();
 
-    public ServiceTask(TasksRepository taskRepository) {
+    public TaskService(TasksRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 

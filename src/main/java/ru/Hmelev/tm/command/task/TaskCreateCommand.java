@@ -1,26 +1,20 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
-public class TaskEditCommand extends Command {
-    public TaskEditCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-edit", "Edit selected task");
+public class TaskCreateCommand extends Command {
+    public TaskCreateCommand(Bootstrap bootstrap) {
+        super(bootstrap, "task-create", "Create new task.");
     }
 
     @Override
     public void execute() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
-        serviceTask.listTask();
-
-        do {
-            System.out.println("ID task: ");
-            id = reader.readLine();
-        } while (!isUUIDValid(id));
-        idTask = UUID.fromString(id);
 
         do {
             System.out.println("Name task: ");
@@ -46,7 +40,7 @@ public class TaskEditCommand extends Command {
 
         do {
             System.out.println("Id project or \'0\': ");
-            serviceProject.listProject();
+            projectService.listProject();
 
             id = reader.readLine();
             if (id.equals("0")) {
@@ -55,7 +49,9 @@ public class TaskEditCommand extends Command {
         } while (!isUUIDValid(id));
         idProjectFromTask = UUID.fromString(id);
 
-        serviceTask.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
+        idTask = UUID.randomUUID();
+
+        taskService.createTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
         System.out.println("!!!DONE!!!");
     }
 }

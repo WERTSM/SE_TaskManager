@@ -1,19 +1,20 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.util.UUID;
 
-public class TaskRemoveCommand extends Command {
-    public TaskRemoveCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-remove", "Remove selected task.");
+public class TaskShowCommand extends Command {
+    public TaskShowCommand(Bootstrap bootstrap) {
+        super(bootstrap, "task-show", "Show selected project.");
     }
 
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        serviceTask.listTask();
+        taskService.listTask();
 
         do {
             System.out.println("ID task: ");
@@ -21,7 +22,7 @@ public class TaskRemoveCommand extends Command {
         } while (!isUUIDValid(id));
         idTask = UUID.fromString(id);
 
-        serviceTask.removeTask(idTask);
+        taskService.showTask(idTask);
         System.out.println("!!!DONE!!!");
     }
 }
