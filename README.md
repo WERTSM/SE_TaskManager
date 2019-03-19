@@ -8,7 +8,7 @@ _JDK 7, Maven 3.6.0_
 _MAVEN_
 ***
 **ИМЯ РАЗРАБОТЧИКА:** _Сергей Хмелёв_<br/>
-**АДРЕС ЭЛЕКТРОНОЙ ПОЧТЫ:** wertsm.java@gmail.com
+**АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ:** wertsm.java@gmail.com
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
 `*Path*to*directoty*` _mvn clean install_
@@ -18,17 +18,17 @@ _java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_
 ***
 **КОМАНДЫ ДЛЯ РАБОТЫ С ПРИЛОЖЕНИЕМ:**
 
-    * "help" : Show all commands.<br/>
-    * "project-create" : Create new project.<br/>
-    * "project-clear" : Remove all projects.<br/>
-    * "project-list"" : Show all projects.<br/>
-    * "project-show" : Show selected project.<br/>
-    * "project-edit" : Edit selected project<br/>
-    * "project-remove" : Remove selected project.<br/>
-    * "task-create" : Create new task.<br/>
-    * "task-clear" : Remove all tasks.<br/>
-    * "task-list"" : Show all tasks.<br/>
-    * "task-show" : Show selected project.<br/>
-    * "task-edit" : Edit selected task<br/>
-    * "task-remove" : Remove selected task.<br/>
-    * "exit" : Exit from the program.<br/>
+    * "help" : Show all commands.
+    * "project-create" : Create new project.
+    * "project-clear" : Remove all projects.
+    * "project-list"" : Show all projects.
+    * "project-show" : Show selected project.
+    * "project-edit" : Edit selected project
+    * "project-remove" : Remove selected project.
+    * "task-create" : Create new task.
+    * "task-clear" : Remove all tasks.
+    * "task-list"" : Show all tasks.
+    * "task-show" : Show selected project.
+    * "task-edit" : Edit selected task
+    * "task-remove" : Remove selected task.
+    * "exit" : Exit from the program.
