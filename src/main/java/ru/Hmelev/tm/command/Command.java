@@ -22,9 +22,9 @@ public abstract class Command {
     protected String date;
     protected Date startDate;
     protected Date finishDate;
-    protected UUID idProject;
-    protected UUID idTask;
-    protected UUID idProjectFromTask;
+    protected String idProject;
+    protected String idTask;
+    protected String idProjectFromTask;
 
     protected SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 

@@ -5,7 +5,6 @@ import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.UUID;
 
 public class TaskEditCommand extends Command {
     public TaskEditCommand(Bootstrap bootstrap) {
@@ -19,9 +18,8 @@ public class TaskEditCommand extends Command {
 
         do {
             System.out.println("ID task: ");
-            id = reader.readLine();
-        } while (!isUUIDValid(id));
-        idTask = UUID.fromString(id);
+            idTask = reader.readLine();
+        } while (!isUUIDValid(idTask));
 
         do {
             System.out.println("Name task: ");
@@ -49,12 +47,11 @@ public class TaskEditCommand extends Command {
             System.out.println("Id project or \'0\': ");
             projectService.listProject();
 
-            id = reader.readLine();
-            if (id.equals("0")) {
-                id = "00000000-0000-0000-0000-000000000000";
+            idProjectFromTask = reader.readLine();
+            if (idProjectFromTask.equals("0")) {
+                idProjectFromTask = "00000000-0000-0000-0000-000000000000";
             }
-        } while (!isUUIDValid(id));
-        idProjectFromTask = UUID.fromString(id);
+        } while (!isUUIDValid(idProjectFromTask));
 
         taskService.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
         System.out.println("!!!DONE!!!");

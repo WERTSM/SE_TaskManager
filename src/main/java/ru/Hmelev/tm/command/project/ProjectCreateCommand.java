@@ -37,7 +37,7 @@ public class ProjectCreateCommand extends Command {
         } while (!isDateValid(date));
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        idProject = UUID.randomUUID();
+        idProject = UUID.randomUUID().toString();
         projectService.createProject(idProject, name, description, startDate, finishDate);
         System.out.println("!!!DONE!!!");
     }

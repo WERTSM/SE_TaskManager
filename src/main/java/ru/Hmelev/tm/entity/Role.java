@@ -3,13 +3,13 @@ package ru.Hmelev.tm.entity;
 public enum Role {
     ADMIN("admin"), USER("user");
 
-    private String name;
+    private String displayName;
 
-    Role(String name) {
-        this.name = name;
+    Role(String displayName) {
+        this.displayName = displayName;
     }
 
     public String displayName() {
-        return name;
+        return displayName;
     }
 }

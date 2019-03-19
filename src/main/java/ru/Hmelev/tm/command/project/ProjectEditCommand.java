@@ -5,7 +5,6 @@ import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.UUID;
 
 public class ProjectEditCommand extends Command {
     public ProjectEditCommand(Bootstrap bootstrap) {
@@ -19,9 +18,8 @@ public class ProjectEditCommand extends Command {
 
         do {
             System.out.println("ID project: ");
-            id = reader.readLine();
-        } while (!isUUIDValid(id));
-        idProject = UUID.fromString(id);
+            idProject = reader.readLine();
+        } while (!isUUIDValid(idProject));
 
         do {
             System.out.println("Name project: ");

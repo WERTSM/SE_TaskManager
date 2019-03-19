@@ -4,7 +4,6 @@ import ru.Hmelev.tm.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class TaskShowCommand extends Command {
     public TaskShowCommand(Bootstrap bootstrap) {
@@ -18,9 +17,8 @@ public class TaskShowCommand extends Command {
 
         do {
             System.out.println("ID task: ");
-            id = reader.readLine();
-        } while (!isUUIDValid(id));
-        idTask = UUID.fromString(id);
+            idTask = reader.readLine();
+        } while (!isUUIDValid(idTask));
 
         taskService.showTask(idTask);
         System.out.println("!!!DONE!!!");

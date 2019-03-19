@@ -1,52 +1,59 @@
 package ru.Hmelev.tm.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 public class Project {
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    private UUID id;
+    private String id;
     private String name;
     private String description;
-    private Date startDate;
-    private Date finishDate;
+    private Date dateStart;
+    private Date dataFinish;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public Project(UUID id, String name, String description, Date startDate, Date finishDate) {
+    public Project(String id, String name, String description, Date dateStart, Date dataFinish) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
+        this.dateStart = dateStart;
+        this.dataFinish = dataFinish;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public Date getDateStart() {
+        return dateStart;
     }
 
-    public void setFinishDate(Date finishDate) {
-        this.finishDate = finishDate;
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public void viewProject() {
-        System.out.println(
-                "[ ID = " + id
-                        + "; Name = " + name
-                        + "; Description = " + description
-                        + "; Start date = " + dateFormat.format(startDate)
-                        + "; Finish date = " + dateFormat.format(finishDate)
-                        + " ]");
+    public Date getDataFinish() {
+        return dataFinish;
+    }
+
+    public void setDataFinish(Date dataFinish) {
+        this.dataFinish = dataFinish;
     }
 }

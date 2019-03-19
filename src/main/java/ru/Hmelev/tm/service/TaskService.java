@@ -5,11 +5,10 @@ import ru.Hmelev.tm.repository.TasksRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 import java.util.Iterator;
+import java.util.List;
 
-public class TaskService {
+public class TaskService extends Service {
     private TasksRepository taskRepository;
     private Task task;
 
@@ -19,7 +18,7 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public void createTask(UUID id, String name, String description, Date startDate, Date finishDate, UUID idProject) {
+    public void createTask(String id, String name, String description, Date startDate, Date finishDate, String idProject) {
         task = new Task(id, name, description, startDate, finishDate, idProject);
         taskRepository.persist(id, task);
     }
@@ -29,10 +28,13 @@ public class TaskService {
     }
 
     public void listTask() {
-        taskRepository.findAll();
+        for (Task task : taskRepository.findAll()) {
+            showTask(task.getId());
+        }
+
     }
 
-    public void editTask(UUID id, String name, String description, Date startDate, Date finishDate, UUID idProject) {
+    public void editTask(String id, String name, String description, Date startDate, Date finishDate, String idProject) {
         task = taskRepository.findOne(id);
         task.setName(name);
         task.setDescription(description);
@@ -41,17 +43,26 @@ public class TaskService {
         task.setIdProject(idProject);
     }
 
-    public void showTask(UUID id) {
-        Task pr = taskRepository.findOne(id);
-        pr.viewTask();
+    public void showTask(String id) {
+        Task task = taskRepository.findOne(id);
+        if (task != null) {
+            System.out.println(
+                    "[ ID = " + task.getId()
+                            + "; Name = " + task.getName()
+                            + "; Description = " + task.getDescription()
+                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(task.getStartDate())
+                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(task.getFinishDate())
+                            + "; idProject = " + task.getIdProject()
+                            + " ]");
+        }
     }
 
-    public void removeTask(UUID id) {
+    public void removeTask(String id) {
         taskRepository.remove(id);
     }
 
-    public List<Task> listTaskIdProject(UUID idProject) {
-        list.addAll(taskRepository.findNoAll());
+    public List<Task> listTaskIdProject(String idProject) {
+        list.addAll(taskRepository.findAll());
         Iterator<Task> it = list.iterator();
         while (it.hasNext()) {
             task = it.next();
@@ -62,8 +73,8 @@ public class TaskService {
         return list;
     }
 
-    public void listTaskNoIdProject(UUID idProject) {
-        list.addAll(taskRepository.findNoAll());
+    public void listTaskNoIdProject(String idProject) {
+        list.addAll(taskRepository.findAll());
         Iterator<Task> it = list.iterator();
         while (it.hasNext()) {
             task = it.next();

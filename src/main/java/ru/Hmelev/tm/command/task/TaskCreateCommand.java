@@ -42,14 +42,13 @@ public class TaskCreateCommand extends Command {
             System.out.println("Id project or \'0\': ");
             projectService.listProject();
 
-            id = reader.readLine();
-            if (id.equals("0")) {
-                id = "00000000-0000-0000-0000-000000000000";
+            idProjectFromTask = reader.readLine();
+            if (idProjectFromTask.equals("0")) {
+                idProjectFromTask = "00000000-0000-0000-0000-000000000000";
             }
-        } while (!isUUIDValid(id));
-        idProjectFromTask = UUID.fromString(id);
+        } while (!isUUIDValid(idProjectFromTask));
 
-        idTask = UUID.randomUUID();
+        idTask = UUID.randomUUID().toString();
 
         taskService.createTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
         System.out.println("!!!DONE!!!");

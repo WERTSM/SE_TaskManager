@@ -5,7 +5,6 @@ import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Task;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class ProjectShowCommand extends Command {
     public ProjectShowCommand(Bootstrap bootstrap) {
@@ -19,14 +18,13 @@ public class ProjectShowCommand extends Command {
 
         do {
             System.out.println("ID project: ");
-            id = reader.readLine();
-        } while (!isUUIDValid(id));
-        idProject = UUID.fromString(id);
+            idProject = reader.readLine();
+        } while (!isUUIDValid(idProject));
 
         projectService.showProject(idProject);
         System.out.println("Tasks: ");
         for (Task task : taskService.listTaskIdProject(idProject)) {
-            task.viewTask();
+            taskService.showTask(task.getId());
         }
         System.out.println("!!!DONE!!!");
     }

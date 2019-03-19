@@ -59,13 +59,12 @@ public class Bootstrap {
         for (Command commands : command) {
             commandMap.put(commands.getNameCommand(), commands);
         }
+
         while (!Thread.currentThread().isInterrupted()) {
             System.out.println("Enter the command:");
-            String str = reader.readLine();
-            for (Map.Entry<String, Command> item : commandMap.entrySet()) {
-                if (str.equals(item.getKey())) {
-                    item.getValue().execute();
-                }
+            Command commandString = commandMap.get(reader.readLine());
+            if (commandString != null) {
+                commandString.execute();
             }
         }
     }

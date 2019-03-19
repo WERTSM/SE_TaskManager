@@ -4,35 +4,27 @@ import ru.Hmelev.tm.entity.Task;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class TasksRepository {
-    private HashMap<UUID, Task> mapTask = new HashMap<>();
+    private HashMap<String, Task> mapTask = new HashMap<>();
 
-    public void findAll() {
-        for (Map.Entry<UUID, Task> item : this.mapTask.entrySet()) {
-            item.getValue().viewTask();
-        }
-    }
-
-    public Collection<Task> findNoAll() {
+    public Collection<Task> findAll() {
         return mapTask.values();
     }
 
-    public Task findOne(UUID uuid) {
-        return this.mapTask.get(uuid);
+    public Task findOne(String id) {
+        return this.mapTask.get(id);
     }
 
-    public void persist(UUID uuid, Task task) {
-        mapTask.put(uuid, task);
+    public void persist(String id, Task task) {
+        mapTask.put(id, task);
     }
 
     public void removeAll() {
         this.mapTask.clear();
     }
 
-    public void remove(UUID uuid) {
-        mapTask.remove(uuid);
+    public void remove(String id) {
+        mapTask.remove(id);
     }
 }

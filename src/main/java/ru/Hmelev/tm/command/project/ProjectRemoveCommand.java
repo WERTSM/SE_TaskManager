@@ -4,7 +4,6 @@ import ru.Hmelev.tm.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class ProjectRemoveCommand extends Command {
     public ProjectRemoveCommand(Bootstrap bootstrap) {
@@ -18,9 +17,8 @@ public class ProjectRemoveCommand extends Command {
         projectService.listProject();
         do {
             System.out.println("ID project: ");
-            id = reader.readLine();
-        } while (!isUUIDValid(id));
-        idProject = UUID.fromString(id);
+            idProject = reader.readLine();
+        } while (!isUUIDValid(idProject));
 
         taskService.listTaskNoIdProject(idProject);
         projectService.removeProject(idProject);
