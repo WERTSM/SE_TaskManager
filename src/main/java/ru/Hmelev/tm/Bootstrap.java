@@ -1,10 +1,14 @@
 package ru.Hmelev.tm;
 
-import ru.Hmelev.tm.command.*;
+import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.ExitCommand;
+import ru.Hmelev.tm.command.HelpCommand;
+import ru.Hmelev.tm.command.project.*;
+import ru.Hmelev.tm.command.task.*;
 import ru.Hmelev.tm.repository.ProjectsRepository;
 import ru.Hmelev.tm.repository.TasksRepository;
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.service.ProjectService;
+import ru.Hmelev.tm.service.TaskService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,21 +24,8 @@ public class Bootstrap {
     private ProjectsRepository projectsRepository = new ProjectsRepository();
     private TasksRepository tasksRepository = new TasksRepository();
 
-    private ServiceProject serviceProject = new ServiceProject(projectsRepository);
-    private ServiceTask serviceTask = new ServiceTask(tasksRepository);
-
-    public BufferedReader getReader() {
-        return reader;
-    }
-
-    public ServiceProject getServiceProject() {
-        return serviceProject;
-    }
-
-    public ServiceTask getServiceTask() {
-        return serviceTask;
-    }
-
+    private ProjectService projectService = new ProjectService(projectsRepository);
+    private TaskService taskService = new TaskService(tasksRepository);
     private Command command[] = new Command[]{
             new HelpCommand(),
             new ExitCommand(),
@@ -51,6 +42,18 @@ public class Bootstrap {
             new TaskShowCommand(this),
             new TaskRemoveCommand(this)
     };
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
+    }
+
+    public TaskService getTaskService() {
+        return taskService;
+    }
 
     void init() throws IOException, ParseException {
         for (Command commands : command) {
