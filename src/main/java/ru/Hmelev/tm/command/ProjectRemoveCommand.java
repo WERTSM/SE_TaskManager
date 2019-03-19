@@ -1,16 +1,13 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.Bootstrap;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.UUID;
 
 public class ProjectRemoveCommand extends Command {
-
-    public ProjectRemoveCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "project-remove", "Remove selected project.");
+    public ProjectRemoveCommand(Bootstrap bootstrap) {
+        super(bootstrap, "project-remove", "Remove selected project.");
     }
 
     @Override

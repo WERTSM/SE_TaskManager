@@ -8,17 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class TasksRepository {
-    private static TasksRepository _instance = new TasksRepository();
     private HashMap<UUID, Task> mapTask = new HashMap<>();
-
-    private TasksRepository() {
-    }
-
-    public static TasksRepository getInstance() {
-        if (_instance == null)
-            _instance = new TasksRepository();
-        return _instance;
-    }
 
     public void findAll() {
         for (Map.Entry<UUID, Task> item : this.mapTask.entrySet()) {

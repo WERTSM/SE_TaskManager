@@ -1,21 +1,18 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.Bootstrap;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
 public class TaskEditCommand extends Command {
-    public TaskEditCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "task-edit", "Edit selected task");
+    public TaskEditCommand(Bootstrap bootstrap) {
+        super(bootstrap, "task-edit", "Edit selected task");
     }
 
     @Override
     public void execute() throws IOException, ParseException {
-
         System.out.println("!!!Start command!!!");
         serviceTask.listTask();
 
@@ -29,13 +26,11 @@ public class TaskEditCommand extends Command {
             System.out.println("Name task: ");
             name = reader.readLine();
         } while (!isStringValid(name));
-        name = reader.readLine();
 
         do {
             System.out.println("Description task: ");
             description = reader.readLine();
         } while (!isStringValid(description));
-        description = reader.readLine();
 
         do {
             System.out.println("Start date task: \"dd.MM.yyyy\" ");

@@ -1,13 +1,10 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
-
-import java.io.BufferedReader;
+import ru.Hmelev.tm.Bootstrap;
 
 public class TaskListCommand extends Command {
-    public TaskListCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "task-list", "Show all tasks.");
+    public TaskListCommand(Bootstrap bootstrap) {
+        super(bootstrap, "task-list", "Show all tasks.");
     }
 
     @Override

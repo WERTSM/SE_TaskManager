@@ -1,7 +1,6 @@
 package ru.Hmelev.tm.command;
 
 public class HelpCommand extends Command {
-
     public HelpCommand() {
         super("help", "Show all commands");
     }

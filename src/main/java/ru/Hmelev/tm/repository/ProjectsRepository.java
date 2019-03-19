@@ -8,18 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ProjectsRepository implements Repository {
-
-    private static ProjectsRepository _instance = new ProjectsRepository();
     private HashMap<UUID, Project> mapProject = new HashMap<>();
-
-    private ProjectsRepository() {
-    }
-
-    public static ProjectsRepository getInstance() {
-        if (_instance == null)
-            _instance = new ProjectsRepository();
-        return _instance;
-    }
 
     @Override
     public void findAll() {
@@ -27,6 +16,7 @@ public class ProjectsRepository implements Repository {
             item.getValue().viewProject();
         }
     }
+
     public Collection<Project> findAllProjects() {
         return mapProject.values();
     }

@@ -1,16 +1,14 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.Bootstrap;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
 public class ProjectCreateCommand extends Command {
-    public ProjectCreateCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "project-create", "Create new project.");
+    public ProjectCreateCommand(Bootstrap bootstrap) {
+        super(bootstrap, "project-create", "Create new project.");
     }
 
     @Override

@@ -1,17 +1,14 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.Bootstrap;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
 public class ProjectEditCommand extends Command {
-
-    public ProjectEditCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "project-edit", "Edit selected project");
+    public ProjectEditCommand(Bootstrap bootstrap) {
+        super(bootstrap, "project-edit", "Edit selected project");
     }
 
     @Override
@@ -29,13 +26,11 @@ public class ProjectEditCommand extends Command {
             System.out.println("Name project: ");
             name = reader.readLine();
         } while (!isStringValid(name));
-        name = reader.readLine();
 
         do {
             System.out.println("Description: ");
             description = reader.readLine();
         } while (!isStringValid(description));
-        description = reader.readLine();
 
         do {
             System.out.println("Start date: \"dd.MM.yyyy\" ");

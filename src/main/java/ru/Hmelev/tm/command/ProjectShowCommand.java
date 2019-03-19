@@ -1,16 +1,14 @@
 package ru.Hmelev.tm.command;
 
+import ru.Hmelev.tm.Bootstrap;
 import ru.Hmelev.tm.entity.Task;
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.UUID;
 
 public class ProjectShowCommand extends Command {
-    public ProjectShowCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "project-show", "Show selected project.");
+    public ProjectShowCommand(Bootstrap bootstrap) {
+        super(bootstrap, "project-show", "Show selected project.");
     }
 
     @Override

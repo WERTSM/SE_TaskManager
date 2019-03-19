@@ -1,16 +1,14 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.service.ServiceProject;
-import ru.Hmelev.tm.service.ServiceTask;
+import ru.Hmelev.tm.Bootstrap;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
 public class TaskCreateCommand extends Command {
-    public TaskCreateCommand(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask) {
-        super(reader, serviceProject, serviceTask, "task-create", "Create new task.");
+    public TaskCreateCommand(Bootstrap bootstrap) {
+        super(bootstrap, "task-create", "Create new task.");
     }
 
     @Override
@@ -21,13 +19,11 @@ public class TaskCreateCommand extends Command {
             System.out.println("Name task: ");
             name = reader.readLine();
         } while (!isStringValid(name));
-        name = reader.readLine();
 
         do {
             System.out.println("Description task: ");
             description = reader.readLine();
         } while (!isStringValid(description));
-        description = reader.readLine();
 
         do {
             System.out.println("Start date task: \"dd.MM.yyyy\" ");

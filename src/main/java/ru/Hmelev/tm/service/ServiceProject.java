@@ -50,5 +50,4 @@ public class ServiceProject extends Service {
     public void removeProject(UUID id) {
         projectsRepository.remove(id);
     }
-
 }

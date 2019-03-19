@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command;
 
 import com.google.common.base.Strings;
+import ru.Hmelev.tm.Bootstrap;
 import ru.Hmelev.tm.service.ServiceProject;
 import ru.Hmelev.tm.service.ServiceTask;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public abstract class Command {
-    public BufferedReader reader;
+    BufferedReader reader;
     ServiceProject serviceProject;
     ServiceTask serviceTask;
     String name;
@@ -24,19 +25,21 @@ public abstract class Command {
     UUID idProject;
     UUID idTask;
     UUID idProjectFromTask;
+
     SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+
     private String nameCommand;
     private String descriptionCommand;
 
-    public Command(String nameCommand, String descriptionCommand) {
+    public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand) {
+        this.reader = bootstrap.getReader();
+        this.serviceProject = bootstrap.getServiceProject();
+        this.serviceTask = bootstrap.getServiceTask();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
     }
 
-    public Command(BufferedReader reader, ServiceProject serviceProject, ServiceTask serviceTask, String nameCommand, String descriptionCommand) {
-        this.reader = reader;
-        this.serviceProject = serviceProject;
-        this.serviceTask = serviceTask;
+    public Command(String nameCommand, String descriptionCommand) {
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
     }

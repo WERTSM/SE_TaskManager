@@ -13,31 +13,43 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-class Bootstrap {
+public class Bootstrap {
     private Map<String, Command> commandMap = new HashMap<>();
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private ProjectsRepository projectsRepository = ProjectsRepository.getInstance();
-    private TasksRepository tasksRepository = TasksRepository.getInstance();
+    private ProjectsRepository projectsRepository = new ProjectsRepository();
+    private TasksRepository tasksRepository = new TasksRepository();
 
     private ServiceProject serviceProject = new ServiceProject(projectsRepository);
     private ServiceTask serviceTask = new ServiceTask(tasksRepository);
 
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public ServiceProject getServiceProject() {
+        return serviceProject;
+    }
+
+    public ServiceTask getServiceTask() {
+        return serviceTask;
+    }
+
     private Command command[] = new Command[]{
             new HelpCommand(),
             new ExitCommand(),
-            new ProjectCreateCommand(reader, serviceProject, serviceTask),
-            new ProjectClearCommand(reader, serviceProject, serviceTask),
-            new ProjectListCommand(reader, serviceProject, serviceTask),
-            new ProjectEditCommand(reader, serviceProject, serviceTask),
-            new ProjectShowCommand(reader, serviceProject, serviceTask),
-            new ProjectRemoveCommand(reader, serviceProject, serviceTask),
-            new TaskCreateCommand(reader, serviceProject, serviceTask),
-            new TaskClearCommand(reader, serviceProject, serviceTask),
-            new TaskListCommand(reader, serviceProject, serviceTask),
-            new TaskEditCommand(reader, serviceProject, serviceTask),
-            new TaskShowCommand(reader, serviceProject, serviceTask),
-            new TaskRemoveCommand(reader, serviceProject, serviceTask)
+            new ProjectCreateCommand(this),
+            new ProjectClearCommand(this),
+            new ProjectListCommand(this),
+            new ProjectEditCommand(this),
+            new ProjectShowCommand(this),
+            new ProjectRemoveCommand(this),
+            new TaskCreateCommand(this),
+            new TaskClearCommand(this),
+            new TaskListCommand(this),
+            new TaskEditCommand(this),
+            new TaskShowCommand(this),
+            new TaskRemoveCommand(this)
     };
 
     void init() throws IOException, ParseException {
