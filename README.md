@@ -1,8 +1,8 @@
 # SE_TaskManager
-JDK 1.7 НАБОР ПРАКТИЧЕСКИХ ЗАДАНИЙ JAVA SE &amp; EE SPRING FRAMEWORK
+НАБОР ПРАКТИЧЕСКИХ ЗАДАНИЙ JAVA SE
 ***
 **_ТРЕБОВАНИЯ К SOFTWARE:_**
-_JRE 7, Maven 3.6.0_
+_JDK 7, Maven 3.6.0_
 ***
 **СТЕК ТЕХНОЛОГИЙ:**
 _MAVEN_
@@ -14,7 +14,7 @@ _MAVEN_
 `*Path*to*directoty*` _mvn clean install_
 ***
 **КОМАНДА ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ:** 
-java -jar SE-Task-Manager-1.0-SNAPSHOT.jar
+_java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_
 ***
 **КОМАНДЫ ДЛЯ РАБОТЫ С ПРИЛОЖЕНИЕМ:**
 
