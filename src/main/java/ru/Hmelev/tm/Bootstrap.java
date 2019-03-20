@@ -5,6 +5,7 @@ import ru.Hmelev.tm.command.ExitCommand;
 import ru.Hmelev.tm.command.HelpCommand;
 import ru.Hmelev.tm.command.project.*;
 import ru.Hmelev.tm.command.task.*;
+import ru.Hmelev.tm.command.user.UserLoginCommand;
 import ru.Hmelev.tm.command.user.UserRegistryCommand;
 import ru.Hmelev.tm.repository.ProjectsRepository;
 import ru.Hmelev.tm.repository.TasksRepository;
@@ -47,7 +48,8 @@ public class Bootstrap {
             new TaskEditCommand(this),
             new TaskShowCommand(this),
             new TaskRemoveCommand(this),
-            new UserRegistryCommand(this)
+            new UserRegistryCommand(this),
+            new UserLoginCommand(this)
     };
 
     public BufferedReader getReader() {

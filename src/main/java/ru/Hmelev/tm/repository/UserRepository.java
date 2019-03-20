@@ -9,17 +9,17 @@ import java.util.HashMap;
 public class UserRepository {
     private HashMap<String, User> mapUsers = new HashMap<>();
 
-    //    public Collection<Project> findAll() {
-//        return mapProject.values();
-//    }
-//
-//    public Project findOne(String id) {
-//        return this.mapProject.get(id);
-//    }
-//
+    public Collection<User> findAll() {
+        return mapUsers.values();
+    }
+
+    // public User findOne(String id) {
+    //   return this.mapProject.get(id);
+    //}
+
     public void persist(String id, User user) {
         mapUsers.put(id, user);
-//    }
+    }
 //
 //    public void merge() {
 //    }
@@ -30,5 +30,5 @@ public class UserRepository {
 //
 //    public void remove(String id) {
 //        mapProject.remove(id);
-    }
 }
+

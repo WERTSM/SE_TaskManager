@@ -2,10 +2,10 @@ package ru.Hmelev.tm.entity;
 
 public class User {
     private String name;
-    private String hashPassword;
+    byte[] hashPassword;
     private Role role;
 
-    public User(String name, String hashPassword, Role role) {
+    public User(String name, byte[] hashPassword, Role role) {
         this.name = name;
         this.hashPassword = hashPassword;
         this.role = role;
@@ -19,11 +19,11 @@ public class User {
         this.name = name;
     }
 
-    public String getHashPassword() {
+    public byte[] getHashPassword() {
         return hashPassword;
     }
 
-    public void setHashPassword(String hashPassword) {
+    public void setHashPassword(byte[] hashPassword) {
         this.hashPassword = hashPassword;
     }
 
