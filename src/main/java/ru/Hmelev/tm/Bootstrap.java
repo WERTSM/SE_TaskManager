@@ -5,10 +5,13 @@ import ru.Hmelev.tm.command.ExitCommand;
 import ru.Hmelev.tm.command.HelpCommand;
 import ru.Hmelev.tm.command.project.*;
 import ru.Hmelev.tm.command.task.*;
+import ru.Hmelev.tm.command.user.UserRegistryCommand;
 import ru.Hmelev.tm.repository.ProjectsRepository;
 import ru.Hmelev.tm.repository.TasksRepository;
+import ru.Hmelev.tm.repository.UserRepository;
 import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
+import ru.Hmelev.tm.service.UserService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,9 +26,12 @@ public class Bootstrap {
 
     private ProjectsRepository projectsRepository = new ProjectsRepository();
     private TasksRepository tasksRepository = new TasksRepository();
+    private UserRepository userRepository = new UserRepository();
 
     private ProjectService projectService = new ProjectService(projectsRepository);
     private TaskService taskService = new TaskService(tasksRepository);
+    private UserService userService = new UserService(userRepository);
+
     private Command command[] = new Command[]{
             new HelpCommand(),
             new ExitCommand(),
@@ -40,7 +46,8 @@ public class Bootstrap {
             new TaskListCommand(this),
             new TaskEditCommand(this),
             new TaskShowCommand(this),
-            new TaskRemoveCommand(this)
+            new TaskRemoveCommand(this),
+            new UserRegistryCommand(this)
     };
 
     public BufferedReader getReader() {
@@ -53,6 +60,10 @@ public class Bootstrap {
 
     public TaskService getTaskService() {
         return taskService;
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 
     void init() throws IOException, ParseException {

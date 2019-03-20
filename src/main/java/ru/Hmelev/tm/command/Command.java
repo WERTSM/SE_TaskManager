@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import ru.Hmelev.tm.Bootstrap;
 import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
+import ru.Hmelev.tm.service.UserService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public abstract class Command {
+    protected UserService userService;
     protected BufferedReader reader;
     protected ProjectService projectService;
     protected TaskService taskService;
@@ -26,6 +28,10 @@ public abstract class Command {
     protected String idTask;
     protected String idProjectFromTask;
 
+    protected String login;
+    protected String password;
+    protected String role;
+
     protected SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
     private String nameCommand;
@@ -35,6 +41,7 @@ public abstract class Command {
         this.reader = bootstrap.getReader();
         this.projectService = bootstrap.getProjectService();
         this.taskService = bootstrap.getTaskService();
+        this.userService = bootstrap.getUserService();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
     }
