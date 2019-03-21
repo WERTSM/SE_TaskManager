@@ -1,4 +1,6 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.system;
+
+import ru.Hmelev.tm.command.Command;
 
 public class ExitCommand extends Command {
     public ExitCommand() {

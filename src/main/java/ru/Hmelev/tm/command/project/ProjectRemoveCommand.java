@@ -1,6 +1,6 @@
 package ru.Hmelev.tm.command.project;
 
-import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
@@ -14,11 +14,8 @@ public class ProjectRemoveCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
-        projectService.listProject();
-        do {
-            System.out.println("ID project: ");
-            idProject = reader.readLine();
-        } while (!isUUIDValid(idProject));
+        System.out.println("ID project: ");
+        idProject = reader.readLine();
 
         taskService.listTaskNoIdProject(idProject);
         projectService.removeProject(idProject);

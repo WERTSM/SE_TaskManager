@@ -1,6 +1,6 @@
 package ru.Hmelev.tm.command.project;
 
-import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Project;
 

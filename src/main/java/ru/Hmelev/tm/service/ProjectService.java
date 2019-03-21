@@ -15,8 +15,10 @@ public class ProjectService extends Service {
     }
 
     public void createProject(String id, String name, String description, Date startDate, Date finishDate) {
-        project = new Project(id, name, description, startDate, finishDate);
-        projectsRepository.persist(id, project);
+        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null) {
+            project = new Project(id, name, description, startDate, finishDate);
+            projectsRepository.persist(id, project);
+        }
     }
 
     public Collection<Project> findAllProjects() {
@@ -27,34 +29,26 @@ public class ProjectService extends Service {
         projectsRepository.removeAll();
     }
 
-    public void listProject() {
-        for (Project project : findAllProjects()) {
-            showProject(project.getId());
-        }
-    }
-
     public void editProject(String id, String name, String description, Date startDate, Date finishDate) {
-        project = projectsRepository.findOne(id);
-        project.setName(name);
-        project.setDescription(description);
-        project.setDateStart(startDate);
-        project.setDataFinish(finishDate);
+        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null) {
+            project = projectsRepository.findOne(id);
+            project.setName(name);
+            project.setDescription(description);
+            project.setDateStart(startDate);
+            project.setDataFinish(finishDate);
+        }
     }
 
-    public void showProject(String id) {
-        project = projectsRepository.findOne(id);
-        if (project != null) {
-            System.out.println(
-                    "[ ID = " + project.getId()
-                            + "; Name = " + project.getName()
-                            + "; Description = " + project.getDescription()
-                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(project.getDateStart())
-                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(project.getDataFinish())
-                            + " ]");
+    public Project findProject(String id) {
+        if (id != null && !id.isEmpty()) {
+            return projectsRepository.findOne(id);
         }
+        return null;
     }
 
     public void removeProject(String id) {
-        projectsRepository.remove(id);
+        if (id != null && !id.isEmpty()) {
+            projectsRepository.remove(id);
+        }
     }
 }

@@ -1,4 +1,6 @@
-package ru.Hmelev.tm.command;
+package ru.Hmelev.tm.command.system;
+
+import ru.Hmelev.tm.command.Command;
 
 public class HelpCommand extends Command {
     public HelpCommand() {

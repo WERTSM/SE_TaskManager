@@ -1,10 +1,12 @@
 package ru.Hmelev.tm.command.project;
 
-import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.text.ParseException;
+
+import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class ProjectEditCommand extends Command {
     public ProjectEditCommand(Bootstrap bootstrap) {
@@ -14,33 +16,22 @@ public class ProjectEditCommand extends Command {
     @Override
     public void execute() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
-        projectService.listProject();
 
-        do {
-            System.out.println("ID project: ");
-            idProject = reader.readLine();
-        } while (!isUUIDValid(idProject));
+        System.out.println("ID project: ");
+        idProject = reader.readLine();
 
-        do {
-            System.out.println("Name project: ");
-            name = reader.readLine();
-        } while (!isStringValid(name));
+        System.out.println("Name project: ");
+        name = reader.readLine();
 
-        do {
-            System.out.println("Description: ");
-            description = reader.readLine();
-        } while (!isStringValid(description));
+        System.out.println("Description: ");
+        description = reader.readLine();
 
-        do {
-            System.out.println("Start date: \"dd.MM.yyyy\" ");
-            date = reader.readLine();
-        } while (!isDateValid(date));
+        System.out.println("Start date: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
         startDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        do {
-            System.out.println("Finish date: \"dd.MM.yyyy\" ");
-            date = reader.readLine();
-        } while (!isDateValid(date));
+        System.out.println("Finish date: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
         projectService.editProject(idProject, name, description, startDate, finishDate);

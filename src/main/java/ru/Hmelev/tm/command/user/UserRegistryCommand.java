@@ -1,13 +1,10 @@
 package ru.Hmelev.tm.command.user;
 
-import com.google.common.hash.Hashing;
 import org.apache.commons.lang3.EnumUtils;
-import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class UserRegistryCommand extends Command {
     public UserRegistryCommand(Bootstrap bootstrap) {

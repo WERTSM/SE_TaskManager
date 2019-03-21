@@ -1,11 +1,8 @@
 package ru.Hmelev.tm.command.user;
 
-import com.google.common.hash.Hashing;
-import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.service.UserService;
 
-import javax.xml.ws.Service;
 import java.io.IOException;
 
 public class UserLoginCommand extends Command {

@@ -1,10 +1,12 @@
 package ru.Hmelev.tm.command.task;
 
-import ru.Hmelev.tm.Bootstrap;
+import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 
 import java.io.IOException;
 import java.text.ParseException;
+
+import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class TaskEditCommand extends Command {
     public TaskEditCommand(Bootstrap bootstrap) {
@@ -14,44 +16,30 @@ public class TaskEditCommand extends Command {
     @Override
     public void execute() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
-        taskService.listTask();
 
-        do {
-            System.out.println("ID task: ");
-            idTask = reader.readLine();
-        } while (!isUUIDValid(idTask));
+        System.out.println("ID task: ");
+        idTask = reader.readLine();
 
-        do {
-            System.out.println("Name task: ");
-            name = reader.readLine();
-        } while (!isStringValid(name));
+        System.out.println("Name task: ");
+        name = reader.readLine();
 
-        do {
-            System.out.println("Description task: ");
-            description = reader.readLine();
-        } while (!isStringValid(description));
+        System.out.println("Description task: ");
+        description = reader.readLine();
 
-        do {
-            System.out.println("Start date task: \"dd.MM.yyyy\" ");
-            date = reader.readLine();
-        } while (!isDateValid(date));
+        System.out.println("Start date task: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
         startDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        do {
-            System.out.println("Finish date task: \"dd.MM.yyyy\" ");
-            date = reader.readLine();
-        } while (!isDateValid(date));
+        System.out.println("Finish date task: \"dd.MM.yyyy\" ");
+        date = reader.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        do {
-            System.out.println("Id project or \'0\': ");
-            projectService.listProject();
+        System.out.println("Id project or \'0\': ");
 
-            idProjectFromTask = reader.readLine();
-            if (idProjectFromTask.equals("0")) {
-                idProjectFromTask = "00000000-0000-0000-0000-000000000000";
-            }
-        } while (!isUUIDValid(idProjectFromTask));
+        idProjectFromTask = reader.readLine();
+        if (idProjectFromTask.equals("0")) {
+            idProjectFromTask = "00000000-0000-0000-0000-000000000000";
+        }
 
         taskService.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
         System.out.println("!!!DONE!!!");
