@@ -2,6 +2,8 @@ package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Security;
+import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,7 +12,7 @@ import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class TaskEditCommand extends Command {
     public TaskEditCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-edit", "Edit selected task");
+        super(bootstrap, "task-edit", "Edit selected task", Security.PRIVATE, Role.ADMIN);
     }
 
     @Override

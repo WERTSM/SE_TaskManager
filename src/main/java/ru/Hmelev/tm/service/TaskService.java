@@ -15,9 +15,9 @@ public class TaskService extends Service {
         this.taskRepository = taskRepository;
     }
 
-    public void createTask(String id, String name, String description, Date startDate, Date finishDate, String idProject) {
-        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty()
-                && startDate != null && finishDate != null && idProject != null && !idProject.isEmpty()) {
+    public void createTask(String name, String description, Date startDate, Date finishDate, String idProject) {
+        if (name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null && idProject != null && !idProject.isEmpty()) {
+            String id = UUID.randomUUID().toString();
             task = new Task(id, name, description, startDate, finishDate, idProject);
             taskRepository.persist(id, task);
         }

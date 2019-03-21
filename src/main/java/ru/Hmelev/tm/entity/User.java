@@ -1,14 +1,20 @@
 package ru.Hmelev.tm.entity;
 
 public class User {
+    private String id;
     private String name;
-    byte[] hashPassword;
+    private byte[] hashPassword;
     private Role role;
 
-    public User(String name, byte[] hashPassword, Role role) {
+    public User(String id, String name, byte[] hashPassword, Role role) {
+        this.id = id;
         this.name = name;
         this.hashPassword = hashPassword;
         this.role = role;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {

@@ -1,9 +1,9 @@
 package ru.Hmelev.tm.entity;
 
 public enum Role {
-    ADMIN("admin"), USER("user");
+    ADMIN("Админ"), USER("Пользователь");
 
-    private String displayName;
+    String displayName;
 
     Role(String displayName) {
         this.displayName = displayName;

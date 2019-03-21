@@ -2,16 +2,17 @@ package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Security;
+import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.UUID;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class TaskCreateCommand extends Command {
     public TaskCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-create", "Create new task.");
+        super(bootstrap, "task-create", "Create new task.", Security.PRIVATE, Role.USER);
     }
 
     @Override
@@ -39,9 +40,7 @@ public class TaskCreateCommand extends Command {
             idProjectFromTask = "00000000-0000-0000-0000-000000000000";
         }
 
-        idTask = UUID.randomUUID().toString();
-
-        taskService.createTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
+        taskService.createTask(name, description, startDate, finishDate, idProjectFromTask);
         System.out.println("!!!DONE!!!");
     }
 }

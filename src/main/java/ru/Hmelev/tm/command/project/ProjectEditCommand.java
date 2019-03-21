@@ -2,6 +2,8 @@ package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Security;
+import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,7 +12,7 @@ import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class ProjectEditCommand extends Command {
     public ProjectEditCommand(Bootstrap bootstrap) {
-        super(bootstrap, "project-edit", "Edit selected project");
+        super(bootstrap, "project-edit", "Edit selected project", Security.PRIVATE, Role.USER);
     }
 
     @Override

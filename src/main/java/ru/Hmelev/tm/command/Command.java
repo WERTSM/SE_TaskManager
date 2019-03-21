@@ -1,6 +1,8 @@
 package ru.Hmelev.tm.command;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.command.util.Security;
+import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
 import ru.Hmelev.tm.service.UserService;
@@ -32,18 +34,42 @@ public abstract class Command {
     private String nameCommand;
     private String descriptionCommand;
 
-    public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand) {
+    protected Bootstrap bootstrap;
+
+    public Security getSecurity() {
+        return security;
+    }
+
+    protected Security security;
+    private Role roleCommand;
+
+    public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand, Security security) {
+        this.bootstrap = bootstrap;
         this.reader = bootstrap.getReader();
         this.projectService = bootstrap.getProjectService();
         this.taskService = bootstrap.getTaskService();
         this.userService = bootstrap.getUserService();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
+        this.security = security;
     }
 
-    public Command(String nameCommand, String descriptionCommand) {
+    public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand, Security security, Role role) {
+        this.bootstrap = bootstrap;
+        this.reader = bootstrap.getReader();
+        this.projectService = bootstrap.getProjectService();
+        this.taskService = bootstrap.getTaskService();
+        this.userService = bootstrap.getUserService();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
+        this.security = security;
+        this.roleCommand = role;
+    }
+
+    public Command(String nameCommand, String descriptionCommand, Security security) {
+        this.nameCommand = nameCommand;
+        this.descriptionCommand = descriptionCommand;
+        this.security = security;
     }
 
     public String getNameCommand() {
@@ -52,6 +78,10 @@ public abstract class Command {
 
     public String getDescriptionCommand() {
         return descriptionCommand;
+    }
+
+    public Role getRoleCommand() {
+        return roleCommand;
     }
 
     public void execute() throws IOException, ParseException {

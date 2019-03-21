@@ -2,12 +2,14 @@ package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Security;
+import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 
 public class TaskRemoveCommand extends Command {
     public TaskRemoveCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-remove", "Remove selected task.");
+        super(bootstrap, "task-remove", "Remove selected task.", Security.PRIVATE, Role.ADMIN);
     }
 
     @Override

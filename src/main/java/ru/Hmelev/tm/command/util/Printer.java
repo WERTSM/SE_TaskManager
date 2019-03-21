@@ -2,6 +2,7 @@ package ru.Hmelev.tm.command.util;
 
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Task;
+import ru.Hmelev.tm.entity.User;
 
 import java.text.SimpleDateFormat;
 
@@ -60,6 +61,16 @@ public class Printer {
                     + "; Name = " + task.getName()
                     + "; Description = " + task.getDescription()
                     + " ]");
+        }
+    }
+
+    public static void showListUser(User user) {
+        if (user != null) {
+            System.out.println(
+                    "[ ID = " + user.getId()
+                            + "; Login = " + user.getName()
+                            + "; Role = " + user.getRole().displayName()
+                            + " ]");
         }
     }
 }

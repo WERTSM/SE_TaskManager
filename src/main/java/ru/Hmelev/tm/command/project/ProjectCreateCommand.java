@@ -2,16 +2,17 @@ package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Security;
+import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.UUID;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class ProjectCreateCommand extends Command {
     public ProjectCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap, "project-create", "Create new project.");
+        super(bootstrap, "project-create", "Create new project.", Security.PRIVATE, Role.USER);
     }
 
     @Override
@@ -32,9 +33,7 @@ public class ProjectCreateCommand extends Command {
         date = reader.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        idProject = UUID.randomUUID().toString();
-
-        projectService.createProject(idProject, name, description, startDate, finishDate);
+        projectService.createProject(name, description, startDate, finishDate);
         System.out.println("!!!DONE!!!");
     }
 }

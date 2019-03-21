@@ -1,13 +1,13 @@
 package ru.Hmelev.tm.repository;
 
-
 import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserRepository {
-    private HashMap<String, User> mapUsers = new HashMap<>();
+    private final Map<String, User> mapUsers = new HashMap<>();
 
     public Collection<User> findAll() {
         return mapUsers.values();
@@ -17,8 +17,10 @@ public class UserRepository {
     //   return this.mapProject.get(id);
     //}
 
-    public void persist(String id, User user) {
-        mapUsers.put(id, user);
+    public void persist(User user) {
+        if (user != null) {
+            mapUsers.put(user.getId(), user);
+        }
     }
 //
 //    public void merge() {
