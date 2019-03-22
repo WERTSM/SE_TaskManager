@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command.user;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
@@ -8,8 +9,8 @@ import ru.Hmelev.tm.entity.Role;
 import java.io.IOException;
 
 public class UserSetPasswordCommand extends Command {
-    public UserSetPasswordCommand(Bootstrap bootstrap) {
-        super(bootstrap, "user-setPassword", "Registers user", Security.PRIVATE, Role.ADMIN);
+    public UserSetPasswordCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator, "user-setPassword", "Registers user", Security.PRIVATE, Role.ADMIN);
     }
 
     @Override

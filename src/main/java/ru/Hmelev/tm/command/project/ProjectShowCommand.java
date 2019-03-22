@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Printer;
 import ru.Hmelev.tm.command.util.Security;
@@ -12,8 +13,8 @@ import ru.Hmelev.tm.entity.User;
 import java.io.IOException;
 
 public class ProjectShowCommand extends Command {
-    public ProjectShowCommand(Bootstrap bootstrap) {
-        super(bootstrap, "project-show", "Show selected project.", Security.PRIVATE, Role.USER);
+    public ProjectShowCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator, "project-show", "Show selected project.", Security.PRIVATE, Role.USER);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class ProjectShowCommand extends Command {
         System.out.println("ID project: ");
         idProject = reader.readLine();
 
-        User user = userService.findUser(bootstrap.getIdUserSession());
+        User user = userService.findUser(serviceLocator.getIdUserSession());
         Project project = projectService.findProject(idProject);
         if (project != null) {
             Printer.showProject(project, user);

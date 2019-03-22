@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Bootstrap {
+public class Bootstrap implements ServiceLocator{
     private final Map<String, Command> commandMap = new HashMap<>();
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

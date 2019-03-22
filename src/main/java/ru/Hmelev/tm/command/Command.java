@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.service.ProjectService;
@@ -35,7 +36,7 @@ public abstract class Command {
     private String nameCommand;
     private String descriptionCommand;
 
-    protected Bootstrap bootstrap;
+    protected ServiceLocator serviceLocator;
 
     public Security getSecurity() {
         return security;
@@ -44,23 +45,23 @@ public abstract class Command {
     protected Security security;
     private Role roleCommand;
 
-    public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand, Security security) {
-        this.bootstrap = bootstrap;
-        this.reader = bootstrap.getReader();
-        this.projectService = bootstrap.getProjectService();
-        this.taskService = bootstrap.getTaskService();
-        this.userService = bootstrap.getUserService();
+    public Command(ServiceLocator serviceLocator, String nameCommand, String descriptionCommand, Security security) {
+        this.serviceLocator = serviceLocator;
+        this.reader = serviceLocator.getReader();
+        this.projectService = serviceLocator.getProjectService();
+        this.taskService = serviceLocator.getTaskService();
+        this.userService = serviceLocator.getUserService();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
         this.security = security;
     }
 
-    public Command(Bootstrap bootstrap, String nameCommand, String descriptionCommand, Security security, Role role) {
-        this.bootstrap = bootstrap;
-        this.reader = bootstrap.getReader();
-        this.projectService = bootstrap.getProjectService();
-        this.taskService = bootstrap.getTaskService();
-        this.userService = bootstrap.getUserService();
+    public Command(ServiceLocator serviceLocator, String nameCommand, String descriptionCommand, Security security, Role role) {
+        this.serviceLocator = serviceLocator;
+        this.reader = serviceLocator.getReader();
+        this.projectService = serviceLocator.getProjectService();
+        this.taskService = serviceLocator.getTaskService();
+        this.userService = serviceLocator.getUserService();
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
         this.security = security;

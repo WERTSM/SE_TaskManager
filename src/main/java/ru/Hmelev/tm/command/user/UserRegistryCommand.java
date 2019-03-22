@@ -1,14 +1,15 @@
 package ru.Hmelev.tm.command.user;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
 
 import java.io.IOException;
 
 public class UserRegistryCommand extends Command {
-    public UserRegistryCommand(Bootstrap bootstrap) {
-        super(bootstrap, "user-registry", "Registers user", Security.FREE);
+    public UserRegistryCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator, "user-registry", "Registers user", Security.FREE);
     }
 
     @Override

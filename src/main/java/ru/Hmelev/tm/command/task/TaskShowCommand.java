@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Printer;
 import ru.Hmelev.tm.command.util.Security;
@@ -11,8 +12,8 @@ import ru.Hmelev.tm.entity.User;
 import java.io.IOException;
 
 public class TaskShowCommand extends Command {
-    public TaskShowCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-show", "Show selected project.", Security.PRIVATE, Role.USER);
+    public TaskShowCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator, "task-show", "Show selected project.", Security.PRIVATE, Role.USER);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class TaskShowCommand extends Command {
         System.out.println("ID task: ");
         idTask = reader.readLine();
 
-        User user = userService.findUser(bootstrap.getIdUserSession());
+        User user = userService.findUser(serviceLocator.getIdUserSession());
         Task task = taskService.findTask(idTask);
 
         Printer.showTask(task, user);

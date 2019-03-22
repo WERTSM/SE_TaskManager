@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
@@ -11,8 +12,8 @@ import java.text.ParseException;
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class ProjectCreateCommand extends Command {
-    public ProjectCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap, "project-create", "Create new project.", Security.PRIVATE, Role.USER);
+    public ProjectCreateCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator, "project-create", "Create new project.", Security.PRIVATE, Role.USER);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class ProjectCreateCommand extends Command {
         date = reader.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        userId = bootstrap.getIdUserSession();
+        userId = serviceLocator.getIdUserSession();
 
         projectService.createProject(name, description, startDate, finishDate, userId);
         System.out.println("!!!DONE!!!");

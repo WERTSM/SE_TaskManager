@@ -1,6 +1,7 @@
 package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
+import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
@@ -11,8 +12,8 @@ import java.text.ParseException;
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class TaskCreateCommand extends Command {
-    public TaskCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap, "task-create", "Create new task.", Security.PRIVATE, Role.USER);
+    public TaskCreateCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator, "task-create", "Create new task.", Security.PRIVATE, Role.USER);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class TaskCreateCommand extends Command {
             idProjectFromTask = "00000000-0000-0000-0000-000000000000";
         }
 
-        userId = bootstrap.getIdUserSession();
+        userId = serviceLocator.getIdUserSession();
 
         taskService.createTask(name, description, startDate, finishDate, idProjectFromTask, userId);
         System.out.println("!!!DONE!!!");
