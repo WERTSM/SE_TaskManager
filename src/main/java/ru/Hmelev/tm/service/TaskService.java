@@ -1,16 +1,16 @@
 package ru.Hmelev.tm.service;
 
 import ru.Hmelev.tm.entity.Task;
-import ru.Hmelev.tm.repository.TasksRepository;
+import ru.Hmelev.tm.repository.ITaskRepository;
 
 import java.util.*;
 
 public class TaskService extends Service {
-    private final TasksRepository taskRepository;
+    private final ITaskRepository taskRepository;
     private final List<Task> list = new ArrayList<>();
     private Task task;
 
-    public TaskService(TasksRepository taskRepository) {
+    public TaskService(ITaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -22,8 +22,11 @@ public class TaskService extends Service {
         }
     }
 
-    public void clearTask() {
-        taskRepository.removeAll();
+    public Task findTask(String id) {
+        if (id != null && !id.isEmpty()) {
+            return taskRepository.findOne(id);
+        }
+        return null;
     }
 
     public Collection<Task> findAllTasks(String userId) {
@@ -50,15 +53,14 @@ public class TaskService extends Service {
         }
     }
 
-    public Task findTask(String id) {
-        if (id != null && !id.isEmpty()) {
-            return taskRepository.findOne(id);
-        }
-        return null;
-    }
+
 
     public void removeTask(String id) {
         taskRepository.remove(id);
+    }
+
+    public void clearTask() {
+        taskRepository.removeAll();
     }
 
     public List<Task> listTaskIdProject(String idProject) {

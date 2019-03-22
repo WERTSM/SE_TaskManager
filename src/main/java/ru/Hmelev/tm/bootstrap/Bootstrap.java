@@ -8,9 +8,7 @@ import ru.Hmelev.tm.command.task.*;
 import ru.Hmelev.tm.command.user.*;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
-import ru.Hmelev.tm.repository.ProjectsRepository;
-import ru.Hmelev.tm.repository.TasksRepository;
-import ru.Hmelev.tm.repository.UserRepository;
+import ru.Hmelev.tm.repository.*;
 import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
 import ru.Hmelev.tm.service.UserService;
@@ -24,12 +22,12 @@ public class Bootstrap {
     private final Map<String, Command> commandMap = new HashMap<>();
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private final ProjectsRepository projectsRepository = new ProjectsRepository();
-    private final TasksRepository tasksRepository = new TasksRepository();
-    private final UserRepository userRepository = new UserRepository();
+    private final IProjectRepository projectRepository = new ProjectRepository();
+    private final ITaskRepository taskRepository = new TaskRepository();
+    private final IUserRepository userRepository = new UserRepository();
 
-    private final ProjectService projectService = new ProjectService(projectsRepository);
-    private final TaskService taskService = new TaskService(tasksRepository);
+    private final ProjectService projectService = new ProjectService(projectRepository);
+    private final TaskService taskService = new TaskService(taskRepository);
     private final UserService userService = new UserService(userRepository, this);
 
 
