@@ -6,36 +6,36 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProjectsRepository {
+public class ProjectRepository implements IProjectRepository {
     private final Map<String, Project> mapProject = new HashMap<>();
-
-    public Collection<Project> findAll() {
-        return mapProject.values();
+    @Override
+    public void persist(String id, Project project) {
+        if (id != null && !id.isEmpty() && project != null) {
+            mapProject.put(id, project);
+        }
     }
-
+    @Override
     public Project findOne(String id) {
         if (id != null && !id.isEmpty()) {
             return this.mapProject.get(id);
         }
         return null;
     }
-
-    public void persist(String id, Project project) {
-        if (id != null && !id.isEmpty() && project != null) {
-            mapProject.put(id, project);
-        }
+    @Override
+    public Collection<Project> findAll() {
+        return mapProject.values();
     }
-
+    @Override
     public void merge() {
     }
-
-    public void removeAll() {
-        mapProject.clear();
-    }
-
+    @Override
     public void remove(String id) {
         if (id != null && !id.isEmpty()) {
             mapProject.remove(id);
         }
+    }
+    @Override
+    public void removeAll() {
+        mapProject.clear();
     }
 }

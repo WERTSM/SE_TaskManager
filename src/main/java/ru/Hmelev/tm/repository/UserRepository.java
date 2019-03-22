@@ -6,20 +6,24 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepository {
+public class UserRepository implements IUserRepository {
     private final Map<String, User> mapUsers = new HashMap<>();
 
-    public Collection<User> findAll() {
-        return mapUsers.values();
-    }
-
-    public User findOne(String id) {
-        return this.mapUsers.get(id);
-    }
-
+    @Override
     public void persist(User user) {
         if (user != null) {
             mapUsers.put(user.getId(), user);
         }
     }
+
+    @Override
+    public User findOne(String id) {
+        return this.mapUsers.get(id);
+    }
+
+    public Collection<User> findAll() {
+        return mapUsers.values();
+    }
+
+
 }
