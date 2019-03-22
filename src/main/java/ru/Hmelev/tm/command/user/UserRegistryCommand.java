@@ -21,7 +21,7 @@ public final class UserRegistryCommand extends Command {
         System.out.println("Введите пароль для нового пользователя");
         password = reader.readLine();
 
-        System.out.println("Введите тип пользователся (Админ/Пользователь)");
+        System.out.println("Введите тип пользователся (admin/user)");
         role = reader.readLine();
 
         userService.registry(login, password, role);

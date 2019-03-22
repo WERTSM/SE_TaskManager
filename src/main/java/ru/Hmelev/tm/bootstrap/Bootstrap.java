@@ -119,7 +119,7 @@ public final class Bootstrap implements ServiceLocator{
             return true;
         }
         if (idUserSession == null) {
-            System.out.println("Сначало зарегистрируйтесь");
+            System.out.println("Сначала зарегистрируйтесь");
             return false;
         } else {
             if (commandString.getNameCommand().equals("user-login")) {
@@ -132,7 +132,7 @@ public final class Bootstrap implements ServiceLocator{
             if (commandString.getRoleCommand() == userRoleSession) {
                 return true;
             } else {
-                System.out.println("Сначало разлагинтесь");
+                System.out.println("Не хватает прав");
                 return false;
             }
         }
