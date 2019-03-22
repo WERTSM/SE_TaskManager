@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProjectsRepository {
-    private Map<String, Project> mapProject = new HashMap<>();
+    private final Map<String, Project> mapProject = new HashMap<>();
 
     public Collection<Project> findAll() {
         return mapProject.values();

@@ -43,7 +43,10 @@ public class TaskEditCommand extends Command {
             idProjectFromTask = "00000000-0000-0000-0000-000000000000";
         }
 
-        taskService.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask);
+        System.out.println("User ID: ");
+        userId = reader.readLine();
+
+        taskService.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask, userId);
         System.out.println("!!!DONE!!!");
     }
 }

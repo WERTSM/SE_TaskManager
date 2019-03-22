@@ -26,6 +26,7 @@ public abstract class Command {
     protected String idProject;
     protected String idTask;
     protected String idProjectFromTask;
+    protected String userId;
 
     protected String login;
     protected String password;

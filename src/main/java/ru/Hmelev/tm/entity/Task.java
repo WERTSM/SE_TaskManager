@@ -9,8 +9,9 @@ public class Task {
     private Date startDate;
     private Date finishDate;
     private String idProject;
+    private String userId;
 
-    public Task(String id, String name, String description, Date startDate, Date finishDate, String idProject) {
+    public Task(String id, String name, String description, Date startDate, Date finishDate, String idProject, String userId) {
         this.id = id;
         this.name = name;
 
@@ -18,6 +19,11 @@ public class Task {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.idProject = idProject;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getName() {

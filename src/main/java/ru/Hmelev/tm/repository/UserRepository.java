@@ -13,24 +13,13 @@ public class UserRepository {
         return mapUsers.values();
     }
 
-    // public User findOne(String id) {
-    //   return this.mapProject.get(id);
-    //}
+    public User findOne(String id) {
+        return this.mapUsers.get(id);
+    }
 
     public void persist(User user) {
         if (user != null) {
             mapUsers.put(user.getId(), user);
         }
     }
-//
-//    public void merge() {
-//    }
-//
-//    public void removeAll() {
-//        mapProject.clear();
-//    }
-//
-//    public void remove(String id) {
-//        mapProject.remove(id);
 }
-

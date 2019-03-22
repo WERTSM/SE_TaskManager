@@ -33,7 +33,9 @@ public class ProjectCreateCommand extends Command {
         date = reader.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        projectService.createProject(name, description, startDate, finishDate);
+        userId = bootstrap.getIdUserSession();
+
+        projectService.createProject(name, description, startDate, finishDate, userId);
         System.out.println("!!!DONE!!!");
     }
 }

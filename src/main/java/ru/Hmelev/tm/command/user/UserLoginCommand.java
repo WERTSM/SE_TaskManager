@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class UserLoginCommand extends Command {
     public UserLoginCommand(Bootstrap bootstrap) {
-        super(bootstrap, "user-login", "descriptionCommand", Security.FREE);
+        super(bootstrap, "user-login", "User LOGIN", Security.FREE);
     }
 
     @Override
@@ -23,5 +23,6 @@ public class UserLoginCommand extends Command {
         } else {
             System.out.println("NO OK");
         }
+        System.out.println("!!!DONE!!!");
     }
 }

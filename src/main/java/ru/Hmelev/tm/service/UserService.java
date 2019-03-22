@@ -13,11 +13,9 @@ import java.util.UUID;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class UserService {
-    User user;
-    byte[] password;
-    Role role;
+    private byte[] password;
+    private Bootstrap bootstrap;
     private UserRepository userRepository;
-    Bootstrap bootstrap;
 
     public UserService(UserRepository userRepository, Bootstrap bootstrap) {
         this.userRepository = userRepository;
@@ -27,9 +25,9 @@ public class UserService {
     public void registry(String login, String pass, String roleStr) {
         if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty() && roleStr != null && !roleStr.isEmpty()) {
             String id = UUID.randomUUID().toString();
-            password = Hashing.md5().hashString(pass, UTF_8).asBytes();
-            role = Role.valueOf(roleStr.toUpperCase());
-            user = new User(id, login, password, role);
+            password = Hashing.sha256().hashString(pass, UTF_8).asBytes();
+            Role role = Role.valueOf(roleStr.toUpperCase());
+            User user = new User(id, login, password, role);
             userRepository.persist(user);
         }
     }
@@ -37,7 +35,7 @@ public class UserService {
     public boolean userLogin(String login, String pass) {
         for (User user : userRepository.findAll()) {
             if (user.getName().equals(login)) {
-                password = (Hashing.md5().hashString(pass, UTF_8).asBytes());
+                password = (Hashing.sha256().hashString(pass, UTF_8).asBytes());
                 byte[] passwordUserRepository = user.getHashPassword();
                 if (Arrays.equals(password, passwordUserRepository)) {
                     bootstrap.setIdUserSession(user.getId());
@@ -56,9 +54,16 @@ public class UserService {
     public void userSetPassword(String login, String pass) {
         for (User user : userRepository.findAll()) {
             if (user.getName().equals(login)) {
-                password = (Hashing.md5().hashString(pass, UTF_8).asBytes());
+                password = (Hashing.sha256().hashString(pass, UTF_8).asBytes());
                 user.setHashPassword(password);
             }
         }
+    }
+
+    public User findUser(String id) {
+        if (id != null && !id.isEmpty()) {
+            return userRepository.findOne(id);
+        }
+        return null;
     }
 }

@@ -16,10 +16,9 @@ public class TaskListCommand extends Command {
     public void execute() {
         System.out.println("!!!Start command!!!");
 
-        for (Task task : taskService.findAllTasks()) {
+        for (Task task : taskService.findAllTasks(bootstrap.getIdUserSession())) {
             Printer.showListTask(task);
         }
-        taskService.findAllTasks();
 
         System.out.println("!!!DONE!!!");
     }

@@ -53,6 +53,7 @@ public class Bootstrap {
             new UserListCommand(this),
             new UserLogoutCommand(this),
             new UserSetPasswordCommand(this),
+            new UserProfileCommand(this),
             new UserUpdateCommand(this)
     };
 
@@ -94,6 +95,7 @@ public class Bootstrap {
         }
 
         userService.registry("user", "user", "user");
+        userService.registry("admin", "admin", "admin");
 
         while (!Thread.currentThread().isInterrupted()) {
             System.out.println("Enter the command:");
@@ -101,8 +103,7 @@ public class Bootstrap {
             try {
                 commandString = commandMap.get(reader.readLine());
                 if (commandString != null) {
-                    System.out.println(idUserSession);
-                    System.out.println(userRoleSession);
+                    //System.out.println("Сейчас в системе: id_User = " + idUserSession +" Role = " + userRoleSession);
                     if (permit(commandString))
                         commandString.execute();
                 } else {
@@ -110,7 +111,7 @@ public class Bootstrap {
                 }
             } catch (Exception e) {
                 System.out.println("--- Command ERROR! ---");
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }

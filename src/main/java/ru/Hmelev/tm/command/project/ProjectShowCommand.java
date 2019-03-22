@@ -7,6 +7,7 @@ import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.Task;
+import ru.Hmelev.tm.entity.User;
 
 import java.io.IOException;
 
@@ -22,9 +23,10 @@ public class ProjectShowCommand extends Command {
         System.out.println("ID project: ");
         idProject = reader.readLine();
 
+        User user = userService.findUser(bootstrap.getIdUserSession());
         Project project = projectService.findProject(idProject);
         if (project != null) {
-            Printer.showProject(project);
+            Printer.showProject(project, user);
             for (Task task : taskService.listTaskIdProject(idProject)) {
                 Printer.showTaskInProject(task);
             }

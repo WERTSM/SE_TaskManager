@@ -15,7 +15,6 @@ public class TaskRemoveCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        taskService.findAllTasks();
 
         System.out.println("ID task: ");
         idTask = reader.readLine();

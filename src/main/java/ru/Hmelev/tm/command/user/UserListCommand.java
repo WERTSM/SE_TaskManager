@@ -7,18 +7,17 @@ import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.User;
 
-import java.io.IOException;
-
 public class UserListCommand extends Command {
     public UserListCommand(Bootstrap bootstrap) {
-        super(bootstrap, "user-list", "List users", Security.PRIVATE, Role.USER);
+        super(bootstrap, "user-list", "List users", Security.PRIVATE, Role.ADMIN);
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         System.out.println("!!!Start command!!!");
-        for(User user: userService.userList()){
+        for (User user : userService.userList()) {
             Printer.showListUser(user);
         }
+        System.out.println("!!!DONE!!!");
     }
 }

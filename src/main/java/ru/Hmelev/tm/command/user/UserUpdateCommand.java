@@ -2,11 +2,12 @@ package ru.Hmelev.tm.command.user;
 
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Printer;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.User;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 public class UserUpdateCommand extends Command {
     public UserUpdateCommand(Bootstrap bootstrap) {
@@ -14,12 +15,20 @@ public class UserUpdateCommand extends Command {
     }
 
     @Override
-    public void execute() throws IOException, ParseException {
+    public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        System.out.println("Введите логин пользователя");
+        User user = userService.findUser(bootstrap.getIdUserSession());
+        Printer.showUser(user);
+
+        System.out.println("Измените логин текущего пользователя");
         String login = reader.readLine();
-        System.out.println("Введите новый пароль пользователя");
+
+        System.out.println("Измените пароль текущего пользователя");
         String password = reader.readLine();
-        userService.userSetPassword(login,password);
+
+
+        userService.userSetPassword(user.getName(), password);
+        user.setName(login);
+        System.out.println("!!!DONE!!!");
     }
 }

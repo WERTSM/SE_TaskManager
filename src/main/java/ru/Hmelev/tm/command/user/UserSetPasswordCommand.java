@@ -11,6 +11,7 @@ public class UserSetPasswordCommand extends Command {
     public UserSetPasswordCommand(Bootstrap bootstrap) {
         super(bootstrap, "user-setPassword", "Registers user", Security.PRIVATE, Role.ADMIN);
     }
+
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
@@ -18,6 +19,7 @@ public class UserSetPasswordCommand extends Command {
         String login = reader.readLine();
         System.out.println("Введите новый пароль пользователя");
         String password = reader.readLine();
-        userService.userSetPassword(login,password);
+        userService.userSetPassword(login, password);
+        System.out.println("!!!DONE!!!");
     }
 }

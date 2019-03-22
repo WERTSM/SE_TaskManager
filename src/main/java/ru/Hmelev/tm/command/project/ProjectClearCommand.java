@@ -14,7 +14,7 @@ public class ProjectClearCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        for (Project project : projectService.findAllProjects()) {
+        for (Project project : projectService.findAllProjects(bootstrap.getIdUserSession())) {
             taskService.listTaskNoIdProject(project.getId());
         }
         projectService.clearProject();

@@ -9,12 +9,23 @@ public class Project {
     private Date dateStart;
     private Date dataFinish;
 
-    public Project(String id, String name, String description, Date dateStart, Date dataFinish) {
+    private String userId;
+
+    public Project(String id, String name, String description, Date dateStart, Date dataFinish, String userId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateStart = dateStart;
         this.dataFinish = dataFinish;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getId() {

@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 public class Printer {
     public static SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static void showProject(Project project) {
+    public static void showProject(Project project, User user) {
         if (project != null) {
             System.out.println(
                     "[ ID = " + project.getId()
@@ -17,11 +17,12 @@ public class Printer {
                             + "; Description = " + project.getDescription()
                             + "; Start date = " + DEFAULT_DATE_FORMAT.format(project.getDateStart())
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(project.getDataFinish())
+                            + "; Name user = " + user.getName()
                             + " ]");
         }
     }
 
-    public static void showTask(Task task) {
+    public static void showTask(Task task, User user) {
         if (task != null) {
             System.out.println(
                     "[ ID = " + task.getId()
@@ -30,6 +31,7 @@ public class Printer {
                             + "; Start date = " + DEFAULT_DATE_FORMAT.format(task.getStartDate())
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(task.getFinishDate())
                             + "; idProject = " + task.getIdProject()
+                            + "; Name user = " + user.getName()
                             + " ]");
         }
     }
@@ -60,6 +62,7 @@ public class Printer {
                     + "[ ID = " + task.getId()
                     + "; Name = " + task.getName()
                     + "; Description = " + task.getDescription()
+                    + "; UserId = " + task.getUserId()
                     + " ]");
         }
     }
@@ -68,6 +71,17 @@ public class Printer {
         if (user != null) {
             System.out.println(
                     "[ ID = " + user.getId()
+                            + "; Login = " + user.getName()
+                            + "; Role = " + user.getRole().displayName()
+                            + " ]");
+        }
+    }
+
+    public static void showUser(User user) {
+        if (user != null) {
+            System.out.println(
+                    "Сейчас в системе:"
+                            + "[ ID = " + user.getId()
                             + "; Login = " + user.getName()
                             + "; Role = " + user.getRole().displayName()
                             + " ]");

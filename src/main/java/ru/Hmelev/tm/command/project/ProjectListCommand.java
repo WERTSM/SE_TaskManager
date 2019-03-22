@@ -15,7 +15,8 @@ public class ProjectListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        for (Project project : projectService.findAllProjects()) {
+
+        for (Project project : projectService.findAllProjects(bootstrap.getIdUserSession())) {
             Printer.showListProject(project);
         }
         System.out.println("!!!DONE!!!");

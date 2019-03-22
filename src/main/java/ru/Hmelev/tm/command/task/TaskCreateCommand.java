@@ -40,7 +40,9 @@ public class TaskCreateCommand extends Command {
             idProjectFromTask = "00000000-0000-0000-0000-000000000000";
         }
 
-        taskService.createTask(name, description, startDate, finishDate, idProjectFromTask);
+        userId = bootstrap.getIdUserSession();
+
+        taskService.createTask(name, description, startDate, finishDate, idProjectFromTask, userId);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -3,7 +3,6 @@ package ru.Hmelev.tm.command.user;
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
-import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 

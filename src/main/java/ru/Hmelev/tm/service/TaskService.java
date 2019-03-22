@@ -7,18 +7,17 @@ import java.util.*;
 
 public class TaskService extends Service {
     private final TasksRepository taskRepository;
-    private Task task;
-
     private final List<Task> list = new ArrayList<>();
+    private Task task;
 
     public TaskService(TasksRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
-    public void createTask(String name, String description, Date startDate, Date finishDate, String idProject) {
+    public void createTask(String name, String description, Date startDate, Date finishDate, String idProject, String userId) {
         if (name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null && idProject != null && !idProject.isEmpty()) {
             String id = UUID.randomUUID().toString();
-            task = new Task(id, name, description, startDate, finishDate, idProject);
+            task = new Task(id, name, description, startDate, finishDate, idProject, userId);
             taskRepository.persist(id, task);
         }
     }
@@ -27,11 +26,19 @@ public class TaskService extends Service {
         taskRepository.removeAll();
     }
 
-    public Collection<Task> findAllTasks() {
-        return taskRepository.findAll();
+    public Collection<Task> findAllTasks(String userId) {
+        Collection<Task> list = new ArrayList<>(taskRepository.findAll());
+        Iterator<Task> it = list.iterator();
+        while (it.hasNext()) {
+            task = it.next();
+            if (!task.getUserId().equals(userId)) {
+                it.remove();
+            }
+        }
+        return list;
     }
 
-    public void editTask(String id, String name, String description, Date startDate, Date finishDate, String idProject) {
+    public void editTask(String id, String name, String description, Date startDate, Date finishDate, String idProjectFromTask, String idProject) {
         if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty()
                 && startDate != null && finishDate != null && idProject != null && !idProject.isEmpty()) {
             task = taskRepository.findOne(id);

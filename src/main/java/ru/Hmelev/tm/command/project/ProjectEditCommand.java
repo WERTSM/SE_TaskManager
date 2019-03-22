@@ -12,7 +12,7 @@ import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public class ProjectEditCommand extends Command {
     public ProjectEditCommand(Bootstrap bootstrap) {
-        super(bootstrap, "project-edit", "Edit selected project", Security.PRIVATE, Role.USER);
+        super(bootstrap, "project-edit", "Edit selected project", Security.PRIVATE, Role.ADMIN);
     }
 
     @Override
@@ -36,7 +36,10 @@ public class ProjectEditCommand extends Command {
         date = reader.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        projectService.editProject(idProject, name, description, startDate, finishDate);
+        System.out.println("User ID: ");
+        userId = reader.readLine();
+
+        projectService.editProject(idProject, name, description, startDate, finishDate, userId);
         System.out.println("!!!DONE!!!");
     }
 }
