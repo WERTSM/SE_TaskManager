@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.task;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
@@ -11,7 +10,7 @@ import java.text.ParseException;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
-public class TaskEditCommand extends Command {
+public final class TaskEditCommand extends Command {
     public TaskEditCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "task-edit", "Edit selected task", Security.PRIVATE, Role.ADMIN);
     }

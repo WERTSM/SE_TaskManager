@@ -1,6 +1,6 @@
 package ru.Hmelev.tm.entity;
 
-public class User {
+public final class User {
     private String id;
     private String name;
     private byte[] hashPassword;

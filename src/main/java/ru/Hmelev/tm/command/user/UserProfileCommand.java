@@ -1,12 +1,11 @@
 package ru.Hmelev.tm.command.user;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Printer;
 import ru.Hmelev.tm.command.util.Security;
 
-public class UserProfileCommand extends Command {
+public final class UserProfileCommand extends Command {
     public UserProfileCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "user-profile", "Profile user", Security.FREE);
     }

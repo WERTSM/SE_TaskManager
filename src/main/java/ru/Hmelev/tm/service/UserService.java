@@ -4,9 +4,7 @@ import com.google.common.hash.Hashing;
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.User;
-import ru.Hmelev.tm.repository.IProjectRepository;
 import ru.Hmelev.tm.repository.IUserRepository;
-import ru.Hmelev.tm.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,7 +12,7 @@ import java.util.UUID;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class UserService implements IUserService{
+public final class UserService implements IUserService {
     private byte[] password;
     private Bootstrap bootstrap;
     private IUserRepository userRepository;

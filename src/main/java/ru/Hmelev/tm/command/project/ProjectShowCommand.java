@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.project;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Printer;
@@ -12,7 +11,7 @@ import ru.Hmelev.tm.entity.User;
 
 import java.io.IOException;
 
-public class ProjectShowCommand extends Command {
+public final class ProjectShowCommand extends Command {
     public ProjectShowCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "project-show", "Show selected project.", Security.PRIVATE, Role.USER);
     }

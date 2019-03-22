@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.user;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Printer;
@@ -10,7 +9,7 @@ import ru.Hmelev.tm.entity.User;
 
 import java.io.IOException;
 
-public class UserUpdateCommand extends Command {
+public final class UserUpdateCommand extends Command {
     public UserUpdateCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "user-update", "Update user", Security.PRIVATE, Role.ADMIN);
     }

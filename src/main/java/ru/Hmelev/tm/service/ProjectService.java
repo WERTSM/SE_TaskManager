@@ -5,7 +5,7 @@ import ru.Hmelev.tm.repository.IProjectRepository;
 
 import java.util.*;
 
-public class ProjectService extends Service {
+public final class ProjectService extends Service {
     private IProjectRepository projectRepository;
     private Project project;
 

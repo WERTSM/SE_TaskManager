@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.project;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
@@ -11,7 +10,7 @@ import java.text.ParseException;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
-public class ProjectEditCommand extends Command {
+public final class ProjectEditCommand extends Command {
     public ProjectEditCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "project-edit", "Edit selected project", Security.PRIVATE, Role.ADMIN);
     }

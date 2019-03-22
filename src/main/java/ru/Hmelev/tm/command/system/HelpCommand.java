@@ -3,7 +3,7 @@ package ru.Hmelev.tm.command.system;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
 
-public class HelpCommand extends Command {
+public final class HelpCommand extends Command {
     public HelpCommand() {
         super("help", "Show all commands", Security.FREE);
     }

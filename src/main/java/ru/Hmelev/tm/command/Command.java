@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
@@ -32,19 +31,11 @@ public abstract class Command {
     protected String login;
     protected String password;
     protected String role;
-
+    protected ServiceLocator serviceLocator;
+    protected Security security;
     private String nameCommand;
     private String descriptionCommand;
-
-    protected ServiceLocator serviceLocator;
-
-    public Security getSecurity() {
-        return security;
-    }
-
-    protected Security security;
     private Role roleCommand;
-
     public Command(ServiceLocator serviceLocator, String nameCommand, String descriptionCommand, Security security) {
         this.serviceLocator = serviceLocator;
         this.reader = serviceLocator.getReader();
@@ -72,6 +63,10 @@ public abstract class Command {
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
         this.security = security;
+    }
+
+    public Security getSecurity() {
+        return security;
     }
 
     public String getNameCommand() {

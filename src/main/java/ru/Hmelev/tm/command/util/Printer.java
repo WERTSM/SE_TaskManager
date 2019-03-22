@@ -6,7 +6,7 @@ import ru.Hmelev.tm.entity.User;
 
 import java.text.SimpleDateFormat;
 
-public class Printer {
+public final class Printer {
     public static SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
     public static void showProject(Project project, User user) {

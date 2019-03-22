@@ -5,7 +5,7 @@ import ru.Hmelev.tm.repository.ITaskRepository;
 
 import java.util.*;
 
-public class TaskService extends Service {
+public final class TaskService extends Service {
     private final ITaskRepository taskRepository;
     private final List<Task> list = new ArrayList<>();
     private Task task;
@@ -52,7 +52,6 @@ public class TaskService extends Service {
             task.setIdProject(idProject);
         }
     }
-
 
 
     public void removeTask(String id) {

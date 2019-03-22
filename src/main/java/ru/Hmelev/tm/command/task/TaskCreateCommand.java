@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.task;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Security;
@@ -11,7 +10,7 @@ import java.text.ParseException;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
-public class TaskCreateCommand extends Command {
+public final class TaskCreateCommand extends Command {
     public TaskCreateCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "task-create", "Create new task.", Security.PRIVATE, Role.USER);
     }

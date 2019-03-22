@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.task;
 
-import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.util.Printer;
@@ -11,7 +10,7 @@ import ru.Hmelev.tm.entity.User;
 
 import java.io.IOException;
 
-public class TaskShowCommand extends Command {
+public final class TaskShowCommand extends Command {
     public TaskShowCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "task-show", "Show selected project.", Security.PRIVATE, Role.USER);
     }

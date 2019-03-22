@@ -7,7 +7,7 @@ import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
 
-public class ProjectListCommand extends Command {
+public final class ProjectListCommand extends Command {
     public ProjectListCommand(ServiceLocator serviceLocator) {
         super(serviceLocator, "project-list", "Show all projects.", Security.PRIVATE, Role.USER);
     }

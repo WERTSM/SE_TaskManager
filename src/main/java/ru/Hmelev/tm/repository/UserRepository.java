@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepository implements IUserRepository {
+public final class UserRepository implements IUserRepository {
     private final Map<String, User> mapUsers = new HashMap<>();
 
     @Override
