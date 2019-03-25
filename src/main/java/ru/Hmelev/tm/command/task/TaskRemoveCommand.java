@@ -2,14 +2,13 @@ package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 
 public final class TaskRemoveCommand extends Command {
     public TaskRemoveCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "task-remove", "Remove selected task.", Security.PRIVATE, Role.ADMIN);
+        super(serviceLocator, "task-remove", "Remove selected task.", true, Role.USER);
     }
 
     @Override
@@ -19,7 +18,8 @@ public final class TaskRemoveCommand extends Command {
         System.out.println("ID task: ");
         idTask = reader.readLine();
 
-        taskService.removeTask(idTask);
+        user = serviceLocator.getUserSession();
+        taskService.removeTask(idTask, user);
         System.out.println("!!!DONE!!!");
     }
 }

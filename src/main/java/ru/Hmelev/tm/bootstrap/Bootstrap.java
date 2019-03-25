@@ -1,14 +1,19 @@
 package ru.Hmelev.tm.bootstrap;
 
+import ru.Hmelev.tm.api.IProjectRepository;
+import ru.Hmelev.tm.api.ITaskRepository;
+import ru.Hmelev.tm.api.IUserRepository;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.project.*;
 import ru.Hmelev.tm.command.system.ExitCommand;
 import ru.Hmelev.tm.command.system.HelpCommand;
 import ru.Hmelev.tm.command.task.*;
 import ru.Hmelev.tm.command.user.*;
-import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
-import ru.Hmelev.tm.repository.*;
+import ru.Hmelev.tm.entity.User;
+import ru.Hmelev.tm.repository.ProjectRepository;
+import ru.Hmelev.tm.repository.TaskRepository;
+import ru.Hmelev.tm.repository.UserRepository;
 import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
 import ru.Hmelev.tm.service.UserService;
@@ -18,7 +23,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Bootstrap implements ServiceLocator{
+public final class Bootstrap implements ServiceLocator {
     private final Map<String, Command> commandMap = new HashMap<>();
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,6 +59,7 @@ public final class Bootstrap implements ServiceLocator{
             new UserProfileCommand(this),
             new UserUpdateCommand(this)
     };
+    private User userSession;
 
     public BufferedReader getReader() {
         return reader;
@@ -71,20 +77,12 @@ public final class Bootstrap implements ServiceLocator{
         return userService;
     }
 
-
-    private String idUserSession;
-    private Role userRoleSession;
-
-    public String getIdUserSession() {
-        return idUserSession;
+    public User getUserSession() {
+        return userSession;
     }
 
-    public void setUserRoleSession(Role userRoleSession) {
-        this.userRoleSession = userRoleSession;
-    }
-
-    public void setIdUserSession(String idUserSession) {
-        this.idUserSession = idUserSession;
+    public void setUserSession(User userSession) {
+        this.userSession = userSession;
     }
 
     public void init() {
@@ -115,10 +113,10 @@ public final class Bootstrap implements ServiceLocator{
     }
 
     private boolean permit(Command commandString) {
-        if (commandString.getSecurity() == Security.FREE) {
+        if (!commandString.getSecurity()) {
             return true;
         }
-        if (idUserSession == null) {
+        if (userSession == null) {
             System.out.println("Сначала зарегистрируйтесь");
             return false;
         } else {
@@ -126,10 +124,10 @@ public final class Bootstrap implements ServiceLocator{
                 System.out.println("Сначала выйдете из программы");
                 return false;
             }
-            if (userRoleSession == Role.ADMIN) {
+            if (userSession.getRole() == Role.ADMIN) {
                 return true;
             }
-            if (commandString.getRoleCommand() == userRoleSession) {
+            if (commandString.getRoleCommand() == userSession.getRole()) {
                 return true;
             } else {
                 System.out.println("Не хватает прав");

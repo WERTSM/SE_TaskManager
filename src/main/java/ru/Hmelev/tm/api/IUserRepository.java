@@ -1,4 +1,4 @@
-package ru.Hmelev.tm.repository;
+package ru.Hmelev.tm.api;
 
 import ru.Hmelev.tm.entity.User;
 

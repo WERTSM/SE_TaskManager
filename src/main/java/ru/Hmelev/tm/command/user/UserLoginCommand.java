@@ -2,13 +2,12 @@ package ru.Hmelev.tm.command.user;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.command.util.Security;
 
 import java.io.IOException;
 
 public final class UserLoginCommand extends Command {
     public UserLoginCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "user-login", "User LOGIN", Security.FREE);
+        super(serviceLocator, "user-login", "User LOGIN", false);
     }
 
     @Override

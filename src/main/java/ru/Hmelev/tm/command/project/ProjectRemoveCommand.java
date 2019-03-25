@@ -2,14 +2,13 @@ package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 
 public final class ProjectRemoveCommand extends Command {
     public ProjectRemoveCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "project-remove", "Remove selected project.", Security.PRIVATE, Role.ADMIN);
+        super(serviceLocator, "project-remove", "Remove selected project.", true, Role.USER);
     }
 
     @Override
@@ -19,8 +18,9 @@ public final class ProjectRemoveCommand extends Command {
         System.out.println("ID project: ");
         idProject = reader.readLine();
 
-        taskService.listTaskNoIdProject(idProject);
-        projectService.removeProject(idProject);
+        user = serviceLocator.getUserSession();
+        taskService.removeAllTaskFromProject(idProject, user);
+        projectService.removeProject(idProject, user);
         System.out.println("!!!DONE!!!");
     }
 }

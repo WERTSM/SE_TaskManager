@@ -2,7 +2,6 @@ package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
@@ -12,7 +11,7 @@ import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public final class TaskEditCommand extends Command {
     public TaskEditCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "task-edit", "Edit selected task", Security.PRIVATE, Role.ADMIN);
+        super(serviceLocator, "task-edit", "Edit selected task", true, Role.USER);
     }
 
     @Override
@@ -44,7 +43,7 @@ public final class TaskEditCommand extends Command {
         }
 
         System.out.println("User ID: ");
-        userId = reader.readLine();
+        String userId = reader.readLine();
 
         taskService.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask, userId);
         System.out.println("!!!DONE!!!");

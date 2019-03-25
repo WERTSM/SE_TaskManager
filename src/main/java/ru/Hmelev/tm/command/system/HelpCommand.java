@@ -1,11 +1,10 @@
 package ru.Hmelev.tm.command.system;
 
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.command.util.Security;
 
 public final class HelpCommand extends Command {
     public HelpCommand() {
-        super("help", "Show all commands", Security.FREE);
+        super("help", "Show all commands", false);
     }
 
     @Override

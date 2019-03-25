@@ -2,7 +2,6 @@ package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
-import ru.Hmelev.tm.command.util.Security;
 import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
@@ -12,7 +11,7 @@ import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public final class ProjectEditCommand extends Command {
     public ProjectEditCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "project-edit", "Edit selected project", Security.PRIVATE, Role.ADMIN);
+        super(serviceLocator, "project-edit", "Edit selected project", true, Role.USER);
     }
 
     @Override
@@ -37,7 +36,7 @@ public final class ProjectEditCommand extends Command {
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
         System.out.println("User ID: ");
-        userId = reader.readLine();
+        String userId = reader.readLine();
 
         projectService.editProject(idProject, name, description, startDate, finishDate, userId);
         System.out.println("!!!DONE!!!");
