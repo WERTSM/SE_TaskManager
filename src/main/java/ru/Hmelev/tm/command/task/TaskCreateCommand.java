@@ -3,9 +3,11 @@ package ru.Hmelev.tm.command.task;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Task;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.UUID;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
@@ -40,7 +42,13 @@ public final class TaskCreateCommand extends Command {
         }
 
         user = serviceLocator.getUserSession();
-        taskService.createTask(name, description, startDate, finishDate, idProjectFromTask, user);
+
+        if (name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null && idProjectFromTask != null && !idProjectFromTask.isEmpty() && user != null) {
+            String id = UUID.randomUUID().toString();
+            String userId = user.getId();
+            Task task = new Task(id, name, description, startDate, finishDate, idProject, userId);
+            taskService.createEntity(id, task);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

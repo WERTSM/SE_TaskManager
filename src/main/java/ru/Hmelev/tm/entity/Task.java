@@ -2,7 +2,7 @@ package ru.Hmelev.tm.entity;
 
 import java.util.Date;
 
-public final class Task {
+public final class Task extends Entity {
     private String id;
     private String name;
     private String description;
@@ -14,7 +14,6 @@ public final class Task {
     public Task(String id, String name, String description, Date startDate, Date finishDate, String idProject, String userId) {
         this.id = id;
         this.name = name;
-
         this.description = description;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -68,5 +67,10 @@ public final class Task {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 }

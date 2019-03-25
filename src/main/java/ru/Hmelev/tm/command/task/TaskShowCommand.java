@@ -22,7 +22,7 @@ public final class TaskShowCommand extends Command {
         idTask = reader.readLine();
 
         User user = serviceLocator.getUserSession();
-        Task task = taskService.findTask(idTask, user);
+        Task task = taskService.findEntity(idTask, user);
 
         Printer.showTask(task, user);
         System.out.println("!!!DONE!!!");

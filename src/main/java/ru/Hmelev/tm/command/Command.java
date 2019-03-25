@@ -1,9 +1,13 @@
 package ru.Hmelev.tm.command;
 
+import ru.Hmelev.tm.api.EntityService;
+import ru.Hmelev.tm.api.InterfaceProjectService;
+import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
+import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Task;
 import ru.Hmelev.tm.entity.User;
-import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
 import ru.Hmelev.tm.service.UserService;
 
@@ -13,10 +17,11 @@ import java.text.ParseException;
 import java.util.Date;
 
 public abstract class Command {
-    protected UserService userService;
     protected BufferedReader reader;
-    protected ProjectService projectService;
-    protected TaskService taskService;
+    protected InterfaceProjectService projectService;
+    protected InterfaceTaskService taskService;
+    protected UserService userService;
+
     protected String name;
     protected String description;
     protected String id;
@@ -32,7 +37,7 @@ public abstract class Command {
     protected String password;
     protected String role;
     protected ServiceLocator serviceLocator;
-    protected boolean security;
+    private boolean security;
     private String nameCommand;
     private String descriptionCommand;
     private Role roleCommand;

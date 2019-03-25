@@ -3,6 +3,7 @@ package ru.Hmelev.tm.command.task;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Task;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -42,10 +43,19 @@ public final class TaskEditCommand extends Command {
             idProjectFromTask = "00000000-0000-0000-0000-000000000000";
         }
 
-        System.out.println("User ID: ");
-        String userId = reader.readLine();
+        user = serviceLocator.getUserSession();
 
-        taskService.editTask(idTask, name, description, startDate, finishDate, idProjectFromTask, userId);
+        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty()
+                && startDate != null && finishDate != null && idProjectFromTask != null && !idProjectFromTask.isEmpty()) {
+            Task task = taskService.findEntity(id, user);
+            task.setName(name);
+            task.setDescription(description);
+            task.setStartDate(startDate);
+            task.setFinishDate(finishDate);
+            task.setIdProject(idProjectFromTask);
+            taskService.editEntity(idTask, task, user);
+        }
+
         System.out.println("!!!DONE!!!");
     }
 }

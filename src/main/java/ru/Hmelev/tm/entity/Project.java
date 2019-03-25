@@ -2,7 +2,7 @@ package ru.Hmelev.tm.entity;
 
 import java.util.Date;
 
-public final class Project {
+public final class Project extends Entity {
     private String id;
     private String name;
     private String description;

@@ -2,10 +2,12 @@ package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.UUID;
 
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
@@ -33,7 +35,13 @@ public final class ProjectCreateCommand extends Command {
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
         user = serviceLocator.getUserSession();
-        projectService.createProject(name, description, startDate, finishDate, user);
+
+        if (name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null) {
+            String id = UUID.randomUUID().toString();
+            String userId = user.getId();
+            Project project = new Project(id, name, description, startDate, finishDate, userId);
+            projectService.createEntity(id, project);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

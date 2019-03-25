@@ -4,7 +4,7 @@ import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 
-public interface IUserRepository {
+public interface InterfaceUserRepository {
     void persist(User user);
 
     User findOne(String id);

@@ -1,13 +1,13 @@
 package ru.Hmelev.tm.repository;
 
-import ru.Hmelev.tm.api.IUserRepository;
+import ru.Hmelev.tm.api.InterfaceUserRepository;
 import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class UserRepository implements IUserRepository {
+public final class UserRepository implements InterfaceUserRepository {
     private final Map<String, User> mapUsers = new HashMap<>();
 
     @Override

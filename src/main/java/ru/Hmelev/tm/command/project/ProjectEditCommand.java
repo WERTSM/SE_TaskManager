@@ -2,6 +2,7 @@ package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
 
 import java.io.IOException;
@@ -38,7 +39,16 @@ public final class ProjectEditCommand extends Command {
         System.out.println("User ID: ");
         String userId = reader.readLine();
 
-        projectService.editProject(idProject, name, description, startDate, finishDate, userId);
+        user = serviceLocator.getUserSession();
+        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null && user != null) {
+            Project project = projectService.findEntity(id, user);
+            project.setName(name);
+            project.setDescription(description);
+            project.setDateStart(startDate);
+            project.setDataFinish(finishDate);
+            project.setUserId(userId);
+            projectService.editEntity(idProject, project, user);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

@@ -1,23 +1,23 @@
 package ru.Hmelev.tm.service;
 
 import com.google.common.hash.Hashing;
-import ru.Hmelev.tm.api.IUserRepository;
-import ru.Hmelev.tm.api.IUserService;
+import ru.Hmelev.tm.api.InterfaceUserService;
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.User;
+import ru.Hmelev.tm.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.UUID;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public final class UserService implements IUserService {
+public final class UserService implements InterfaceUserService {
     private String password;
     private Bootstrap bootstrap;
-    private IUserRepository userRepository;
+    private UserRepository userRepository;
 
-    public UserService(IUserRepository userRepository, Bootstrap bootstrap) {
+    public UserService(UserRepository userRepository, Bootstrap bootstrap) {
         this.userRepository = userRepository;
         this.bootstrap = bootstrap;
     }

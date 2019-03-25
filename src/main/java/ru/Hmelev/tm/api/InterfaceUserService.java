@@ -4,7 +4,7 @@ import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 
-public interface IUserService {
+public interface InterfaceUserService {
     void registry(String login, String pass, String roleStr);
 
     boolean userLogin(String login, String pass);

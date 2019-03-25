@@ -17,7 +17,8 @@ public final class TaskListCommand extends Command {
 
         user = serviceLocator.getUserSession();
 
-        for (Task task : taskService.findAllTasks(user)) {
+        for (Task task : taskService.findAllEntities(user)) {
+            System.out.println(task);
             Printer.showListTask(task);
         }
         System.out.println("!!!DONE!!!");

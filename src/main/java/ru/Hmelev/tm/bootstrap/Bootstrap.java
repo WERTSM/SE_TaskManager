@@ -1,18 +1,19 @@
 package ru.Hmelev.tm.bootstrap;
 
-import ru.Hmelev.tm.api.IProjectRepository;
-import ru.Hmelev.tm.api.ITaskRepository;
-import ru.Hmelev.tm.api.IUserRepository;
+import ru.Hmelev.tm.api.EntityRepository;
+import ru.Hmelev.tm.api.InterfaceProjectService;
+import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.project.*;
 import ru.Hmelev.tm.command.system.ExitCommand;
 import ru.Hmelev.tm.command.system.HelpCommand;
 import ru.Hmelev.tm.command.task.*;
 import ru.Hmelev.tm.command.user.*;
+import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Task;
 import ru.Hmelev.tm.entity.User;
-import ru.Hmelev.tm.repository.ProjectRepository;
-import ru.Hmelev.tm.repository.TaskRepository;
+import ru.Hmelev.tm.repository.SuperEntityRepository;
 import ru.Hmelev.tm.repository.UserRepository;
 import ru.Hmelev.tm.service.ProjectService;
 import ru.Hmelev.tm.service.TaskService;
@@ -27,12 +28,12 @@ public final class Bootstrap implements ServiceLocator {
     private final Map<String, Command> commandMap = new HashMap<>();
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private final IProjectRepository projectRepository = new ProjectRepository();
-    private final ITaskRepository taskRepository = new TaskRepository();
-    private final IUserRepository userRepository = new UserRepository();
+    private final EntityRepository<Project> projectRepository = new SuperEntityRepository<>();
+    private final EntityRepository<Task> taskRepository = new SuperEntityRepository<>();
+    private final UserRepository userRepository = new UserRepository();
 
-    private final ProjectService projectService = new ProjectService(projectRepository);
-    private final TaskService taskService = new TaskService(taskRepository);
+    private final InterfaceProjectService projectService = new ProjectService(projectRepository);
+    private final InterfaceTaskService taskService = new TaskService(taskRepository);
     private final UserService userService = new UserService(userRepository, this);
 
 
@@ -59,28 +60,35 @@ public final class Bootstrap implements ServiceLocator {
             new UserProfileCommand(this),
             new UserUpdateCommand(this)
     };
+
     private User userSession;
 
+    @Override
     public BufferedReader getReader() {
         return reader;
     }
 
-    public ProjectService getProjectService() {
+    @Override
+    public InterfaceProjectService getProjectService() {
         return projectService;
     }
 
-    public TaskService getTaskService() {
+    @Override
+    public InterfaceTaskService getTaskService() {
         return taskService;
     }
 
+    @Override
     public UserService getUserService() {
         return userService;
     }
 
+    @Override
     public User getUserSession() {
         return userSession;
     }
 
+    @Override
     public void setUserSession(User userSession) {
         this.userSession = userSession;
     }

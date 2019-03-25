@@ -22,7 +22,7 @@ public final class ProjectShowCommand extends Command {
         idProject = reader.readLine();
 
         user = serviceLocator.getUserSession();
-        Project project = projectService.findProject(idProject, user);
+        Project project = projectService.findEntity(idProject, user);
 
         if (project != null) {
             Printer.showProject(project, user);
