@@ -1,5 +1,9 @@
 package ru.Hmelev.tm.bootstrap;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.Hmelev.tm.api.EntityRepository;
 import ru.Hmelev.tm.api.InterfaceProjectService;
 import ru.Hmelev.tm.api.InterfaceTaskService;
@@ -26,18 +30,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Bootstrap implements ServiceLocator {
+    @NotNull
     private final Map<String, Command> commandMap = new HashMap<>();
+
+    @Getter
+    @NotNull
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    @NotNull
     private final EntityRepository<Project> projectRepository = new SuperEntityRepository<>();
+    @NotNull
     private final EntityRepository<Task> taskRepository = new SuperEntityRepository<>();
+    @NotNull
     private final UserRepository userRepository = new UserRepository();
 
+    @Getter
+    @NotNull
     private final InterfaceProjectService projectService = new ProjectService(projectRepository);
+    @Getter
+    @NotNull
     private final InterfaceTaskService taskService = new TaskService(taskRepository);
+    @Getter
+    @NotNull
     private final UserService userService = new UserService(userRepository, this);
 
-
+    @NotNull
     private final Command[] commandArray = new Command[]{
             new HelpCommand(),
             new ExitCommand(),
@@ -63,37 +80,10 @@ public final class Bootstrap implements ServiceLocator {
             new AboutCommand(this)
     };
 
+    @Setter
+    @Getter
+    @Nullable
     private User userSession;
-
-    @Override
-    public BufferedReader getReader() {
-        return reader;
-    }
-
-    @Override
-    public InterfaceProjectService getProjectService() {
-        return projectService;
-    }
-
-    @Override
-    public InterfaceTaskService getTaskService() {
-        return taskService;
-    }
-
-    @Override
-    public UserService getUserService() {
-        return userService;
-    }
-
-    @Override
-    public User getUserSession() {
-        return userSession;
-    }
-
-    @Override
-    public void setUserSession(final User userSession) {
-        this.userSession = userSession;
-    }
 
     public void init() {
         for (Command command : commandArray) {
@@ -122,8 +112,8 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private boolean permit(final Command commandString) {
-        if (!commandString.getSecurity()) {
+    private boolean permit(@NotNull final Command commandString) {
+        if (!commandString.isSecurity()) {
             return true;
         }
         if (userSession == null) {

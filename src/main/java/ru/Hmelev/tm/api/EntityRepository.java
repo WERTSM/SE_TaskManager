@@ -1,19 +1,20 @@
 package ru.Hmelev.tm.api;
 
+import org.jetbrains.annotations.NotNull;
 import ru.Hmelev.tm.entity.Entity;
 
 import java.util.Collection;
 
 public interface EntityRepository<T extends Entity> {
-    void persist(final String id, final T project);
+    void persist(@NotNull final String id, @NotNull final T project);
 
-    T findOne(final String id, final String userId);
+    @NotNull T findOne(@NotNull final String id, @NotNull final String userId);
 
-    Collection<T> findAll(final String userId);
+    @NotNull Collection<T> findAll(@NotNull final String userId);
 
-    void merge(final String id, final T entity, final String userId);
+    void merge(@NotNull final String id, @NotNull final T entity, @NotNull final String userId);
 
-    void remove(final String id, final String userId);
+    void remove(@NotNull final String id, @NotNull final String userId);
 
-    void removeAll(final String userId);
+    void removeAll(@NotNull final String userId);
 }

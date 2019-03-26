@@ -1,17 +1,18 @@
 package ru.Hmelev.tm.api;
 
+import org.jetbrains.annotations.NotNull;
 import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 
 public interface InterfaceUserService {
-    void registry(final String login, final String pass, final String roleStr);
+    void registry(@NotNull final String login, @NotNull final String pass, @NotNull final String roleStr);
 
-    boolean userLogin(final String login, final String pass);
+    boolean userLogin(@NotNull final String login, @NotNull final String pass);
 
-    Collection<User> userList();
+    @NotNull Collection<User> userList();
 
-    void userSetPassword(final String login, final String pass);
+    void userSetPassword(@NotNull final String login, @NotNull final String pass);
 
-    User findUser(final String id);
+    @NotNull User findUser(@NotNull final String id);
 }

@@ -47,15 +47,17 @@ public final class TaskEditCommand extends Command {
 
         if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty()
                 && startDate != null && finishDate != null && idProjectFromTask != null && !idProjectFromTask.isEmpty()) {
-            Task task = taskService.findEntity(id, user);
-            task.setName(name);
-            task.setDescription(description);
-            task.setStartDate(startDate);
-            task.setFinishDate(finishDate);
-            task.setIdProject(idProjectFromTask);
-            taskService.editEntity(idTask, task, user);
+            if (user != null) {
+                Task task;
+                task = taskService.findEntity(id, user);
+                task.setName(name);
+                task.setDescription(description);
+                task.setStartDate(startDate);
+                task.setFinishDate(finishDate);
+                task.setIdProject(idProjectFromTask);
+                taskService.editEntity(idTask, task, user);
+            }
         }
-
         System.out.println("!!!DONE!!!");
     }
 }

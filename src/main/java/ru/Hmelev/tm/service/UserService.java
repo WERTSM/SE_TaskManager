@@ -1,10 +1,12 @@
 package ru.Hmelev.tm.service;
 
 import com.google.common.hash.Hashing;
+import org.jetbrains.annotations.NotNull;
 import ru.Hmelev.tm.api.InterfaceUserService;
 import ru.Hmelev.tm.bootstrap.Bootstrap;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.User;
+import ru.Hmelev.tm.exception.ServiceException;
 import ru.Hmelev.tm.repository.UserRepository;
 
 import java.util.Collection;
@@ -22,8 +24,8 @@ public final class UserService implements InterfaceUserService {
         this.bootstrap = bootstrap;
     }
 
-    public void registry(final String login, final String pass, final String roleStr) {
-        if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty() && roleStr != null && !roleStr.isEmpty()) {
+    public void registry(@NotNull final String login, @NotNull final String pass, @NotNull final String roleStr) {
+        if (!login.isEmpty() && !pass.isEmpty() && !roleStr.isEmpty()) {
             String id = UUID.randomUUID().toString();
             password = Hashing.md5().hashString(pass, UTF_8).toString();
             Role role = Role.valueOf(roleStr.toUpperCase());
@@ -32,19 +34,21 @@ public final class UserService implements InterfaceUserService {
         }
     }
 
-    public User findUser(final String id) {
-        if (id != null && !id.isEmpty()) {
+    @NotNull
+    public User findUser(@NotNull final String id) {
+        if (!id.isEmpty()) {
             return userRepository.findOne(id);
         }
-        return null;
+        throw new ServiceException();
     }
 
+    @NotNull
     public Collection<User> userList() {
         return userRepository.findAll();
     }
 
-    public boolean userLogin(final String login, final String pass) {
-        if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty()) {
+    public boolean userLogin(@NotNull final String login, @NotNull final String pass) {
+        if (!login.isEmpty() && !pass.isEmpty()) {
             for (User user : userRepository.findAll()) {
                 if (user.getName().equals(login)) {
                     password = (Hashing.md5().hashString(pass, UTF_8).toString());
@@ -59,8 +63,8 @@ public final class UserService implements InterfaceUserService {
         return false;
     }
 
-    public void userSetPassword(final String login, final String pass) {
-        if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty()) {
+    public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
+        if (!login.isEmpty() && !pass.isEmpty()) {
             for (User user : userRepository.findAll()) {
                 if (user.getName().equals(login)) {
                     password = (Hashing.sha256().hashString(pass, UTF_8).toString());

@@ -15,10 +15,12 @@ public final class ProjectClearCommand extends Command {
         System.out.println("!!!Start command!!!");
 
         user = serviceLocator.getUserSession();
-        for (Project project : projectService.findAllEntities(user)) {
-            taskService.removeAllTaskFromProject(project.getId(), user);
+        if (user != null) {
+            for (Project project : projectService.findAllEntities(user)) {
+                taskService.removeAllTaskFromProject(project.getId(), user);
+                projectService.clearEntity(user);
+            }
         }
-        projectService.clearEntity(user);
         System.out.println("!!!DONE!!!");
     }
 }

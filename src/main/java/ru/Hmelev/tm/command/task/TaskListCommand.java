@@ -16,10 +16,11 @@ public final class TaskListCommand extends Command {
         System.out.println("!!!Start command!!!");
 
         user = serviceLocator.getUserSession();
-
-        for (Task task : taskService.findAllEntities(user)) {
-            System.out.println(task);
-            Printer.showListTask(task);
+        if (user != null) {
+            for (Task task : taskService.findAllEntities(user)) {
+                System.out.println(task);
+                Printer.showListTask(task);
+            }
         }
         System.out.println("!!!DONE!!!");
     }

@@ -22,9 +22,8 @@ public final class ProjectShowCommand extends Command {
         idProject = reader.readLine();
 
         user = serviceLocator.getUserSession();
-        Project project = projectService.findEntity(idProject, user);
-
-        if (project != null) {
+        if (user != null) {
+            Project project = projectService.findEntity(idProject, user);
             Printer.showProject(project, user);
             for (Task task : taskService.listTaskFromProject(idProject, user)) {
                 Printer.showTaskInProject(task);

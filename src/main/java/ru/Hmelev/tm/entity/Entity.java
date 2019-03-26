@@ -1,13 +1,16 @@
 package ru.Hmelev.tm.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 public abstract class Entity {
+    @NotNull
     public abstract String getId();
 
-    abstract void setId(String id);
-
+    @NotNull
     abstract String getDescription();
 
     abstract void setDescription(String description);
 
+    @NotNull
     public abstract String getUserId();
 }

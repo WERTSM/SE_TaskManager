@@ -19,7 +19,9 @@ public final class TaskRemoveCommand extends Command {
         idTask = reader.readLine();
 
         user = serviceLocator.getUserSession();
-        taskService.removeEntity(idTask, user);
+        if (user != null) {
+            taskService.removeEntity(idTask, user);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

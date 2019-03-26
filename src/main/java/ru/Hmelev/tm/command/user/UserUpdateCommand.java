@@ -25,9 +25,10 @@ public final class UserUpdateCommand extends Command {
         System.out.println("Измените пароль текущего пользователя");
         String password = reader.readLine();
 
-
-        userService.userSetPassword(user.getName(), password);
-        user.setName(login);
+        if (user != null) {
+            userService.userSetPassword(user.getName(), password);
+            user.setName(login);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

@@ -1,13 +1,15 @@
 package ru.Hmelev.tm.api;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 
 public interface InterfaceUserRepository {
-    void persist(final User user);
+    void persist(@NotNull final User user);
 
-    User findOne(final String id);
+    User findOne(@NotNull final String id);
 
-    Collection<User> findAll();
+    @Nullable Collection<User> findAll();
 }

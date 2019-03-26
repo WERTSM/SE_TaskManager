@@ -1,5 +1,7 @@
 package ru.Hmelev.tm.bootstrap;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.Hmelev.tm.api.InterfaceProjectService;
 import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.entity.User;
@@ -8,15 +10,15 @@ import ru.Hmelev.tm.service.UserService;
 import java.io.BufferedReader;
 
 public interface ServiceLocator {
-    BufferedReader getReader();
+    @NotNull BufferedReader getReader();
 
-    InterfaceProjectService getProjectService();
+    @NotNull InterfaceProjectService getProjectService();
 
-    InterfaceTaskService getTaskService();
+    @NotNull InterfaceTaskService getTaskService();
 
-    UserService getUserService();
+    @NotNull UserService getUserService();
 
-    User getUserSession();
+    @Nullable User getUserSession();
 
-    void setUserSession(final User userSession);
+    void setUserSession(@Nullable final User userSession);
 }

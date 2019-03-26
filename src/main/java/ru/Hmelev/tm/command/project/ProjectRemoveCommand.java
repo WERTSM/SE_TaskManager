@@ -19,8 +19,10 @@ public final class ProjectRemoveCommand extends Command {
         idProject = reader.readLine();
 
         user = serviceLocator.getUserSession();
-        taskService.removeAllTaskFromProject(idProject, user);
-        projectService.removeEntity(idProject, user);
+        if (user != null) {
+            taskService.removeAllTaskFromProject(idProject, user);
+            projectService.removeEntity(idProject, user);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

@@ -1,69 +1,34 @@
 package ru.Hmelev.tm.entity;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
-public final class Project extends Entity {
+import java.util.Date;
+@NoArgsConstructor
+@Setter
+@Getter
+public class Project extends Entity {
+    @NotNull
     private String id;
+    @NotNull
     private String name;
+    @NotNull
     private String description;
+    @NotNull
     private Date dateStart;
+    @NotNull
     private Date dataFinish;
+    @NotNull
     private String userId;
 
-    public Project(String id, String name, String description, Date dateStart, Date dataFinish, String userId) {
+    public Project(@NotNull String id, @NotNull String name, @NotNull String description, @NotNull Date dateStart, @NotNull Date dataFinish, @NotNull String userId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateStart = dateStart;
         this.dataFinish = dataFinish;
         this.userId = userId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(Date dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public Date getDataFinish() {
-        return dataFinish;
-    }
-
-    public void setDataFinish(Date dataFinish) {
-        this.dataFinish = dataFinish;
     }
 }

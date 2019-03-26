@@ -13,7 +13,9 @@ public final class TaskClearCommand extends Command {
     public void execute() {
         System.out.println("!!!Start command!!!");
         user = serviceLocator.getUserSession();
-        taskService.clearEntity(user);
+        if (user != null) {
+            taskService.clearEntity(user);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

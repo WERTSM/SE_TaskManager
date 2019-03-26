@@ -1,20 +1,21 @@
 package ru.Hmelev.tm.api;
 
+import org.jetbrains.annotations.NotNull;
 import ru.Hmelev.tm.entity.Entity;
 import ru.Hmelev.tm.entity.User;
 
 import java.util.Collection;
 
 public interface EntityService<T extends Entity> {
-    void createEntity(final String id, final T entity);
+    void createEntity(@NotNull final String id, @NotNull final T entity);
 
-    T findEntity(final String id, final User user);
+    @NotNull T findEntity(@NotNull final String id, @NotNull final User user);
 
-    Collection<T> findAllEntities(final User user);
+    @NotNull Collection<T> findAllEntities(@NotNull final User user);
 
-    void editEntity(final String id, final T entity, final User user);
+    void editEntity(@NotNull final String id, @NotNull final T entity, @NotNull final User user);
 
-    void removeEntity(final String id, final User user);
+    void removeEntity(@NotNull final String id, @NotNull final User user);
 
-    void clearEntity(final User user);
+    void clearEntity(@NotNull final User user);
 }

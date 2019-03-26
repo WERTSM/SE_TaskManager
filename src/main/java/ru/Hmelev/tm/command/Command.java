@@ -1,5 +1,7 @@
 package ru.Hmelev.tm.command;
 
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import ru.Hmelev.tm.api.InterfaceProjectService;
 import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
@@ -34,13 +36,18 @@ public abstract class Command {
     protected String role;
 
     protected ServiceLocator serviceLocator;
+
+    @Getter
     private boolean security;
 
+    @Getter
     private String nameCommand;
+    @Getter
     private String descriptionCommand;
+    @Getter
     private Role roleCommand;
 
-    public Command(final ServiceLocator serviceLocator,final String nameCommand,final String descriptionCommand,final boolean security) {
+    public Command(@NotNull final ServiceLocator serviceLocator, @NotNull final String nameCommand, @NotNull final String descriptionCommand, final boolean security) {
         this.serviceLocator = serviceLocator;
         this.reader = serviceLocator.getReader();
         this.projectService = serviceLocator.getProjectService();
@@ -51,7 +58,7 @@ public abstract class Command {
         this.security = security;
     }
 
-    public Command(final ServiceLocator serviceLocator,final String nameCommand,final String descriptionCommand,final boolean security, Role role) {
+    public Command(@NotNull final ServiceLocator serviceLocator, @NotNull final String nameCommand, @NotNull final String descriptionCommand, final boolean security, @NotNull Role role) {
         this.serviceLocator = serviceLocator;
         this.reader = serviceLocator.getReader();
         this.projectService = serviceLocator.getProjectService();
@@ -63,26 +70,10 @@ public abstract class Command {
         this.roleCommand = role;
     }
 
-    public Command(final String nameCommand,final String descriptionCommand,final boolean security) {
+    public Command(@NotNull final String nameCommand, @NotNull final String descriptionCommand, final boolean security) {
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
         this.security = security;
-    }
-
-    public boolean getSecurity() {
-        return security;
-    }
-
-    public String getNameCommand() {
-        return nameCommand;
-    }
-
-    public String getDescriptionCommand() {
-        return descriptionCommand;
-    }
-
-    public Role getRoleCommand() {
-        return roleCommand;
     }
 
     public void execute() throws IOException, ParseException {

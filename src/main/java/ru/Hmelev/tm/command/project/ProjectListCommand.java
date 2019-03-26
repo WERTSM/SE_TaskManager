@@ -16,8 +16,10 @@ public final class ProjectListCommand extends Command {
         System.out.println("!!!Start command!!!");
 
         user = serviceLocator.getUserSession();
-        for (Project project : projectService.findAllEntities(user)) {
-            Printer.showListProject(project);
+        if (user != null) {
+            for (Project project : projectService.findAllEntities(user)) {
+                Printer.showListProject(project);
+            }
         }
         System.out.println("!!!DONE!!!");
     }
