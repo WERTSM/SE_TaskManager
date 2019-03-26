@@ -11,14 +11,14 @@ public final class UserRepository implements InterfaceUserRepository {
     private final Map<String, User> mapUsers = new HashMap<>();
 
     @Override
-    public void persist(User user) {
+    public void persist(final User user) {
         if (user != null) {
             mapUsers.put(user.getId(), user);
         }
     }
 
     @Override
-    public User findOne(String id) {
+    public User findOne(final String id) {
         if (id != null && !id.isEmpty()) {
             return this.mapUsers.get(id);
         }

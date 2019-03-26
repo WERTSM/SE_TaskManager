@@ -5,13 +5,13 @@ import ru.Hmelev.tm.entity.User;
 import java.util.Collection;
 
 public interface InterfaceUserService {
-    void registry(String login, String pass, String roleStr);
+    void registry(final String login, final String pass, final String roleStr);
 
-    boolean userLogin(String login, String pass);
+    boolean userLogin(final String login, final String pass);
 
     Collection<User> userList();
 
-    void userSetPassword(String login, String pass);
+    void userSetPassword(final String login, final String pass);
 
-    User findUser(String id);
+    User findUser(final String id);
 }

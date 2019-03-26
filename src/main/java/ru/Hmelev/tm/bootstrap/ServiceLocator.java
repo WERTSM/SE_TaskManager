@@ -18,5 +18,5 @@ public interface ServiceLocator {
 
     User getUserSession();
 
-    void setUserSession(User userSession);
+    void setUserSession(final User userSession);
 }

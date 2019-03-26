@@ -8,7 +8,6 @@ public final class Project extends Entity {
     private String description;
     private Date dateStart;
     private Date dataFinish;
-
     private String userId;
 
     public Project(String id, String name, String description, Date dateStart, Date dataFinish, String userId) {

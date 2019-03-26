@@ -5,15 +5,15 @@ import ru.Hmelev.tm.entity.Entity;
 import java.util.Collection;
 
 public interface EntityRepository<T extends Entity> {
-    void persist(String id, T project);
+    void persist(final String id, final T project);
 
-    T findOne(String id, String userId);
+    T findOne(final String id, final String userId);
 
-    Collection<T> findAll(String userId);
+    Collection<T> findAll(final String userId);
 
-    void merge(String id, T entity, String userId);
+    void merge(final String id, final T entity, final String userId);
 
-    void remove(String id, String userId);
+    void remove(final String id, final String userId);
 
-    void removeAll(String userId);
+    void removeAll(final String userId);
 }

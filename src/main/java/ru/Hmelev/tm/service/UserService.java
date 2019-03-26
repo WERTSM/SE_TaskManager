@@ -13,16 +13,16 @@ import java.util.UUID;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class UserService implements InterfaceUserService {
+    final private Bootstrap bootstrap;
+    final private UserRepository userRepository;
     private String password;
-    private Bootstrap bootstrap;
-    private UserRepository userRepository;
 
     public UserService(UserRepository userRepository, Bootstrap bootstrap) {
         this.userRepository = userRepository;
         this.bootstrap = bootstrap;
     }
 
-    public void registry(String login, String pass, String roleStr) {
+    public void registry(final String login, final String pass, final String roleStr) {
         if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty() && roleStr != null && !roleStr.isEmpty()) {
             String id = UUID.randomUUID().toString();
             password = Hashing.md5().hashString(pass, UTF_8).toString();
@@ -32,7 +32,7 @@ public final class UserService implements InterfaceUserService {
         }
     }
 
-    public User findUser(String id) {
+    public User findUser(final String id) {
         if (id != null && !id.isEmpty()) {
             return userRepository.findOne(id);
         }
@@ -43,7 +43,7 @@ public final class UserService implements InterfaceUserService {
         return userRepository.findAll();
     }
 
-    public boolean userLogin(String login, String pass) {
+    public boolean userLogin(final String login, final String pass) {
         if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty()) {
             for (User user : userRepository.findAll()) {
                 if (user.getName().equals(login)) {
@@ -59,7 +59,7 @@ public final class UserService implements InterfaceUserService {
         return false;
     }
 
-    public void userSetPassword(String login, String pass) {
+    public void userSetPassword(final String login, final String pass) {
         if (login != null && !login.isEmpty() && pass != null && !pass.isEmpty()) {
             for (User user : userRepository.findAll()) {
                 if (user.getName().equals(login)) {

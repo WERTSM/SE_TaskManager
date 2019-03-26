@@ -27,6 +27,13 @@
         </dependency>
     </dependencies>
     <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -36,7 +43,6 @@
                     <target>7</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -46,11 +52,15 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathPrefix>../lib/</classpathPrefix>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <mainClass>ru.Hmelev.tm.Application</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Built-By>WERTSM</Built-By>
+                            <name>Sergey Khmelev</name>
+                            <mail>wertsm.java@gmail.com</mail>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -75,6 +85,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>{0,number}</format>
+                    <items>
+                        <item>buildNumber</item>
+                    </items>
+                </configuration>
+            </plugin>
         </plugins>
+        <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
     </build>
+    <scm>
+        <connection>scm:git:https://github.com/WERTSM/SE_TaskManager.git</connection>
+    </scm>
 </project>

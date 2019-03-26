@@ -1,14 +1,10 @@
 package ru.Hmelev.tm.command;
 
-import ru.Hmelev.tm.api.EntityService;
 import ru.Hmelev.tm.api.InterfaceProjectService;
 import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
-import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
-import ru.Hmelev.tm.entity.Task;
 import ru.Hmelev.tm.entity.User;
-import ru.Hmelev.tm.service.TaskService;
 import ru.Hmelev.tm.service.UserService;
 
 import java.io.BufferedReader;
@@ -31,17 +27,20 @@ public abstract class Command {
     protected String idProject;
     protected String idTask;
     protected String idProjectFromTask;
-    protected User user;
 
+    protected User user;
     protected String login;
     protected String password;
     protected String role;
+
     protected ServiceLocator serviceLocator;
     private boolean security;
+
     private String nameCommand;
     private String descriptionCommand;
     private Role roleCommand;
-    public Command(ServiceLocator serviceLocator, String nameCommand, String descriptionCommand, boolean security) {
+
+    public Command(final ServiceLocator serviceLocator,final String nameCommand,final String descriptionCommand,final boolean security) {
         this.serviceLocator = serviceLocator;
         this.reader = serviceLocator.getReader();
         this.projectService = serviceLocator.getProjectService();
@@ -52,7 +51,7 @@ public abstract class Command {
         this.security = security;
     }
 
-    public Command(ServiceLocator serviceLocator, String nameCommand, String descriptionCommand, boolean security, Role role) {
+    public Command(final ServiceLocator serviceLocator,final String nameCommand,final String descriptionCommand,final boolean security, Role role) {
         this.serviceLocator = serviceLocator;
         this.reader = serviceLocator.getReader();
         this.projectService = serviceLocator.getProjectService();
@@ -64,7 +63,7 @@ public abstract class Command {
         this.roleCommand = role;
     }
 
-    public Command(String nameCommand, String descriptionCommand, boolean security) {
+    public Command(final String nameCommand,final String descriptionCommand,final boolean security) {
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
         this.security = security;

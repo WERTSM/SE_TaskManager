@@ -6,15 +6,15 @@ import ru.Hmelev.tm.entity.User;
 import java.util.Collection;
 
 public interface EntityService<T extends Entity> {
-    void createEntity(String id, T entity);
+    void createEntity(final String id, final T entity);
 
-    T findEntity(String id, User user);
+    T findEntity(final String id, final User user);
 
-    Collection<T> findAllEntities(User user);
+    Collection<T> findAllEntities(final User user);
 
-    void editEntity(String id, T entity, User user);
+    void editEntity(final String id, final T entity, final User user);
 
-    void removeEntity(String id, User user);
+    void removeEntity(final String id, final User user);
 
-    void clearEntity(User user);
+    void clearEntity(final User user);
 }

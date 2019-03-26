@@ -5,6 +5,7 @@ import ru.Hmelev.tm.api.InterfaceProjectService;
 import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.command.project.*;
+import ru.Hmelev.tm.command.system.AboutCommand;
 import ru.Hmelev.tm.command.system.ExitCommand;
 import ru.Hmelev.tm.command.system.HelpCommand;
 import ru.Hmelev.tm.command.task.*;
@@ -58,7 +59,8 @@ public final class Bootstrap implements ServiceLocator {
             new UserLogoutCommand(this),
             new UserSetPasswordCommand(this),
             new UserProfileCommand(this),
-            new UserUpdateCommand(this)
+            new UserUpdateCommand(this),
+            new AboutCommand(this)
     };
 
     private User userSession;
@@ -89,7 +91,7 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     @Override
-    public void setUserSession(User userSession) {
+    public void setUserSession(final User userSession) {
         this.userSession = userSession;
     }
 
@@ -120,7 +122,7 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private boolean permit(Command commandString) {
+    private boolean permit(final Command commandString) {
         if (!commandString.getSecurity()) {
             return true;
         }

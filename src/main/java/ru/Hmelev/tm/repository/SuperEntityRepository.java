@@ -5,16 +5,16 @@ import ru.Hmelev.tm.entity.Entity;
 
 import java.util.*;
 
-public class SuperEntityRepository<T extends Entity> implements EntityRepository<T> {
+public final class SuperEntityRepository<T extends Entity> implements EntityRepository<T> {
     private final Map<String, T> mapEntity = new HashMap<>();
 
-    public void persist(String id, T entity) {
+    public void persist(final String id, final T entity) {
         if (id != null && !id.isEmpty() && entity != null) {
             mapEntity.put(id, entity);
         }
     }
 
-    public T findOne(String id, String userId) {
+    public T findOne(final String id, final String userId) {
         if (id != null && !id.isEmpty() && userId != null && !userId.isEmpty()) {
             Collection<T> list = new ArrayList<>(findAll(userId));
             for (T entity : list) {
@@ -27,7 +27,7 @@ public class SuperEntityRepository<T extends Entity> implements EntityRepository
     }
 
     @Override
-    public Collection<T> findAll(String userId) {
+    public Collection<T> findAll(final String userId) {
         if (userId != null && !userId.isEmpty()) {
             Collection<T> list = new ArrayList<>(mapEntity.values());
             Iterator<T> it = list.iterator();
@@ -43,12 +43,12 @@ public class SuperEntityRepository<T extends Entity> implements EntityRepository
     }
 
     @Override
-    public void merge(String id, T entity, String userId) {
+    public void merge(final String id, final T entity, final String userId) {
     }
 
 
     @Override
-    public void remove(String id, String userId) {
+    public void remove(final String id, final String userId) {
         if (id != null && !id.isEmpty() && userId != null && !userId.isEmpty()) {
             Collection<T> list = mapEntity.values();
             Iterator<T> it = list.iterator();
@@ -63,7 +63,7 @@ public class SuperEntityRepository<T extends Entity> implements EntityRepository
     }
 
     @Override
-    public void removeAll(String userId) {
+    public void removeAll(final String userId) {
         if (userId != null && !userId.isEmpty()) {
             Collection<T> list = mapEntity.values();
             list.clear();

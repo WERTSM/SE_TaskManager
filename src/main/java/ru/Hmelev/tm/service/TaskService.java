@@ -10,11 +10,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class TaskService extends AbstractEntityService<Task> implements InterfaceTaskService {
-    public TaskService(EntityRepository<Task> entityRepository) {
+    public TaskService(final EntityRepository<Task> entityRepository) {
         super(entityRepository);
     }
 
-    public List<Task> listTaskFromProject(String idProject, User user) {
+    public List<Task> listTaskFromProject(final String idProject, final User user) {
         if (idProject != null && !idProject.isEmpty() && user != null) {
             userId = user.getId();
             List<Task> list = new ArrayList<>(entityRepository.findAll(userId));
@@ -30,7 +30,7 @@ public final class TaskService extends AbstractEntityService<Task> implements In
         return null;
     }
 
-    public void removeAllTaskFromProject(String idProject, User user) {
+    public void removeAllTaskFromProject(final String idProject, final User user) {
         if (idProject != null && !idProject.isEmpty() && user != null) {
             userId = user.getId();
             List<Task> list = new ArrayList<>(entityRepository.findAll(userId));

@@ -5,9 +5,9 @@ import ru.Hmelev.tm.entity.User;
 import java.util.Collection;
 
 public interface InterfaceUserRepository {
-    void persist(User user);
+    void persist(final User user);
 
-    User findOne(String id);
+    User findOne(final String id);
 
     Collection<User> findAll();
 }
