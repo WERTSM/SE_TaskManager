@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
+
 @NoArgsConstructor
 public final class Task extends Entity {
     @Getter

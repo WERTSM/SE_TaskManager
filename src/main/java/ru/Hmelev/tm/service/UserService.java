@@ -27,7 +27,7 @@ public final class UserService implements InterfaceUserService {
     public void registry(@NotNull final String login, @NotNull final String pass, @NotNull final String roleStr) {
         if (!login.isEmpty() && !pass.isEmpty() && !roleStr.isEmpty()) {
             String id = UUID.randomUUID().toString();
-            password = Hashing.md5().hashString(pass, UTF_8).toString();
+            password = Hashing.sha256().hashString(pass, UTF_8).toString();
             Role role = Role.valueOf(roleStr.toUpperCase());
             User user = new User(id, login, password, role);
             userRepository.persist(user);
@@ -51,7 +51,7 @@ public final class UserService implements InterfaceUserService {
         if (!login.isEmpty() && !pass.isEmpty()) {
             for (User user : userRepository.findAll()) {
                 if (user.getName().equals(login)) {
-                    password = (Hashing.md5().hashString(pass, UTF_8).toString());
+                    password = (Hashing.sha256().hashString(pass, UTF_8).toString());
                     String passwordUserRepository = user.getHashPassword();
                     if (passwordUserRepository.equals(password)) {
                         bootstrap.setUserSession(user);

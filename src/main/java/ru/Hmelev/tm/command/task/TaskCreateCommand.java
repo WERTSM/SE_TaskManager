@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.task;
 
-import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.Task;
@@ -12,31 +11,34 @@ import java.util.UUID;
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public final class TaskCreateCommand extends Command {
-    public TaskCreateCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "task-create", "Create new task.", true, Role.USER);
+    public TaskCreateCommand() {
+        super("task-create", "Create new task.", true, Role.USER);
     }
 
     @Override
     public void execute() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
 
+        taskService = serviceLocator.getTaskService();
+        terminalService = serviceLocator.getTerminalService();
+
         System.out.println("Name task: ");
-        name = reader.readLine();
+        name = terminalService.readLine();
 
         System.out.println("Description task: ");
-        description = reader.readLine();
+        description = terminalService.readLine();
 
         System.out.println("Start date task: \"dd.MM.yyyy\" ");
-        date = reader.readLine();
+        date = terminalService.readLine();
         startDate = DEFAULT_DATE_FORMAT.parse(date);
 
         System.out.println("Finish date task: \"dd.MM.yyyy\" ");
-        date = reader.readLine();
+        date = terminalService.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
         System.out.println("Id project or \'0\': ");
 
-        idProjectFromTask = reader.readLine();
+        idProjectFromTask = terminalService.readLine();
         if (idProjectFromTask.equals("0")) {
             idProjectFromTask = "00000000-0000-0000-0000-000000000000";
         }

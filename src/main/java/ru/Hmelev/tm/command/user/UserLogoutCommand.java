@@ -1,11 +1,10 @@
 package ru.Hmelev.tm.command.user;
 
-import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 
 public final class UserLogoutCommand extends Command {
-    public UserLogoutCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "user-logout", "User LOGOUT", false);
+    public UserLogoutCommand() {
+        super("user-logout", "User LOGOUT", false);
     }
 
     @Override

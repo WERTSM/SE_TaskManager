@@ -1,24 +1,25 @@
 package ru.Hmelev.tm.command;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import ru.Hmelev.tm.api.InterfaceProjectService;
 import ru.Hmelev.tm.api.InterfaceTaskService;
 import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.entity.Role;
 import ru.Hmelev.tm.entity.User;
+import ru.Hmelev.tm.service.TerminalService;
 import ru.Hmelev.tm.service.UserService;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
 public abstract class Command {
-    protected BufferedReader reader;
     protected InterfaceProjectService projectService;
     protected InterfaceTaskService taskService;
     protected UserService userService;
+    protected TerminalService terminalService;
 
     protected String name;
     protected String description;
@@ -35,6 +36,7 @@ public abstract class Command {
     protected String password;
     protected String role;
 
+    @Setter
     protected ServiceLocator serviceLocator;
 
     @Getter
@@ -47,23 +49,7 @@ public abstract class Command {
     @Getter
     private Role roleCommand;
 
-    public Command(@NotNull final ServiceLocator serviceLocator, @NotNull final String nameCommand, @NotNull final String descriptionCommand, final boolean security) {
-        this.serviceLocator = serviceLocator;
-        this.reader = serviceLocator.getReader();
-        this.projectService = serviceLocator.getProjectService();
-        this.taskService = serviceLocator.getTaskService();
-        this.userService = serviceLocator.getUserService();
-        this.nameCommand = nameCommand;
-        this.descriptionCommand = descriptionCommand;
-        this.security = security;
-    }
-
-    public Command(@NotNull final ServiceLocator serviceLocator, @NotNull final String nameCommand, @NotNull final String descriptionCommand, final boolean security, @NotNull Role role) {
-        this.serviceLocator = serviceLocator;
-        this.reader = serviceLocator.getReader();
-        this.projectService = serviceLocator.getProjectService();
-        this.taskService = serviceLocator.getTaskService();
-        this.userService = serviceLocator.getUserService();
+    public Command(@NotNull final String nameCommand, @NotNull final String descriptionCommand, final boolean security, @NotNull Role role) {
         this.nameCommand = nameCommand;
         this.descriptionCommand = descriptionCommand;
         this.security = security;

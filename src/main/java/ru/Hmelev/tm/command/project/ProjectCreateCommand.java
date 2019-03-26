@@ -1,6 +1,5 @@
 package ru.Hmelev.tm.command.project;
 
-import ru.Hmelev.tm.bootstrap.ServiceLocator;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
@@ -12,26 +11,29 @@ import java.util.UUID;
 import static ru.Hmelev.tm.command.util.Printer.DEFAULT_DATE_FORMAT;
 
 public final class ProjectCreateCommand extends Command {
-    public ProjectCreateCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator, "project-create", "Create new project.", true, Role.USER);
+    public ProjectCreateCommand() {
+        super("project-create", "Create new project.", true, Role.USER);
     }
 
     @Override
     public void execute() throws IOException, ParseException {
         System.out.println("!!!Start command!!!");
 
+        projectService = serviceLocator.getProjectService();
+        terminalService = serviceLocator.getTerminalService();
+
         System.out.println("Name project: ");
-        name = reader.readLine();
+        name = terminalService.readLine();
 
         System.out.println("Description: ");
-        description = reader.readLine();
+        description = terminalService.readLine();
 
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        date = reader.readLine();
+        date = terminalService.readLine();
         startDate = DEFAULT_DATE_FORMAT.parse(date);
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
-        date = reader.readLine();
+        date = terminalService.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
         user = serviceLocator.getUserSession();
