@@ -9,13 +9,9 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @Setter
 public final class User {
-    @NotNull
     private String id;
-    @NotNull
     private String name;
-    @NotNull
     private String hashPassword;
-    @NotNull
     private Role role;
 
     public User(@NotNull String id, @NotNull String name, @NotNull String hashPassword, @NotNull Role role) {

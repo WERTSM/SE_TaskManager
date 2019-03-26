@@ -9,30 +9,23 @@ import java.util.Date;
 @NoArgsConstructor
 public final class Task extends Entity {
     @Getter
-    @NotNull
     private String id;
     @Setter
     @Getter
-    @NotNull
     private String name;
     @Setter
     @Getter
-    @NotNull
     private String description;
     @Setter
     @Getter
-    @NotNull
     private Date startDate;
     @Setter
     @Getter
-    @NotNull
     private Date finishDate;
     @Setter
     @Getter
-    @NotNull
     private String idProject;
     @Getter
-    @NotNull
     private String userId;
 
     public Task(@NotNull String id, @NotNull String name, @NotNull String description, @NotNull Date startDate, @NotNull Date finishDate, @NotNull String idProject, @NotNull String userId) {

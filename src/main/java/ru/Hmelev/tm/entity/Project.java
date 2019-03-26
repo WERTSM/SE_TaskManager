@@ -10,17 +10,11 @@ import java.util.Date;
 @Setter
 @Getter
 public class Project extends Entity {
-    @NotNull
     private String id;
-    @NotNull
     private String name;
-    @NotNull
     private String description;
-    @NotNull
     private Date dateStart;
-    @NotNull
     private Date dataFinish;
-    @NotNull
     private String userId;
 
     public Project(@NotNull String id, @NotNull String name, @NotNull String description, @NotNull Date dateStart, @NotNull Date dataFinish, @NotNull String userId) {
