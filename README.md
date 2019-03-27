@@ -11,7 +11,10 @@ _MAVEN_
 **АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ:** wertsm.java@gmail.com
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
-`*Path*to*directoty*` _mvn clean install_
+ ```sh
+    $ cd `*Path*to*directoty*`
+    $ mvn clean install_
+    ```
 ***
 **КОМАНДА ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ:** 
 _java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_

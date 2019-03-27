@@ -22,6 +22,7 @@ public final class Printer {
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(project.getDataFinish())
                             + "; Status = " + project.getStatus().getDisplayName()
                             + "; Name user = " + user.getName()
+                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(project.getDataCreate())
                             + " ]");
         }
     }
@@ -37,6 +38,7 @@ public final class Printer {
                             + "; id Project= " + task.getIdProject()
                             + "; Status = " + task.getStatus().getDisplayName()
                             + "; Name user = " + user.getName()
+                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(task.getDataCreate())
                             + " ]");
         }
     }

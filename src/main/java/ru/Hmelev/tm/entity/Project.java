@@ -16,6 +16,7 @@ public class Project extends Entity {
     private String description;
     private Date dateStart;
     private Date dataFinish;
+    private Date dataCreate;
     private Status status;
     private String userId;
 
@@ -26,6 +27,7 @@ public class Project extends Entity {
         this.dateStart = dateStart;
         this.dataFinish = dataFinish;
         this.status = status;
+        this.dataCreate = new Date();
         this.userId = userId;
     }
 }

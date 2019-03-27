@@ -30,6 +30,8 @@ public final class Task extends Entity {
     @Setter
     private Status status;
     @Getter
+    private Date dataCreate;
+    @Getter
     private String userId;
 
     public Task(@NotNull String id, @NotNull String name, @NotNull String description, @NotNull Date startDate, @NotNull Date finishDate, @NotNull String idProject, @NotNull Status status, @NotNull String userId) {
@@ -40,6 +42,7 @@ public final class Task extends Entity {
         this.finishDate = finishDate;
         this.idProject = idProject;
         this.status = status;
+        this.dataCreate = new Date();
         this.userId = userId;
     }
 }
