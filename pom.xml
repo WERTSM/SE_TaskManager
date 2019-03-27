@@ -64,7 +64,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>../lib/</classpathPrefix>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>ru.Hmelev.tm.Application</mainClass>
+                            <mainClass>ru.khmelev.tm.Application</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Built-By>WERTSM</Built-By>
