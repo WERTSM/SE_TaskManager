@@ -12,13 +12,15 @@ _MAVEN_
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
 ```sh
-$ cd `*Path*to*directoty*
+$ cd PathToDirectoty
 $ mvn clean install_
 ```
 
 ***
-**КОМАНДА ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ:** 
+**КОМАНДА ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ:**
+```java
 _java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_
+```
 ***
 **КОМАНДЫ ДЛЯ РАБОТЫ С ПРИЛОЖЕНИЕМ:**
 
