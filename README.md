@@ -1,17 +1,26 @@
 # SE_TaskManager
 НАБОР ПРАКТИЧЕСКИХ ЗАДАНИЙ JAVA SE
 ***
+
 **_ТРЕБОВАНИЯ К SOFTWARE:_**
-_JDK 7, Maven 3.6.0_
+
+| Software | Version |
+| ------ | ------ |
+| JDK 7 | 7|
+| Maven | 3.6.0 |
+
 ***
+
 **СТЕК ТЕХНОЛОГИЙ:**
 _MAVEN_
+
 ***
 **ИМЯ РАЗРАБОТЧИКА:** _Сергей Хмелёв_<br/>
 **АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ:** wertsm.java@gmail.com
+
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
-```sh
+```java
 $ cd PathToDirectoty
 $ mvn clean install_
 ```
@@ -21,9 +30,10 @@ $ mvn clean install_
 ```java
 _java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_
 ```
+
 ***
 **КОМАНДЫ ДЛЯ РАБОТЫ С ПРИЛОЖЕНИЕМ:**
-
+```java
     * "help" : Show all commands.
     * "project-create" : Create new project.
     * "project-clear" : Remove all projects.
@@ -38,3 +48,4 @@ _java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_
     * "task-edit" : Edit selected task
     * "task-remove" : Remove selected task.
     * "exit" : Exit from the program.
+```
