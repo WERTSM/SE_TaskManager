@@ -12,7 +12,7 @@ _MAVEN_
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
  ```sh
-    $ cd `*Path*to*directoty*`
+    $ cd `*Path*to*directoty*
     $ mvn clean install_
     ```
 ***
