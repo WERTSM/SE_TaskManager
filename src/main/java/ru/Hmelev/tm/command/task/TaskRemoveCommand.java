@@ -18,11 +18,11 @@ public final class TaskRemoveCommand extends Command {
         terminalService = serviceLocator.getTerminalService();
 
         System.out.println("ID task: ");
-        idTask = terminalService.readLine();
+        id = terminalService.readLine();
 
         user = serviceLocator.getUserSession();
         if (user != null) {
-            taskService.removeEntity(idTask, user);
+            taskService.removeEntity(id, user);
         }
         System.out.println("!!!DONE!!!");
     }

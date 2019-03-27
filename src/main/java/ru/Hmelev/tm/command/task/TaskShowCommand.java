@@ -21,11 +21,11 @@ public final class TaskShowCommand extends Command {
         terminalService = serviceLocator.getTerminalService();
 
         System.out.println("ID task: ");
-        idTask = terminalService.readLine();
+        id = terminalService.readLine();
 
         User user = serviceLocator.getUserSession();
         if (user != null) {
-            Task task = taskService.findEntity(idTask, user);
+            Task task = taskService.findEntity(id, user);
             Printer.showTask(task, user);
         }
         System.out.println("!!!DONE!!!");

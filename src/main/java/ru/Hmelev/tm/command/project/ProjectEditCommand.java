@@ -1,8 +1,10 @@
 package ru.Hmelev.tm.command.project;
 
 import ru.Hmelev.tm.command.Command;
+import ru.Hmelev.tm.command.util.Printer;
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Status;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -22,7 +24,7 @@ public final class ProjectEditCommand extends Command {
         terminalService = serviceLocator.getTerminalService();
 
         System.out.println("ID project: ");
-        idProject = terminalService.readLine();
+        id = terminalService.readLine();
 
         System.out.println("Name project: ");
         name = terminalService.readLine();
@@ -38,18 +40,21 @@ public final class ProjectEditCommand extends Command {
         date = terminalService.readLine();
         finishDate = DEFAULT_DATE_FORMAT.parse(date);
 
-        System.out.println("User ID: ");
-        String userId = terminalService.readLine();
+        System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
+        String statusString = terminalService.readLine();
+        Status status = Status.valueOf(statusString.toUpperCase());
 
         user = serviceLocator.getUserSession();
+
         if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null && user != null) {
             Project project = projectService.findEntity(id, user);
             project.setName(name);
             project.setDescription(description);
             project.setDateStart(startDate);
             project.setDataFinish(finishDate);
-            project.setUserId(userId);
-            projectService.editEntity(idProject, project, user);
+            project.setStatus(status);
+            Printer.showProject(project, user);
+            projectService.editEntity(id, project, user);
         }
         System.out.println("!!!DONE!!!");
     }

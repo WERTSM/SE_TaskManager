@@ -22,13 +22,13 @@ public final class ProjectShowCommand extends Command {
         terminalService = serviceLocator.getTerminalService();
 
         System.out.println("ID project: ");
-        idProject = terminalService.readLine();
+        id = terminalService.readLine();
 
         user = serviceLocator.getUserSession();
         if (user != null) {
-            Project project = projectService.findEntity(idProject, user);
+            Project project = projectService.findEntity(id, user);
             Printer.showProject(project, user);
-            for (Task task : taskService.listTaskFromProject(idProject, user)) {
+            for (Task task : taskService.listTaskFromProject(id, user)) {
                 Printer.showTaskInProject(task);
             }
         }

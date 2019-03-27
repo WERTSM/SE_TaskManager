@@ -2,6 +2,7 @@ package ru.Hmelev.tm.command.task;
 
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Status;
 import ru.Hmelev.tm.entity.Task;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public final class TaskEditCommand extends Command {
         terminalService = serviceLocator.getTerminalService();
 
         System.out.println("ID task: ");
-        idTask = terminalService.readLine();
+        id = terminalService.readLine();
 
         System.out.println("Name task: ");
         name = terminalService.readLine();
@@ -40,15 +41,18 @@ public final class TaskEditCommand extends Command {
 
         System.out.println("Id project or \'0\': ");
 
-        idProjectFromTask = terminalService.readLine();
-        if (idProjectFromTask.equals("0")) {
-            idProjectFromTask = "00000000-0000-0000-0000-000000000000";
+        idProject = terminalService.readLine();
+        if (idProject.equals("0")) {
+            idProject = "00000000-0000-0000-0000-000000000000";
         }
+
+        System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
+        String statusString = terminalService.readLine();
+        Status status = Status.valueOf(statusString.toUpperCase());
 
         user = serviceLocator.getUserSession();
 
-        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty()
-                && startDate != null && finishDate != null && idProjectFromTask != null && !idProjectFromTask.isEmpty()) {
+        if (id != null && !id.isEmpty() && name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null && idProject != null && !idProject.isEmpty()) {
             if (user != null) {
                 Task task;
                 task = taskService.findEntity(id, user);
@@ -56,8 +60,9 @@ public final class TaskEditCommand extends Command {
                 task.setDescription(description);
                 task.setStartDate(startDate);
                 task.setFinishDate(finishDate);
-                task.setIdProject(idProjectFromTask);
-                taskService.editEntity(idTask, task, user);
+                task.setIdProject(idProject);
+                task.setStatus(status);
+                taskService.editEntity(id, task, user);
             }
         }
         System.out.println("!!!DONE!!!");

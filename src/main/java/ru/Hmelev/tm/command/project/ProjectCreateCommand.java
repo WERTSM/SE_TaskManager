@@ -3,6 +3,7 @@ package ru.Hmelev.tm.command.project;
 import ru.Hmelev.tm.command.Command;
 import ru.Hmelev.tm.entity.Project;
 import ru.Hmelev.tm.entity.Role;
+import ru.Hmelev.tm.entity.Status;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -41,7 +42,7 @@ public final class ProjectCreateCommand extends Command {
         if (name != null && !name.isEmpty() && description != null && !description.isEmpty() && startDate != null && finishDate != null) {
             String id = UUID.randomUUID().toString();
             String userId = user.getId();
-            Project project = new Project(id, name, description, startDate, finishDate, userId);
+            Project project = new Project(id, name, description, startDate, finishDate, Status.PLANNED, userId);
             projectService.createEntity(id, project);
         }
         System.out.println("!!!DONE!!!");

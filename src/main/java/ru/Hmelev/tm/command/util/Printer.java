@@ -20,6 +20,7 @@ public final class Printer {
                             + "; Description = " + project.getDescription()
                             + "; Start date = " + DEFAULT_DATE_FORMAT.format(project.getDateStart())
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(project.getDataFinish())
+                            + "; Status = " + project.getStatus().getDisplayName()
                             + "; Name user = " + user.getName()
                             + " ]");
         }
@@ -33,7 +34,8 @@ public final class Printer {
                             + "; Description = " + task.getDescription()
                             + "; Start date = " + DEFAULT_DATE_FORMAT.format(task.getStartDate())
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(task.getFinishDate())
-                            + "; idProject = " + task.getIdProject()
+                            + "; id Project= " + task.getIdProject()
+                            + "; Status = " + task.getStatus().getDisplayName()
                             + "; Name user = " + user.getName()
                             + " ]");
         }
@@ -65,6 +67,7 @@ public final class Printer {
                     + "[ ID = " + task.getId()
                     + "; Name = " + task.getName()
                     + "; Description = " + task.getDescription()
+                    + "; Status = " + task.getStatus().getDisplayName()
                     + "; UserId = " + task.getUserId()
                     + " ]");
         }

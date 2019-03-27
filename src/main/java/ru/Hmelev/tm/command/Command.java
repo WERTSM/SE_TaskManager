@@ -21,15 +21,14 @@ public abstract class Command {
     protected UserService userService;
     protected TerminalService terminalService;
 
+    protected String id;
+    protected String idProject;
     protected String name;
     protected String description;
-    protected String id;
     protected String date;
+
     protected Date startDate;
     protected Date finishDate;
-    protected String idProject;
-    protected String idTask;
-    protected String idProjectFromTask;
 
     protected User user;
     protected String login;
