@@ -25,18 +25,18 @@
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
 ```java
 $ cd PathToDirectoty
-$ mvn clean install_
+$ mvn clean install
 ```
 
 ***
 **КОМАНДА ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ:**
-```java
-_java -jar SE-Task-Manager-1.0-SNAPSHOT.jar_
+```sh
+java -jar SE-Task-Manager-1.0-SNAPSHOT.jar
 ```
 
 ***
 **КОМАНДЫ ДЛЯ РАБОТЫ С ПРИЛОЖЕНИЕМ:**
-```java
+```sh
     * "help" : Show all commands.
     * "project-create" : Create new project.
     * "project-clear" : Remove all projects.
