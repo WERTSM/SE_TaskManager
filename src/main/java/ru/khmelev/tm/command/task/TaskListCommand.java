@@ -41,7 +41,6 @@ public final class TaskListCommand extends Command {
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
         for (Task task : serviceLocator.getTaskService().findAll(userId)) {
-            System.out.println(task);
             Printer.showListTask(task);
         }
         System.out.println("!!!DONE!!!");

@@ -24,6 +24,7 @@ public final class UserService implements IUserService {
         this.bootstrap = bootstrap;
     }
 
+    @Override
     public void registry(@NotNull final String login, @NotNull final String pass, @NotNull final String roleStr) {
         if (!login.isEmpty() && !pass.isEmpty() && !roleStr.isEmpty()) {
             String id = UUID.randomUUID().toString();
@@ -35,6 +36,7 @@ public final class UserService implements IUserService {
     }
 
     @NotNull
+    @Override
     public User findUser(@NotNull final String id) {
         if (!id.isEmpty()) {
             return userRepository.findOne(id);
@@ -43,6 +45,7 @@ public final class UserService implements IUserService {
     }
 
     @NotNull
+    @Override
     public Collection<User> userList() {
         return userRepository.findAll();
     }
@@ -63,6 +66,7 @@ public final class UserService implements IUserService {
         return false;
     }
 
+    @Override
     public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
         if (!login.isEmpty() && !pass.isEmpty()) {
             for (User user : userRepository.findAll()) {
@@ -75,11 +79,13 @@ public final class UserService implements IUserService {
     }
 
     @NotNull
+    @Override
     public String getId(@NotNull User user) {
         return user.getId();
     }
 
     @NotNull
+    @Override
     public String getName(@NotNull User user) {
         return user.getName();
     }

@@ -17,6 +17,7 @@ public final class TaskService extends AbstractEntityService<Task> implements IT
         super(IEntityRepository);
     }
 
+    @Override
     public List<Task> listTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
         if (!idProject.isEmpty() && !userId.isEmpty()) {
             List<Task> list = new ArrayList<>(IEntityRepository.findAll(userId));
@@ -32,6 +33,7 @@ public final class TaskService extends AbstractEntityService<Task> implements IT
         throw new ServiceException();
     }
 
+    @Override
     public void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
         if (!idProject.isEmpty() && !userId.isEmpty()) {
             List<Task> list = new ArrayList<>(IEntityRepository.findAll(userId));

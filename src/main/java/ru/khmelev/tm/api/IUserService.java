@@ -10,6 +10,8 @@ public interface IUserService {
 
     boolean userLogin(@NotNull final String login, @NotNull final String pass);
 
+    @NotNull User findUser(@NotNull final String id);
+
     @NotNull Collection<User> userList();
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);

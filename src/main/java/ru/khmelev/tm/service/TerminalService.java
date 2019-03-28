@@ -9,11 +9,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class TerminalService implements ITerminalService {
+
     @Getter
     @NotNull
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     @NotNull
+    @Override
     public String readLine() throws IOException {
         return reader.readLine();
     }

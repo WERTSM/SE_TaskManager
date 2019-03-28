@@ -16,6 +16,10 @@ public abstract class Entity {
     @Getter
     private String name;
 
+    @Setter
+    @Getter
+    private String description;
+
     @Getter
     private String userId;
 
