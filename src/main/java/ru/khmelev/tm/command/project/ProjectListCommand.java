@@ -2,7 +2,7 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.InterfaceProjectService;
+import ru.khmelev.tm.api.IProjectService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Project;
@@ -34,7 +34,7 @@ public final class ProjectListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        @NotNull final InterfaceProjectService projectService = serviceLocator.getProjectService();
+        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
 
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {

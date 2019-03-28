@@ -2,21 +2,21 @@ package ru.khmelev.tm.bootstrap;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.InterfaceProjectService;
-import ru.khmelev.tm.api.InterfaceTaskService;
-import ru.khmelev.tm.api.InterfaceTerminalService;
-import ru.khmelev.tm.api.InterfaceUserService;
+import ru.khmelev.tm.api.IProjectService;
+import ru.khmelev.tm.api.ITaskService;
+import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.IUserService;
 import ru.khmelev.tm.entity.User;
 
 public interface ServiceLocator {
 
-    @NotNull InterfaceProjectService getProjectService();
+    @NotNull IProjectService getProjectService();
 
-    @NotNull InterfaceTaskService getTaskService();
+    @NotNull ITaskService getTaskService();
 
-    @NotNull InterfaceUserService getUserService();
+    @NotNull IUserService getUserService();
 
-    @NotNull InterfaceTerminalService getTerminalService();
+    @NotNull ITerminalService getTerminalService();
 
     @Nullable User getUserSession();
 

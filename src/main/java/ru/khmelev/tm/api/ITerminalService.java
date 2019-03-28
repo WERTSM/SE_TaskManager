@@ -2,6 +2,6 @@ package ru.khmelev.tm.api;
 
 import java.io.IOException;
 
-public interface InterfaceTerminalService {
+public interface ITerminalService {
     String readLine() throws IOException;
 }

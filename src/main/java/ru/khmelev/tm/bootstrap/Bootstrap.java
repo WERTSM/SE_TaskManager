@@ -26,29 +26,29 @@ public final class Bootstrap implements ServiceLocator {
     private final Map<String, Command> commandMap = new HashMap<>();
 
     @NotNull
-    private final InterfaceProjectRepository projectRepository = new ProjectRepository();
+    private final IProjectRepository projectRepository = new ProjectRepository();
 
     @NotNull
-    private final InterfaceTaskRepository taskRepository = new TaskRepository();
+    private final ITaskRepository taskRepository = new TaskRepository();
 
     @NotNull
     private final UserRepository userRepository = new UserRepository();
 
     @Getter
     @NotNull
-    private final InterfaceProjectService projectService = new ProjectService(projectRepository);
+    private final IProjectService projectService = new ProjectService(projectRepository);
 
     @Getter
     @NotNull
-    private final InterfaceTaskService taskService = new TaskService(taskRepository);
+    private final ITaskService taskService = new TaskService(taskRepository);
 
     @Getter
     @NotNull
-    private final InterfaceUserService userService = new UserService(userRepository, this);
+    private final IUserService userService = new UserService(userRepository, this);
 
     @Getter
     @NotNull
-    private final InterfaceTerminalService terminalService = new TerminalService();
+    private final ITerminalService terminalService = new TerminalService();
 
     @Setter
     @Getter

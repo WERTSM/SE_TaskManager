@@ -2,8 +2,8 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.InterfaceTaskService;
-import ru.khmelev.tm.api.InterfaceTerminalService;
+import ru.khmelev.tm.api.ITaskService;
+import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
@@ -42,9 +42,9 @@ public final class TaskEditCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
-        @NotNull final InterfaceTerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        @NotNull final InterfaceTaskService taskService = serviceLocator.getTaskService();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
 
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {

@@ -2,7 +2,7 @@ package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.EntityRepository;
-import ru.khmelev.tm.api.InterfaceTaskService;
+import ru.khmelev.tm.api.ITaskService;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public final class TaskService extends AbstractEntityService<Task> implements InterfaceTaskService {
+public final class TaskService extends AbstractEntityService<Task> implements ITaskService {
     public TaskService(final EntityRepository<Task> entityRepository) {
         super(entityRepository);
     }

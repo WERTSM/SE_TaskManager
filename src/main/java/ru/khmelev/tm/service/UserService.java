@@ -2,7 +2,7 @@ package ru.khmelev.tm.service;
 
 import com.google.common.hash.Hashing;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.InterfaceUserService;
+import ru.khmelev.tm.api.IUserService;
 import ru.khmelev.tm.bootstrap.Bootstrap;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public final class UserService implements InterfaceUserService {
+public final class UserService implements IUserService {
     final private Bootstrap bootstrap;
     final private UserRepository userRepository;
     private String password;
