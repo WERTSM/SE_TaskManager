@@ -17,7 +17,6 @@ import ru.khmelev.tm.service.TerminalService;
 import ru.khmelev.tm.service.UserService;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

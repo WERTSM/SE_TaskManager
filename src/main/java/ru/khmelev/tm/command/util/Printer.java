@@ -1,5 +1,6 @@
 package ru.khmelev.tm.command.util;
 
+import com.jcabi.manifests.Manifests;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.entity.Project;
@@ -104,9 +105,28 @@ public final class Printer {
         @NotNull final String version = properties.getProperty("application.version");
         @NotNull final String build = properties.getProperty("application.build");
 
-        System.out.println("Application name: " + name
-                + "Application version: " + version
-                + "Application build: " + build);
+        System.out.println("Вывод информации из application.properties: "
+                + "\nApplication name: " + name
+                + "\nApplication version: " + version
+                + "\nApplication build: " + build);
+    }
+
+    public static void showManifest() {
+        @NotNull final String builtBy = Manifests.read("Built-By");
+        @NotNull final String name = Manifests.read("name");
+        @NotNull final String createdBy = Manifests.read("Created-By");
+        @NotNull final String builtJdk = Manifests.read("Build-Jdk");
+        @NotNull final String mainClass = Manifests.read("Main-Class");
+        @NotNull final String implementationBuild = Manifests.read("Implementation-Build");
+
+        System.out.println("\nВывод информации из МАНИФЕСТА: "
+                + "\nBuilt-By: " + builtBy
+                + "\nName: " + name
+                + "\nCreated-By: " + createdBy
+                + "\nBuild-Jdk: " + builtJdk
+                + "\nMain-Clas: " + mainClass
+                + "\nImplementation-Build: " + implementationBuild
+        );
     }
 
     @NotNull

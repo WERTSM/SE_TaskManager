@@ -32,8 +32,17 @@ public class AboutCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
+
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         final InputStream inputStreamProperties = classloader.getResourceAsStream("application.properties");
-        Printer.showProperties(inputStreamProperties);
+        if (inputStreamProperties != null) {
+            Printer.showProperties(inputStreamProperties);
+        }
+        if (inputStreamProperties != null) {
+            inputStreamProperties.close();
+        }
+
+        Printer.showManifest();
+        System.out.println("!!!DONE!!!");
     }
 }
