@@ -17,6 +17,7 @@ import ru.khmelev.tm.service.TerminalService;
 import ru.khmelev.tm.service.UserService;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +72,11 @@ public final class Bootstrap implements ServiceLocator {
                 continue;
             }
             if (permitCommand(command)) {
-                command.execute();
+                try {
+                    command.execute();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
