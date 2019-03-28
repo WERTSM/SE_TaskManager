@@ -39,7 +39,7 @@ public final class Task extends Entity {
 
     @Setter
     @Getter
-    private Date dataCreate;
+    private Date dateCreate;
 
     @Setter
     @Getter

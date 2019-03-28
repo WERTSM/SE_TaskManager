@@ -1,13 +1,13 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.EntityRepository;
+import ru.khmelev.tm.api.IEntityRepository;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.RepositoryException;
 
 import java.util.*;
 
-public class SuperEntityRepository<T extends Entity> implements EntityRepository<T> {
+public class EntityRepository<T extends Entity> implements IEntityRepository<T> {
     private final Map<String, T> mapEntity = new HashMap<>();
 
     public void persist(@NotNull final String id, @NotNull final T entity) {

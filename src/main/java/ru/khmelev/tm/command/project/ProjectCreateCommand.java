@@ -77,8 +77,8 @@ public final class ProjectCreateCommand extends Command {
         @NotNull String dateFinishString = terminalService.readLine();
 
         try {
-            @NotNull final Date dataFinish = Printer.parse(dateFinishString);
-            project.setDataFinish(dataFinish);
+            @NotNull final Date dateFinish = Printer.parse(dateFinishString);
+            project.setDateFinish(dateFinish);
         } catch (ParseException e) {
             System.out.println("Error! Finish date: \"dd.MM.yyyy\". NOT: " + dateFinishString);
         }
@@ -86,8 +86,7 @@ public final class ProjectCreateCommand extends Command {
         @NotNull final String id = UUID.randomUUID().toString();
         project.setId(id);
 
-        project.setDataCreate(new Date());
-
+        project.setDateCreate(new Date());
         project.setStatus(Status.PLANNED);
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);

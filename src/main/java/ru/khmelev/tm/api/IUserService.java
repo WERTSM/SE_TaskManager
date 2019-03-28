@@ -14,8 +14,6 @@ public interface IUserService {
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);
 
-    @NotNull User findUser(@NotNull final String id);
-
     @NotNull String getId(@NotNull final User user);
 
     @NotNull String getName(@NotNull final User user);

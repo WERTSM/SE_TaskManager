@@ -89,8 +89,8 @@ public final class TaskEditCommand extends Command {
         @NotNull String dateFinishString = terminalService.readLine();
 
         try {
-            @NotNull final Date dataFinish = Printer.parse(dateFinishString);
-            task.setDateFinish(dataFinish);
+            @NotNull final Date dateFinish = Printer.parse(dateFinishString);
+            task.setDateFinish(dateFinish);
         } catch (ParseException e) {
             System.out.println("Error! Finish date: \"dd.MM.yyyy\". NOT: " + dateFinishString);
         }

@@ -78,8 +78,8 @@ public final class TaskCreateCommand extends Command {
         @NotNull String dateFinishString = terminalService.readLine();
 
         try {
-            @NotNull final Date dataFinish = Printer.parse(dateFinishString);
-            task.setDateFinish(dataFinish);
+            @NotNull final Date dateFinish = Printer.parse(dateFinishString);
+            task.setDateFinish(dateFinish);
         } catch (ParseException e) {
             System.out.println("Error! Finish date: \"dd.MM.yyyy\". NOT: " + dateFinishString);
         }
@@ -87,13 +87,12 @@ public final class TaskCreateCommand extends Command {
         @NotNull final String id = UUID.randomUUID().toString();
         task.setId(id);
 
-        task.setDataCreate(new Date());
+        task.setDateCreate(new Date());
 
         task.setStatus(Status.PLANNED);
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
         task.setUserId(userId);
-
 
         System.out.println("Id project or \'0\': ");
         @NotNull String idProject = terminalService.readLine();

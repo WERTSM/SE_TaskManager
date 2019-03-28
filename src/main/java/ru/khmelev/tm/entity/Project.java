@@ -19,9 +19,9 @@ public class Project extends Entity {
 
     private Date dateStart;
 
-    private Date dataFinish;
+    private Date dateFinish;
 
-    private Date dataCreate;
+    private Date dateCreate;
 
     private Status status;
 

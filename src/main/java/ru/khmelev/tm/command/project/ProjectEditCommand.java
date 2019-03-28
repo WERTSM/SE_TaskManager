@@ -89,15 +89,14 @@ public final class ProjectEditCommand extends Command {
         @NotNull String dateFinishString = terminalService.readLine();
 
         try {
-            @NotNull final Date dataFinish = Printer.parse(dateFinishString);
-            project.setDataFinish(dataFinish);
+            @NotNull final Date dateFinish = Printer.parse(dateFinishString);
+            project.setDateFinish(dateFinish);
         } catch (ParseException e) {
             System.out.println("Error! Finish date: \"dd.MM.yyyy\". NOT: " + dateFinishString);
         }
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
-
         project.setStatus(status);
 
         projectService.editEntity(id, project, userId);

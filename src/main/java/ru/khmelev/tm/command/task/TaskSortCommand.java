@@ -1,31 +1,34 @@
-package ru.khmelev.tm.command.project;
+package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
-import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public final class ProjectShowCommand extends Command {
+public class TaskSortCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "project-show";
+        return "task-sort";
     }
 
     @Override
     public String getDescriptionCommand() {
-        return "Show selected project";
+        return "SortedEntity tasks";
     }
 
     @Override
     public boolean isSecurity() {
-        return true;
+        return false;
     }
 
     @Override
@@ -36,6 +39,8 @@ public final class ProjectShowCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
+
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {
             return;
@@ -43,14 +48,14 @@ public final class ProjectShowCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        System.out.println("ID project: ");
-        @NotNull final String id = serviceLocator.getTerminalService().readLine();
+        System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
+        Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
-        @NotNull final Project project = serviceLocator.getProjectService().findEntity(id, userId);
+        @NotNull List<Task> list = new ArrayList<>(serviceLocator.getTaskService().findAll(userId));
+        serviceLocator.getTaskService().sort(list, sortParameter);
 
-        Printer.showProject(project, user);
-        for (@NotNull Task task : serviceLocator.getTaskService().listTaskFromProject(id, userId)) {
-            Printer.showTaskInProject(task);
+        for (Task task : list) {
+            Printer.showTask(task, user);
         }
         System.out.println("!!!DONE!!!");
     }

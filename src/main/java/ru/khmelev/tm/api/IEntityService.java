@@ -5,7 +5,7 @@ import ru.khmelev.tm.entity.Entity;
 
 import java.util.Collection;
 
-public interface EntityService<T extends Entity> {
+public interface IEntityService<T extends Entity> {
     void createEntity(@NotNull final String id, @NotNull final T entity);
 
     @NotNull T findEntity(@NotNull final String id, @NotNull final String userId);

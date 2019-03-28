@@ -20,5 +20,5 @@ public interface ServiceLocator {
 
     @Nullable User getUserSession();
 
-    void setUserSession(final User userSession);
+    void setUserSession(@Nullable final User userSession);
 }
