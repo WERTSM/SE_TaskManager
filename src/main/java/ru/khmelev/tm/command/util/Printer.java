@@ -28,7 +28,7 @@ public final class Printer {
                             + "; Start date = " + DEFAULT_DATE_FORMAT.format(project.getDateStart())
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(project.getDateFinish())
                             + "; Status = " + project.getStatus().getDisplayName()
-                            + "; Name user = " + user.getName()
+                            + "; Name user = " + user.getLogin()
                             + "; Create date = " + DEFAULT_DATE_FORMAT.format(project.getDateCreate())
                             + " ]");
         }
@@ -44,7 +44,7 @@ public final class Printer {
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(task.getDateFinish())
                             + "; id Project= " + task.getIdProject()
                             + "; Status = " + task.getStatus().getDisplayName()
-                            + "; Name user = " + user.getName()
+                            + "; Name user = " + user.getLogin()
                             + "; Create date = " + DEFAULT_DATE_FORMAT.format(task.getDateCreate())
                             + " ]");
         }
@@ -80,7 +80,7 @@ public final class Printer {
         if (user != null) {
             System.out.println(
                     "[ ID = " + user.getId()
-                            + "; Login = " + user.getName()
+                            + "; Login = " + user.getLogin()
                             + "; Role = " + user.getRole().displayName()
                             + " ]");
         }
@@ -91,7 +91,7 @@ public final class Printer {
             System.out.println(
                     "Сейчас в системе:"
                             + "[ ID = " + user.getId()
-                            + "; Login = " + user.getName()
+                            + "; Login = " + user.getLogin()
                             + "; Role = " + user.getRole().displayName()
                             + " ]");
         }
@@ -106,14 +106,14 @@ public final class Printer {
         @NotNull final String build = properties.getProperty("application.build");
 
         System.out.println("Вывод информации из application.properties: "
-                + "\nApplication name: " + name
+                + "\nApplication login: " + name
                 + "\nApplication version: " + version
                 + "\nApplication build: " + build);
     }
 
     public static void showManifest() {
         @NotNull final String builtBy = Manifests.read("Built-By");
-        @NotNull final String name = Manifests.read("name");
+        @NotNull final String name = Manifests.read("login");
         @NotNull final String createdBy = Manifests.read("Created-By");
         @NotNull final String builtJdk = Manifests.read("Build-Jdk");
         @NotNull final String mainClass = Manifests.read("Main-Class");

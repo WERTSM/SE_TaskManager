@@ -51,7 +51,7 @@ public final class UserUpdateCommand extends Command {
         String password = serviceLocator.getTerminalService().readLine();
 
         serviceLocator.getUserService().userSetPassword(userName, password);
-        user.setName(login);
+        user.setLogin(login);
 
         System.out.println("!!!DONE!!!");
     }

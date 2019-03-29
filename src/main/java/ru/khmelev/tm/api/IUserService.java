@@ -5,14 +5,13 @@ import ru.khmelev.tm.entity.User;
 
 import java.util.Collection;
 
-public interface IUserService {
-    void registry(@NotNull final String login, @NotNull final String pass, @NotNull final String roleStr);
+public interface IUserService extends IEntityService<User> {
 
     boolean userLogin(@NotNull final String login, @NotNull final String pass);
 
-    @NotNull User findUser(@NotNull final String id);
+    @NotNull User findEntity(@NotNull final String id);
 
-    @NotNull Collection<User> userList();
+    @NotNull Collection<User> findAll();
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);
 

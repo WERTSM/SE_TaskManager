@@ -23,6 +23,8 @@ public final class Application {
             ProjectShowCommand.class,
             ProjectSortCommand.class,
             ProjectRemoveCommand.class,
+            ProjectSaveCommand.class,
+            ProjectLoadCommand.class,
             TaskCreateCommand.class,
             TaskClearCommand.class,
             TaskListCommand.class,

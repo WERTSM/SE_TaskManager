@@ -4,12 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Date;
 
+@XmlRootElement(name = "Student")
 @Setter
 @Getter
 @NoArgsConstructor
-public class Project extends Entity {
+public class Project extends SortEntity implements Serializable {
 
     private String id;
 

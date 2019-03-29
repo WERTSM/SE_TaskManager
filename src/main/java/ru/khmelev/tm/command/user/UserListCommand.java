@@ -19,7 +19,7 @@ public final class UserListCommand extends Command {
 
     @Override
     public boolean isSecurity() {
-        return true;
+        return false;
     }
 
     @Override
@@ -31,7 +31,7 @@ public final class UserListCommand extends Command {
     public void execute() {
         System.out.println("!!!Start command!!!");
 
-        for (User user : serviceLocator.getUserService().userList()) {
+        for (User user : serviceLocator.getUserService().findAll()) {
             Printer.showListUser(user);
         }
         System.out.println("!!!DONE!!!");

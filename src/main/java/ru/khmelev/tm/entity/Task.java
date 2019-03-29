@@ -6,42 +6,26 @@ import lombok.Setter;
 
 import java.util.Date;
 
+@Setter
+@Getter
 @NoArgsConstructor
-public final class Task extends Entity {
+public final class Task extends SortEntity {
 
-    @Setter
-    @Getter
     private String id;
 
-    @Setter
-    @Getter
     private String name;
 
-    @Setter
-    @Getter
     private String description;
 
-    @Setter
-    @Getter
     private Date dateStart;
 
-    @Setter
-    @Getter
     private Date dateFinish;
 
-    @Setter
-    @Getter
     private String idProject;
 
-    @Setter
-    @Getter
     private Status status;
 
-    @Setter
-    @Getter
     private Date dateCreate;
 
-    @Setter
-    @Getter
     private String userId;
 }

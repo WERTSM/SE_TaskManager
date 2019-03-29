@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.khmelev.tm.bootstrap.ServiceLocator;
 import ru.khmelev.tm.entity.Role;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 public abstract class Command {
@@ -26,5 +27,5 @@ public abstract class Command {
     @Getter
     private Role roleCommand;
 
-    public abstract void execute() throws IOException;
+    public abstract void execute() throws IOException, JAXBException, ClassNotFoundException;
 }

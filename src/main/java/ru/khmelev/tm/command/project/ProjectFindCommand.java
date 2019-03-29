@@ -46,12 +46,12 @@ public class ProjectFindCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        System.out.println("Выберите парамер поиска: (name, description)");
+        System.out.println("Выберите парамер поиска: (login, description)");
         @NotNull final String findParameter = serviceLocator.getTerminalService().readLine();
 
         @NotNull final Collection<Project> listProject;
 
-        if ("name".equalsIgnoreCase(findParameter)) {
+        if ("login".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть имени:");
             @NotNull final String name = serviceLocator.getTerminalService().readLine();
             listProject = serviceLocator.getProjectService().findAllName(name, userId);

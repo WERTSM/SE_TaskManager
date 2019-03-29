@@ -1,7 +1,7 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IEntityRepository;
+import ru.khmelev.tm.api.ITaskRepository;
 import ru.khmelev.tm.api.ITaskService;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
@@ -13,14 +13,18 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class TaskService extends AbstractEntityService<Task> implements ITaskService {
-    public TaskService(final IEntityRepository<Task> IEntityRepository) {
-        super(IEntityRepository);
+    private ITaskRepository taskRepository;
+
+    public TaskService(final ITaskRepository taskRepository) {
+        super(taskRepository);
+        this.taskRepository = taskRepository;
     }
 
+    @NotNull
     @Override
     public List<Task> listTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
         if (!idProject.isEmpty() && !userId.isEmpty()) {
-            List<Task> list = new ArrayList<>(IEntityRepository.findAll(userId));
+            List<Task> list = new ArrayList<>(taskRepository.findAll(userId));
             Iterator<Task> it = list.iterator();
             while (it.hasNext()) {
                 Task task = it.next();
@@ -36,12 +40,12 @@ public final class TaskService extends AbstractEntityService<Task> implements IT
     @Override
     public void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
         if (!idProject.isEmpty() && !userId.isEmpty()) {
-            List<Task> list = new ArrayList<>(IEntityRepository.findAll(userId));
+            List<Task> list = new ArrayList<>(taskRepository.findAll(userId));
             Iterator<Task> it = list.iterator();
             while (it.hasNext()) {
                 Task task = it.next();
                 if (task.getIdProject().equals(idProject)) {
-                    IEntityRepository.remove(task.getId(), userId);
+                    taskRepository.remove(task.getId(), userId);
                 }
             }
         }

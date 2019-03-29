@@ -1,14 +1,14 @@
 package ru.khmelev.tm.service.util;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.entity.Sort;
+import ru.khmelev.tm.entity.SortEntity;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortedEntity<T extends Entity> {
+public class SortedEntity<T extends SortEntity> {
     public void sort(@NotNull List<T> list, @NotNull Sort sort) {
         if (sort == Sort.CREATE) {
             Collections.sort(list, new Comparator<T>() {

@@ -6,27 +6,44 @@ import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.RepositoryException;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-public final class UserRepository implements IUserRepository {
-    private final Map<String, User> mapUsers = new HashMap<>();
+public final class UserRepository extends EntityRepository<User> implements IUserRepository {
 
-    @Override
-    public void persist(@NotNull final User user) {
-        mapUsers.put(user.getId(), user);
-    }
-
+    @NotNull
     @Override
     public User findOne(@NotNull final String id) {
         if (!id.isEmpty()) {
-            return this.mapUsers.get(id);
+            return this.mapEntity.get(id);
         }
         throw new RepositoryException();
     }
 
     @NotNull
     public Collection<User> findAll() {
-        return mapUsers.values();
+        return mapEntity.values();
+    }
+
+    //In future...
+    @NotNull
+    @Override
+    public User findOne(@NotNull String id, @NotNull String userId) {
+        throw new RepositoryException();
+    }
+
+    @Override
+    public @NotNull Collection<User> findAll(@NotNull String userId) {
+        throw new RepositoryException();
+    }
+
+    @Override
+    public void merge(@NotNull String id, @NotNull User entity, @NotNull String userId) {
+    }
+
+    @Override
+    public void remove(@NotNull String id, @NotNull String userId) {
+    }
+
+    @Override
+    public void removeAll(@NotNull String userId) {
     }
 }

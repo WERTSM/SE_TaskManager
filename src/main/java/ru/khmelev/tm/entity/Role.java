@@ -3,6 +3,7 @@ package ru.khmelev.tm.entity;
 import org.jetbrains.annotations.NotNull;
 
 public enum Role {
+
     ADMIN("Админ"), USER("Пользователь");
 
     String displayName;

@@ -1,5 +1,6 @@
 package ru.khmelev.tm.bootstrap;
 
+import com.google.common.hash.Hashing;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +20,9 @@ import ru.khmelev.tm.service.UserService;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class Bootstrap implements ServiceLocator {
 
@@ -32,7 +36,7 @@ public final class Bootstrap implements ServiceLocator {
     private final ITaskRepository taskRepository = new TaskRepository();
 
     @NotNull
-    private final UserRepository userRepository = new UserRepository();
+    private final IUserRepository userRepository = new UserRepository();
 
     @Getter
     @NotNull
@@ -81,11 +85,24 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     private void defaultCommands() {
-        userService.registry("user", "user", "user");
-        userService.registry("admin", "admin", "admin");
+        @NotNull User user = new User();
+        user.setLogin("user");
+        user.setHashPassword(Hashing.sha256().hashString("user", UTF_8).toString());
+        user.setRole(Role.USER);
+        //@NotNull String id = UUID.randomUUID().toString();
+        @NotNull String id = "11111111-1111-1111-1111-111111111111";
+        user.setId(id);
+        userService.createEntity(id, user);
+
+        user = new User();
+        user.setLogin("admin");
+        user.setHashPassword(Hashing.sha256().hashString("admin", UTF_8).toString());
+        user.setRole(Role.ADMIN);
+        id = UUID.randomUUID().toString();
+        userService.createEntity(id, user);
     }
 
-    private void registrationCommands(@NotNull Class[] commandClassArray) throws IllegalAccessException, InstantiationException {
+    private void registrationCommands(@NotNull final Class[] commandClassArray) throws IllegalAccessException, InstantiationException {
         for (Class classCommand : commandClassArray) {
             if (classCommand.getSuperclass().equals(Command.class)) {
                 Command command = (Command) classCommand.newInstance();
