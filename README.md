@@ -8,6 +8,7 @@
 | ------ | ------ |
 | JDK | 7|
 | Maven | 3.6.0 |
+| IntelliJ Lombok plugin | 0.24-2018.1 |
 
 ***
 
@@ -23,7 +24,7 @@
 
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
-```java
+```sh
 $ cd PathToDirectoty
 $ mvn clean install
 ```

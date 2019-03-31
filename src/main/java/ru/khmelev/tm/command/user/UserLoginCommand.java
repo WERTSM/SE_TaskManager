@@ -24,7 +24,7 @@ public final class UserLoginCommand extends Command {
 
     @Override
     public Role getRoleCommand() {
-        return Role.ADMIN;
+        return Role.USER;
     }
 
     @Override
@@ -36,6 +36,7 @@ public final class UserLoginCommand extends Command {
 
         System.out.println("Введите пароль пользователя");
         String password = serviceLocator.getTerminalService().readLine();
+
         if (serviceLocator.getUserService().userLogin(login, password)) {
             System.out.println("OK");
         } else {

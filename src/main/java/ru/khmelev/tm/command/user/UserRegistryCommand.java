@@ -38,8 +38,6 @@ public final class UserRegistryCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
-        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
-
         @NotNull final User user = new User();
 
         @NotNull final String id = UUID.randomUUID().toString();
@@ -66,6 +64,7 @@ public final class UserRegistryCommand extends Command {
             return;
         }
         @NotNull final Role role = Role.valueOf(roleUser.toUpperCase());
+        user.setRole(role);
 
         serviceLocator.getUserService().createEntity(id, user);
         System.out.println("!!!DONE!!!");

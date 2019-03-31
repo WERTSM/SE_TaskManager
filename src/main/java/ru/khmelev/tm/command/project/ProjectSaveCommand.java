@@ -23,7 +23,7 @@ public class ProjectSaveCommand extends Command {
 
     @Override
     public boolean isSecurity() {
-        return false;
+        return true;
     }
 
     @Override

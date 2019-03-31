@@ -22,7 +22,7 @@ public final class UserLogoutCommand extends Command {
 
     @Override
     public Role getRoleCommand() {
-        return Role.ADMIN;
+        return Role.USER;
     }
 
     @Override

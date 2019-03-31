@@ -99,6 +99,7 @@ public final class Bootstrap implements ServiceLocator {
         user.setHashPassword(Hashing.sha256().hashString("admin", UTF_8).toString());
         user.setRole(Role.ADMIN);
         id = UUID.randomUUID().toString();
+        user.setId(id);
         userService.createEntity(id, user);
     }
 

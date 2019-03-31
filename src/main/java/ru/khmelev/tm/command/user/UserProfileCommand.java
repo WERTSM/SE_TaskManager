@@ -23,7 +23,7 @@ public final class UserProfileCommand extends Command {
 
     @Override
     public Role getRoleCommand() {
-        return Role.ADMIN;
+        return Role.USER;
     }
 
     @Override

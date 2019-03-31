@@ -26,7 +26,7 @@ public class ProjectLoadCommand extends Command {
 
     @Override
     public boolean isSecurity() {
-        return false;
+        return true;
     }
 
     @Override
