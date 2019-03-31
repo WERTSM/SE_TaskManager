@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
-@XmlRootElement(name = "Student")
+@XmlRootElement(name = "Project")
 @Setter
 @Getter
 @NoArgsConstructor

@@ -1,5 +1,6 @@
 package ru.khmelev.tm.service;
 
+import jdk.internal.dynalink.support.ClassLoaderGetterContextProvider;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IProjectRepository;
 import ru.khmelev.tm.api.IProjectService;
@@ -30,7 +31,7 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
 
         Collection<Project> list = projectRepository.findAll(userId);
 
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/serialization/person.out"));
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/serialization/" + getClass().getName()+".out"));
 
         for (Project prw : list) {
             System.out.println("WWWWWWWWWWWW");
