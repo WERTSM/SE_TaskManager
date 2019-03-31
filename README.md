@@ -37,7 +37,7 @@ java -jar SE-Task-Manager-1.0-SNAPSHOT.jar
 
 ***
 **КОМАНДЫ ДЛЯ РАБОТЫ С ПРИЛОЖЕНИЕМ:**
-```cmd
+```sh
     * "help" : Show all commands.
     * "project-create" : Create new project.
     * "project-clear" : Remove all projects.
