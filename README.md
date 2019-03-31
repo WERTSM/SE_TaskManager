@@ -24,7 +24,7 @@
 
 ***
 **КОМАНДА ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:** 
-```bash
+```git
 $ cd PathToDirectoty
 $ mvn clean install
 ```
