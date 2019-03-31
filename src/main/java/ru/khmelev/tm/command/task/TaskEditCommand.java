@@ -100,6 +100,7 @@ public final class TaskEditCommand extends Command {
         if (idProject.equals("0")) {
             idProject = "00000000-0000-0000-0000-000000000000";
         }
+        task.setIdProject(idProject);
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());

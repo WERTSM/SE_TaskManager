@@ -18,7 +18,7 @@ public final class UserUpdateCommand extends Command {
 
     @Override
     public String getDescriptionCommand() {
-        return "Update user";
+        return "Update user in system";
     }
 
     @Override
@@ -28,7 +28,7 @@ public final class UserUpdateCommand extends Command {
 
     @Override
     public Role getRoleCommand() {
-        return Role.ADMIN;
+        return Role.USER;
     }
 
     @Override

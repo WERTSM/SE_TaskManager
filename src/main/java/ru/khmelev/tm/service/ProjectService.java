@@ -31,7 +31,7 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
 
         Collection<Project> list = projectRepository.findAll(userId);
 
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/serialization/" + getClass().getName()+".out"));
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/serialization/" + getClass().getSimpleName()+".out"));
 
         for (Project prw : list) {
             System.out.println("WWWWWWWWWWWW");
@@ -50,7 +50,7 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
         Collection<Project> list = new ArrayList<>();
         System.out.println("1111111111111111111");
 
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/serialization/person.out"))) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/serialization/" + getClass().getSimpleName()+".out"))) {
             while (true) {
                 Project pr = (Project) objectInputStream.readObject();
                 list.add(pr);

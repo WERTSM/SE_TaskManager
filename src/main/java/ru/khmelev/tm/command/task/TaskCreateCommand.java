@@ -99,6 +99,7 @@ public final class TaskCreateCommand extends Command {
         if (idProject.equals("0")) {
             idProject = "00000000-0000-0000-0000-000000000000";
         }
+        task.setIdProject(idProject);
 
         serviceLocator.getTaskService().createEntity(id, task);
         System.out.println("!!!DONE!!!");

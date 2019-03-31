@@ -10,7 +10,7 @@ public final class UserSetPasswordCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "user-setPassword";
+        return "user-setpassword";
     }
 
     @Override
