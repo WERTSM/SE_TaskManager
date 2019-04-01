@@ -1,6 +1,5 @@
 package ru.khmelev.tm.service;
 
-import jdk.internal.dynalink.support.ClassLoaderGetterContextProvider;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IProjectRepository;
 import ru.khmelev.tm.api.IProjectService;
@@ -9,6 +8,8 @@ import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.service.util.SortedEntity;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +17,18 @@ import java.util.List;
 public class ProjectService extends AbstractEntityService<Project> implements IProjectService {
 
     private IProjectRepository projectRepository;
+
+    @NotNull
+    private String path = new File("").getAbsolutePath() + "/serialization/";
+
+    {
+
+        try {
+            Files.createDirectories(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ProjectService(final IProjectRepository projectRepository) {
         super(projectRepository);
@@ -31,7 +44,7 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
 
         Collection<Project> list = projectRepository.findAll(userId);
 
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/serialization/" + getClass().getSimpleName()+".out"));
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path + getClass().getSimpleName() + ".out"));
 
         for (Project prw : list) {
             System.out.println("WWWWWWWWWWWW");
@@ -50,7 +63,7 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
         Collection<Project> list = new ArrayList<>();
         System.out.println("1111111111111111111");
 
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/serialization/" + getClass().getSimpleName()+".out"))) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path + getClass().getSimpleName() + ".out"))) {
             while (true) {
                 Project pr = (Project) objectInputStream.readObject();
                 list.add(pr);
@@ -61,6 +74,5 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
         for (Project pr2 : list) {
             projectRepository.persist(pr2.getId(), pr2);
         }
-
     }
 }
