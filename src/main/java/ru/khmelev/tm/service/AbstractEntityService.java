@@ -1,8 +1,8 @@
 package ru.khmelev.tm.service;
 
-import org.apache.commons.lang3.StringUtils;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
-import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IEntityFindNameOrDescService;
 import ru.khmelev.tm.api.IEntityRepository;
@@ -15,7 +15,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -206,6 +205,26 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
         for (T entity : jaxbList.getList()) {
             entityRepository.persist(entity.getId(), entity);
         }
+    }
+
+    @Override
+    public void fasterXmlSave(String userId) throws IOException, JAXBException {
+
+        @NotNull final XmlMapper xmlMapper = new XmlMapper();
+        @NotNull final EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
+        jaxbList.setList((List) entityRepository.findAll(userId));
+
+        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        xmlMapper.writeValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), jaxbList);
+    }
+
+    @Override
+    public void fasterXmlLoad(String userId) throws IOException, JAXBException {
+
+        @NotNull final XmlMapper xmlMapper = new XmlMapper();
+        @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
+//        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        //xmlMapper.readValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), jaxbList);
     }
 
 

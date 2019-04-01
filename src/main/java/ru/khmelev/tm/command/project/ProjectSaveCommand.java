@@ -44,6 +44,7 @@ public class ProjectSaveCommand extends Command {
         //serviceLocator.getProjectService().jaxbXmlSave(userId);
         //serviceLocator.getProjectService().serializationSave(userId);
         //serviceLocator.getProjectService().jaxbJSONSave(userId);
+        serviceLocator.getProjectService().fasterXmlSave(userId);
         System.out.println("!!!DONE!!!");
     }
 }
