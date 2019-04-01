@@ -44,8 +44,9 @@ public class ProjectLoadCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        //serviceLocator.getProjectService().serializationLoad(userId);
+        serviceLocator.getProjectService().serializationLoad(userId);
         //serviceLocator.getProjectService().jaxbXmlLoad(userId);
+        //serviceLocator.getProjectService().jaxbJSONLoad(userId);
         System.out.println("!!!DONE!!!");
     }
 }

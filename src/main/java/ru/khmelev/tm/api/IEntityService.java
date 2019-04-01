@@ -28,4 +28,8 @@ public interface IEntityService<T extends Entity> {
     void jaxbXmlSave(String userId) throws JAXBException;
 
     void jaxbXmlLoad(String userId) throws JAXBException;
+
+    void jaxbJSONSave(String userId) throws JAXBException;
+
+    void jaxbJSONLoad(String userId) throws JAXBException;
 }

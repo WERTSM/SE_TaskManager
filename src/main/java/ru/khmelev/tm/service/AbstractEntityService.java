@@ -1,7 +1,8 @@
 package ru.khmelev.tm.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.persistence.jaxb.MarshallerProperties;
+import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IEntityFindNameOrDescService;
 import ru.khmelev.tm.api.IEntityRepository;
@@ -14,6 +15,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -139,21 +141,20 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
 
     @Override
     public void jaxbXmlSave(String userId) throws JAXBException {
-        @NotNull final EntityListJAXB<T> jaxb = new EntityListJAXB<>();
-        jaxb.setList((List) entityRepository.findAll(userId));
+        @NotNull final EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
+        jaxbList.setList((List) entityRepository.findAll(userId));
 
-        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxb.getClass());
+        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
         @NotNull final Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         createDir();
-        marshaller.marshal(jaxb, new File(path + getClass().getSimpleName() + "JAXB.xml"));
+        marshaller.marshal(jaxbList, new File(path + getClass().getSimpleName() + "JAXB.xml"));
     }
 
     @Override
     public void jaxbXmlLoad(String userId) throws JAXBException {
         @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
-        jaxbList.setList((List) entityRepository.findAll(userId));
 
         @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
         @NotNull final Unmarshaller un = jaxbContext.createUnmarshaller();
@@ -161,10 +162,52 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
 
         jaxbList = (EntityListJAXB<T>) unmarshaller.unmarshal(new File(path + getClass().getSimpleName() + "JAXB.xml"));
 
-        for (T entity: jaxbList.getList()) {
-            entityRepository.persist(entity.getId(),entity);
+        for (T entity : jaxbList.getList()) {
+            entityRepository.persist(entity.getId(), entity);
         }
     }
+
+    @Override
+    public void jaxbJSONSave(String userId) throws JAXBException {
+        System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
+
+        @NotNull final EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
+        jaxbList.setList((List) entityRepository.findAll(userId));
+
+        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
+        @NotNull final Marshaller marshaller = jaxbContext.createMarshaller();
+
+        marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
+
+        marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        createDir();
+        marshaller.marshal(jaxbList, new File(path + getClass().getSimpleName() + "JAXB.json"));
+    }
+
+    @Override
+    public void jaxbJSONLoad(String userId) throws JAXBException {
+        System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
+
+        @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
+
+        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
+        @NotNull final Unmarshaller un = jaxbContext.createUnmarshaller();
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+        unmarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
+
+        unmarshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+
+        jaxbList = (EntityListJAXB<T>) unmarshaller.unmarshal(new File(path + getClass().getSimpleName() + "JAXB.json"));
+
+        for (T entity : jaxbList.getList()) {
+            entityRepository.persist(entity.getId(), entity);
+        }
+    }
+
 
     private boolean createDir() {
         try {
