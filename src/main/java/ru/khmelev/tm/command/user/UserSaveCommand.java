@@ -13,7 +13,7 @@ public class UserSaveCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "user-save";
+        return "user-jaxbXmlSave";
     }
 
     @Override

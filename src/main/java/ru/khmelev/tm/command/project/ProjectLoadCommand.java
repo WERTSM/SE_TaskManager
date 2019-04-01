@@ -36,8 +36,7 @@ public class ProjectLoadCommand extends Command {
 
     @Override
     public void execute() throws IOException, JAXBException, ClassNotFoundException {
-
-        System.out.println("wwwwwwwwwwwww");
+        System.out.println("!!!Start command!!!");
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {
             return;
@@ -45,6 +44,8 @@ public class ProjectLoadCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        serviceLocator.getProjectService().serializationLoad(userId);
+        //serviceLocator.getProjectService().serializationLoad(userId);
+        //serviceLocator.getProjectService().jaxbXmlLoad(userId);
+        System.out.println("!!!DONE!!!");
     }
 }

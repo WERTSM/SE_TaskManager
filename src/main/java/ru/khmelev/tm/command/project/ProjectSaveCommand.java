@@ -33,6 +33,7 @@ public class ProjectSaveCommand extends Command {
 
     @Override
     public void execute() throws IOException, JAXBException, ClassNotFoundException {
+        System.out.println("!!!Start command!!!");
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {
             return;
@@ -40,31 +41,8 @@ public class ProjectSaveCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        serviceLocator.getProjectService().serializationSave(userId);
-/*
-        // Востановление из файла с помощью класса ObjectInputStream
-        ObjectInputStream objectInputStream = new ObjectInputStream(
-                new FileInputStream("person.out"));
-        Person igorRestored = (Person) objectInputStream.readObject();
-        Person renatRestored = (Person) objectInputStream.readObject();
-        objectInputStream.close();
-
-
-
-
-
-
-
-        String fileName = "C:/Users/s.khmelev/Desktop/Desktop.xml";
-
-
-        JAXBContext context = JAXBContext.newInstance(Project.class);
-        Marshaller marshaller = context.createMarshaller();
-        // устанавливаем флаг для читабельного вывода XML в JAXB
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-        // маршаллинг объекта в файл
-        marshaller.marshal(pr, new File(fileName));
-*/
+        //serviceLocator.getProjectService().jaxbXmlSave(userId);
+        //serviceLocator.getProjectService().serializationSave(userId);
+        System.out.println("!!!DONE!!!");
     }
 }

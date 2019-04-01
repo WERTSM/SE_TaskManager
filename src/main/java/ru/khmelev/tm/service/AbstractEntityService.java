@@ -1,12 +1,19 @@
 package ru.khmelev.tm.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IEntityFindNameOrDescService;
 import ru.khmelev.tm.api.IEntityRepository;
 import ru.khmelev.tm.api.IEntityService;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.ServiceException;
+import ru.khmelev.tm.service.util.EntityListJAXB;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,14 +25,9 @@ import java.util.List;
 public abstract class AbstractEntityService<T extends Entity> implements IEntityService<T>, IEntityFindNameOrDescService<T> {
 
     private IEntityRepository<T> entityRepository;
-    protected String userId;
 
     @NotNull
     private String path = new File("").getAbsolutePath() + "/serialization/";
-
-    {
-
-    }
 
     AbstractEntityService(final IEntityRepository<T> entityRepository) {
         this.entityRepository = entityRepository;
@@ -105,7 +107,7 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
             return;
         }
 
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path + getClass().getSimpleName() + ".out"))) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path + getClass().getSimpleName() + "Serialization.out"))) {
             for (T entity : list) {
                 objectOutputStream.writeObject(entity);
             }
@@ -118,7 +120,7 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
     public void serializationLoad(@NotNull String userId) throws IOException, ClassNotFoundException {
         @NotNull final Collection<T> list = new ArrayList<>();
 
-        try (@NotNull final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path + getClass().getSimpleName() + ".out"))) {
+        try (@NotNull final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path + getClass().getSimpleName() + "Serialization.out"))) {
             while (true) {
                 @NotNull T entity = (T) objectInputStream.readObject();
                 list.add(entity);
@@ -132,6 +134,35 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
 
         for (T entity : list) {
             entityRepository.persist(entity.getId(), entity);
+        }
+    }
+
+    @Override
+    public void jaxbXmlSave(String userId) throws JAXBException {
+        @NotNull final EntityListJAXB<T> jaxb = new EntityListJAXB<>();
+        jaxb.setList((List) entityRepository.findAll(userId));
+
+        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxb.getClass());
+        @NotNull final Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        createDir();
+        marshaller.marshal(jaxb, new File(path + getClass().getSimpleName() + "JAXB.xml"));
+    }
+
+    @Override
+    public void jaxbXmlLoad(String userId) throws JAXBException {
+        @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
+        jaxbList.setList((List) entityRepository.findAll(userId));
+
+        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
+        @NotNull final Unmarshaller un = jaxbContext.createUnmarshaller();
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+        jaxbList = (EntityListJAXB<T>) unmarshaller.unmarshal(new File(path + getClass().getSimpleName() + "JAXB.xml"));
+
+        for (T entity: jaxbList.getList()) {
+            entityRepository.persist(entity.getId(),entity);
         }
     }
 

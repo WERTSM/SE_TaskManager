@@ -13,7 +13,7 @@ public class TaskSaveCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "task-save";
+        return "task-jaxbXmlSave";
     }
 
     @Override
