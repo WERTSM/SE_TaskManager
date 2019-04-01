@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public final class User extends Entity {
+public final class User extends Entity implements Serializable {
 
     private String id;
     private String login;

@@ -3,6 +3,7 @@ package ru.khmelev.tm.api;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Entity;
 
+import java.io.IOException;
 import java.util.Collection;
 
 public interface IEntityService<T extends Entity> {
@@ -18,4 +19,8 @@ public interface IEntityService<T extends Entity> {
     void removeEntity(@NotNull final String id, @NotNull final String userId);
 
     void clearEntity(@NotNull final String userId);
+
+    void serializationSave(@NotNull final String userId);
+
+    void serializationLoad(@NotNull final String userId) throws IOException, ClassNotFoundException;
 }

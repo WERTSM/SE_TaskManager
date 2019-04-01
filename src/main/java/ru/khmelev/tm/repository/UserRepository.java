@@ -24,14 +24,14 @@ public final class UserRepository extends EntityRepository<User> implements IUse
     }
 
     //In future...
+    @Override
+    public @NotNull Collection<User> findAll(@NotNull String userId) {
+        return findAll();
+    }
+
     @NotNull
     @Override
     public User findOne(@NotNull String id, @NotNull String userId) {
-        throw new RepositoryException();
-    }
-
-    @Override
-    public @NotNull Collection<User> findAll(@NotNull String userId) {
         throw new RepositoryException();
     }
 

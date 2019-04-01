@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Setter
 @Getter
 @NoArgsConstructor
-public final class Task extends SortEntity {
+public final class Task extends SortEntity implements Serializable {
 
     private String id;
 

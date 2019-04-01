@@ -33,6 +33,8 @@ public final class Application {
             TaskShowCommand.class,
             TaskSortCommand.class,
             TaskRemoveCommand.class,
+            TaskSaveCommand.class,
+            TaskLoadCommand.class,
             UserRegistryCommand.class,
             UserLoginCommand.class,
             UserListCommand.class,
@@ -40,6 +42,8 @@ public final class Application {
             UserSetPasswordCommand.class,
             UserProfileCommand.class,
             UserUpdateCommand.class,
+            UserSaveCommand.class,
+            UserLoadCommand.class,
             AboutCommand.class
     };
 

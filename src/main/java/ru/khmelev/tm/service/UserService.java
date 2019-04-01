@@ -85,14 +85,14 @@ public final class UserService extends AbstractEntityService<User> implements IU
     }
 
     //In future...
+    @Override
+    public @NotNull Collection<User> findAll(@NotNull String userId) {
+        return findAll();
+    }
+
     @NotNull
     @Override
     public User findEntity(@NotNull String id, @NotNull String userId) {
-        throw new ServiceException();
-    }
-
-    @Override
-    public @NotNull Collection<User> findAll(@NotNull String userId) {
         throw new ServiceException();
     }
 

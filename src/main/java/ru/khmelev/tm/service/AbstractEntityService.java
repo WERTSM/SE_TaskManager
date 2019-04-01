@@ -7,6 +7,9 @@ import ru.khmelev.tm.api.IEntityService;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.ServiceException;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -16,6 +19,13 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
 
     private IEntityRepository<T> entityRepository;
     protected String userId;
+
+    @NotNull
+    private String path = new File("").getAbsolutePath() + "/serialization/";
+
+    {
+
+    }
 
     AbstractEntityService(final IEntityRepository<T> entityRepository) {
         this.entityRepository = entityRepository;
@@ -84,6 +94,54 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
     public void clearEntity(@NotNull final String userId) {
         if (!userId.isEmpty()) {
             entityRepository.removeAll(userId);
+        }
+    }
+
+    @Override
+    public void serializationSave(@NotNull final String userId) {
+        @NotNull final Collection<T> list = entityRepository.findAll(userId);
+
+        if (!createDir() && list.size() == 0) {
+            return;
+        }
+
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path + getClass().getSimpleName() + ".out"))) {
+            for (T entity : list) {
+                objectOutputStream.writeObject(entity);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void serializationLoad(@NotNull String userId) throws IOException, ClassNotFoundException {
+        @NotNull final Collection<T> list = new ArrayList<>();
+
+        try (@NotNull final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path + getClass().getSimpleName() + ".out"))) {
+            while (true) {
+                @NotNull T entity = (T) objectInputStream.readObject();
+                list.add(entity);
+            }
+        } catch (EOFException ignored) {
+        }
+
+        if (list.size() == 0) {
+            return;
+        }
+
+        for (T entity : list) {
+            entityRepository.persist(entity.getId(), entity);
+        }
+    }
+
+    private boolean createDir() {
+        try {
+            Files.createDirectories(Paths.get(path));
+            return true;
+        } catch (IOException e) {
+            System.out.println("Невозможно создать директорию для сериализации");
+            return false;
         }
     }
 }

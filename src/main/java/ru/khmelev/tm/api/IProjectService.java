@@ -11,7 +11,4 @@ public interface IProjectService extends IEntityFindNameOrDescService<Project> {
 
     void sort(@NotNull final List<Project> list, @NotNull final Sort sortParameter);
 
-    void serializationSave(String userId) throws IOException;
-
-    void serializationLoad(String userId) throws IOException, ClassNotFoundException;
 }
