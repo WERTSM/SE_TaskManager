@@ -1,5 +1,7 @@
 package ru.khmelev.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
@@ -31,8 +33,15 @@ public final class UserListCommand extends Command {
     public void execute() {
         System.out.println("!!!Start command!!!");
 
-        for (User user : serviceLocator.getUserService().findAll()) {
-            Printer.showListUser(user);
+        @Nullable final User user = serviceLocator.getUserSession();
+        if (user == null) {
+            return;
+        }
+
+        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+
+        for (User userok : serviceLocator.getUserService().findAll(userId)) {
+            Printer.showListUser(userok);
         }
         System.out.println("!!!DONE!!!");
     }

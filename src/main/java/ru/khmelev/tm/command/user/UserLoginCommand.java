@@ -1,7 +1,10 @@
 package ru.khmelev.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
 

@@ -6,9 +6,6 @@ import ru.khmelev.tm.api.IUserRepository;
 import ru.khmelev.tm.api.IUserService;
 import ru.khmelev.tm.bootstrap.Bootstrap;
 import ru.khmelev.tm.entity.User;
-import ru.khmelev.tm.exception.ServiceException;
-
-import java.util.Collection;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -26,21 +23,6 @@ public final class UserService extends AbstractEntityService<User> implements IU
         super(userRepository);
         this.userRepository = userRepository;
         this.bootstrap = bootstrap;
-    }
-
-    @NotNull
-    @Override
-    public User findEntity(@NotNull final String id) {
-        if (!id.isEmpty()) {
-            return userRepository.findOne(id);
-        }
-        throw new ServiceException();
-    }
-
-    @NotNull
-    @Override
-    public Collection<User> findAll() {
-        return userRepository.findAll();
     }
 
     @Override
@@ -85,17 +67,6 @@ public final class UserService extends AbstractEntityService<User> implements IU
     }
 
     //In future...
-    @Override
-    public @NotNull Collection<User> findAll(@NotNull String userId) {
-        return findAll();
-    }
-
-    @NotNull
-    @Override
-    public User findEntity(@NotNull String id, @NotNull String userId) {
-        throw new ServiceException();
-    }
-
     @Override
     public void editEntity(@NotNull String id, @NotNull User entity, @NotNull String userId) {
     }

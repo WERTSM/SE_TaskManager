@@ -11,6 +11,17 @@ public final class UserRepository extends EntityRepository<User> implements IUse
 
     @NotNull
     @Override
+    public Collection<User> findAll() {
+        return mapEntity.values();
+    }
+
+    @Override
+    public @NotNull Collection<User> findAll(@NotNull String userId) {
+        return findAll();
+    }
+
+    @NotNull
+    @Override
     public User findOne(@NotNull final String id) {
         if (!id.isEmpty()) {
             return this.mapEntity.get(id);
@@ -19,22 +30,12 @@ public final class UserRepository extends EntityRepository<User> implements IUse
     }
 
     @NotNull
-    public Collection<User> findAll() {
-        return mapEntity.values();
+    @Override
+    public User findOne(@NotNull String id, @NotNull String userId) {
+        return findOne(id);
     }
 
     //In future...
-    @Override
-    public @NotNull Collection<User> findAll(@NotNull String userId) {
-        return findAll();
-    }
-
-    @NotNull
-    @Override
-    public User findOne(@NotNull String id, @NotNull String userId) {
-        throw new RepositoryException();
-    }
-
     @Override
     public void merge(@NotNull String id, @NotNull User entity, @NotNull String userId) {
     }

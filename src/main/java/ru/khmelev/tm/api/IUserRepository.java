@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public interface IUserRepository extends IEntityRepository<User> {
 
-    @NotNull User findOne(@NotNull final String id);
-
     @NotNull Collection<User> findAll();
+
+    @NotNull User findOne(@NotNull String id);
 }
