@@ -5,6 +5,7 @@ import ru.khmelev.tm.api.IUserRepository;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.RepositoryException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public final class UserRepository extends EntityRepository<User> implements IUserRepository {
@@ -12,7 +13,7 @@ public final class UserRepository extends EntityRepository<User> implements IUse
     @NotNull
     @Override
     public Collection<User> findAll() {
-        return mapEntity.values();
+        return new ArrayList<>(mapEntity.values());
     }
 
     @Override
