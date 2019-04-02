@@ -13,7 +13,7 @@ public final class UserProfileCommand extends Command {
 
     @Override
     public String getDescriptionCommand() {
-        return "Profile user";
+        return "Show user in system";
     }
 
     @Override

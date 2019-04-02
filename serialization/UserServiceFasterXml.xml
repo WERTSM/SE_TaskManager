@@ -1,9 +1,9 @@
-<Values>
+<ArrayList>
   <item>
-    <id>255b2367-c14a-49fc-845a-16e7ba8edfa6</id>
+    <id>61636a4b-b2cf-4f09-87a9-507611aec04e</id>
     <name/>
     <description>admin</description>
-    <userId>255b2367-c14a-49fc-845a-16e7ba8edfa6</userId>
+    <userId>61636a4b-b2cf-4f09-87a9-507611aec04e</userId>
     <login>admin</login>
     <hashPassword>8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918</hashPassword>
     <role>ADMIN</role>
@@ -17,4 +17,4 @@
     <hashPassword>04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb</hashPassword>
     <role>USER</role>
   </item>
-</Values>
+</ArrayList>

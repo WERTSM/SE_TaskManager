@@ -3,6 +3,9 @@ package ru.khmelev.tm.command.system;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 public final class HelpCommand extends Command {
 
     @Override
@@ -27,21 +30,12 @@ public final class HelpCommand extends Command {
 
     @Override
     public void execute() {
-        System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n"
-                + "\"help\" : Show all commands.\n\n"
-                + "\"project-create\" : Create new project.\n"
-                + "\"project-clear\" : Remove all projects.\n"
-                + "\"project-list\"\" : Show all projects.\n"
-                + "\"project-show\" : Show selected project.\n"
-                + "\"project-edit\" : Edit selected project\n"
-                + "\"project-remove\" : Remove selected project.\n\n"
-                + "\"task-create\" : Create new task.\n"
-                + "\"task-clear\" : Remove all tasks.\n"
-                + "\"task-list\"\" : Show all tasks.\n"
-                + "\"task-show\" : Show selected project.\n"
-                + "\"task-edit\" : Edit selected task\n"
-                + "\"task-remove\" : Remove selected task.\n"
-                + "\"exit\" : Exit from the program.\n\n"
-                + "----------------- ********************************************** -----------------\n");
+        SortedMap<String, Command> mapCommand = new TreeMap<>(serviceLocator.getCommandMap());
+
+        System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n");
+        for (Command command : mapCommand.values()) {
+            System.out.println(command.getNameCommand() + " : " + command.getDescriptionCommand());
+        }
+        System.out.println("----------------- ********************************************** -----------------\n");
     }
 }

@@ -4,7 +4,7 @@
          "Entity" : [ {
             "type" : "user",
             "description" : "admin",
-            "id" : "19e2589f-d433-4af9-91d3-007d376593a7",
+            "id" : "61636a4b-b2cf-4f09-87a9-507611aec04e",
             "hashPassword" : "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
             "login" : "admin",
             "role" : "ADMIN"

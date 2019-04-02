@@ -23,7 +23,7 @@ public class TaskSortCommand extends Command {
 
     @Override
     public String getDescriptionCommand() {
-        return "SortedEntity tasks";
+        return "Sorted tasks";
     }
 
     @Override

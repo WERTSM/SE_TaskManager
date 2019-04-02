@@ -18,16 +18,15 @@ import ru.khmelev.tm.service.TerminalService;
 import ru.khmelev.tm.service.UserService;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class Bootstrap implements ServiceLocator {
 
+    @Getter
     @NotNull
-    private final Map<String, Command> commandMap = new HashMap<>();
+    private final SortedMap<String, Command> commandMap = new TreeMap<>();
 
     @NotNull
     private final IProjectRepository projectRepository = new ProjectRepository();

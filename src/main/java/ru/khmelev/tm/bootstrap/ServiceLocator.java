@@ -6,7 +6,10 @@ import ru.khmelev.tm.api.IProjectService;
 import ru.khmelev.tm.api.ITaskService;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.IUserService;
+import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.User;
+
+import java.util.Map;
 
 public interface ServiceLocator {
 
@@ -21,4 +24,6 @@ public interface ServiceLocator {
     @Nullable User getUserSession();
 
     void setUserSession(@Nullable final User userSession);
+
+    Map<String, Command> getCommandMap();
 }

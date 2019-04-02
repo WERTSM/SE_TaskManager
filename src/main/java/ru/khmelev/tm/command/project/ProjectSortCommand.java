@@ -23,7 +23,7 @@ public class ProjectSortCommand extends Command {
 
     @Override
     public String getDescriptionCommand() {
-        return "SortedEntity projects";
+        return "Sorted projects";
     }
 
     @Override

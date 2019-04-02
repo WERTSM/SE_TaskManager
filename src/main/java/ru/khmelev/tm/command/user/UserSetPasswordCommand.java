@@ -15,7 +15,7 @@ public final class UserSetPasswordCommand extends Command {
 
     @Override
     public String getDescriptionCommand() {
-        return "Registers user";
+        return "Set password user";
     }
 
     @Override
