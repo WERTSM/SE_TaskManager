@@ -2,7 +2,6 @@ package ru.khmelev.tm.command.user;
 
 import com.google.common.hash.Hashing;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;

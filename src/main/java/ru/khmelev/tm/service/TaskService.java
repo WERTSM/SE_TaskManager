@@ -1,5 +1,6 @@
 package ru.khmelev.tm.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.ITaskRepository;
 import ru.khmelev.tm.api.ITaskService;
@@ -18,6 +19,11 @@ public final class TaskService extends AbstractEntityService<Task> implements IT
     public TaskService(final ITaskRepository taskRepository) {
         super(taskRepository);
         this.taskRepository = taskRepository;
+    }
+
+    protected TypeReference getTypeReference() {
+        return new TypeReference<List<Task>>() {
+        };
     }
 
     @NotNull

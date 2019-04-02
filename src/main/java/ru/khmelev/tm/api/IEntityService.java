@@ -33,5 +33,11 @@ public interface IEntityService<T extends Entity> {
 
     void jaxbJSONLoad(String userId) throws JAXBException;
 
-    void fasterXmlSave(String userId) throws IOException, JAXBException;
+    void fasterXmlSaveXML(String userId) throws IOException, JAXBException;
+
+    void fasterXmlLoadXML(String userId) throws IOException, JAXBException;
+
+    void fasterXmlSaveJSON(String userId) throws IOException, JAXBException;
+
+    void fasterXmlLoadJSON(String userId) throws IOException, JAXBException;
 }

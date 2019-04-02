@@ -44,9 +44,22 @@ public class ProjectLoadCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        serviceLocator.getProjectService().serializationLoad(userId);
-        //serviceLocator.getProjectService().jaxbXmlLoad(userId);
-        //serviceLocator.getProjectService().jaxbJSONLoad(userId);
+        System.out.println("Enter load method: (serialization, xml, json, fas-xml, fas-json)");
+        @NotNull final String command = serviceLocator.getTerminalService().readLine();
+
+        if ("serialization".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().serializationLoad(userId);
+        } else if ("xml".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().jaxbXmlLoad(userId);
+        } else if ("json".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().jaxbJSONLoad(userId);
+        } else if ("fas-xml".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().fasterXmlLoadXML(userId);
+        } else if ("fas-json".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().fasterXmlLoadJSON(userId);
+        } else {
+            throw new IllegalArgumentException("Error. No load method : " + command);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

@@ -36,8 +36,7 @@ public class UserLoadCommand extends Command {
 
     @Override
     public void execute() throws IOException, JAXBException, ClassNotFoundException {
-
-        System.out.println("wwwwwwwwwwwww");
+        System.out.println("!!!Start command!!!");
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {
             return;
@@ -45,6 +44,22 @@ public class UserLoadCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        serviceLocator.getUserService().serializationLoad(userId);
+        System.out.println("Enter load method: (serialization, xml, json, fas-xml, fas-json)");
+        @NotNull final String command = serviceLocator.getTerminalService().readLine();
+
+        if ("serialization".equalsIgnoreCase(command)) {
+            serviceLocator.getUserService().serializationLoad(userId);
+        } else if ("xml".equalsIgnoreCase(command)) {
+            serviceLocator.getUserService().jaxbXmlLoad(userId);
+        } else if ("json".equalsIgnoreCase(command)) {
+            serviceLocator.getUserService().jaxbJSONLoad(userId);
+        } else if ("fas-xml".equalsIgnoreCase(command)) {
+            serviceLocator.getUserService().fasterXmlLoadXML(userId);
+        } else if ("fas-json".equalsIgnoreCase(command)) {
+            serviceLocator.getUserService().fasterXmlLoadJSON(userId);
+        } else {
+            throw new IllegalArgumentException("Error. No load method : " + command);
+        }
+        System.out.println("!!!DONE!!!");
     }
 }

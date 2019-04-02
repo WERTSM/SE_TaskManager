@@ -1,5 +1,6 @@
 package ru.khmelev.tm.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IProjectRepository;
 import ru.khmelev.tm.api.IProjectService;
@@ -13,6 +14,11 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
 
     public ProjectService(final IProjectRepository projectRepository) {
         super(projectRepository);
+    }
+
+    protected TypeReference getTypeReference() {
+        return new TypeReference<List<Project>>() {
+        };
     }
 
     @Override

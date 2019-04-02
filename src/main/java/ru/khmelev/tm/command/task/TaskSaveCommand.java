@@ -33,6 +33,7 @@ public class TaskSaveCommand extends Command {
 
     @Override
     public void execute() throws IOException, JAXBException, ClassNotFoundException {
+        System.out.println("!!!Start command!!!");
         @Nullable final User user = serviceLocator.getUserSession();
         if (user == null) {
             return;
@@ -40,31 +41,22 @@ public class TaskSaveCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        serviceLocator.getTaskService().serializationSave(userId);
-/*
-        // Востановление из файла с помощью класса ObjectInputStream
-        ObjectInputStream objectInputStream = new ObjectInputStream(
-                new FileInputStream("person.out"));
-        Person igorRestored = (Person) objectInputStream.readObject();
-        Person renatRestored = (Person) objectInputStream.readObject();
-        objectInputStream.close();
+        System.out.println("Enter save method: (serialization, xml, json, fas-xml, fas-json)");
+        @NotNull final String command = serviceLocator.getTerminalService().readLine();
 
-
-
-
-
-
-
-        String fileName = "C:/Users/s.khmelev/Desktop/Desktop.xml";
-
-
-        JAXBContext context = JAXBContext.newInstance(Project.class);
-        Marshaller marshaller = context.createMarshaller();
-        // устанавливаем флаг для читабельного вывода XML в JAXB
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-        // маршаллинг объекта в файл
-        marshaller.marshal(pr, new File(fileName));
-*/
+        if ("serialization".equalsIgnoreCase(command)) {
+            serviceLocator.getTaskService().serializationSave(userId);
+        } else if ("xml".equalsIgnoreCase(command)) {
+            serviceLocator.getTaskService().jaxbXmlSave(userId);
+        } else if ("json".equalsIgnoreCase(command)) {
+            serviceLocator.getTaskService().jaxbJSONSave(userId);
+        } else if ("fas-xml".equalsIgnoreCase(command)) {
+            serviceLocator.getTaskService().fasterXmlSaveXML(userId);
+        } else if ("fas-json".equalsIgnoreCase(command)) {
+            serviceLocator.getTaskService().fasterXmlSaveJSON(userId);
+        } else {
+            throw new IllegalArgumentException("Error. No save method : " + command);
+        }
+        System.out.println("!!!DONE!!!");
     }
 }

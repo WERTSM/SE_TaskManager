@@ -41,10 +41,22 @@ public class ProjectSaveCommand extends Command {
 
         @NotNull final String userId = serviceLocator.getUserService().getId(user);
 
-        //serviceLocator.getProjectService().jaxbXmlSave(userId);
-        //serviceLocator.getProjectService().serializationSave(userId);
-        //serviceLocator.getProjectService().jaxbJSONSave(userId);
-        serviceLocator.getProjectService().fasterXmlSave(userId);
+        System.out.println("Enter save method: (serialization, xml, json, fas-xml, fas-json)");
+        @NotNull final String command = serviceLocator.getTerminalService().readLine();
+
+        if ("serialization".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().serializationSave(userId);
+        } else if ("xml".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().jaxbXmlSave(userId);
+        } else if ("json".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().jaxbJSONSave(userId);
+        } else if ("fas-xml".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().fasterXmlSaveXML(userId);
+        } else if ("fas-json".equalsIgnoreCase(command)) {
+            serviceLocator.getProjectService().fasterXmlSaveJSON(userId);
+        } else {
+            throw new IllegalArgumentException("Error. No save method : " + command);
+        }
         System.out.println("!!!DONE!!!");
     }
 }

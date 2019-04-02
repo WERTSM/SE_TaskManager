@@ -1,11 +1,14 @@
 package ru.khmelev.tm.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.hash.Hashing;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IUserRepository;
 import ru.khmelev.tm.api.IUserService;
 import ru.khmelev.tm.bootstrap.Bootstrap;
 import ru.khmelev.tm.entity.User;
+
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -23,6 +26,11 @@ public final class UserService extends AbstractEntityService<User> implements IU
         super(userRepository);
         this.userRepository = userRepository;
         this.bootstrap = bootstrap;
+    }
+
+    protected TypeReference getTypeReference() {
+        return new TypeReference<List<User>>() {
+        };
     }
 
     @Override

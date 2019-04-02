@@ -1,6 +1,7 @@
 package ru.khmelev.tm.service;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
@@ -26,13 +27,14 @@ import java.util.List;
 public abstract class AbstractEntityService<T extends Entity> implements IEntityService<T>, IEntityFindNameOrDescService<T> {
 
     private IEntityRepository<T> entityRepository;
-
     @NotNull
     private String path = new File("").getAbsolutePath() + "/serialization/";
 
     AbstractEntityService(final IEntityRepository<T> entityRepository) {
         this.entityRepository = entityRepository;
     }
+
+    protected abstract TypeReference getTypeReference();
 
     @Override
     public void createEntity(@NotNull final String id, @NotNull final T entity) {
@@ -208,25 +210,34 @@ public abstract class AbstractEntityService<T extends Entity> implements IEntity
     }
 
     @Override
-    public void fasterXmlSave(String userId) throws IOException, JAXBException {
-
+    public void fasterXmlSaveXML(String userId) throws IOException {
         @NotNull final XmlMapper xmlMapper = new XmlMapper();
-        @NotNull final EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
-        jaxbList.setList((List) entityRepository.findAll(userId));
-
-        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        xmlMapper.writeValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), jaxbList);
+        xmlMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), entityRepository.findAll(userId));
     }
 
     @Override
-    public void fasterXmlLoad(String userId) throws IOException, JAXBException {
-
+    public void fasterXmlLoadXML(String userId) throws IOException {
         @NotNull final XmlMapper xmlMapper = new XmlMapper();
-        @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
-//        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        //xmlMapper.readValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), jaxbList);
+        Collection<T> col = xmlMapper.readValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), getTypeReference());
+        for (T entity : col) {
+            entityRepository.persist(entity.getId(), entity);
+        }
     }
 
+    @Override
+    public void fasterXmlSaveJSON(String userId) throws IOException {
+        @NotNull final ObjectMapper jsonMapper = new ObjectMapper();
+        jsonMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path + getClass().getSimpleName() + "FasterXml.json"), entityRepository.findAll(userId));
+    }
+
+    @Override
+    public void fasterXmlLoadJSON(String userId) throws IOException {
+        @NotNull final ObjectMapper jsonMapper = new ObjectMapper();
+        @NotNull final Collection<T> col = jsonMapper.readValue(new File(path + getClass().getSimpleName() + "FasterXml.json"), getTypeReference());
+        for (T entity : col) {
+            entityRepository.persist(entity.getId(), entity);
+        }
+    }
 
     private boolean createDir() {
         try {
