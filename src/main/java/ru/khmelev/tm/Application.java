@@ -46,7 +46,7 @@ public final class Application {
             LoadFasterXMLCommand.class,
             LoadFasterXmlJSONCommand.class,
             AboutCommand.class,
-            ExitCommand.class,
+            ExitCommand.class
     };
 
     public static void main(String[] args) throws Exception {
