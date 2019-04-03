@@ -3,6 +3,7 @@ package ru.khmelev.tm.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.hash.Hashing;
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.ISessionService;
 import ru.khmelev.tm.api.IUserRepository;
 import ru.khmelev.tm.api.IUserService;
 import ru.khmelev.tm.bootstrap.Bootstrap;
@@ -13,7 +14,7 @@ import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public final class UserService extends AbstractEntityService<User> implements IUserService {
+public class SessionService extends AbstractEntityService<User> implements IUserService {
 
     @NotNull
     final private Bootstrap bootstrap;
@@ -23,7 +24,7 @@ public final class UserService extends AbstractEntityService<User> implements IU
 
     private String password;
 
-    public UserService(@NotNull final IUserRepository userRepository, @NotNull final Bootstrap bootstrap) {
+    public SessionService(@NotNull final IUserRepository userRepository, @NotNull final Bootstrap bootstrap) {
         super(userRepository);
         this.userRepository = userRepository;
         this.bootstrap = bootstrap;
@@ -34,10 +35,9 @@ public final class UserService extends AbstractEntityService<User> implements IU
         };
     }
 
-    @NotNull
     @Override
-    public Collection<User> findAll() {
-        return super.findAll("admin");
+    public @NotNull Collection<User> findAll() {
+        return null;
     }
 
     @Override

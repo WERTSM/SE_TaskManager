@@ -5,9 +5,9 @@ import ru.khmelev.tm.entity.Entity;
 
 import java.util.Collection;
 
-public interface IEntityRepository<T extends Entity> {
+public interface IEntityRepository<T extends Entity>{
 
-    void persist(@NotNull final String id, @NotNull final T entity);
+    void persist(@NotNull String id, T entity);
 
     @NotNull T findOne(@NotNull final String id, @NotNull final String userId);
 

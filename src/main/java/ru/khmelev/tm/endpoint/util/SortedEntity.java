@@ -1,10 +1,12 @@
-package ru.khmelev.tm.service.util;
+package ru.khmelev.tm.endpoint.util;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.SortEntity;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class SortedEntity<T extends SortEntity> {
     public void sort(@NotNull List<T> list, @NotNull Sort sort) {
@@ -52,31 +54,5 @@ public class SortedEntity<T extends SortEntity> {
                 }
             });
         }
-    }
-
-    @NotNull
-    @Override
-    public Collection<T> findAllName(String findParameter, String userId) {
-        @NotNull final List<T> list = new ArrayList<>(entityRepository.findAll(userId));
-        final Iterator<T> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            if (!iterator.next().getName().contains(findParameter)) {
-                iterator.remove();
-            }
-        }
-        return list;
-    }
-
-    @NotNull
-    @Override
-    public Collection<T> findAllDescription(String findParameter, String userId) {
-        @NotNull final List<T> list = new ArrayList<>(entityRepository.findAll(userId));
-        final Iterator<T> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            if (!iterator.next().getDescription().contains(findParameter)) {
-                iterator.remove();
-            }
-        }
-        return list;
     }
 }

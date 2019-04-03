@@ -3,7 +3,11 @@ package ru.khmelev.tm.api;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.User;
 
-public interface IUserService extends IEntityService<User> {
+import java.util.Collection;
+
+public interface IUserService extends IService<User> {
+
+    @NotNull Collection<User> findAll();
 
     boolean userLogin(@NotNull final String login, @NotNull final String pass);
 

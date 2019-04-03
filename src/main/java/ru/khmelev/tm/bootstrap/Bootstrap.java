@@ -7,15 +7,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.*;
 import ru.khmelev.tm.command.Command;
+import ru.khmelev.tm.endpoint.ProjectEndpoint;
+import ru.khmelev.tm.endpoint.TaskEndpoint;
+import ru.khmelev.tm.endpoint.TerminalEndpoint;
+import ru.khmelev.tm.endpoint.UserEndpoint;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.TaskRepository;
 import ru.khmelev.tm.repository.UserRepository;
-import ru.khmelev.tm.service.ProjectService;
-import ru.khmelev.tm.service.TaskService;
-import ru.khmelev.tm.service.TerminalService;
-import ru.khmelev.tm.service.UserService;
+import ru.khmelev.tm.service.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -39,19 +40,23 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IProjectService projectService = new ProjectService(projectRepository);
+    private final IProjectService projectService = new ProjectEndpoint(projectRepository);
 
     @Getter
     @NotNull
-    private final ITaskService taskService = new TaskService(taskRepository);
+    private final ITaskService taskService = new TaskEndpoint(taskRepository);
 
     @Getter
     @NotNull
-    private final IUserService userService = new UserService(userRepository, this);
+    private final IUserService userService = new UserEndpoint(userRepository, this);
 
     @Getter
     @NotNull
-    private final ITerminalService terminalService = new TerminalService();
+    private final ITerminalService terminalService = new TerminalEndpoint();
+
+    @Getter
+    @NotNull
+    private final ISessionService sessionService = new SessionService();
 
     @Setter
     @Getter

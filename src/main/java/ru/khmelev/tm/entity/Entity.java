@@ -3,7 +3,7 @@ package ru.khmelev.tm.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class Entity {
+public abstract class Entity extends Identifiable {
 
     @Setter
     @Getter

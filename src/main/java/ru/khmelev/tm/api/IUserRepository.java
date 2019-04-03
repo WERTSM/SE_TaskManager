@@ -5,7 +5,7 @@ import ru.khmelev.tm.entity.User;
 
 import java.util.Collection;
 
-public interface IUserRepository extends IEntityRepository<User> {
+public interface IUserRepository extends IRepository<User> {
 
     @NotNull Collection<User> findAll();
 
