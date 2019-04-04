@@ -12,7 +12,7 @@ public class Session extends Identifiable {
 
     public Session() {
         this.id = "";
-        this.sign = "";
+        this.signature = "";
         this.userId = "";
         this.createDate = new Date();
     }
@@ -24,7 +24,7 @@ public class Session extends Identifiable {
     private String userId;
 
     @NotNull
-    private String sign;
+    private String signature;
 
     @NotNull
     private Date createDate;

@@ -5,7 +5,7 @@ import ru.khmelev.tm.entity.Entity;
 
 import java.util.Collection;
 
-public interface IEntityRepository<T extends Entity>{
+public interface IEntityRepository<T extends Entity> extends ISerializationService<T>{
 
     void persist(@NotNull String id, T entity);
 

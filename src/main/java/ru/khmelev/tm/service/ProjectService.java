@@ -26,24 +26,4 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
     public void sort(@NotNull List<Project> list, @NotNull Sort sortParameter) {
         new SortedEntity<Project>().sort(list, sortParameter);
     }
-
-    @NotNull
-    @Override
-    public Project findEntity(@NotNull String id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Collection<Project> findAll() {
-        return null;
-    }
-
-    @Override
-    public void editEntity(@NotNull String id, @NotNull Project entity) { }
-
-    @Override
-    public void removeEntity(@NotNull String id) {}
-
-    @Override
-    public void clearEntity() {}
 }

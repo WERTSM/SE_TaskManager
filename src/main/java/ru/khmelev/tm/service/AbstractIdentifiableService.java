@@ -1,16 +1,20 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.IRepository;
+import ru.khmelev.tm.api.ISerializationRepository;
 import ru.khmelev.tm.api.IService;
 import ru.khmelev.tm.entity.Identifiable;
-import ru.khmelev.tm.repository.IdentifiableRepository;
+
+import javax.sql.rowset.serial.SerialException;
+import java.util.Collection;
 
 public abstract class AbstractIdentifiableService<T extends Identifiable> implements IService<T> {
 
-    private IdentifiableRepository<T> identifiableRepository;
+    private ISerializationRepository<T> serializationRepository;
 
-    public AbstractIdentifiableService(IdentifiableRepository<T> identifiableRepository) {
-        this.identifiableRepository = identifiableRepository;
+    public AbstractIdentifiableService(ISerializationRepository<T> serializationRepository) {
+        this.serializationRepository = serializationRepository;
     }
 
     @Override
@@ -19,40 +23,36 @@ public abstract class AbstractIdentifiableService<T extends Identifiable> implem
     }
 
     @NotNull
-    public T findEntity(@NotNull final String id, @NotNull final String userId) {
-        if (!id.isEmpty() && !userId.isEmpty()) {
-            return identifiableRepository.findOne(id, userId);
-        }
-        throw new identifiableRepository();
+    @Override
+    public Collection<T> findAll() {
+        return identifiableRepository.findAll();
     }
 
     @NotNull
     @Override
-    public Collection<T> findAll(@NotNull final String userId) {
-        return entityRepository.findAll(userId);
+    public T findEntity(@NotNull final String id) throws SerialException {
+        if (!id.isEmpty()) {
+            return identifiableRepository.findOne(id);
+        }
+        throw new SerialException();
     }
 
-
     @Override
-    public void editEntity(@NotNull final String id, @NotNull T entity, @NotNull final String userId) {
-        if (!id.isEmpty() && !userId.isEmpty()) {
-            entityRepository.merge(id, entity, userId);
+    public void editEntity(@NotNull final String id, @NotNull T entity) {
+        if (!id.isEmpty()) {
+            identifiableRepository.merge(id, entity);
         }
     }
 
     @Override
-    public void removeEntity(@NotNull final String id, @NotNull final String userId) {
-        if (!id.isEmpty() && !userId.isEmpty()) {
-            entityRepository.remove(id, userId);
+    public void removeEntity(@NotNull final String id) {
+        if (!id.isEmpty()) {
+            identifiableRepository.remove(id);
         }
     }
 
     @Override
-    public void clearEntity(@NotNull final String userId) {
-        if (!userId.isEmpty()) {
-            entityRepository.removeAll(userId);
-        }
+    public void clearEntity() {
+        identifiableRepository.removeAll();
     }
-
-
 }

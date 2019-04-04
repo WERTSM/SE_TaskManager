@@ -2,9 +2,10 @@ package ru.khmelev.tm.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IEntityFindNameOrDescService;
 import ru.khmelev.tm.api.IEntityRepository;
 import ru.khmelev.tm.api.IEntityService;
+import ru.khmelev.tm.api.ISerializationRepository;
+import ru.khmelev.tm.api.ISerializationService;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.repository.IdentifiableRepository;
@@ -14,12 +15,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractEntityService<T extends Entity> extends AbstractSerializationService<T> implements IEntityService<T>, IEntityFindNameOrDescService<T> {
+public abstract class AbstractEntityService<T extends Entity> extends AbstractSerializationService<T> implements IEntityService<T> {
 
-    private IEntityRepository<T> entityRepository;
+    private ISerializationRepository<T> serializationRepository;
 
-    AbstractEntityService(final IEntityRepository<T> entityRepository) {
-        super((IdentifiableRepository<T>) entityRepository);
+    AbstractEntityService(final ISerializationService<T> entityRepository) {
+        super(entityRepository);
         this.entityRepository = entityRepository;
     }
 

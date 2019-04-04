@@ -1,51 +1,7 @@
 package ru.khmelev.tm.repository;
 
-import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.IUserRepository;
 import ru.khmelev.tm.entity.User;
-import ru.khmelev.tm.exception.RepositoryException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-public final class UserRepository extends EntityRepository<User> implements IUserRepository {
-
-    @NotNull
-    @Override
-    public Collection<User> findAll() {
-        return new ArrayList<>(mapEntity.values());
-    }
-
-    @Override
-    public @NotNull Collection<User> findAll(@NotNull String userId) {
-        return findAll();
-    }
-
-    @NotNull
-    @Override
-    public User findOne(@NotNull final String id) {
-        if (!id.isEmpty()) {
-            return this.mapEntity.get(id);
-        }
-        throw new RepositoryException();
-    }
-
-    @NotNull
-    @Override
-    public User findOne(@NotNull String id, @NotNull String userId) {
-        return findOne(id);
-    }
-
-    //In future...
-    @Override
-    public void merge(@NotNull String id, @NotNull User entity, @NotNull String userId) {
-    }
-
-    @Override
-    public void remove(@NotNull String id, @NotNull String userId) {
-    }
-
-    @Override
-    public void removeAll(@NotNull String userId) {
-    }
+public final class UserRepository extends IdentifiableRepository<User> implements IUserRepository {
 }

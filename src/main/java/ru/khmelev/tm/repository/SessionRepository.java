@@ -1,6 +1,7 @@
 package ru.khmelev.tm.repository;
 
-import ru.khmelev.tm.entity.Identifiable;
+import ru.khmelev.tm.api.ISessionRepository;
+import ru.khmelev.tm.entity.Session;
 
-public class SessionRepository extends Identifiable {
+public final class SessionRepository extends IdentifiableRepository<Session> implements ISessionRepository {
 }

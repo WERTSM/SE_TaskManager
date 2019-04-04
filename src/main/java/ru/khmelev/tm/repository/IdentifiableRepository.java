@@ -1,12 +1,16 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.IRepository;
 import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.exception.RepositoryException;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-public class IdentifiableRepository<T extends Identifiable> {
+public class IdentifiableRepository<T extends Identifiable> implements IRepository<T> {
 
     @NotNull
     private final Map<String, T> identifiable = new HashMap<>();
@@ -18,10 +22,9 @@ public class IdentifiableRepository<T extends Identifiable> {
     }
 
     @NotNull
-    public T findOne(@NotNull final String id, @NotNull final String userId) {
-        if (!id.isEmpty() && !userId.isEmpty()) {
-            Collection<T> list = new ArrayList<>(findAll(userId));
-            for (T entity : list) {
+    public T findOne(@NotNull final String id) {
+        if (!id.isEmpty()) {
+            for (T entity : identifiable.values()) {
                 if (entity.getId().equals(id)) {
                     return entity;
                 }
@@ -31,13 +34,17 @@ public class IdentifiableRepository<T extends Identifiable> {
     }
 
     @NotNull
-    public Collection<T> findAll(@NotNull final String userId) {
+    public Collection<T> findAll() {
         return identifiable.values();
     }
 
-    public void merge(@NotNull final String id, @NotNull final T entity, @NotNull final String userId) {
+    @NotNull
+    public Collection<T> findAll(@NotNull String userId) {
+        return findAll();
     }
 
+    public void merge(@NotNull final String id, @NotNull final T entity) {
+    }
 
     public void remove(@NotNull final String id) {
         if (!id.isEmpty()) {
@@ -53,10 +60,7 @@ public class IdentifiableRepository<T extends Identifiable> {
         }
     }
 
-    public void removeAll(@NotNull final String userId) {
-        if (!userId.isEmpty()) {
-            Collection<T> list = identifiable.values();
-            list.clear();
-        }
+    public void removeAll() {
+        identifiable.clear();
     }
 }

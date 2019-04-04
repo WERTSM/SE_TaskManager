@@ -12,8 +12,10 @@ import ru.khmelev.tm.endpoint.TaskEndpoint;
 import ru.khmelev.tm.endpoint.TerminalEndpoint;
 import ru.khmelev.tm.endpoint.UserEndpoint;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.repository.ProjectRepository;
+import ru.khmelev.tm.repository.SessionRepository;
 import ru.khmelev.tm.repository.TaskRepository;
 import ru.khmelev.tm.repository.UserRepository;
 import ru.khmelev.tm.service.*;
@@ -29,6 +31,11 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final SortedMap<String, Command> commandMap = new TreeMap<>();
 
+    @Setter
+    @Getter
+    @Nullable
+    private Session session;
+
     @NotNull
     private final IProjectRepository projectRepository = new ProjectRepository();
 
@@ -40,28 +47,39 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IProjectService projectService = new ProjectEndpoint(projectRepository);
+    private final ISessionRepository sessionRepository = new SessionRepository();
 
     @Getter
     @NotNull
-    private final ITaskService taskService = new TaskEndpoint(taskRepository);
+    private final IProjectService projectService = new ProjectService(projectRepository);
 
     @Getter
     @NotNull
-    private final IUserService userService = new UserEndpoint(userRepository, this);
+    private final ITaskService taskService = new TaskService(taskRepository);
+
+    @Getter
+    @NotNull
+    private final IUserService userService = new UserService(userRepository);
+
+    @Getter
+    @NotNull
+    private final ISessionService sessionService = new SessionService(sessionRepository);
+
+    @Getter
+    @NotNull
+    private final IProjectService projectEndpoint = new ProjectEndpoint(sessionService, projectService);
+
+    @Getter
+    @NotNull
+    private final ITaskService taskEndpoint = new TaskEndpoint(sessionService, taskService);
+
+    @Getter
+    @NotNull
+    private final IUserService userEndpoint = new UserService(sessionService, userService);
 
     @Getter
     @NotNull
     private final ITerminalService terminalService = new TerminalEndpoint();
-
-    @Getter
-    @NotNull
-    private final ISessionService sessionService = new SessionService();
-
-    @Setter
-    @Getter
-    @Nullable
-    private User userSession;
 
     public void init(Class[] commandClassArray) throws Exception {
         registrationCommands(commandClassArray);

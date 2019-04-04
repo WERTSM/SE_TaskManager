@@ -1,71 +1,40 @@
 package ru.khmelev.tm.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.hash.Hashing;
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.ISessionRepository;
 import ru.khmelev.tm.api.ISessionService;
-import ru.khmelev.tm.api.IUserRepository;
-import ru.khmelev.tm.api.IUserService;
-import ru.khmelev.tm.bootstrap.Bootstrap;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.exception.ServiceException;
 
-import java.util.Collection;
-import java.util.List;
+public class SessionService extends AbstractIdentifiableService<Session> implements ISessionService {
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+    private ISessionRepository sessionRepository;
 
-public class SessionService extends AbstractEntityService<User> implements IUserService {
-
-    @NotNull
-    final private Bootstrap bootstrap;
-
-    @NotNull
-    private IUserRepository userRepository;
+    private String signatureRepository;
 
     private String password;
 
-    public SessionService(@NotNull final IUserRepository userRepository, @NotNull final Bootstrap bootstrap) {
-        super(userRepository);
-        this.userRepository = userRepository;
-        this.bootstrap = bootstrap;
-    }
-
-    protected TypeReference getTypeReference() {
-        return new TypeReference<List<User>>() {
-        };
+    public SessionService(ISessionRepository sessionRepository) {
+        super(sessionRepository);
+        this.sessionRepository = sessionRepository;
     }
 
     @Override
-    public @NotNull Collection<User> findAll() {
-        return null;
+    public void setSession(Session session) {
+        createEntity(session.getUserId(), session);
     }
 
     @Override
-    public boolean userLogin(@NotNull final String login, @NotNull final String pass) {
-        if (!login.isEmpty() && !pass.isEmpty()) {
-            for (User user : userRepository.findAll()) {
-                if (user.getLogin().equals(login)) {
-                    password = (Hashing.sha256().hashString(pass, UTF_8).toString());
-                    String passwordUserRepository = user.getHashPassword();
-                    if (passwordUserRepository.equals(password)) {
-                        bootstrap.setUserSession(user);
-                        return true;
-                    } else return false;
-                }
-            }
-        }
-        return false;
+    public void removeSession(Session session) {
+        removeEntity(session.getUserId());
     }
 
     @Override
-    public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
-        if (!login.isEmpty() && !pass.isEmpty()) {
-            for (User user : userRepository.findAll()) {
-                if (user.getLogin().equals(login)) {
-                    password = (Hashing.sha256().hashString(pass, UTF_8).toString());
-                    user.setHashPassword(password);
-                }
-            }
+    public void checkSession(@NotNull final Session session) {
+        signatureRepository = sessionRepository.findOne(session.getUserId()).getSignature();
+        if (!session.getSignature().equals(signatureRepository)) {
+            throw new ServiceException();
         }
     }
 
@@ -81,16 +50,5 @@ public class SessionService extends AbstractEntityService<User> implements IUser
         return user.getLogin();
     }
 
-    //In future...
-    @Override
-    public void editEntity(@NotNull String id, @NotNull User entity, @NotNull String userId) {
-    }
 
-    @Override
-    public void removeEntity(@NotNull String id, @NotNull String userId) {
-    }
-
-    @Override
-    public void clearEntity(@NotNull String userId) {
-    }
 }
