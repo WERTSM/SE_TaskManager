@@ -1,4 +1,4 @@
-package ru.khmelev.tm.api;
+package ru.khmelev.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Identifiable;

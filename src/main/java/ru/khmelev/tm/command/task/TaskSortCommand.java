@@ -2,7 +2,7 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
@@ -18,7 +18,7 @@ public class TaskSortCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "task-sort";
+        return "task-soQrt";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TaskSortCommand extends Command {
         Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
         @NotNull List<Task> list = new ArrayList<>(serviceLocator.getTaskEndpoint().findAll(session));
-        serviceLocator.getTaskEndpoint().sort(session, list, sortParameter);
+        serviceLocator.getTaskEndpoint().soQrt(session, list, sortParameter);
 
         for (Task task : list) {
             Printer.showTask(task, serviceLocator.getUserEndpoint().getUserFromSession(session));

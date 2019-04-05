@@ -4,7 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.*;
+import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
+import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
+import ru.khmelev.tm.api.endpoint.IUserEndpoint;
+import ru.khmelev.tm.api.repository.IProjectRepository;
+import ru.khmelev.tm.api.repository.ISessionRepository;
+import ru.khmelev.tm.api.repository.ITaskRepository;
+import ru.khmelev.tm.api.repository.IUserRepository;
+import ru.khmelev.tm.api.service.*;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.endpoint.ProjectEndpoint;
 import ru.khmelev.tm.endpoint.TaskEndpoint;
@@ -24,6 +31,7 @@ import ru.khmelev.tm.service.TaskService;
 import ru.khmelev.tm.service.UserService;
 
 import javax.sql.rowset.serial.SerialException;
+import javax.xml.ws.Endpoint;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -86,9 +94,14 @@ public final class Bootstrap implements ServiceLocator {
     private final ITerminalService terminalService = new TerminalEndpoint();
 
     public void init(Class[] commandClassArray) throws Exception {
-        registrationCommands(commandClassArray);
-        defaultCommands();
-        startCommands();
+//        registrationCommands(commandClassArray);
+
+        Endpoint.publish("http://localhost:1986/hello", projectEndpoint);
+        Endpoint.publish("http://localhost:1986/hellweo", taskEndpoint);
+//        Endpoint.publish("http://localhost:1986/helelo", userEndpoint);
+
+//        defaultCommands();
+//        startCommands();
     }
 
     private void startCommands() throws IOException, SerialException {

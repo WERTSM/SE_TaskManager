@@ -2,16 +2,18 @@ package ru.khmelev.tm.endpoint;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IProjectEndpoint;
-import ru.khmelev.tm.api.IProjectService;
-import ru.khmelev.tm.api.ISessionService;
+import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
+import ru.khmelev.tm.api.service.IProjectService;
+import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.exception.EndpointException;
 
+import javax.jws.WebService;
 import java.util.List;
 
+@WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IProjectEndpoint")
 public class ProjectEndpoint extends AbstractEntityEndpoint<Project> implements IProjectEndpoint {
 
     @NotNull
@@ -27,13 +29,12 @@ public class ProjectEndpoint extends AbstractEntityEndpoint<Project> implements 
     }
 
     @Override
-    public void sort(@NotNull final Session session, @NotNull List<Project> list, @NotNull Sort sortParameter) {
-        sessionService.checkSession(session);
-        projectService.sort(sortParameter, list);
+    protected TypeReference getTypeReference() {
+        throw new EndpointException();
     }
 
     @Override
-    protected TypeReference getTypeReference() {
-        throw new EndpointException();
+    public void soQrt(@NotNull Session session, @NotNull List<Project> list, @NotNull Sort sortParameter) {
+
     }
 }

@@ -2,16 +2,18 @@ package ru.khmelev.tm.endpoint;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.ISessionService;
-import ru.khmelev.tm.api.ITaskEndpoint;
-import ru.khmelev.tm.api.ITaskService;
+import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
+import ru.khmelev.tm.api.service.ISessionService;
+import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.EndpointException;
 
+import javax.jws.WebService;
 import java.util.List;
 
+@WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.ITaskEndpoint")
 public final class TaskEndpoint extends AbstractEntityEndpoint<Task> implements ITaskEndpoint {
 
     @NotNull
@@ -43,8 +45,7 @@ public final class TaskEndpoint extends AbstractEntityEndpoint<Task> implements 
     }
 
     @Override
-    public void sort(@NotNull final Session session, @NotNull List<Task> list, @NotNull Sort sortParameter) {
-        sessionService.checkSession(session);
-        taskService.sort(list, sortParameter);
+    public void soQrt(@NotNull Session session, @NotNull List<Task> list, @NotNull Sort sortParameter) {
+
     }
 }

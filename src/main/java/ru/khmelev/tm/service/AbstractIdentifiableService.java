@@ -1,7 +1,7 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IRepository;
+import ru.khmelev.tm.api.repository.IRepository;
 import ru.khmelev.tm.entity.Identifiable;
 
 import javax.sql.rowset.serial.SerialException;

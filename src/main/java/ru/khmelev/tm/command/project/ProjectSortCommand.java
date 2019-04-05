@@ -2,7 +2,7 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Project;
@@ -18,7 +18,7 @@ public class ProjectSortCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "project-sort";
+        return "project-soQrt";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ProjectSortCommand extends Command {
         @NotNull final Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
         @NotNull final List<Project> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAll(session));
-        serviceLocator.getProjectEndpoint().sort(session, listProject, sortParameter);
+        serviceLocator.getProjectEndpoint().soQrt(session, listProject, sortParameter);
 
         for (Project project : listProject) {
             Printer.showProject(project, serviceLocator.getUserEndpoint().getUserFromSession(session));

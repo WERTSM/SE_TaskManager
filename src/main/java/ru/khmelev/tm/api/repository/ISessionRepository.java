@@ -1,4 +1,4 @@
-package ru.khmelev.tm.api;
+package ru.khmelev.tm.api.repository;
 
 import ru.khmelev.tm.entity.Session;
 

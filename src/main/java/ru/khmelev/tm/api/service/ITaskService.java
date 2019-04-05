@@ -1,4 +1,4 @@
-package ru.khmelev.tm.api;
+package ru.khmelev.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Sort;
@@ -11,6 +11,4 @@ public interface ITaskService extends IEntityService<Task> {
     @NotNull List<Task> listTaskFromProject(@NotNull final String idProject, @NotNull final String userId);
 
     void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId);
-
-    void sort(@NotNull final List<Task> list, @NotNull final Sort sortParameter);
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public final class Task extends SortEntity implements Serializable {
+public final class Task extends Entity implements Serializable {
 
     private String id;
 

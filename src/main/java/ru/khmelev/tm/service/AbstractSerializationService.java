@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.ISerializationRepository;
+import ru.khmelev.tm.api.repository.ISerializationRepository;
 import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.service.util.EntityListJAXB;
 

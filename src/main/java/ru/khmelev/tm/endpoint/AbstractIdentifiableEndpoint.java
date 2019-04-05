@@ -1,9 +1,9 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IEndpoint;
-import ru.khmelev.tm.api.IService;
-import ru.khmelev.tm.api.ISessionService;
+import ru.khmelev.tm.api.endpoint.IEndpoint;
+import ru.khmelev.tm.api.service.IService;
+import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.entity.Session;
 

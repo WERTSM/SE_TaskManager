@@ -1,7 +1,7 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IEntityRepository;
+import ru.khmelev.tm.api.repository.IEntityRepository;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.RepositoryException;
 

@@ -2,10 +2,10 @@ package ru.khmelev.tm.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.ISerializationService;
-import ru.khmelev.tm.api.IService;
-import ru.khmelev.tm.api.IUserRepository;
-import ru.khmelev.tm.api.IUserService;
+import ru.khmelev.tm.api.service.ISerializationService;
+import ru.khmelev.tm.api.service.IService;
+import ru.khmelev.tm.api.repository.IUserRepository;
+import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.User;
 

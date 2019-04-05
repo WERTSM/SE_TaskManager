@@ -2,10 +2,10 @@ package ru.khmelev.tm.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IEntityService;
-import ru.khmelev.tm.api.ISerializationService;
-import ru.khmelev.tm.api.ITaskRepository;
-import ru.khmelev.tm.api.ITaskService;
+import ru.khmelev.tm.api.repository.ITaskRepository;
+import ru.khmelev.tm.api.service.IEntityService;
+import ru.khmelev.tm.api.service.ISerializationService;
+import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;

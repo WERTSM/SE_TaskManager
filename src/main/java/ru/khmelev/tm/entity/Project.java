@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Project extends SortEntity implements Serializable {
+public class Project extends Entity implements Serializable {
 
     private String id;
 
