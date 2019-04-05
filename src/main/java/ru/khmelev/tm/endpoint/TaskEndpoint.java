@@ -2,64 +2,49 @@ package ru.khmelev.tm.endpoint;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.ITaskRepository;
+import ru.khmelev.tm.api.ISessionService;
+import ru.khmelev.tm.api.ITaskEndpoint;
 import ru.khmelev.tm.api.ITaskService;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.service.AbstractEntityService;
-import ru.khmelev.tm.service.util.SortedEntity;
+import ru.khmelev.tm.exception.EndpointException;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public final class TaskEndpoint extends AbstractEntityEndpoint<Task> implements ITaskService {
-    private ITaskRepository taskRepository;
+public final class TaskEndpoint extends AbstractEntityEndpoint<Task> implements ITaskEndpoint {
 
-    public TaskEndpoint(final ITaskRepository taskRepository) {
-        super(taskRepository);
-        this.taskRepository = taskRepository;
+    @NotNull
+    private final ITaskService taskService;
+
+    @NotNull
+    private final ISessionService sessionService;
+
+    public TaskEndpoint(@NotNull final ISessionService sessionService, @NotNull final ITaskService taskService) {
+        super(sessionService, taskService);
+        this.sessionService = sessionService;
+        this.taskService = taskService;
     }
 
     protected TypeReference getTypeReference() {
-        return new TypeReference<List<Task>>() {
-        };
-    }
-
-    @NotNull
-    @Override
-    public List<Task> listTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
-        if (!idProject.isEmpty() && !userId.isEmpty()) {
-            List<Task> list = new ArrayList<>(taskRepository.findAll(userId));
-            Iterator<Task> it = list.iterator();
-            while (it.hasNext()) {
-                Task task = it.next();
-                if (!task.getIdProject().equals(idProject)) {
-                    it.remove();
-                }
-            }
-            return list;
-        }
-        throw new ServiceException();
+        throw new EndpointException();
     }
 
     @Override
-    public void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
-        if (!idProject.isEmpty() && !userId.isEmpty()) {
-            List<Task> list = new ArrayList<>(taskRepository.findAll(userId));
-            Iterator<Task> it = list.iterator();
-            while (it.hasNext()) {
-                Task task = it.next();
-                if (task.getIdProject().equals(idProject)) {
-                    taskRepository.remove(task.getId(), userId);
-                }
-            }
-        }
+    public List<Task> listTaskFromProject(@NotNull final Session session, @NotNull final String idProject) {
+        sessionService.checkSession(session);
+        return taskService.listTaskFromProject(idProject, session.getUserId());
     }
 
     @Override
-    public void sort(@NotNull List<Task> list, @NotNull Sort sortParameter) {
-        new SortedEntity<Task>().sort(list, sortParameter);
+    public void removeAllTaskFromProject(@NotNull final Session session, @NotNull final String idProject) {
+        sessionService.checkSession(session);
+        taskService.removeAllTaskFromProject(idProject, session.getUserId());
+    }
+
+    @Override
+    public void sort(@NotNull final Session session, @NotNull List<Task> list, @NotNull Sort sortParameter) {
+        sessionService.checkSession(session);
+        taskService.sort(list, sortParameter);
     }
 }

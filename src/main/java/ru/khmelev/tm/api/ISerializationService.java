@@ -8,23 +8,23 @@ import java.io.IOException;
 
 public interface ISerializationService<T extends Identifiable> {
 
-    void serializationSave(@NotNull String userId);
+    void serializationSave(@NotNull final String userId);
 
-    void serializationLoad(@NotNull String userId) throws IOException, ClassNotFoundException;
+    void serializationLoad(@NotNull final String userId) throws IOException, ClassNotFoundException;
 
-    void jaxbXmlSave(String userId) throws JAXBException;
+    void jaxbXmlSave(@NotNull final String userId) throws JAXBException;
 
-    void jaxbXmlLoad(String userId) throws JAXBException;
+    void jaxbXmlLoad(@NotNull final String userId) throws JAXBException;
 
-    void jaxbJSONSave(String userId) throws JAXBException;
+    void jaxbJSONSave(@NotNull final String userId) throws JAXBException;
 
-    void jaxbJSONLoad(String userId) throws JAXBException;
+    void jaxbJSONLoad(@NotNull final String userId) throws JAXBException;
 
-    void fasterXmlSaveXML(String userId) throws IOException;
+    void fasterXmlSaveXML(@NotNull final String userId) throws IOException;
 
-    void fasterXmlLoadXML(String userId) throws IOException;
+    void fasterXmlLoadXML(@NotNull final String userId) throws IOException;
 
-    void fasterXmlSaveJSON(String userId) throws IOException;
+    void fasterXmlSaveJSON(@NotNull final String userId) throws IOException;
 
-    void fasterXmlLoadJSON(String userId) throws IOException;
+    void fasterXmlLoadJSON(@NotNull final String userId) throws IOException;
 }

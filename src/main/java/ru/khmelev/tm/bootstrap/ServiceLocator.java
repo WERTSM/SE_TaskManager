@@ -2,28 +2,25 @@ package ru.khmelev.tm.bootstrap;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.IProjectService;
-import ru.khmelev.tm.api.ITaskService;
-import ru.khmelev.tm.api.ITerminalService;
-import ru.khmelev.tm.api.IUserService;
+import ru.khmelev.tm.api.*;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.Session;
 
 import java.util.Map;
 
 public interface ServiceLocator {
 
-    @NotNull IProjectService getProjectService();
+    @NotNull IProjectEndpoint getProjectEndpoint();
 
-    @NotNull ITaskService getTaskService();
+    @NotNull ITaskEndpoint getTaskEndpoint();
 
-    @NotNull IUserService getUserService();
+    @NotNull IUserEndpoint getUserEndpoint();
 
     @NotNull ITerminalService getTerminalService();
 
-    @Nullable User getUserSession();
+    @Nullable Session getSession();
 
-    void setUserSession(@Nullable final User userSession);
+    void setSession(@Nullable final Session session);
 
     Map<String, Command> getCommandMap();
 }

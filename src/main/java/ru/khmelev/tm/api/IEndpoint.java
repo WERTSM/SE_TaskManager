@@ -1,28 +1,25 @@
 package ru.khmelev.tm.api;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.entity.Entity;
+import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.entity.Session;
 
+import javax.sql.rowset.serial.SerialException;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.Collection;
 
-public interface IEntityEndpoint<T extends Entity> {
+public interface IEndpoint<T extends Identifiable> {
 
-    void createEntity(@NotNull final Session session, @NotNull String id, @NotNull final T entity);
+    void createEntity(@NotNull final String id, T entity);
 
-    T findEntity(@NotNull final Session session, @NotNull final String id);
+    @NotNull Collection<T> findAll(@NotNull final Session session);
 
-    Collection<T> findAll(@NotNull final Session session);
+    T findEntity(@NotNull final Session session, @NotNull String id) throws SerialException;
 
-    Collection<T> findAllName(@NotNull final Session session, @NotNull final String findParameter);
+    void editEntity(@NotNull final Session session, @NotNull String id, T entity);
 
-    Collection<T> findAllDescription(@NotNull final Session session, @NotNull final String findParameter);
-
-    void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull final T entity);
-
-    void removeEntity(@NotNull final Session session, @NotNull final String id);
+    void removeEntity(@NotNull final Session session, @NotNull String id);
 
     void clearEntity(@NotNull final Session session);
 
@@ -45,4 +42,5 @@ public interface IEntityEndpoint<T extends Entity> {
     void fasterXmlSaveJSON(@NotNull final Session session) throws IOException;
 
     void fasterXmlLoadJSON(@NotNull final Session session) throws IOException;
+
 }

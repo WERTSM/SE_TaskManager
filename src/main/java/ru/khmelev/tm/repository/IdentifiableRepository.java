@@ -15,9 +15,10 @@ public class IdentifiableRepository<T extends Identifiable> implements IReposito
     @NotNull
     private final Map<String, T> identifiable = new HashMap<>();
 
-    public void persist(@NotNull final String id, @NotNull final T entity) {
+    @Override
+    public void persist(@NotNull String id, @NotNull Identifiable entity) {
         if (!id.isEmpty()) {
-            identifiable.put(id, entity);
+            identifiable.put(id, (T) entity);
         }
     }
 

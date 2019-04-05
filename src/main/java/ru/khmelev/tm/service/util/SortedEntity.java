@@ -53,30 +53,4 @@ public class SortedEntity<T extends SortEntity> {
             });
         }
     }
-
-    @NotNull
-    @Override
-    public Collection<T> findAllName(String findParameter, String userId) {
-        @NotNull final List<T> list = new ArrayList<>(entityRepository.findAll(userId));
-        final Iterator<T> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            if (!iterator.next().getName().contains(findParameter)) {
-                iterator.remove();
-            }
-        }
-        return list;
-    }
-
-    @NotNull
-    @Override
-    public Collection<T> findAllDescription(String findParameter, String userId) {
-        @NotNull final List<T> list = new ArrayList<>(entityRepository.findAll(userId));
-        final Iterator<T> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            if (!iterator.next().getDescription().contains(findParameter)) {
-                iterator.remove();
-            }
-        }
-        return list;
-    }
 }

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
 
 public final class UserListCommand extends Command {
@@ -33,17 +34,16 @@ public final class UserListCommand extends Command {
     public void execute() {
         System.out.println("!!!Start command!!!");
 
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
-        for (User userok : serviceLocator.getUserService().findAll(userId)) {
+        for (User userok : serviceLocator.getUserEndpoint().findAll(session)) {
             Printer.showListUser(userok);
         }
         System.out.println("!!!DONE!!!");
     }
-
 }

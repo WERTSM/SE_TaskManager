@@ -2,6 +2,7 @@ package ru.khmelev.tm.command.user;
 
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 
 import java.io.IOException;
 
@@ -37,7 +38,9 @@ public final class UserLoginCommand extends Command {
         System.out.println("Введите пароль пользователя");
         String password = serviceLocator.getTerminalService().readLine();
 
-        if (serviceLocator.getUserService().userLogin(login, password)) {
+        Session session = serviceLocator.getUserEndpoint().userLogin(login, password);
+
+        if (session != null) {
             System.out.println("OK");
         } else {
             System.out.println("NO OK");

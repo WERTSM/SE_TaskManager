@@ -9,7 +9,8 @@ import java.util.*;
 
 public class EntityRepository<T extends Entity> implements IEntityRepository<T> {
 
-    @NotNull final Map<String, T> mapEntity = new HashMap<>();
+    @NotNull
+    private final Map<String, T> mapEntity = new HashMap<>();
 
     public void persist(@NotNull final String id, @NotNull final T entity) {
         if (!id.isEmpty()) {

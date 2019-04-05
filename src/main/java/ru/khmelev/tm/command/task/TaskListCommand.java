@@ -5,8 +5,8 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.entity.User;
 
 public final class TaskListCommand extends Command {
 
@@ -33,14 +33,14 @@ public final class TaskListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
-        for (Task task : serviceLocator.getTaskService().findAll(userId)) {
+        for (Task task : serviceLocator.getTaskEndpoint().findAll(session)) {
             Printer.showListTask(task);
         }
         System.out.println("!!!DONE!!!");

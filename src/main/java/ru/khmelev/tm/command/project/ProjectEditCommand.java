@@ -2,14 +2,14 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.IProjectService;
+import ru.khmelev.tm.api.IProjectEndpoint;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Status;
-import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -44,14 +44,14 @@ public final class ProjectEditCommand extends Command {
 
         @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
+        @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
 
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
         System.out.println("ID project: ");
         @NotNull final String id = terminalService.readLine();
@@ -59,7 +59,7 @@ public final class ProjectEditCommand extends Command {
             return;
         }
 
-        @NotNull final Project project = projectService.findEntity(id, userId);
+        Project project = projectEndpoint.findEntity(session, id);
 
         System.out.println("Name project: ");
         @NotNull final String name = terminalService.readLine();
@@ -99,7 +99,7 @@ public final class ProjectEditCommand extends Command {
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
         project.setStatus(status);
 
-        projectService.editEntity(id, project, userId);
+        projectEndpoint.editEntity(session, id, project);
         System.out.println("!!!DONE!!!");
     }
 }

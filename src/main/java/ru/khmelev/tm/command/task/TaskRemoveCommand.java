@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
-import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.Session;
 
 import java.io.IOException;
 
@@ -33,12 +33,12 @@ public final class TaskRemoveCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
         System.out.println("ID task: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
@@ -46,7 +46,7 @@ public final class TaskRemoveCommand extends Command {
             return;
         }
 
-        serviceLocator.getTaskService().removeEntity(id, userId);
+        serviceLocator.getTaskEndpoint().removeEntity(session, id);
         System.out.println("!!!DONE!!!");
     }
 }

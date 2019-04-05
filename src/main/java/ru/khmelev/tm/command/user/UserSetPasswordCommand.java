@@ -1,8 +1,10 @@
 package ru.khmelev.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 
 import java.io.IOException;
 
@@ -32,6 +34,11 @@ public final class UserSetPasswordCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
+            return;
+        }
+
         System.out.println("Введите логин пользователя: ");
         @NotNull final String login = serviceLocator.getTerminalService().readLine();
         if (login.isEmpty()) {
@@ -44,7 +51,7 @@ public final class UserSetPasswordCommand extends Command {
             return;
         }
 
-        serviceLocator.getUserService().userSetPassword(login, password);
+        serviceLocator.getUserEndpoint().userSetPassword(session, login, password);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -2,18 +2,19 @@ package ru.khmelev.tm.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.IEntityService;
 import ru.khmelev.tm.api.IProjectRepository;
 import ru.khmelev.tm.api.IProjectService;
+import ru.khmelev.tm.api.ISerializationService;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.service.util.SortedEntity;
 
-import java.util.Collection;
 import java.util.List;
 
-public class ProjectService extends AbstractEntityService<Project> implements IProjectService {
+public class ProjectService extends AbstractEntityService<Project> implements IEntityService<Project>, ISerializationService<Project>, IProjectService {
 
-    public ProjectService(final IProjectRepository projectRepository) {
+    public ProjectService(@NotNull final IProjectRepository projectRepository) {
         super(projectRepository);
     }
 
@@ -22,8 +23,7 @@ public class ProjectService extends AbstractEntityService<Project> implements IP
         };
     }
 
-    @Override
-    public void sort(@NotNull List<Project> list, @NotNull Sort sortParameter) {
+    public void sort(@NotNull final Sort sortParameter, @NotNull final List<Project> list) {
         new SortedEntity<Project>().sort(list, sortParameter);
     }
 }

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Role;
-import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.Session;
 
 public final class ProjectClearCommand extends Command {
 
@@ -32,16 +32,16 @@ public final class ProjectClearCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
-        for (Project project : serviceLocator.getProjectService().findAll(userId)) {
-            serviceLocator.getTaskService().removeAllTaskFromProject(project.getId(), userId);
-            serviceLocator.getProjectService().clearEntity(userId);
+        for (Project project : serviceLocator.getProjectEndpoint().findAll(session)) {
+            serviceLocator.getTaskEndpoint().removeAllTaskFromProject(session, project.getId());
+            serviceLocator.getProjectEndpoint().clearEntity(session);
         }
         System.out.println("!!!DONE!!!");
     }

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.entity.Role;
-import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.Session;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -34,16 +34,16 @@ public class SaveFasterXmlJSONCommand extends Command {
     @Override
     public void execute() throws IOException, JAXBException, ClassNotFoundException {
         System.out.println("!!!Start command!!!");
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getProjectService().fasterXmlSaveJSON(userId);
-        serviceLocator.getTaskService().fasterXmlSaveJSON(userId);
-        serviceLocator.getUserService().fasterXmlSaveJSON(userId);
+        serviceLocator.getProjectEndpoint().fasterXmlSaveJSON(session);
+        serviceLocator.getTaskEndpoint().fasterXmlSaveJSON(session);
+        serviceLocator.getUserEndpoint().fasterXmlSaveJSON(session);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -1,15 +1,14 @@
 package ru.khmelev.tm.command.user;
 
-import com.google.common.hash.Hashing;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.command.Command;
+import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class UserRegistryCommand extends Command {
 
@@ -54,7 +53,7 @@ public final class UserRegistryCommand extends Command {
         if (password.isEmpty()) {
             return;
         }
-        @NotNull final String hashPassword = Hashing.sha256().hashString(password, UTF_8).toString();
+        @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5(password));
         user.setHashPassword(hashPassword);
 
         System.out.println("Введите тип пользователся (admin/user): ");
@@ -65,7 +64,7 @@ public final class UserRegistryCommand extends Command {
         @NotNull final Role role = Role.valueOf(roleUser.toUpperCase());
         user.setRole(role);
 
-        serviceLocator.getUserService().createEntity(id, user);
+        serviceLocator.getUserEndpoint().createEntity(id, user);
         System.out.println("!!!DONE!!!");
     }
 }

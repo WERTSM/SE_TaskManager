@@ -6,9 +6,9 @@ import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ public class TaskSortCommand extends Command {
         System.out.println("!!!Start command!!!");
         @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
-        @NotNull List<Task> list = new ArrayList<>(serviceLocator.getTaskService().findAll(userId));
-        serviceLocator.getTaskService().sort(list, sortParameter);
+        @NotNull List<Task> list = new ArrayList<>(serviceLocator.getTaskEndpoint().findAll(session));
+        serviceLocator.getTaskEndpoint().sort(session, list, sortParameter);
 
         for (Task task : list) {
-            Printer.showTask(task, user);
+            Printer.showTask(task, serviceLocator.getUserEndpoint().getUserFromSession(session));
         }
         System.out.println("!!!DONE!!!");
     }

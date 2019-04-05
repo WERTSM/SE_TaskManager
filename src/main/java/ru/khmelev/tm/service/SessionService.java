@@ -1,54 +1,55 @@
 package ru.khmelev.tm.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.IService;
 import ru.khmelev.tm.api.ISessionRepository;
 import ru.khmelev.tm.api.ISessionService;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
 
-public class SessionService extends AbstractIdentifiableService<Session> implements ISessionService {
+public class SessionService extends AbstractIdentifiableService<Session> implements IService<Session>, ISessionService {
 
-    private ISessionRepository sessionRepository;
-
-    private String signatureRepository;
+    @NotNull
+    private final ISessionRepository sessionRepository;
 
     private String password;
 
-    public SessionService(ISessionRepository sessionRepository) {
+    public SessionService(@NotNull final ISessionRepository sessionRepository) {
         super(sessionRepository);
         this.sessionRepository = sessionRepository;
     }
 
-    @Override
-    public void setSession(Session session) {
+    public void setSession(@NotNull final Session session) {
         createEntity(session.getUserId(), session);
     }
 
-    @Override
-    public void removeSession(Session session) {
+    public void removeSession(@NotNull final Session session) {
         removeEntity(session.getUserId());
     }
 
-    @Override
-    public void checkSession(@NotNull final Session session) {
-        signatureRepository = sessionRepository.findOne(session.getUserId()).getSignature();
+    public void checkSession(@Nullable final Session session) {
+        assert session != null;
+        String signatureRepository = sessionRepository.findOne(session.getId()).getSignature();
         if (!session.getSignature().equals(signatureRepository)) {
             throw new ServiceException();
         }
     }
 
     @NotNull
-    @Override
-    public String getId(@NotNull User user) {
+    public String getId(@NotNull final User user) {
         return user.getId();
     }
 
     @NotNull
-    @Override
-    public String getName(@NotNull User user) {
+    public String getName(@NotNull final User user) {
         return user.getLogin();
     }
 
-
+    @Override
+    protected TypeReference getTypeReference() {
+        throw new ServiceException();
+    }
 }

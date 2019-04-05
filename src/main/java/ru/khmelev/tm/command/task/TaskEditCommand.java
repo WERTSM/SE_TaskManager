@@ -2,14 +2,14 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.ITaskService;
+import ru.khmelev.tm.api.ITaskEndpoint;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Status;
 import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -44,14 +44,14 @@ public final class TaskEditCommand extends Command {
 
         @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull final ITaskEndpoint taskService = serviceLocator.getTaskEndpoint();
 
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
 
         System.out.println("ID task: ");
         @NotNull final String id = terminalService.readLine();
@@ -59,7 +59,7 @@ public final class TaskEditCommand extends Command {
             return;
         }
 
-        @NotNull final Task task = serviceLocator.getTaskService().findEntity(id, userId);
+        @NotNull final Task task = serviceLocator.getTaskEndpoint().findEntity(session, id);
 
         System.out.println("Name task: ");
         @NotNull final String name = terminalService.readLine();
@@ -107,7 +107,7 @@ public final class TaskEditCommand extends Command {
 
         task.setStatus(status);
 
-        taskService.editEntity(id, task, userId);
+        taskService.editEntity(session, id, task);
         System.out.println("!!!DONE!!!");
     }
 }

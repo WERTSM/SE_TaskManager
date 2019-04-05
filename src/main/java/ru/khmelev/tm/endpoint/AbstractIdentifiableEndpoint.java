@@ -1,137 +1,126 @@
 package ru.khmelev.tm.endpoint;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.IEntityEndpoint;
-import ru.khmelev.tm.api.IEntityService;
+import ru.khmelev.tm.api.IEndpoint;
+import ru.khmelev.tm.api.IService;
 import ru.khmelev.tm.api.ISessionService;
-import ru.khmelev.tm.entity.Entity;
+import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.entity.Session;
 
+import javax.sql.rowset.serial.SerialException;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.Collection;
 
-public abstract class AbstractEntityEndpoint<T extends Entity> implements IEntityEndpoint<T> {
-
-    @NotNull
-    private final IEntityService<T> entityService;
+public abstract class AbstractIdentifiableEndpoint<T extends Identifiable> implements IEndpoint<T> {
 
     @NotNull
     private final ISessionService sessionService;
 
-    AbstractEntityEndpoint(@NotNull final ISessionService sessionService, @NotNull final IEntityService<T> entityService) {
+    @NotNull
+    private final IService<T> service;
+
+    AbstractIdentifiableEndpoint(@NotNull final ISessionService sessionService, @NotNull final IService service) {
+        this.service = service;
         this.sessionService = sessionService;
-        this.entityService = entityService;
-    }
-
-    protected abstract TypeReference getTypeReference();
-
-    @Override
-    public void createEntity(@NotNull final Session session, @NotNull final String id, @NotNull final T entity) {
-        sessionService.checkSession(session);
-        entityService.createEntity(id, entity);
     }
 
     @Override
-    public T findEntity(@NotNull final Session session, @NotNull final String id) {
-        sessionService.checkSession(session);
-        return entityService.findEntity(id, session.getUserId());
+    public void createEntity(@NotNull final String id, @NotNull final T entity) {
+        service.createEntity(id, entity);
     }
 
     @Override
+    @NotNull
     public Collection<T> findAll(@NotNull final Session session) {
         sessionService.checkSession(session);
-        return entityService.findAll(session.getUserId());
+        return service.findAll();
     }
 
     @Override
-    public Collection<T> findAllName(@NotNull final Session session, @NotNull String findParameter) {
+    @NotNull
+    public T findEntity(@NotNull final Session session, @NotNull final String id) throws SerialException {
         sessionService.checkSession(session);
-        return entityService.findAllName(findParameter, session.getUserId());
-    }
-
-    @Override
-    public Collection<T> findAllDescription(@NotNull final Session session, @NotNull String findParameter) {
-        sessionService.checkSession(session);
-        return entityService.findAllDescription(findParameter, session.getUserId());
+        return service.findEntity(id);
     }
 
     @Override
     public void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull T entity) {
         sessionService.checkSession(session);
-        entityService.editEntity(id, entity, session.getUserId());
+        service.editEntity(id, entity);
     }
 
     @Override
     public void removeEntity(@NotNull final Session session, @NotNull final String id) {
         sessionService.checkSession(session);
-        entityService.removeEntity(id, session.getUserId());
+        service.removeEntity(id);
     }
 
     @Override
     public void clearEntity(@NotNull final Session session) {
         sessionService.checkSession(session);
-        entityService.clearEntity(session.getUserId());
+        service.clearEntity();
     }
 
     @Override
     public void serializationSave(@NotNull final Session session) {
         sessionService.checkSession(session);
-        entityService.serializationSave(session.getUserId());
+        service.serializationSave(session.getUserId());
     }
 
     @Override
     public void serializationLoad(@NotNull final Session session) throws IOException, ClassNotFoundException {
         sessionService.checkSession(session);
-        entityService.serializationLoad(session.getUserId());
+        service.serializationLoad(session.getUserId());
     }
 
     @Override
     public void jaxbXmlSave(@NotNull final Session session) throws JAXBException {
         sessionService.checkSession(session);
-        entityService.jaxbXmlSave(session.getUserId());
+        service.jaxbXmlSave(session.getUserId());
     }
 
     @Override
     public void jaxbXmlLoad(@NotNull final Session session) throws JAXBException {
         sessionService.checkSession(session);
-        entityService.jaxbXmlLoad(session.getUserId());
+        service.jaxbXmlLoad(session.getUserId());
     }
 
     @Override
     public void jaxbJSONSave(@NotNull final Session session) throws JAXBException {
         sessionService.checkSession(session);
-        entityService.jaxbJSONSave(session.getUserId());
+        service.jaxbJSONSave(session.getUserId());
     }
 
     @Override
     public void jaxbJSONLoad(@NotNull final Session session) throws JAXBException {
         sessionService.checkSession(session);
-        entityService.jaxbJSONLoad(session.getUserId());
+        service.jaxbJSONLoad(session.getUserId());
     }
 
     @Override
     public void fasterXmlSaveXML(@NotNull final Session session) throws IOException {
         sessionService.checkSession(session);
-        entityService.fasterXmlSaveXML(session.getUserId());
+        service.fasterXmlSaveXML(session.getUserId());
     }
 
     @Override
     public void fasterXmlLoadXML(@NotNull final Session session) throws IOException {
         sessionService.checkSession(session);
-        entityService.fasterXmlLoadXML(session.getUserId());
+        service.fasterXmlLoadXML(session.getUserId());
     }
 
     @Override
     public void fasterXmlSaveJSON(@NotNull final Session session) throws IOException {
         sessionService.checkSession(session);
-        entityService.fasterXmlSaveJSON(session.getUserId());
+        service.fasterXmlSaveJSON(session.getUserId());
     }
 
     @Override
     public void fasterXmlLoadJSON(@NotNull final Session session) throws IOException {
         sessionService.checkSession(session);
-        entityService.fasterXmlLoadJSON(session.getUserId());
+        service.fasterXmlLoadJSON(session.getUserId());
     }
+
+    public abstract void userSetPassword(@NotNull Session session, @NotNull String login, @NotNull String pass);
 }

@@ -5,9 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.ISerializationService;
+import ru.khmelev.tm.api.ISerializationRepository;
 import ru.khmelev.tm.entity.Identifiable;
-import ru.khmelev.tm.repository.IdentifiableRepository;
 import ru.khmelev.tm.service.util.EntityListJAXB;
 
 import javax.xml.bind.JAXBContext;
@@ -21,22 +20,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class AbstractSerializationService<T extends Identifiable> implements ISerializationService {
+public abstract class AbstractSerializationService<T extends Identifiable> {
+
+    @NotNull
+    private final String path = new File("").getAbsolutePath() + "/serialization/";
+
+    @NotNull
+    private final ISerializationRepository<T> serializationRepository;
+
+    AbstractSerializationService(@NotNull final ISerializationRepository<T> serializationRepository) {
+        this.serializationRepository = serializationRepository;
+    }
 
     protected abstract TypeReference getTypeReference();
 
-    @NotNull
-    private String path = new File("").getAbsolutePath() + "/serialization/";
-
-    private IdentifiableRepository<T> identifiableRepository;
-
-    public AbstractSerializationService(IdentifiableRepository<T> identifiableRepository) {
-        this.identifiableRepository = identifiableRepository;
-    }
-
-    @Override
     public void serializationSave(@NotNull final String userId) {
-        @NotNull final Collection<T> list = identifiableRepository.findAll(userId);
+        @NotNull final Collection<T> list = serializationRepository.findAll(userId);
 
         if (!createDir() && list.size() == 0) {
             return;
@@ -51,7 +50,6 @@ public abstract class AbstractSerializationService<T extends Identifiable> imple
         }
     }
 
-    @Override
     public void serializationLoad(@NotNull String userId) throws IOException, ClassNotFoundException {
         @NotNull final Collection<T> list = new ArrayList<>();
 
@@ -68,14 +66,13 @@ public abstract class AbstractSerializationService<T extends Identifiable> imple
         }
 
         for (T entity : list) {
-            identifiableRepository.persist(entity.getId(), entity);
+            serializationRepository.persist(entity.getId(), entity);
         }
     }
 
-    @Override
-    public void jaxbXmlSave(String userId) throws JAXBException {
+    public void jaxbXmlSave(@NotNull final String userId) throws JAXBException {
         @NotNull final EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
-        jaxbList.setList((List) identifiableRepository.findAll(userId));
+        jaxbList.setList((List) serializationRepository.findAll(userId));
 
         @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
         @NotNull final Marshaller marshaller = jaxbContext.createMarshaller();
@@ -85,8 +82,7 @@ public abstract class AbstractSerializationService<T extends Identifiable> imple
         marshaller.marshal(jaxbList, new File(path + getClass().getSimpleName() + "JAXB.xml"));
     }
 
-    @Override
-    public void jaxbXmlLoad(String userId) throws JAXBException {
+    public void jaxbXmlLoad(@NotNull final String userId) throws JAXBException {
         @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
 
         @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
@@ -96,16 +92,15 @@ public abstract class AbstractSerializationService<T extends Identifiable> imple
         jaxbList = (EntityListJAXB<T>) unmarshaller.unmarshal(new File(path + getClass().getSimpleName() + "JAXB.xml"));
 
         for (T entity : jaxbList.getList()) {
-            identifiableRepository.persist(entity.getId(), entity);
+            serializationRepository.persist(entity.getId(), entity);
         }
     }
 
-    @Override
-    public void jaxbJSONSave(String userId) throws JAXBException {
+    public void jaxbJSONSave(@NotNull final String userId) throws JAXBException {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
 
         @NotNull final EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
-        jaxbList.setList((List) identifiableRepository.findAll(userId));
+        jaxbList.setList((List) serializationRepository.findAll(userId));
 
         @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(jaxbList.getClass());
         @NotNull final Marshaller marshaller = jaxbContext.createMarshaller();
@@ -120,8 +115,7 @@ public abstract class AbstractSerializationService<T extends Identifiable> imple
         marshaller.marshal(jaxbList, new File(path + getClass().getSimpleName() + "JAXB.json"));
     }
 
-    @Override
-    public void jaxbJSONLoad(String userId) throws JAXBException {
+    public void jaxbJSONLoad(@NotNull final String userId) throws JAXBException {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
 
         @NotNull EntityListJAXB<T> jaxbList = new EntityListJAXB<>();
@@ -137,37 +131,33 @@ public abstract class AbstractSerializationService<T extends Identifiable> imple
         jaxbList = (EntityListJAXB<T>) unmarshaller.unmarshal(new File(path + getClass().getSimpleName() + "JAXB.json"));
 
         for (T entity : jaxbList.getList()) {
-            identifiableRepository.persist(entity.getId(), entity);
+            serializationRepository.persist(entity.getId(), entity);
         }
     }
 
-    @Override
-    public void fasterXmlSaveXML(String userId) throws IOException {
+    public void fasterXmlSaveXML(@NotNull final String userId) throws IOException {
         @NotNull final XmlMapper xmlMapper = new XmlMapper();
-        xmlMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), identifiableRepository.findAll(userId));
+        xmlMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), serializationRepository.findAll(userId));
     }
 
-    @Override
-    public void fasterXmlLoadXML(String userId) throws IOException {
+    public void fasterXmlLoadXML(@NotNull final String userId) throws IOException {
         @NotNull final XmlMapper xmlMapper = new XmlMapper();
         Collection<T> col = xmlMapper.readValue(new File(path + getClass().getSimpleName() + "FasterXml.xml"), getTypeReference());
         for (T entity : col) {
-            identifiableRepository.persist(entity.getId(), entity);
+            serializationRepository.persist(entity.getId(), entity);
         }
     }
 
-    @Override
-    public void fasterXmlSaveJSON(String userId) throws IOException {
+    public void fasterXmlSaveJSON(@NotNull final String userId) throws IOException {
         @NotNull final ObjectMapper jsonMapper = new ObjectMapper();
-        jsonMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path + getClass().getSimpleName() + "FasterXml.json"), identifiableRepository.findAll(userId));
+        jsonMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path + getClass().getSimpleName() + "FasterXml.json"), serializationRepository.findAll(userId));
     }
 
-    @Override
-    public void fasterXmlLoadJSON(String userId) throws IOException {
+    public void fasterXmlLoadJSON(@NotNull final String userId) throws IOException {
         @NotNull final ObjectMapper jsonMapper = new ObjectMapper();
         @NotNull final Collection<T> col = jsonMapper.readValue(new File(path + getClass().getSimpleName() + "FasterXml.json"), getTypeReference());
         for (T entity : col) {
-            identifiableRepository.persist(entity.getId(), entity);
+            serializationRepository.persist(entity.getId(), entity);
         }
     }
 

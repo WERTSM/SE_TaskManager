@@ -7,8 +7,8 @@ import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Status;
-import ru.khmelev.tm.entity.User;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -42,8 +42,8 @@ public final class ProjectCreateCommand extends Command {
         System.out.println("!!!Start command!!!");
         @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        @Nullable final User user = serviceLocator.getUserSession();
-        if (user == null) {
+        @Nullable final Session session = serviceLocator.getSession();
+        if (session == null) {
             return;
         }
 
@@ -89,10 +89,10 @@ public final class ProjectCreateCommand extends Command {
         project.setDateCreate(new Date());
         project.setStatus(Status.PLANNED);
 
-        @NotNull final String userId = serviceLocator.getUserService().getId(user);
+        @NotNull final String userId = session.getUserId();
         project.setUserId(userId);
 
-        serviceLocator.getProjectService().createEntity(id, project);
+        serviceLocator.getProjectEndpoint().createEntity(session, id, project);
         System.out.println("!!!DONE!!!");
     }
 }
