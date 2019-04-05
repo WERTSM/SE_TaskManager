@@ -96,8 +96,8 @@ public final class Bootstrap implements ServiceLocator {
     public void init(Class[] commandClassArray) throws Exception {
 //        registrationCommands(commandClassArray);
 
-        Endpoint.publish("http://localhost:1986/hello", projectEndpoint);
-        Endpoint.publish("http://localhost:1986/hellweo", taskEndpoint);
+        Endpoint.publish("http://localhost:8080/ProjectEndpoint", projectEndpoint);
+        Endpoint.publish("http://localhost:8080/TaskEndpoint", taskEndpoint);
 //        Endpoint.publish("http://localhost:1986/helelo", userEndpoint);
 
 //        defaultCommands();
