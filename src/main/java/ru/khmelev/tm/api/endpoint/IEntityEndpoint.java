@@ -2,7 +2,6 @@ package ru.khmelev.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Entity;
-import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Sort;
 
@@ -16,6 +15,7 @@ import java.util.List;
 
 @WebService
 public interface IEntityEndpoint<T extends Entity> {
+
     @WebMethod
     void createEntity(@NotNull final Session session, @NotNull String id, @NotNull final T entity);
 
@@ -69,10 +69,4 @@ public interface IEntityEndpoint<T extends Entity> {
 
     @WebMethod
     void fasterXmlLoadJSON(@NotNull final Session session) throws IOException;
-
-    @WebMethod
-    void soQrt(
-            @WebParam(name = "session") @NotNull final Session session,
-            @WebParam(name = "list") @NotNull final List<T> list,
-            @WebParam(name = "sortParameter") @NotNull final Sort sortParameter);
 }

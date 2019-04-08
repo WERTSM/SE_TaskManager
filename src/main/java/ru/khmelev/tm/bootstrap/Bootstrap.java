@@ -94,14 +94,14 @@ public final class Bootstrap implements ServiceLocator {
     private final ITerminalService terminalService = new TerminalEndpoint();
 
     public void init(Class[] commandClassArray) throws Exception {
-//        registrationCommands(commandClassArray);
+        registrationCommands(commandClassArray);
 
-        Endpoint.publish("http://localhost:8080/ProjectEndpoint", projectEndpoint);
-        Endpoint.publish("http://localhost:8080/TaskEndpoint", taskEndpoint);
-//        Endpoint.publish("http://localhost:1986/helelo", userEndpoint);
+        Endpoint.publish("http://localhost:2019/ProjectEndpoint", projectEndpoint);
+        Endpoint.publish("http://localhost:2019/TaskEndpoint", taskEndpoint);
+        Endpoint.publish("http://localhost:2019/UserEndpoint", userEndpoint);
 
-//        defaultCommands();
-//        startCommands();
+        defaultCommands();
+        startCommands();
     }
 
     private void startCommands() throws IOException, SerialException {
@@ -161,10 +161,6 @@ public final class Bootstrap implements ServiceLocator {
             return false;
         }
 
-        //if (session == null) {
-
-        //}
-
         if ("user-login".equals(commandString.getNameCommand()) && session != null) {
             System.out.println("Сначала выйдете из программы");
             return false;
@@ -177,8 +173,7 @@ public final class Bootstrap implements ServiceLocator {
             return true;
         }
 
-        if (session != null && userService.findEntity(session.getUserId()).getRole() != Role.ADMIN)
-        {
+        if (session != null && userService.findEntity(session.getUserId()).getRole() != Role.ADMIN) {
             System.out.println("Не хватает прав");
             return false;
         }

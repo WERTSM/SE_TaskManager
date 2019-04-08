@@ -1,8 +1,8 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
+import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.bootstrap.ServiceLocator;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;

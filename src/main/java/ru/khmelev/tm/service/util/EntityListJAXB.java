@@ -2,7 +2,10 @@ package ru.khmelev.tm.service.util;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.khmelev.tm.entity.*;
+import ru.khmelev.tm.entity.Identifiable;
+import ru.khmelev.tm.entity.Project;
+import ru.khmelev.tm.entity.Task;
+import ru.khmelev.tm.entity.User;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;

@@ -6,7 +6,6 @@ import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.EndpointException;
 
@@ -42,10 +41,5 @@ public final class TaskEndpoint extends AbstractEntityEndpoint<Task> implements 
     public void removeAllTaskFromProject(@NotNull final Session session, @NotNull final String idProject) {
         sessionService.checkSession(session);
         taskService.removeAllTaskFromProject(idProject, session.getUserId());
-    }
-
-    @Override
-    public void soQrt(@NotNull Session session, @NotNull List<Task> list, @NotNull Sort sortParameter) {
-
     }
 }

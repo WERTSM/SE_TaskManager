@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.repository.IEntityRepository;
 import ru.khmelev.tm.entity.Entity;
-import ru.khmelev.tm.entity.Project;
-import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.service.util.SortedEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,9 +80,5 @@ public abstract class AbstractEntityService<T extends Entity> extends AbstractSe
         if (!userId.isEmpty()) {
             entityRepository.removeAll(userId);
         }
-    }
-
-    public void sort(@NotNull final List<T> list, @NotNull final Sort sortParameter) {
-        new SortedEntity<T>().sort(list, sortParameter);
     }
 }

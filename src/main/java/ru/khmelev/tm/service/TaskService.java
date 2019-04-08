@@ -6,10 +6,8 @@ import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.service.IEntityService;
 import ru.khmelev.tm.api.service.ISerializationService;
 import ru.khmelev.tm.api.service.ITaskService;
-import ru.khmelev.tm.entity.Sort;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.service.util.SortedEntity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,9 +54,5 @@ public final class TaskService extends AbstractEntityService<Task> implements IE
                 }
             }
         }
-    }
-
-    public void sort(@NotNull List<Task> list, @NotNull Sort sortParameter) {
-        new SortedEntity<Task>().sort(list, sortParameter);
     }
 }

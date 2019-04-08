@@ -5,7 +5,6 @@ import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.entity.Session;
 
 import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.sql.rowset.serial.SerialException;
 import javax.xml.bind.JAXBException;
@@ -16,9 +15,7 @@ import java.util.Collection;
 public interface IEndpoint<T extends Identifiable> {
 
     @WebMethod
-    void createEntity(
-            @WebParam(name = "id") @NotNull final String id,
-            @WebParam(name = "entity") @NotNull final T entity);
+    void createEntity(@NotNull final String id, @NotNull final T entity);
 
     @WebMethod
     @NotNull Collection<T> findAll(@NotNull final Session session);

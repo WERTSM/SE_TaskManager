@@ -27,12 +27,17 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>
-                                        http://localhost:8080/ProjectEndpoint?wsdl
+                                        http://localhost:2019/ProjectEndpoint?wsdl
                                     </wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-                                        http://localhost:8080/TaskEndpoint?wsdl
+                                        http://localhost:2019/TaskEndpoint?wsdl
+                                    </wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:2019/UserEndpoint?wsdl
                                     </wsdl>
                                 </wsdlOption>
                             </wsdlOptions>

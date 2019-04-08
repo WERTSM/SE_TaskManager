@@ -22,6 +22,7 @@
     </developers>
     <modules>
         <module>SE-TaskManager-client</module>
+        <module>SE-TaskManager-server</module>
     </modules>
     <dependencies>
         <dependency>

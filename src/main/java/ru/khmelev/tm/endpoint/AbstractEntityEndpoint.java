@@ -6,14 +6,11 @@ import ru.khmelev.tm.api.endpoint.IEntityEndpoint;
 import ru.khmelev.tm.api.service.IEntityService;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.entity.Entity;
-import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.Sort;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 
 public abstract class AbstractEntityEndpoint<T extends Entity> implements IEntityEndpoint<T> {
 

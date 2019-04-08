@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
+import ru.khmelev.tm.command.util.SortedEntity;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Sort;
@@ -18,7 +19,7 @@ public class TaskSortCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "task-soQrt";
+        return "task-sort";
     }
 
     @Override
@@ -51,10 +52,13 @@ public class TaskSortCommand extends Command {
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
-        @NotNull List<Task> list = new ArrayList<>(serviceLocator.getTaskEndpoint().findAll(session));
-        serviceLocator.getTaskEndpoint().soQrt(session, list, sortParameter);
+        @NotNull List<Task> listTask = new ArrayList<>(serviceLocator.getTaskEndpoint().findAll(session));
 
-        for (Task task : list) {
+        @NotNull final SortedEntity sortedEntity = new SortedEntity();
+
+        sortedEntity.sort(listTask, sortParameter);
+
+        for (Task task : listTask) {
             Printer.showTask(task, serviceLocator.getUserEndpoint().getUserFromSession(session));
         }
         System.out.println("!!!DONE!!!");

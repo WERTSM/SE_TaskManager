@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service.util;
+package ru.khmelev.tm.command.util;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Entity;

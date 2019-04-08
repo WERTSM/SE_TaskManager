@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @WebService
-//@XmlType(name="Taskssss")
 public interface ITaskEndpoint extends IEntityEndpoint<Task> {
 
     @WebMethod

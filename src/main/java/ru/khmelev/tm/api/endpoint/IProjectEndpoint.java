@@ -6,7 +6,6 @@ import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlType;
 
 @WebService
-//@XmlType(name = "Project")
 public interface IProjectEndpoint extends IEntityEndpoint<Project> {
 }
 
