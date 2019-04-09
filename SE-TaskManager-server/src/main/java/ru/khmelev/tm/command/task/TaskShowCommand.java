@@ -47,7 +47,7 @@ public final class TaskShowCommand extends Command {
         if (id.isEmpty()) {
             return;
         }
-        @NotNull final Task task = serviceLocator.getTaskEndpoint().findEntity(session, id);
+        @NotNull final Task task = serviceLocator.getTaskEndpoint().findTask(session, id);
 
         Printer.showTask(task, serviceLocator.getUserEndpoint().getUserFromSession(session));
         System.out.println("!!!DONE!!!");

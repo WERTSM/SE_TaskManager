@@ -64,7 +64,7 @@ public final class UserRegistryCommand extends Command {
         @NotNull final Role role = Role.valueOf(roleUser.toUpperCase());
         user.setRole(role);
 
-        serviceLocator.getUserEndpoint().createEntity(id, user);
+        serviceLocator.getUserEndpoint().createUser(id, user);
         System.out.println("!!!DONE!!!");
     }
 }

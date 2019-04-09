@@ -38,7 +38,7 @@ public final class TaskClearCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getTaskEndpoint().clearEntity(session);
+        serviceLocator.getTaskEndpoint().clearTask(session);
         System.out.println("!!!DONE!!!");
     }
 }

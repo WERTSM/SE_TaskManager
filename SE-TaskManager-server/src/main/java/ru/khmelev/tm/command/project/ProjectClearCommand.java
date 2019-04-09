@@ -39,9 +39,9 @@ public final class ProjectClearCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        for (Project project : serviceLocator.getProjectEndpoint().findAll(session)) {
+        for (Project project : serviceLocator.getProjectEndpoint().findAllProject(session)) {
             serviceLocator.getTaskEndpoint().removeAllTaskFromProject(session, project.getId());
-            serviceLocator.getProjectEndpoint().clearEntity(session);
+            serviceLocator.getProjectEndpoint().clearProject(session);
         }
         System.out.println("!!!DONE!!!");
     }

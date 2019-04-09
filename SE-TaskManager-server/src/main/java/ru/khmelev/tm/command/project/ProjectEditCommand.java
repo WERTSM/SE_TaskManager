@@ -59,7 +59,7 @@ public final class ProjectEditCommand extends Command {
             return;
         }
 
-        Project project = projectEndpoint.findEntity(session, id);
+        Project project = projectEndpoint.findProject(session, id);
 
         System.out.println("Name project: ");
         @NotNull final String name = terminalService.readLine();
@@ -99,7 +99,7 @@ public final class ProjectEditCommand extends Command {
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
         project.setStatus(status);
 
-        projectEndpoint.editEntity(session, id, project);
+        projectEndpoint.editProject(session, id, project);
         System.out.println("!!!DONE!!!");
     }
 }

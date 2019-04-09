@@ -14,22 +14,22 @@ import java.util.Collection;
 public interface IUserEndpoint {
 
     @WebMethod
-    void createEntity(@NotNull final String id, @NotNull final User user);
+    void createUser(@NotNull final String id, @NotNull final User user);
 
     @WebMethod
-    @NotNull Collection<User> findAll(@NotNull final Session session);
+    Collection<User> findAllUser(@NotNull final Session session);
 
     @WebMethod
-    User findEntity(@NotNull final Session session, @NotNull String id) throws SerialException;
+    User findUser(@NotNull final Session session, @NotNull String id) throws SerialException;
 
     @WebMethod
-    void editEntity(@NotNull final Session session, @NotNull String id, User user);
+    void editUser(@NotNull final Session session, @NotNull String id, User user);
 
     @WebMethod
-    void removeEntity(@NotNull final Session session, @NotNull String id);
+    void removeUser(@NotNull final Session session, @NotNull String id);
 
     @WebMethod
-    void clearEntity(@NotNull final Session session);
+    void clearUser(@NotNull final Session session);
 
     @WebMethod
     @Nullable Session userLogin(@NotNull final String login, @NotNull final String pass);

@@ -52,7 +52,7 @@ public class ProjectSortCommand extends Command {
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         @NotNull final Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
-        @NotNull final List<Project> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAll(session));
+        @NotNull final List<Project> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAllProject(session));
 
         @NotNull final SortedEntity sortedEntity = new SortedEntity();
 

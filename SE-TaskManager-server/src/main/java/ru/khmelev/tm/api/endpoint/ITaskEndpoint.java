@@ -13,28 +13,28 @@ import java.util.List;
 public interface ITaskEndpoint {
 
     @WebMethod
-    void createEntity(@NotNull final Session session, @NotNull String id, @NotNull final Task task);
+    void createTask(@NotNull final Session session, @NotNull String id, @NotNull final Task task);
 
     @WebMethod
-    Task findEntity(@NotNull final Session session, @NotNull final String id);
+    Task findTask(@NotNull final Session session, @NotNull final String id);
 
     @WebMethod
-    Collection<Task> findAll(@NotNull final Session session);
+    Collection<Task> findAllTAsk(@NotNull final Session session);
 
     @WebMethod
-    Collection<Task> findAllName(@NotNull final Session session, @NotNull final String findParameter);
+    Collection<Task> findAllNameTask(@NotNull final Session session, @NotNull final String findParameter);
 
     @WebMethod
-    Collection<Task> findAllDescription(@NotNull final Session session, @NotNull final String findParameter);
+    Collection<Task> findAllDescriptionTask(@NotNull final Session session, @NotNull final String findParameter);
 
     @WebMethod
-    void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull final Task task);
+    void editEntityTask(@NotNull final Session session, @NotNull final String id, @NotNull final Task task);
 
     @WebMethod
-    void removeEntity(@NotNull final Session session, @NotNull final String id);
+    void removeTask(@NotNull final Session session, @NotNull final String id);
 
     @WebMethod
-    void clearEntity(@NotNull final Session session);
+    void clearTask(@NotNull final Session session);
 
     List<Task> listTaskFromProject(@NotNull Session session, @NotNull String idProject);
 

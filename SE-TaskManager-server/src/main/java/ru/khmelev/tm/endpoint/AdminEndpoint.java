@@ -8,9 +8,9 @@ import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.entity.Session;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
+import javax.jws.WebService;
 
+@WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IAdminEndpoint")
 public class AdminEndpoint implements IAdminEndpoint {
 
     @NotNull
@@ -45,7 +45,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void serializationLoad(@NotNull final Session session) throws IOException, ClassNotFoundException {
+    public void serializationLoad(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.serializationLoad(session.getUserId());
         taskService.serializationLoad(session.getUserId());
@@ -53,7 +53,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbXmlSave(@NotNull final Session session) throws JAXBException {
+    public void jaxbXmlSave(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbXmlSave(session.getUserId());
         taskService.jaxbXmlSave(session.getUserId());
@@ -61,7 +61,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbXmlLoad(@NotNull final Session session) throws JAXBException {
+    public void jaxbXmlLoad(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbXmlLoad(session.getUserId());
         taskService.jaxbXmlLoad(session.getUserId());
@@ -69,7 +69,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbJSONSave(@NotNull final Session session) throws JAXBException {
+    public void jaxbJSONSave(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbJSONSave(session.getUserId());
         taskService.jaxbJSONSave(session.getUserId());
@@ -77,7 +77,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbJSONLoad(@NotNull final Session session) throws JAXBException {
+    public void jaxbJSONLoad(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbJSONLoad(session.getUserId());
         taskService.jaxbJSONLoad(session.getUserId());
@@ -85,7 +85,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlSaveXML(@NotNull final Session session) throws IOException {
+    public void fasterXmlSaveXML(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlSaveXML(session.getUserId());
         taskService.fasterXmlSaveXML(session.getUserId());
@@ -93,7 +93,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlLoadXML(@NotNull final Session session) throws IOException {
+    public void fasterXmlLoadXML(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlLoadXML(session.getUserId());
         taskService.fasterXmlLoadXML(session.getUserId());
@@ -101,7 +101,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlSaveJSON(@NotNull final Session session) throws IOException {
+    public void fasterXmlSaveJSON(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlSaveJSON(session.getUserId());
         taskService.fasterXmlSaveJSON(session.getUserId());
@@ -109,7 +109,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlLoadJSON(@NotNull final Session session) throws IOException {
+    public void fasterXmlLoadJSON(@NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlLoadJSON(session.getUserId());
         taskService.fasterXmlLoadJSON(session.getUserId());

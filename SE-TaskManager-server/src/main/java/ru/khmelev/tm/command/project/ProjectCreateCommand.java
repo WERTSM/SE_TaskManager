@@ -92,7 +92,7 @@ public final class ProjectCreateCommand extends Command {
         @NotNull final String userId = session.getUserId();
         project.setUserId(userId);
 
-        serviceLocator.getProjectEndpoint().createEntity(session, id, project);
+        serviceLocator.getProjectEndpoint().createProject(session, id, project);
         System.out.println("!!!DONE!!!");
     }
 }

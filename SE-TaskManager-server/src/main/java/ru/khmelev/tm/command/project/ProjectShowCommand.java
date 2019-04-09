@@ -46,7 +46,7 @@ public final class ProjectShowCommand extends Command {
         System.out.println("ID project: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
 
-        @NotNull final Project project = serviceLocator.getProjectEndpoint().findEntity(session, id);
+        @NotNull final Project project = serviceLocator.getProjectEndpoint().findProject(session, id);
 
         Printer.showProject(project, serviceLocator.getUserEndpoint().getUserFromSession(session));
         for (@NotNull Task task : serviceLocator.getTaskEndpoint().listTaskFromProject(session, id)) {

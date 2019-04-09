@@ -12,28 +12,28 @@ import java.util.Collection;
 public interface IProjectEndpoint {
 
     @WebMethod
-    void createEntity(@NotNull final Session session, @NotNull String id, @NotNull final Project project);
+    void createProject(@NotNull final Session session, @NotNull String id, @NotNull final Project project);
 
     @WebMethod
-    Project findEntity(@NotNull final Session session, @NotNull final String id);
+    Project findProject(@NotNull final Session session, @NotNull final String id);
 
     @WebMethod
-    Collection<Project> findAll(@NotNull final Session session);
+    Collection<Project> findAllProject(@NotNull final Session session);
 
     @WebMethod
-    Collection<Project> findAllName(@NotNull final Session session, @NotNull final String findParameter);
+    Collection<Project> findAllNameProject(@NotNull final Session session, @NotNull final String findParameter);
 
     @WebMethod
-    Collection<Project> findAllDescription(@NotNull final Session session, @NotNull final String findParameter);
+    Collection<Project> findAllDescriptionProject(@NotNull final Session session, @NotNull final String findParameter);
 
     @WebMethod
-    void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull final Project project);
+    void editProject(@NotNull final Session session, @NotNull final String id, @NotNull final Project project);
 
     @WebMethod
-    void removeEntity(@NotNull final Session session, @NotNull final String id);
+    void removeProject(@NotNull final Session session, @NotNull final String id);
 
     @WebMethod
-    void clearEntity(@NotNull final Session session);
+    void clearProject(@NotNull final Session session);
 
 }
 

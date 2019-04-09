@@ -101,7 +101,7 @@ public final class TaskCreateCommand extends Command {
         }
         task.setIdProject(idProject);
 
-        serviceLocator.getTaskEndpoint().createEntity(session, id, task);
+        serviceLocator.getTaskEndpoint().createTask(session, id, task);
         System.out.println("!!!DONE!!!");
     }
 }

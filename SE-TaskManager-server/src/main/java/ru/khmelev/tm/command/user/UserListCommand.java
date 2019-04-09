@@ -41,7 +41,7 @@ public final class UserListCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        for (User userok : serviceLocator.getUserEndpoint().findAll(session)) {
+        for (User userok : serviceLocator.getUserEndpoint().findAllUser(session)) {
             Printer.showListUser(userok);
         }
         System.out.println("!!!DONE!!!");

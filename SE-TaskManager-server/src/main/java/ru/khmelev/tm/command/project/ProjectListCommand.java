@@ -43,7 +43,7 @@ public final class ProjectListCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        for (@NotNull Project project : projectEndpoint.findAll(session)) {
+        for (@NotNull Project project : projectEndpoint.findAllProject(session)) {
             Printer.showListProject(project);
         }
         System.out.println("!!!DONE!!!");

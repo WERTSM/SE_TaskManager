@@ -38,38 +38,37 @@ public final class UserEndpoint implements IUserEndpoint {
     }
 
     @Override
-    public void createEntity(@NotNull final String id, @NotNull final User user) {
+    public void createUser(@NotNull final String id, @NotNull final User user) {
         userService.createEntity(id, user);
     }
 
     @Override
-    @NotNull
-    public Collection<User> findAll(@NotNull final Session session) {
+    public Collection<User> findAllUser(@NotNull final Session session) {
         sessionService.checkSession(session);
         return userService.findAll();
     }
 
     @Override
     @NotNull
-    public User findEntity(@NotNull final Session session, @NotNull final String id) throws SerialException {
+    public User findUser(@NotNull final Session session, @NotNull final String id) throws SerialException {
         sessionService.checkSession(session);
         return userService.findEntity(id);
     }
 
     @Override
-    public void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull User user) {
+    public void editUser(@NotNull final Session session, @NotNull final String id, @NotNull User user) {
         sessionService.checkSession(session);
         userService.editEntity(id, user);
     }
 
     @Override
-    public void removeEntity(@NotNull final Session session, @NotNull final String id) {
+    public void removeUser(@NotNull final Session session, @NotNull final String id) {
         sessionService.checkSession(session);
         userService.removeEntity(id);
     }
 
     @Override
-    public void clearEntity(@NotNull final Session session) {
+    public void clearUser(@NotNull final Session session) {
         sessionService.checkSession(session);
         userService.clearEntity();
     }

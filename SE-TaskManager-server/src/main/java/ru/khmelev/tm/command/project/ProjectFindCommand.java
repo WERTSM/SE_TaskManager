@@ -54,11 +54,11 @@ public class ProjectFindCommand extends Command {
         if ("login".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть имени:");
             @NotNull final String name = serviceLocator.getTerminalService().readLine();
-            listProject = serviceLocator.getProjectEndpoint().findAllName(session, name);
+            listProject = serviceLocator.getProjectEndpoint().findAllNameProject(session, name);
         } else if ("description".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть описания:");
             @NotNull final String description = serviceLocator.getTerminalService().readLine();
-            listProject = serviceLocator.getProjectEndpoint().findAllDescription(session, description);
+            listProject = serviceLocator.getProjectEndpoint().findAllDescriptionProject(session, description);
         } else {
             throw new IllegalArgumentException("Неправильный параметр " + findParameter);
         }

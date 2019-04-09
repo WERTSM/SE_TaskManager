@@ -46,7 +46,7 @@ public final class TaskRemoveCommand extends Command {
             return;
         }
 
-        serviceLocator.getTaskEndpoint().removeEntity(session, id);
+        serviceLocator.getTaskEndpoint().removeTask(session, id);
         System.out.println("!!!DONE!!!");
     }
 }

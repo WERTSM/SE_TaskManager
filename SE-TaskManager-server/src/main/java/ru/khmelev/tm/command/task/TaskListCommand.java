@@ -40,7 +40,7 @@ public final class TaskListCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        for (Task task : serviceLocator.getTaskEndpoint().findAll(session)) {
+        for (Task task : serviceLocator.getTaskEndpoint().findAllTAsk(session)) {
             Printer.showListTask(task);
         }
         System.out.println("!!!DONE!!!");

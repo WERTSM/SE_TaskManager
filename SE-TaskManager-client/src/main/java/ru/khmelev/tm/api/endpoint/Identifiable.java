@@ -31,9 +31,7 @@ import javax.xml.bind.annotation.XmlType;
     "id"
 })
 @XmlSeeAlso({
-    Session.class,
-    Entity.class,
-    User.class
+    Session.class
 })
 public abstract class Identifiable {
 

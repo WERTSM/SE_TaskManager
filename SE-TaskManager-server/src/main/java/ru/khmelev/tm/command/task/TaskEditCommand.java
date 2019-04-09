@@ -59,7 +59,7 @@ public final class TaskEditCommand extends Command {
             return;
         }
 
-        @NotNull final Task task = serviceLocator.getTaskEndpoint().findEntity(session, id);
+        @NotNull final Task task = serviceLocator.getTaskEndpoint().findTask(session, id);
 
         System.out.println("Name task: ");
         @NotNull final String name = terminalService.readLine();
@@ -107,7 +107,7 @@ public final class TaskEditCommand extends Command {
 
         task.setStatus(status);
 
-        taskService.editEntity(session, id, task);
+        taskService.editEntityTask(session, id, task);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -52,7 +52,7 @@ public class TaskSortCommand extends Command {
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
-        @NotNull List<Task> listTask = new ArrayList<>(serviceLocator.getTaskEndpoint().findAll(session));
+        @NotNull List<Task> listTask = new ArrayList<>(serviceLocator.getTaskEndpoint().findAllTAsk(session));
 
         @NotNull final SortedEntity sortedEntity = new SortedEntity();
 

@@ -26,49 +26,49 @@ public final class TaskEndpoint implements ITaskEndpoint {
     }
 
     @Override
-    public void createEntity(@NotNull final Session session, @NotNull final String id, @NotNull final Task task) {
+    public void createTask(@NotNull final Session session, @NotNull final String id, @NotNull final Task task) {
         sessionService.checkSession(session);
         taskService.createEntity(id, task);
     }
 
     @Override
-    public Task findEntity(@NotNull final Session session, @NotNull final String id) {
+    public Task findTask(@NotNull final Session session, @NotNull final String id) {
         sessionService.checkSession(session);
         return taskService.findEntity(id, session.getUserId());
     }
 
     @Override
-    public Collection<Task> findAll(@NotNull final Session session) {
+    public Collection<Task> findAllTAsk(@NotNull final Session session) {
         sessionService.checkSession(session);
         return taskService.findAll(session.getUserId());
     }
 
     @Override
-    public Collection<Task> findAllName(@NotNull final Session session, @NotNull String findParameter) {
+    public Collection<Task> findAllNameTask(@NotNull final Session session, @NotNull String findParameter) {
         sessionService.checkSession(session);
         return taskService.findAllName(findParameter, session.getUserId());
     }
 
     @Override
-    public Collection<Task> findAllDescription(@NotNull final Session session, @NotNull String findParameter) {
+    public Collection<Task> findAllDescriptionTask(@NotNull final Session session, @NotNull String findParameter) {
         sessionService.checkSession(session);
         return taskService.findAllDescription(findParameter, session.getUserId());
     }
 
     @Override
-    public void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull Task task) {
+    public void editEntityTask(@NotNull final Session session, @NotNull final String id, @NotNull Task task) {
         sessionService.checkSession(session);
         taskService.editEntity(id, task, session.getUserId());
     }
 
     @Override
-    public void removeEntity(@NotNull final Session session, @NotNull final String id) {
+    public void removeTask(@NotNull final Session session, @NotNull final String id) {
         sessionService.checkSession(session);
         taskService.removeEntity(id, session.getUserId());
     }
 
     @Override
-    public void clearEntity(@NotNull final Session session) {
+    public void clearTask(@NotNull final Session session) {
         sessionService.checkSession(session);
         taskService.clearEntity(session.getUserId());
     }

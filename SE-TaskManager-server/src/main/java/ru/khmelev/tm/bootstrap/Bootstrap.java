@@ -102,6 +102,7 @@ public final class Bootstrap implements ServiceLocator {
         Endpoint.publish("http://localhost:2019/ProjectEndpoint", projectEndpoint);
         Endpoint.publish("http://localhost:2019/TaskEndpoint", taskEndpoint);
         Endpoint.publish("http://localhost:2019/UserEndpoint", userEndpoint);
+        Endpoint.publish("http://localhost:2019/AdminEndpoint", adminEndpoint);
 
         defaultCommands();
         startCommands();

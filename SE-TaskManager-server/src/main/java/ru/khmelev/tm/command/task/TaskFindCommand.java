@@ -54,11 +54,11 @@ public class TaskFindCommand extends Command {
         if ("login".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть имени:");
             @NotNull final String name = serviceLocator.getTerminalService().readLine();
-            listTask = serviceLocator.getTaskEndpoint().findAllName(session, name);
+            listTask = serviceLocator.getTaskEndpoint().findAllNameTask(session, name);
         } else if ("description".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть описания:");
             @NotNull final String description = serviceLocator.getTerminalService().readLine();
-            listTask = serviceLocator.getTaskEndpoint().findAllDescription(session, description);
+            listTask = serviceLocator.getTaskEndpoint().findAllDescriptionTask(session, description);
         } else {
             throw new IllegalArgumentException("Неправильный параметр " + findParameter);
         }
