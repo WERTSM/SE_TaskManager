@@ -26,5 +26,6 @@
     <modules>
         <module>SE-TaskManager-Server</module>
         <module>SE-TaskManager-client</module>
+        <module>SE-TaskManager-Client</module>
     </modules>
 </project>
