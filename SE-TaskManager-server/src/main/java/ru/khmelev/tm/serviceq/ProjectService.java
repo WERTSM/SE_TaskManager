@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service;
+package ru.khmelev.tm.serviceq;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;

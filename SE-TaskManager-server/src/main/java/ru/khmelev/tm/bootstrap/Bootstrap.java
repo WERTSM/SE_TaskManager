@@ -15,7 +15,7 @@ import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.*;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.endpoint.*;
-import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.utilq.PasswordHashUtil;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
@@ -23,10 +23,10 @@ import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.SessionRepository;
 import ru.khmelev.tm.repository.TaskRepository;
 import ru.khmelev.tm.repository.UserRepository;
-import ru.khmelev.tm.service.ProjectService;
-import ru.khmelev.tm.service.SessionService;
-import ru.khmelev.tm.service.TaskService;
-import ru.khmelev.tm.service.UserService;
+import ru.khmelev.tm.serviceq.ProjectService;
+import ru.khmelev.tm.serviceq.SessionService;
+import ru.khmelev.tm.serviceq.TaskService;
+import ru.khmelev.tm.serviceq.UserService;
 
 import javax.sql.rowset.serial.SerialException;
 import javax.xml.ws.Endpoint;
@@ -97,15 +97,15 @@ public final class Bootstrap implements ServiceLocator {
     private final ITerminalService terminalService = new TerminalEndpoint();
 
     public void init(Class[] commandClassArray) throws Exception {
-        registrationCommands(commandClassArray);
+       // registrationCommands(commandClassArray);
 
         Endpoint.publish("http://localhost:2019/ProjectEndpoint", projectEndpoint);
         Endpoint.publish("http://localhost:2019/TaskEndpoint", taskEndpoint);
         Endpoint.publish("http://localhost:2019/UserEndpoint", userEndpoint);
         Endpoint.publish("http://localhost:2019/AdminEndpoint", adminEndpoint);
 
-        defaultCommands();
-        startCommands();
+       // defaultCommands();
+        //startCommands();
     }
 
     private void startCommands() throws IOException, SerialException {

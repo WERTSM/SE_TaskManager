@@ -1,11 +1,14 @@
 
 package ru.khmelev.tm.api.endpoint;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.Date;
 
 
 /**
@@ -44,11 +47,11 @@ public class Project
 {
 
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateCreate;
+    protected Date dateCreate;
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateFinish;
+    protected Date dateFinish;
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateStart;
+    protected Date dateStart;
     @XmlSchemaType(name = "string")
     protected Status status;
     protected String userId;
@@ -61,19 +64,19 @@ public class Project
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDateCreate() {
+    public Date getDateCreate() {
         return dateCreate;
     }
 
     /**
      * Sets the value of the dateCreate property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDateCreate(XMLGregorianCalendar value) {
+    public void setDateCreate(Date value) {
         this.dateCreate = value;
     }
 
@@ -85,19 +88,19 @@ public class Project
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDateFinish() {
+    public Date getDateFinish() {
         return dateFinish;
     }
 
     /**
      * Sets the value of the dateFinish property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDateFinish(XMLGregorianCalendar value) {
+    public void setDateFinish(@NotNull Date value) {
         this.dateFinish = value;
     }
 
@@ -106,22 +109,22 @@ public class Project
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDateStart() {
+    public Date getDateStart() {
         return dateStart;
     }
 
     /**
      * Sets the value of the dateStart property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDateStart(XMLGregorianCalendar value) {
+    public void setDateStart(@NotNull Date value) {
         this.dateStart = value;
     }
 

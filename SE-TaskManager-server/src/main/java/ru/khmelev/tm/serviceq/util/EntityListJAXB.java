@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service.util;
+package ru.khmelev.tm.serviceq.util;
 
 import lombok.Getter;
 import lombok.Setter;

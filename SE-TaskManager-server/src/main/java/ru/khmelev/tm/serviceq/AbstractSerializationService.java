@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service;
+package ru.khmelev.tm.serviceq;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.repository.ISerializationRepository;
 import ru.khmelev.tm.entity.Identifiable;
-import ru.khmelev.tm.service.util.EntityListJAXB;
+import ru.khmelev.tm.serviceq.util.EntityListJAXB;
 
 import javax.xml.bind.*;
 import java.io.*;

@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service;
+package ru.khmelev.tm.serviceq;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
@@ -6,7 +6,7 @@ import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.ISerializationService;
 import ru.khmelev.tm.api.service.IService;
 import ru.khmelev.tm.api.service.IUserService;
-import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.utilq.PasswordHashUtil;
 import ru.khmelev.tm.entity.User;
 
 import java.util.Objects;

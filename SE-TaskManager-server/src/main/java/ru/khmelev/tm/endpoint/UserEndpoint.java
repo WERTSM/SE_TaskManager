@@ -5,10 +5,11 @@ import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.bootstrap.ServiceLocator;
-import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.utilq.PasswordHashUtil;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
@@ -16,7 +17,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-import static ru.khmelev.tm.endpoint.util.SignatureUtil.sign;
+import static ru.khmelev.tm.endpoint.utilq.SignatureUtil.sign;
 
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public final class UserEndpoint implements IUserEndpoint {
@@ -38,43 +39,59 @@ public final class UserEndpoint implements IUserEndpoint {
     }
 
     @Override
-    public void createUser(@NotNull final String id, @NotNull final User user) {
+    public void createUser(
+            @WebParam(name = "id") @NotNull final String id,
+            @WebParam(name = "user") @NotNull final User user
+    ) {
         userService.createEntity(id, user);
     }
 
     @Override
-    public Collection<User> findAllUser(@NotNull final Session session) {
+    public Collection<User> findAllUser(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         return userService.findAll();
     }
 
     @Override
     @NotNull
-    public User findUser(@NotNull final Session session, @NotNull final String id) throws SerialException {
+    public User findUser(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id
+    ) throws SerialException {
         sessionService.checkSession(session);
         return userService.findEntity(id);
     }
 
     @Override
-    public void editUser(@NotNull final Session session, @NotNull final String id, @NotNull User user) {
+    public void editUser(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id,
+            @WebParam(name = "user") @NotNull User user
+    ) {
         sessionService.checkSession(session);
         userService.editEntity(id, user);
     }
 
     @Override
-    public void removeUser(@NotNull final Session session, @NotNull final String id) {
+    public void removeUser(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id
+    ) {
         sessionService.checkSession(session);
         userService.removeEntity(id);
     }
 
     @Override
-    public void clearUser(@NotNull final Session session) {
+    public void clearUser(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         userService.clearEntity();
     }
 
     @Override
-    public Session userLogin(@NotNull final String login, @NotNull final String pass) {
+    public Session userLogin(
+            @WebParam(name = "login") @NotNull final String login,
+            @WebParam(name = "password") @NotNull final String pass
+    ) {
         if (!login.isEmpty() && !pass.isEmpty()) {
             for (User user : userService.findAll()) {
                 if (user.getLogin().equals(login)) {
@@ -97,32 +114,35 @@ public final class UserEndpoint implements IUserEndpoint {
     }
 
     @Override
-    public void userLogOut(@NotNull final Session session) {
+    public void userLogOut(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         sessionService.removeSession(session);
     }
 
     @Override
-    public void userSetPassword(@NotNull final Session session, @NotNull final String login, @NotNull final String pass) {
+    public void userSetPassword(@WebParam(name = "session") @NotNull final Session session,
+                                @WebParam(name = "login") @NotNull final String login,
+                                @WebParam(name = "password") @NotNull final String pass
+    ) {
         sessionService.checkSession(session);
         userService.userSetPassword(login, pass);
     }
 
     @Override
-    public User getUserFromSession(@NotNull final Session session) {
+    public User getUserFromSession(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         return userService.getUserFromSession(session.getUserId());
     }
 
     @NotNull
     @Override
-    public String getId(@NotNull User user) {
+    public String getId(@WebParam(name = "user") @NotNull User user) {
         return user.getId();
     }
 
     @NotNull
     @Override
-    public String getName(@NotNull User user) {
+    public String getName(@WebParam(name = "user") @NotNull User user) {
         return user.getLogin();
     }
 }

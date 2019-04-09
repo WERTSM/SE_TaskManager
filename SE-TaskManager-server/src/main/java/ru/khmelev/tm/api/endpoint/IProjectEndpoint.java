@@ -35,5 +35,7 @@ public interface IProjectEndpoint {
     @WebMethod
     void clearProject(@NotNull final Session session);
 
+
+
 }
 

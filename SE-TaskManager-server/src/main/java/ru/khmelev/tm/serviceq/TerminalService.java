@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service;
+package ru.khmelev.tm.serviceq;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
