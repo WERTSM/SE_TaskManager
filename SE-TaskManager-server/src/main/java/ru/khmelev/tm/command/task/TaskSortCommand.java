@@ -19,7 +19,7 @@ public class TaskSortCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "task-sort";
+        return "task-soQrt";
     }
 
     @Override
