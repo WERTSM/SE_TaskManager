@@ -10,6 +10,8 @@ import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
 
 import javax.jws.WebService;
+import javax.sql.rowset.serial.SerialException;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
@@ -17,7 +19,7 @@ import java.util.UUID;
 import static ru.khmelev.tm.endpoint.util.SignatureUtil.sign;
 
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
-public final class UserEndpoint extends AbstractIdentifiableEndpoint<User> implements IUserEndpoint {
+public final class UserEndpoint implements IUserEndpoint {
 
     @NotNull
     private ISessionService sessionService;
@@ -30,10 +32,46 @@ public final class UserEndpoint extends AbstractIdentifiableEndpoint<User> imple
 
 
     public UserEndpoint(@NotNull final ISessionService sessionService, @NotNull final IUserService userService, @NotNull final ServiceLocator serviceLocator) {
-        super(sessionService, userService);
         this.sessionService = sessionService;
         this.userService = userService;
         this.serviceLocator = serviceLocator;
+    }
+
+    @Override
+    public void createEntity(@NotNull final String id, @NotNull final User user) {
+        userService.createEntity(id, user);
+    }
+
+    @Override
+    @NotNull
+    public Collection<User> findAll(@NotNull final Session session) {
+        sessionService.checkSession(session);
+        return userService.findAll();
+    }
+
+    @Override
+    @NotNull
+    public User findEntity(@NotNull final Session session, @NotNull final String id) throws SerialException {
+        sessionService.checkSession(session);
+        return userService.findEntity(id);
+    }
+
+    @Override
+    public void editEntity(@NotNull final Session session, @NotNull final String id, @NotNull User user) {
+        sessionService.checkSession(session);
+        userService.editEntity(id, user);
+    }
+
+    @Override
+    public void removeEntity(@NotNull final Session session, @NotNull final String id) {
+        sessionService.checkSession(session);
+        userService.removeEntity(id);
+    }
+
+    @Override
+    public void clearEntity(@NotNull final Session session) {
+        sessionService.checkSession(session);
+        userService.clearEntity();
     }
 
     @Override

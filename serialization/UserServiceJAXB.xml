@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntitiesPTU>
+    <listEntities>
+        <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="user">
+            <description>admin</description>
+            <id>61636a4b-b2cf-4f09-87a9-507611aec04e</id>
+            <hashPassword>8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918</hashPassword>
+            <login>admin</login>
+            <role>ADMIN</role>
+        </Entity>
+        <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="user">
+            <description>user</description>
+            <id>11111111-1111-1111-1111-111111111111</id>
+            <hashPassword>04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb</hashPassword>
+            <login>user</login>
+            <role>USER</role>
+        </Entity>
+    </listEntities>
+</EntitiesPTU>

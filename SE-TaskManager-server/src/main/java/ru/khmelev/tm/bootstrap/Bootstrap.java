@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.endpoint.IAdminEndpoint;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
@@ -13,10 +14,7 @@ import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.*;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.endpoint.ProjectEndpoint;
-import ru.khmelev.tm.endpoint.TaskEndpoint;
-import ru.khmelev.tm.endpoint.TerminalEndpoint;
-import ru.khmelev.tm.endpoint.UserEndpoint;
+import ru.khmelev.tm.endpoint.*;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.Session;
@@ -88,6 +86,11 @@ public final class Bootstrap implements ServiceLocator {
     @Getter
     @NotNull
     private final IUserEndpoint userEndpoint = new UserEndpoint(sessionService, userService, this);
+
+    @Getter
+    @NotNull
+    private final IAdminEndpoint adminEndpoint = new AdminEndpoint(projectService, taskService, userService, sessionService);
+
 
     @Getter
     @NotNull

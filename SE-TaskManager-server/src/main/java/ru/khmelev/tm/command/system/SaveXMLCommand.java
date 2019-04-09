@@ -41,9 +41,7 @@ public class SaveXMLCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getProjectEndpoint().jaxbXmlSave(session);
-        serviceLocator.getTaskEndpoint().jaxbXmlSave(session);
-        serviceLocator.getUserEndpoint().jaxbXmlSave(session);
+        serviceLocator.getAdminEndpoint().jaxbXmlSave(session);
         System.out.println("!!!DONE!!!");
     }
 }

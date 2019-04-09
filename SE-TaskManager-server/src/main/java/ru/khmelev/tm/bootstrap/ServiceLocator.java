@@ -2,6 +2,7 @@ package ru.khmelev.tm.bootstrap;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.endpoint.IAdminEndpoint;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
@@ -20,6 +21,8 @@ public interface ServiceLocator {
     @NotNull IUserEndpoint getUserEndpoint();
 
     @NotNull ITerminalService getTerminalService();
+
+    @NotNull IAdminEndpoint getAdminEndpoint();
 
     @Nullable Session getSession();
 

@@ -9,16 +9,16 @@ import ru.khmelev.tm.entity.Session;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
-public class LoadJSONCommand extends Command {
+public class LoadSerializationCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "load-json";
+        return "load-serialization";
     }
 
     @Override
     public String getDescriptionCommand() {
-        return "Load data from JSON.";
+        return "Load data from bytes.";
     }
 
     @Override
@@ -41,7 +41,9 @@ public class LoadJSONCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().jaxbJSONLoad(session);
+        serviceLocator.getProjectEndpoint().serializationLoad(session);
+        serviceLocator.getTaskEndpoint().serializationLoad(session);
+        serviceLocator.getUserEndpoint().serializationLoad(session);
         System.out.println("!!!DONE!!!");
     }
 }

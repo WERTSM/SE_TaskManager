@@ -41,7 +41,9 @@ public class LoadJSONCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().jaxbJSONLoad(session);
+        serviceLocator.getProjectEndpoint().jaxbJSONLoad(session);
+        serviceLocator.getTaskEndpoint().jaxbJSONLoad(session);
+        serviceLocator.getUserEndpoint().jaxbJSONLoad(session);
         System.out.println("!!!DONE!!!");
     }
 }

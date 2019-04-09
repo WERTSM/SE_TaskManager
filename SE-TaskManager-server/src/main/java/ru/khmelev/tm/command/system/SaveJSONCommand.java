@@ -41,9 +41,7 @@ public class SaveJSONCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getProjectEndpoint().jaxbJSONSave(session);
-        serviceLocator.getTaskEndpoint().jaxbJSONSave(session);
-        serviceLocator.getUserEndpoint().jaxbJSONSave(session);
+        serviceLocator.getAdminEndpoint().jaxbJSONSave(session);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -41,9 +41,7 @@ public class LoadSerializationCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getProjectEndpoint().serializationLoad(session);
-        serviceLocator.getTaskEndpoint().serializationLoad(session);
-        serviceLocator.getUserEndpoint().serializationLoad(session);
+        serviceLocator.getAdminEndpoint().serializationLoad(session);
         System.out.println("!!!DONE!!!");
     }
 }

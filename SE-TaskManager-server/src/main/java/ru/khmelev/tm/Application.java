@@ -1,15 +1,11 @@
 package ru.khmelev.tm;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.endpoint.IEndpoint;
 import ru.khmelev.tm.bootstrap.Bootstrap;
 import ru.khmelev.tm.command.project.*;
 import ru.khmelev.tm.command.system.*;
 import ru.khmelev.tm.command.task.*;
 import ru.khmelev.tm.command.user.*;
-import ru.khmelev.tm.endpoint.UserEndpoint;
-
-import javax.xml.ws.Endpoint;
 
 public final class Application {
 

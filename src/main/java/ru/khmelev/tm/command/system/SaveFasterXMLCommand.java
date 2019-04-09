@@ -9,16 +9,16 @@ import ru.khmelev.tm.entity.Session;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
-public class LoadJSONCommand extends Command {
+public class SaveFasterXMLCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "load-json";
+        return "save-fasterxml-xml";
     }
 
     @Override
     public String getDescriptionCommand() {
-        return "Load data from JSON.";
+        return "Save data in FasterXML.";
     }
 
     @Override
@@ -41,7 +41,9 @@ public class LoadJSONCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().jaxbJSONLoad(session);
+        serviceLocator.getProjectEndpoint().fasterXmlSaveXML(session);
+        serviceLocator.getTaskEndpoint().fasterXmlSaveXML(session);
+        serviceLocator.getUserEndpoint().fasterXmlSaveXML(session);
         System.out.println("!!!DONE!!!");
     }
 }

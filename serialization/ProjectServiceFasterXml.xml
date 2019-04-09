@@ -1,0 +1,22 @@
+<ArrayList>
+  <item>
+    <id>e8d715b1-6e3e-4821-a556-64910c52b971</id>
+    <name>ProjectName002</name>
+    <description>Desc2</description>
+    <userId>11111111-1111-1111-1111-111111111111</userId>
+    <dateStart>984258000000</dateStart>
+    <dateFinish>1488402000000</dateFinish>
+    <dateCreate>1554109199154</dateCreate>
+    <status>PLANNED</status>
+  </item>
+  <item>
+    <id>6a5c011d-ed3b-4a94-b55c-3265afbfcc2f</id>
+    <name>ProjectName001</name>
+    <description>Desc1</description>
+    <userId>11111111-1111-1111-1111-111111111111</userId>
+    <dateStart>1257886800000</dateStart>
+    <dateFinish>1292878800000</dateFinish>
+    <dateCreate>1554109164131</dateCreate>
+    <status>PLANNED</status>
+  </item>
+</ArrayList>

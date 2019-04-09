@@ -41,9 +41,7 @@ public class SaveSerializationCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getProjectEndpoint().serializationSave(session);
-        serviceLocator.getTaskEndpoint().serializationSave(session);
-        serviceLocator.getUserEndpoint().serializationSave(session);
+        serviceLocator.getAdminEndpoint().serializationSave(session);
         System.out.println("!!!DONE!!!");
     }
 }
