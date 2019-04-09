@@ -11,7 +11,6 @@ import ru.khmelev.tm.entity.User;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Random;
@@ -57,7 +56,7 @@ public final class UserEndpoint implements IUserEndpoint {
     public User findUser(
             @WebParam(name = "session") @NotNull final Session session,
             @WebParam(name = "id") @NotNull final String id
-    ) throws SerialException {
+    ) {
         sessionService.checkSession(session);
         return userService.findEntity(id);
     }

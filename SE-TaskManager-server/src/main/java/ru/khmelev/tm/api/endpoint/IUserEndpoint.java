@@ -20,7 +20,7 @@ public interface IUserEndpoint {
     Collection<User> findAllUser(@NotNull final Session session);
 
     @WebMethod
-    User findUser(@NotNull final Session session, @NotNull String id) throws SerialException;
+    User findUser(@NotNull final Session session, @NotNull String id);
 
     @WebMethod
     void editUser(@NotNull final Session session, @NotNull String id, User user);

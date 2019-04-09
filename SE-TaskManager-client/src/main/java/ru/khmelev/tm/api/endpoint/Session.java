@@ -5,14 +5,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import java.util.Date;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
  * <p>Java class for session complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="session"&gt;
  *   &lt;complexContent&gt;
@@ -26,46 +26,55 @@ import java.util.Date;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "session", propOrder = {
-        "createDate",
-        "signature",
-        "userId"
+    "createDate",
+    "signature",
+    "userId"
 })
 public class Session
-        extends Identifiable {
+    extends Identifiable
+{
 
     @XmlSchemaType(name = "dateTime")
-    protected Date createDate;
+    protected XMLGregorianCalendar createDate;
     protected String signature;
     protected String userId;
 
     /**
      * Gets the value of the createDate property.
-     *
-     * @return possible object is
-     * {@link Date }
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
-    public Date getCreateDate() {
+    public XMLGregorianCalendar getCreateDate() {
         return createDate;
     }
 
     /**
      * Sets the value of the createDate property.
-     *
-     * @param value allowed object is
-     *              {@link Date }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
-    public void setCreateDate(Date value) {
+    public void setCreateDate(XMLGregorianCalendar value) {
         this.createDate = value;
     }
 
     /**
      * Gets the value of the signature property.
-     *
-     * @return possible object is
-     * {@link String }
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getSignature() {
         return signature;
@@ -73,9 +82,11 @@ public class Session
 
     /**
      * Sets the value of the signature property.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setSignature(String value) {
         this.signature = value;
@@ -83,9 +94,11 @@ public class Session
 
     /**
      * Gets the value of the userId property.
-     *
-     * @return possible object is
-     * {@link String }
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getUserId() {
         return userId;
@@ -93,9 +106,11 @@ public class Session
 
     /**
      * Sets the value of the userId property.
-     *
-     * @param value allowed object is
-     *              {@link String }
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setUserId(String value) {
         this.userId = value;

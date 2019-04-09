@@ -3,6 +3,7 @@ package ru.khmelev.tm.service;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.repository.IRepository;
 import ru.khmelev.tm.entity.Identifiable;
+import ru.khmelev.tm.exception.ServiceException;
 
 import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
@@ -27,11 +28,11 @@ public abstract class AbstractIdentifiableService<T extends Identifiable> extend
     }
 
     @NotNull
-    public T findEntity(@NotNull final String id) throws SerialException {
+    public T findEntity(@NotNull final String id) throws ServiceException {
         if (!id.isEmpty()) {
             return repository.findOne(id);
         }
-        throw new SerialException();
+        throw new ServiceException();
     }
 
     public void editEntity(@NotNull final String id, @NotNull final T entity) {

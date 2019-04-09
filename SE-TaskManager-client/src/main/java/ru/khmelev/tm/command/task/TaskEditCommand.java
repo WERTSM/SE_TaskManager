@@ -74,22 +74,14 @@ public final class TaskEditCommand extends Command {
         System.out.println("Start date: \"dd.MM.yyyy\" ");
         @NotNull String dateStartString = terminalService.readLine();
 
-        try {
-            @NotNull final Date dateStart = Printer.parse(dateStartString);
-            task.setDateStart(dateStart);
-        } catch (ParseException e) {
-            System.out.println("Error! Start date: \"dd.MM.yyyy\". NOT: " + dateStartString);
-        }
+        @NotNull final Date dateStart = Printer.parse(dateStartString);
+        task.setDateStart(Printer.printXMLDate(dateStart));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull String dateFinishString = terminalService.readLine();
 
-        try {
-            @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-            task.setDateFinish(dateFinish);
-        } catch (ParseException e) {
-            System.out.println("Error! Finish date: \"dd.MM.yyyy\". NOT: " + dateFinishString);
-        }
+        @NotNull final Date dateFinish = Printer.parse(dateFinishString);
+        task.setDateFinish(Printer.printXMLDate(dateFinish));
 
         System.out.println("Id project or \'0\': ");
         @NotNull String idProject = terminalService.readLine();

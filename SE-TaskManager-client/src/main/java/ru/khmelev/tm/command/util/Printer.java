@@ -8,11 +8,15 @@ import ru.khmelev.tm.api.endpoint.Task;
 import ru.khmelev.tm.api.endpoint.User;
 import ru.khmelev.tm.api.endpoint.Status;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 public final class Printer {
@@ -132,7 +136,27 @@ public final class Printer {
     }
 
     @NotNull
-    public static Date parse(@NotNull final String dateString) throws ParseException {
-        return DEFAULT_DATE_FORMAT.parse(dateString);
+    public static Date parse(@NotNull final String dateString) {
+        try {
+            return DEFAULT_DATE_FORMAT.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Date printDate(@NotNull final XMLGregorianCalendar XMLDate) {
+        return XMLDate.toGregorianCalendar().getTime();
+    }
+
+    public static XMLGregorianCalendar printXMLDate(@NotNull final Date date) {
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(date);
+        try {
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+        } catch (DatatypeConfigurationException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

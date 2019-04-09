@@ -70,7 +70,7 @@ public final class Bootstrap implements ServiceLocator {
         startCommands();
     }
 
-    private void startCommands() throws IOException, SerialException, SerialException_Exception {
+    private void startCommands() throws IOException {
         while (!Thread.currentThread().isInterrupted()) {
             System.out.println("Enter the command:");
             Command command;
@@ -120,7 +120,7 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private boolean permitCommand(@NotNull final Command commandString) throws SerialException, SerialException_Exception {
+    private boolean permitCommand(@NotNull final Command commandString) {
 
         if (commandString.isSecurity() && session == null) {
             System.out.println("Сначала зарегистрируйтесь");

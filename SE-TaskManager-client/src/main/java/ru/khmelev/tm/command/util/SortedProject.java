@@ -16,7 +16,7 @@ public class SortedProject {
                     if (project1.equals(project2)) {
                         return 0;
                     }
-                    return project1.getDateCreate().compareTo(project2.getDateCreate());
+                    return Printer.printDate(project1.getDateCreate()).compareTo(Printer.printDate(project2.getDateCreate()));
                 }
             });
         }
@@ -27,7 +27,7 @@ public class SortedProject {
                     if (project1.equals(project2)) {
                         return 0;
                     }
-                    return project1.getDateStart().compareTo(project2.getDateStart());
+                    return Printer.printDate(project1.getDateStart()).compareTo(Printer.printDate(project2.getDateStart()));
                 }
             });
         }
@@ -38,7 +38,7 @@ public class SortedProject {
                     if (project1.equals(project2)) {
                         return 0;
                     }
-                    return project1.getDateFinish().compareTo(project2.getDateFinish());
+                    return Printer.printDate(project1.getDateFinish()).compareTo(Printer.printDate(project2.getDateFinish()));
                 }
             });
         }

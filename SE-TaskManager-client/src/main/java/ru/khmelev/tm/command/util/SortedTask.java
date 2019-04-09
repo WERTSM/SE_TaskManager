@@ -16,7 +16,7 @@ public class SortedTask {
                     if (task1.equals(task2)) {
                         return 0;
                     }
-                    return task1.getDateCreate().compareTo(task2.getDateCreate());
+                    return Printer.printDate(task1.getDateCreate()).compareTo(Printer.printDate(task2.getDateCreate()));
                 }
             });
         }
@@ -27,7 +27,7 @@ public class SortedTask {
                     if (task1.equals(task2)) {
                         return 0;
                     }
-                    return task1.getDateStart().compareTo(task2.getDateStart());
+                    return Printer.printDate(task1.getDateStart()).compareTo(Printer.printDate(task2.getDateStart()));
                 }
             });
         }
@@ -38,7 +38,7 @@ public class SortedTask {
                     if (task1.equals(task2)) {
                         return 0;
                     }
-                    return task1.getDateFinish().compareTo(task2.getDateFinish());
+                    return Printer.printDate(task1.getDateFinish()).compareTo(Printer.printDate(task2.getDateFinish()));
                 }
             });
         }

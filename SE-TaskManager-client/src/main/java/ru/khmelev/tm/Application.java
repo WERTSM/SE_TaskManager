@@ -50,6 +50,7 @@ public final class Application {
     };
 
     public static void main(String[] args) throws Exception {
+        System.setProperty("org.apache.logging.log4j.simplelog.StatusLogger.level","INFO");
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.init(CLASS);
     }

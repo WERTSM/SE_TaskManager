@@ -10,7 +10,7 @@ public interface IService<T extends Identifiable> extends ISerializationService<
 
     void createEntity(@NotNull final String id, @NotNull final T entity);
 
-    @NotNull T findEntity(@NotNull final String id) throws SerialException;
+    @NotNull T findEntity(@NotNull final String id);
 
     @NotNull Collection<T> findAll();
 

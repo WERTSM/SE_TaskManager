@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
+import static ru.khmelev.tm.command.util.Printer.printXMLDate;
+
 public final class ProjectEditCommand extends Command {
 
     @Override
@@ -74,22 +76,14 @@ public final class ProjectEditCommand extends Command {
         System.out.println("Start date: \"dd.MM.yyyy\" ");
         @NotNull String dateStartString = terminalService.readLine();
 
-        try {
-            @NotNull final Date dateStart = Printer.parse(dateStartString);
-            project.setDateStart(dateStart);
-        } catch (ParseException e) {
-            System.out.println("Error! Start date: \"dd.MM.yyyy\". NOT: " + dateStartString);
-        }
+        @NotNull final Date dateStart = Printer.parse(dateStartString);
+        project.setDateStart(printXMLDate(dateStart));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull String dateFinishString = terminalService.readLine();
 
-        try {
-            @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-            project.setDateFinish(dateFinish);
-        } catch (ParseException e) {
-            System.out.println("Error! Finish date: \"dd.MM.yyyy\". NOT: " + dateFinishString);
-        }
+        @NotNull final Date dateFinish = Printer.parse(dateFinishString);
+        project.setDateFinish(printXMLDate(dateFinish));
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
