@@ -28,7 +28,7 @@ public class LoadXMLCommand extends Command {
 
     @Override
     public Role getRoleCommand() {
-        return Role.USER;
+        return Role.ADMIN;
     }
 
     @Override
