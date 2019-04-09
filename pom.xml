@@ -111,7 +111,6 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -154,14 +153,11 @@
         </plugins>
         <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
     </build>
-
      <scm>
         <connection>scm:git:https://github.com/WERTSM/SE_TaskManager.git</connection>
     </scm>
     <modules>
         <module>SE-TaskManager-Server</module>
-        <module>SE-TaskManager-client</module>
         <module>SE-TaskManager-Client</module>
     </modules>
-
 </project>

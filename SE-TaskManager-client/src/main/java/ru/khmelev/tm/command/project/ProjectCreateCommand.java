@@ -42,12 +42,11 @@ public final class ProjectCreateCommand extends Command {
         System.out.println("!!!Start command!!!");
         @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        System.out.println("ddddd");
         @Nullable final Session session = serviceLocator.getSession();
-        //if (session == null) {
-        //     return;
-        //}
-        System.out.println("ddddd");
+        if (session == null) {
+            return;
+        }
+
         @NotNull final Project project = new Project();
 
         System.out.println("Name project: ");
