@@ -7,6 +7,7 @@ import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Task;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 import java.util.List;
@@ -26,61 +27,87 @@ public final class TaskEndpoint implements ITaskEndpoint {
     }
 
     @Override
-    public void createTask(@NotNull final Session session, @NotNull final String id, @NotNull final Task task) {
+    public void createTask(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id,
+            @WebParam(name = "task") @NotNull final Task task
+    ) {
         sessionService.checkSession(session);
         taskService.createEntity(id, task);
     }
 
     @Override
-    public Task findTask(@NotNull final Session session, @NotNull final String id) {
+    public Task findTask(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id
+    ) {
         sessionService.checkSession(session);
         return taskService.findEntity(id, session.getUserId());
     }
 
     @Override
-    public Collection<Task> findAllTAsk(@NotNull final Session session) {
+    public Collection<Task> findAllTAsk(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         return taskService.findAll(session.getUserId());
     }
 
     @Override
-    public Collection<Task> findAllNameTask(@NotNull final Session session, @NotNull String findParameter) {
+    public Collection<Task> findAllNameTask(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "findParameter") @NotNull String findParameter
+    ) {
         sessionService.checkSession(session);
         return taskService.findAllName(findParameter, session.getUserId());
     }
 
     @Override
-    public Collection<Task> findAllDescriptionTask(@NotNull final Session session, @NotNull String findParameter) {
+    public Collection<Task> findAllDescriptionTask(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "findParameter") @NotNull String findParameter
+    ) {
         sessionService.checkSession(session);
         return taskService.findAllDescription(findParameter, session.getUserId());
     }
 
     @Override
-    public void editEntityTask(@NotNull final Session session, @NotNull final String id, @NotNull Task task) {
+    public void editEntityTask(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id,
+            @WebParam(name = "task") @NotNull Task task
+    ) {
         sessionService.checkSession(session);
         taskService.editEntity(id, task, session.getUserId());
     }
 
     @Override
-    public void removeTask(@NotNull final Session session, @NotNull final String id) {
+    public void removeTask(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "id") @NotNull final String id
+    ) {
         sessionService.checkSession(session);
         taskService.removeEntity(id, session.getUserId());
     }
 
     @Override
-    public void clearTask(@NotNull final Session session) {
+    public void clearTask(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         taskService.clearEntity(session.getUserId());
     }
 
     @Override
-    public List<Task> listTaskFromProject(@NotNull final Session session, @NotNull final String idProject) {
+    public List<Task> listTaskFromProject(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "idProject") @NotNull final String idProject
+    ) {
         sessionService.checkSession(session);
         return taskService.listTaskFromProject(idProject, session.getUserId());
     }
 
     @Override
-    public void removeAllTaskFromProject(@NotNull final Session session, @NotNull final String idProject) {
+    public void removeAllTaskFromProject(
+            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "idProject") @NotNull final String idProject
+    ) {
         sessionService.checkSession(session);
         taskService.removeAllTaskFromProject(idProject, session.getUserId());
     }

@@ -1,21 +1,18 @@
 
 package ru.khmelev.tm.api.endpoint;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 
 
 /**
  * <p>Java class for project complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="project"&gt;
  *   &lt;complexContent&gt;
@@ -31,20 +28,17 @@ import java.util.Date;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "project", propOrder = {
-    "dateCreate",
-    "dateFinish",
-    "dateStart",
-    "status",
-    "userId"
+        "dateCreate",
+        "dateFinish",
+        "dateStart",
+        "status",
+        "userId"
 })
 public class Project
-    extends Entity
-{
+        extends Entity {
 
     @XmlSchemaType(name = "dateTime")
     protected Date dateCreate;
@@ -58,11 +52,9 @@ public class Project
 
     /**
      * Gets the value of the dateCreate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link Date }
      */
     public Date getDateCreate() {
         return dateCreate;
@@ -71,10 +63,8 @@ public class Project
     /**
      * Sets the value of the dateCreate property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link Date }
-     *     
+     * @param value allowed object is
+     *              {@link Date }
      */
     public void setDateCreate(Date value) {
         this.dateCreate = value;
@@ -82,11 +72,9 @@ public class Project
 
     /**
      * Gets the value of the dateFinish property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link Date }
      */
     public Date getDateFinish() {
         return dateFinish;
@@ -95,22 +83,18 @@ public class Project
     /**
      * Sets the value of the dateFinish property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link Date }
-     *     
+     * @param value allowed object is
+     *              {@link Date }
      */
-    public void setDateFinish(@NotNull Date value) {
+    public void setDateFinish(Date value) {
         this.dateFinish = value;
     }
 
     /**
      * Gets the value of the dateStart property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Date }
-     *     
+     *
+     * @return possible object is
+     * {@link Date }
      */
     public Date getDateStart() {
         return dateStart;
@@ -119,22 +103,18 @@ public class Project
     /**
      * Sets the value of the dateStart property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link Date }
-     *     
+     * @param value allowed object is
+     *              {@link Date }
      */
-    public void setDateStart(@NotNull Date value) {
+    public void setDateStart(Date value) {
         this.dateStart = value;
     }
 
     /**
      * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *     
+     *
+     * @return possible object is
+     * {@link Status }
      */
     public Status getStatus() {
         return status;
@@ -142,11 +122,9 @@ public class Project
 
     /**
      * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Status }
      */
     public void setStatus(Status value) {
         this.status = value;
@@ -154,11 +132,9 @@ public class Project
 
     /**
      * Gets the value of the userId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getUserId() {
         return userId;
@@ -166,11 +142,9 @@ public class Project
 
     /**
      * Sets the value of the userId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setUserId(String value) {
         this.userId = value;

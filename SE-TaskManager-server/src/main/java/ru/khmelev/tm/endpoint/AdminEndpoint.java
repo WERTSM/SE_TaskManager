@@ -8,6 +8,7 @@ import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.entity.Session;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IAdminEndpoint")
@@ -29,7 +30,8 @@ public class AdminEndpoint implements IAdminEndpoint {
     public AdminEndpoint(@NotNull final IProjectService projectService,
                          @NotNull final ITaskService taskService,
                          @NotNull final IUserService userService,
-                         @NotNull final ISessionService sessionService) {
+                         @NotNull final ISessionService sessionService
+    ) {
         this.projectService = projectService;
         this.taskService = taskService;
         this.userService = userService;
@@ -37,7 +39,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void serializationSave(@NotNull final Session session) {
+    public void serializationSave(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.serializationSave(session.getUserId());
         taskService.serializationSave(session.getUserId());
@@ -45,7 +47,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void serializationLoad(@NotNull final Session session) {
+    public void serializationLoad(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.serializationLoad(session.getUserId());
         taskService.serializationLoad(session.getUserId());
@@ -53,7 +55,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbXmlSave(@NotNull final Session session) {
+    public void jaxbXmlSave(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbXmlSave(session.getUserId());
         taskService.jaxbXmlSave(session.getUserId());
@@ -61,7 +63,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbXmlLoad(@NotNull final Session session) {
+    public void jaxbXmlLoad(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbXmlLoad(session.getUserId());
         taskService.jaxbXmlLoad(session.getUserId());
@@ -69,7 +71,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbJSONSave(@NotNull final Session session) {
+    public void jaxbJSONSave(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbJSONSave(session.getUserId());
         taskService.jaxbJSONSave(session.getUserId());
@@ -77,7 +79,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void jaxbJSONLoad(@NotNull final Session session) {
+    public void jaxbJSONLoad(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.jaxbJSONLoad(session.getUserId());
         taskService.jaxbJSONLoad(session.getUserId());
@@ -85,7 +87,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlSaveXML(@NotNull final Session session) {
+    public void fasterXmlSaveXML(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlSaveXML(session.getUserId());
         taskService.fasterXmlSaveXML(session.getUserId());
@@ -93,7 +95,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlLoadXML(@NotNull final Session session) {
+    public void fasterXmlLoadXML(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlLoadXML(session.getUserId());
         taskService.fasterXmlLoadXML(session.getUserId());
@@ -101,7 +103,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlSaveJSON(@NotNull final Session session) {
+    public void fasterXmlSaveJSON(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlSaveJSON(session.getUserId());
         taskService.fasterXmlSaveJSON(session.getUserId());
@@ -109,7 +111,7 @@ public class AdminEndpoint implements IAdminEndpoint {
     }
 
     @Override
-    public void fasterXmlLoadJSON(@NotNull final Session session) {
+    public void fasterXmlLoadJSON(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.checkSession(session);
         projectService.fasterXmlLoadJSON(session.getUserId());
         taskService.fasterXmlLoadJSON(session.getUserId());

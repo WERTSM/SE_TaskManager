@@ -5,7 +5,7 @@ import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.bootstrap.ServiceLocator;
-import ru.khmelev.tm.endpoint.utilq.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
 
@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-import static ru.khmelev.tm.endpoint.utilq.SignatureUtil.sign;
+import static ru.khmelev.tm.endpoint.util.SignatureUtil.sign;
 
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public final class UserEndpoint implements IUserEndpoint {

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.User;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.endpoint.utilq.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 
 import java.io.IOException;
 import java.util.Objects;

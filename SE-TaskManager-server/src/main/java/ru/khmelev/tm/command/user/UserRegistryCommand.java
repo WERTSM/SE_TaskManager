@@ -2,7 +2,7 @@ package ru.khmelev.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.endpoint.utilq.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;
 

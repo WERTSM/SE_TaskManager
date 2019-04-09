@@ -8,8 +8,8 @@ import ru.khmelev.tm.api.endpoint.Session;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
-import ru.khmelev.tm.command.util.SortedEntity;
-import ru.khmelev.tm.dSortdddd.Sort;
+import ru.khmelev.tm.command.util.SortedProject;
+import ru.khmelev.tm.command.util.Sort;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class ProjectSortCommand extends Command {
 
         @NotNull final List<Project> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAllProject(session));
 
-        @NotNull final SortedEntity sortedEntity = new SortedEntity();
+        @NotNull final SortedProject sortedEntity = new SortedProject();
 
         sortedEntity.sort(listProject, sortParameter);
 

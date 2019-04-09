@@ -5,14 +5,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.Date;
 
 
 /**
  * <p>Java class for task complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="task"&gt;
  *   &lt;complexContent&gt;
@@ -29,28 +29,25 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "task", propOrder = {
-    "dateCreate",
-    "dateFinish",
-    "dateStart",
-    "idProject",
-    "status",
-    "userId"
+        "dateCreate",
+        "dateFinish",
+        "dateStart",
+        "idProject",
+        "status",
+        "userId"
 })
 public class Task
-    extends Entity
-{
+        extends Entity {
 
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateCreate;
+    protected Date dateCreate;
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateFinish;
+    protected Date dateFinish;
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateStart;
+    protected Date dateStart;
     protected String idProject;
     @XmlSchemaType(name = "string")
     protected Status status;
@@ -58,83 +55,69 @@ public class Task
 
     /**
      * Gets the value of the dateCreate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link Date }
      */
-    public XMLGregorianCalendar getDateCreate() {
+    public Date getDateCreate() {
         return dateCreate;
     }
 
     /**
      * Sets the value of the dateCreate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Date }
      */
-    public void setDateCreate(XMLGregorianCalendar value) {
+    public void setDateCreate(Date value) {
         this.dateCreate = value;
     }
 
     /**
      * Gets the value of the dateFinish property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link Date }
      */
-    public XMLGregorianCalendar getDateFinish() {
+    public Date getDateFinish() {
         return dateFinish;
     }
 
     /**
      * Sets the value of the dateFinish property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Date }
      */
-    public void setDateFinish(XMLGregorianCalendar value) {
+    public void setDateFinish(Date value) {
         this.dateFinish = value;
     }
 
     /**
      * Gets the value of the dateStart property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link Date }
      */
-    public XMLGregorianCalendar getDateStart() {
+    public Date getDateStart() {
         return dateStart;
     }
 
     /**
      * Sets the value of the dateStart property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Date }
      */
-    public void setDateStart(XMLGregorianCalendar value) {
+    public void setDateStart(Date value) {
         this.dateStart = value;
     }
 
     /**
      * Gets the value of the idProject property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getIdProject() {
         return idProject;
@@ -142,11 +125,9 @@ public class Task
 
     /**
      * Sets the value of the idProject property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setIdProject(String value) {
         this.idProject = value;
@@ -154,11 +135,9 @@ public class Task
 
     /**
      * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *     
+     *
+     * @return possible object is
+     * {@link Status }
      */
     public Status getStatus() {
         return status;
@@ -166,11 +145,9 @@ public class Task
 
     /**
      * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Status }
      */
     public void setStatus(Status value) {
         this.status = value;
@@ -178,11 +155,9 @@ public class Task
 
     /**
      * Gets the value of the userId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getUserId() {
         return userId;
@@ -190,11 +165,9 @@ public class Task
 
     /**
      * Sets the value of the userId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setUserId(String value) {
         this.userId = value;
