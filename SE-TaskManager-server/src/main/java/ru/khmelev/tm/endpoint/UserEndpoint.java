@@ -104,7 +104,6 @@ public final class UserEndpoint implements IUserEndpoint {
                         Random random = new Random();
                         session.setSignature(Objects.requireNonNull(sign(user, String.valueOf(random.nextInt(1000)), random.nextInt(1000))));
                         sessionService.setSession(session);
-                        serviceLocator.setSession(session);
                         return session;
                     }
                 }
