@@ -5,7 +5,6 @@ import ru.khmelev.tm.api.repository.IRepository;
 import ru.khmelev.tm.entity.Identifiable;
 import ru.khmelev.tm.exception.ServiceException;
 
-import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
 
 public abstract class AbstractIdentifiableService<T extends Identifiable> extends AbstractSerializationService<T> {
@@ -25,6 +24,11 @@ public abstract class AbstractIdentifiableService<T extends Identifiable> extend
     @NotNull
     public Collection<T> findAll() {
         return repository.findAll();
+    }
+
+    @NotNull
+    public Collection<T> findAll(@NotNull final String userId) {
+        return findAll();
     }
 
     @NotNull

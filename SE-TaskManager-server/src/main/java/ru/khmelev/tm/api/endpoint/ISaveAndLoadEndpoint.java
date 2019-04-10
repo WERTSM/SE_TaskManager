@@ -7,7 +7,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 @WebService
-public interface IAdminEndpoint {
+public interface ISaveAndLoadEndpoint {
+
     @WebMethod
     void serializationSave(@NotNull final Session session);
 

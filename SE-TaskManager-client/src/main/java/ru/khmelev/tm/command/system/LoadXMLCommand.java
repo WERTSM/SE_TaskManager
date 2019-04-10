@@ -41,7 +41,7 @@ public class LoadXMLCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().jaxbXmlLoad(session);
+        serviceLocator.getSaveAndLoadEndpoint().jaxbXmlLoad(session);
         System.out.println("!!!DONE!!!");
     }
 }

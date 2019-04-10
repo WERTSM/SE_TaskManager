@@ -41,7 +41,7 @@ public class SaveFasterXmlJSONCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().fasterXmlSaveJSON(session);
+        serviceLocator.getSaveAndLoadEndpoint().fasterXmlSaveJSON(session);
         System.out.println("!!!DONE!!!");
     }
 }

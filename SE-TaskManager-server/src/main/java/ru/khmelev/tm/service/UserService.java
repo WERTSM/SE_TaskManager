@@ -9,6 +9,7 @@ import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.User;
 
+import java.util.List;
 import java.util.Objects;
 
 public final class UserService extends AbstractIdentifiableService<User> implements IService<User>, ISerializationService<User>, IUserService {
@@ -52,6 +53,7 @@ public final class UserService extends AbstractIdentifiableService<User> impleme
 
     @Override
     protected TypeReference getTypeReference() {
-        throw new SecurityException();
+        return new TypeReference<List<User>>() {
+        };
     }
 }

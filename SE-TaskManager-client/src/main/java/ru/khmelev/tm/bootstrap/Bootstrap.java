@@ -7,10 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.endpoint.AdminEndpointService;
-import ru.khmelev.tm.endpoint.ProjectEndpointService;
-import ru.khmelev.tm.endpoint.TaskEndpointService;
-import ru.khmelev.tm.endpoint.UserEndpointService;
+import ru.khmelev.tm.endpoint.*;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.service.TerminalService;
 
@@ -44,8 +41,7 @@ public final class Bootstrap implements ServiceLocator {
     private final UserEndpointService userEndpointService = new UserEndpointService();
     @Getter
     @NotNull
-    private final AdminEndpointService adminEndpointService = new AdminEndpointService();
-
+    private final SaveAndLoadEndpointService saveAndLoadEndpointService = new SaveAndLoadEndpointService();
     @Getter
     @NotNull
     private final IProjectEndpoint projectEndpoint = projectEndpointService.getProjectEndpointPort();
@@ -57,8 +53,7 @@ public final class Bootstrap implements ServiceLocator {
     private final IUserEndpoint userEndpoint = userEndpointService.getUserEndpointPort();
     @Getter
     @NotNull
-    private final IAdminEndpoint adminEndpoint = adminEndpointService.getAdminEndpointPort();
-
+    private final ISaveAndLoadEndpoint saveAndLoadEndpoint = saveAndLoadEndpointService.getSaveAndLoadEndpointPort();
     @Getter
     @NotNull
     private final ITerminalService terminalService = new TerminalService();

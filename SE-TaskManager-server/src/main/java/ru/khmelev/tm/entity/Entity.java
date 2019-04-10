@@ -20,9 +20,6 @@ public abstract class Entity extends Identifiable {
     @Getter
     private String description;
 
-    @Getter
-    private String userId;
-
     @NotNull
     public abstract Date getDateCreate();
 

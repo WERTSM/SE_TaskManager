@@ -41,7 +41,7 @@ public class SaveFasterXMLCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().fasterXmlSaveXML(session);
+        serviceLocator.getSaveAndLoadEndpoint().fasterXmlSaveXML(session);
         System.out.println("!!!DONE!!!");
     }
 }

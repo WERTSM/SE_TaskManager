@@ -41,7 +41,7 @@ public class LoadFasterXmlJSONCommand extends Command {
 
         @NotNull final String userId = session.getUserId();
 
-        serviceLocator.getAdminEndpoint().fasterXmlLoadJSON(session);
+        serviceLocator.getSaveAndLoadEndpoint().fasterXmlLoadJSON(session);
         System.out.println("!!!DONE!!!");
     }
 }

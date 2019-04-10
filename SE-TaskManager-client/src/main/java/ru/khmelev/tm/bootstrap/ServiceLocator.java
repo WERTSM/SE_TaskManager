@@ -18,7 +18,7 @@ public interface ServiceLocator {
 
     @NotNull ITerminalService getTerminalService();
 
-    @NotNull IAdminEndpoint getAdminEndpoint();
+    @NotNull ISaveAndLoadEndpoint getSaveAndLoadEndpoint();
 
     @Nullable Session getSession();
 

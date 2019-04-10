@@ -1,7 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.endpoint.IAdminEndpoint;
+import ru.khmelev.tm.api.endpoint.ISaveAndLoadEndpoint;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.ITaskService;
@@ -11,8 +11,8 @@ import ru.khmelev.tm.entity.Session;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IAdminEndpoint")
-public class AdminEndpoint implements IAdminEndpoint {
+@WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.ISaveAndLoadEndpoint")
+public class SaveAndLoadEndpoint implements ISaveAndLoadEndpoint {
 
     @NotNull
     private final IProjectService projectService;
@@ -27,10 +27,10 @@ public class AdminEndpoint implements IAdminEndpoint {
     @NotNull
     private final ISessionService sessionService;
 
-    public AdminEndpoint(@NotNull final IProjectService projectService,
-                         @NotNull final ITaskService taskService,
-                         @NotNull final IUserService userService,
-                         @NotNull final ISessionService sessionService
+    public SaveAndLoadEndpoint(@NotNull final IProjectService projectService,
+                               @NotNull final ITaskService taskService,
+                               @NotNull final IUserService userService,
+                               @NotNull final ISessionService sessionService
     ) {
         this.projectService = projectService;
         this.taskService = taskService;

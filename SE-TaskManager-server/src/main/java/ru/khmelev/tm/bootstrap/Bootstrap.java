@@ -1,10 +1,8 @@
 package ru.khmelev.tm.bootstrap;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.IAdminEndpoint;
+import ru.khmelev.tm.api.endpoint.ISaveAndLoadEndpoint;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
@@ -14,7 +12,6 @@ import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.*;
 import ru.khmelev.tm.endpoint.*;
-import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.SessionRepository;
 import ru.khmelev.tm.repository.TaskRepository;
@@ -27,11 +24,6 @@ import ru.khmelev.tm.service.UserService;
 import javax.xml.ws.Endpoint;
 
 public final class Bootstrap implements ServiceLocator {
-
-    @Setter
-    @Getter
-    @Nullable
-    private Session session;
 
     @NotNull
     private final IProjectRepository projectRepository = new ProjectRepository();
@@ -76,7 +68,7 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IAdminEndpoint adminEndpoint = new AdminEndpoint(projectService, taskService, userService, sessionService);
+    private final ISaveAndLoadEndpoint saveAndLoadEndpoint = new SaveAndLoadEndpoint(projectService, taskService, userService, sessionService);
 
 
     @Getter
@@ -87,6 +79,6 @@ public final class Bootstrap implements ServiceLocator {
         Endpoint.publish("http://localhost:2019/ProjectEndpoint", projectEndpoint);
         Endpoint.publish("http://localhost:2019/TaskEndpoint", taskEndpoint);
         Endpoint.publish("http://localhost:2019/UserEndpoint", userEndpoint);
-        Endpoint.publish("http://localhost:2019/AdminEndpoint", adminEndpoint);
+        Endpoint.publish("http://localhost:2019/SaveAndLoadEndpoint", saveAndLoadEndpoint);
     }
 }

@@ -43,7 +43,7 @@
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-                                        http://localhost:2019/AdminEndpoint?wsdl
+                                        http://localhost:2019/SaveAndLoadEndpoint?wsdl
                                     </wsdl>
                                 </wsdlOption>
                             </wsdlOptions>

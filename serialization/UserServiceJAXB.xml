@@ -2,18 +2,32 @@
 <EntitiesPTU>
     <listEntities>
         <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="user">
+            <id>2d332691-1ec7-4252-b93b-86e98c2bb8cd</id>
             <description>admin</description>
-            <id>61636a4b-b2cf-4f09-87a9-507611aec04e</id>
-            <hashPassword>8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918</hashPassword>
+            <hashPassword>21232f297a57a5a743894a0e4a801fc3</hashPassword>
             <login>admin</login>
             <role>ADMIN</role>
         </Entity>
         <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="user">
-            <description>user</description>
+            <id>24a30a38-1424-4861-a018-7753a90e1e07</id>
+            <description>admin</description>
+            <hashPassword>21232f297a57a5a743894a0e4a801fc3</hashPassword>
+            <login>admin</login>
+            <role>ADMIN</role>
+        </Entity>
+        <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="user">
             <id>11111111-1111-1111-1111-111111111111</id>
-            <hashPassword>04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb</hashPassword>
+            <description>user</description>
+            <hashPassword>ee11cbb19052e40b07aac0ca060c23ee</hashPassword>
             <login>user</login>
             <role>USER</role>
+        </Entity>
+        <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="user">
+            <id>b5b46c6f-5f4d-4dd0-99a0-2ce6371d2162</id>
+            <description>admin</description>
+            <hashPassword>21232f297a57a5a743894a0e4a801fc3</hashPassword>
+            <login>admin</login>
+            <role>ADMIN</role>
         </Entity>
     </listEntities>
 </EntitiesPTU>
