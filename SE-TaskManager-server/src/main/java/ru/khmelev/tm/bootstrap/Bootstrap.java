@@ -12,6 +12,7 @@ import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.*;
 import ru.khmelev.tm.endpoint.*;
+import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.SessionRepository;
 import ru.khmelev.tm.repository.TaskRepository;
@@ -22,6 +23,11 @@ import ru.khmelev.tm.service.TaskService;
 import ru.khmelev.tm.service.UserService;
 
 import javax.xml.ws.Endpoint;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Bootstrap implements ServiceLocator {
 
@@ -75,10 +81,22 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final ITerminalService terminalService = new TerminalEndpoint();
 
-    public void init() {
+    public void init() throws SQLException {
+
+        for (Project pr : projectRepository.findAll("f1c46dbd-d06b-4784-893c-3b67b0e9da90")) {
+
+            System.out.println(pr.getName());
+
+        }
+
+        System.out.println(projectRepository.findOne("4322e9aa-5660-4f8c-b43f-f75e2f7f9a72", "f1c46dbd-d06b-4784-893c-3b67b0e9da90").getName());
+
+
+        /*
         Endpoint.publish("http://localhost:2019/ProjectEndpoint", projectEndpoint);
         Endpoint.publish("http://localhost:2019/TaskEndpoint", taskEndpoint);
         Endpoint.publish("http://localhost:2019/UserEndpoint", userEndpoint);
-        Endpoint.publish("http://localhost:2019/SaveAndLoadEndpoint", saveAndLoadEndpoint);
+        Endpoint.publish("http://localhost:2019/SaveAndLoadEndpoint", saveAndLoadEndpoint);*/
     }
+
 }
