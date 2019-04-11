@@ -6,6 +6,7 @@ import ru.khmelev.tm.api.repository.IEntityRepository;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.ServiceException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -28,7 +29,7 @@ public abstract class AbstractEntityService<T extends Entity> extends AbstractSe
     }
 
     @NotNull
-    public T findEntity(@NotNull final String id, @NotNull final String userId) {
+    public T findEntity(@NotNull final String id, @NotNull final String userId) throws SQLException {
         if (!id.isEmpty() && !userId.isEmpty()) {
             return entityRepository.findOne(id, userId);
         }

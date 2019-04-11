@@ -5,6 +5,7 @@ import ru.khmelev.tm.api.repository.IEntityRepository;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.RepositoryException;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class EntityRepository<T extends Entity> implements IEntityRepository<T> {
@@ -12,6 +13,7 @@ public class EntityRepository<T extends Entity> implements IEntityRepository<T> 
     @NotNull
     private final Map<String, T> mapEntity = new HashMap<>();
 
+    @Override
     public void persist(@NotNull final String id, @NotNull final T entity) {
         if (!id.isEmpty()) {
             mapEntity.put(id, entity);
