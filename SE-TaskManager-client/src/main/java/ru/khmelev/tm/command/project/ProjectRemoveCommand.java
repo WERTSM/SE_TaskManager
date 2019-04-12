@@ -43,7 +43,6 @@ public final class ProjectRemoveCommand extends Command {
         System.out.println("ID project: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
 
-        serviceLocator.getTaskEndpoint().removeAllTaskFromProject(session, id);
         serviceLocator.getProjectEndpoint().removeProject(session, id);
         System.out.println("!!!DONE!!!");
     }

@@ -4,9 +4,9 @@ import com.jcabi.manifests.Manifests;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Project;
+import ru.khmelev.tm.api.endpoint.Status;
 import ru.khmelev.tm.api.endpoint.Task;
 import ru.khmelev.tm.api.endpoint.User;
-import ru.khmelev.tm.api.endpoint.Status;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -31,11 +31,11 @@ public final class Printer {
                     "[ ID = " + project.getId()
                             + "; Name = " + project.getName()
                             + "; Description = " + project.getDescription()
-                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(project.getDateStart())
-                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(project.getDateFinish())
+                            //+ "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateStart()))
+                           // + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateFinish()))
                             + "; Status = " + status.value()
                             + "; Name user = " + user.getLogin()
-                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(project.getDateCreate())
+                           // + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateCreate()))
                             + " ]");
         }
     }

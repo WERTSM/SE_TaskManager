@@ -15,8 +15,18 @@ import java.util.List;
 
 public class ProjectRepository extends EntityRepository<Project> implements IProjectRepository {
 
-    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tm", "root", "root");
+    private Connection connection;
 
+    private Connection getConnection() {
+        {
+            try {
+                return DriverManager.getConnection("jdbc:mysql://localhost:3306/tm", "root", "root");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new RepositoryException();
+    }
 
     @NotNull
     @SneakyThrows
@@ -32,15 +42,51 @@ public class ProjectRepository extends EntityRepository<Project> implements IPro
     }
 
     @Override
+    public void persist(@NotNull final String id, @NotNull final Project project) {
+        connection = getConnection();
+
+        @NotNull final String query = "INSERT INTO tm.project (" +
+                "id, " +
+                "name, " +
+                "description, " +
+                "dateStart, " +
+                "dateFinish, " +
+                "dateCreate ," +
+                "status ," +
+                "userId) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            @NotNull final PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            statement.setString(2, project.getName());
+            statement.setString(3, project.getDescription());
+            statement.setDate(4, new Date(project.getDateStart().getTime()));
+            statement.setDate(5, new Date(project.getDateFinish().getTime()));
+            statement.setDate(6, new Date(project.getDateCreate().getTime()));
+            statement.setString(7, project.getStatus().getDisplayName());
+            statement.setString(8, project.getUserId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     @NotNull
     public Project findOne(@NotNull final String id, @NotNull final String userId) {
-        @Nullable ResultSet resultSet = null;
-        @Nullable Project project;
+        connection = getConnection();
 
-        @NotNull final String query = "" +
-                "SELECT * FROM tm.project " +
+        @Nullable ResultSet resultSet = null;
+
+        @NotNull final String query = "SELECT * FROM tm.project " +
                 "WHERE id = ? " +
-                "AND user_id = ?;";
+                "AND userId = ?;";
         try {
             @NotNull final PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, id);
@@ -50,32 +96,134 @@ public class ProjectRepository extends EntityRepository<Project> implements IPro
                 return fetch(resultSet);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RepositoryException();
         } finally {
             try {
                 if (resultSet != null) {
-                    connection.close();
                     resultSet.close();
+                    connection.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            throw new RepositoryException();
         }
+        throw new RepositoryException();
     }
 
     @Override
     @NotNull
     @SneakyThrows
     public Collection<Project> findAll(@NotNull final String userId) {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tm", "root", "root");
-        @NotNull final String query = "SELECT * FROM tm.project WHERE userId = ?";
-        @NotNull final PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, userId);
-        @NotNull final ResultSet resultSet = statement.executeQuery();
+        connection = getConnection();
+        @Nullable ResultSet resultSet = null;
         @NotNull final List<Project> result = new ArrayList<>();
-        while (resultSet.next()) result.add(fetch(resultSet));
-        statement.close();
+
+        @NotNull final String query = "SELECT * FROM tm.project WHERE userId = ?";
+        try {
+            @NotNull final PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, userId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result.add(fetch(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RepositoryException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return result;
+    }
+
+    @Override
+    public void merge(@NotNull final String id, @NotNull final Project project, @NotNull final String userId) {
+        connection = getConnection();
+
+        @Nullable ResultSet resultSet = null;
+
+        @NotNull final String query = "UPDATE tm.project SET " +
+                "name = ?, " +
+                "description = ?, " +
+                "dateStart = ?, " +
+                "dateFinish = ?, " +
+                "dateCreate = ?, " +
+                "status = ? " +
+                "WHERE id = ? " +
+                "AND userId = ?;";
+        try {
+            @NotNull final PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, project.getName());
+            statement.setString(2, project.getDescription());
+            statement.setDate(3, new Date(project.getDateStart().getTime()));
+            statement.setDate(4, new Date(project.getDateFinish().getTime()));
+            statement.setDate(5, new Date(project.getDateCreate().getTime()));
+            statement.setString(6, project.getStatus().getDisplayName());
+            statement.setString(7, id);
+            statement.setString(8, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RepositoryException();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void remove(@NotNull final String id, @NotNull final String userId) {
+        connection = getConnection();
+
+        @NotNull final String query = "DELETE FROM tm.project " +
+                "WHERE id = ? " +
+                "AND userId = ?;";
+        try {
+            @NotNull final PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RepositoryException();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void removeAll(@NotNull final String userId) {
+        connection = getConnection();
+
+        @NotNull final String query = "DELETE FROM tm.project WHERE userId = ?;";
+
+        try {
+            @NotNull final PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RepositoryException();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

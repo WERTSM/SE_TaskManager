@@ -49,6 +49,7 @@ public final class ProjectShowCommand extends Command {
         @NotNull final Project project = serviceLocator.getProjectEndpoint().findProject(session, id);
 
         Printer.showProject(project, serviceLocator.getUserEndpoint().getUserFromSession(session));
+
         for (@NotNull Task task : serviceLocator.getTaskEndpoint().listTaskFromProject(session, id)) {
             Printer.showTaskInProject(task);
         }

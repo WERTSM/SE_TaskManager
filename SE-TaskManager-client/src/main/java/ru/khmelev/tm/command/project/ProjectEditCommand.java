@@ -89,6 +89,8 @@ public final class ProjectEditCommand extends Command {
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
         project.setStatus(status);
 
+        project.setDateCreate(Printer.printXMLDate(new Date()));
+
         projectEndpoint.editProject(session, id, project);
         System.out.println("!!!DONE!!!");
     }

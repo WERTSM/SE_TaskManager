@@ -10,7 +10,6 @@ import ru.khmelev.tm.entity.Task;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
-import java.util.List;
 
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.ITaskEndpoint")
 public final class TaskEndpoint implements ITaskEndpoint {
@@ -95,7 +94,7 @@ public final class TaskEndpoint implements ITaskEndpoint {
     }
 
     @Override
-    public List<Task> listTaskFromProject(
+    public Collection<Task> listTaskFromProject(
             @WebParam(name = "session") @NotNull final Session session,
             @WebParam(name = "idProject") @NotNull final String idProject
     ) {

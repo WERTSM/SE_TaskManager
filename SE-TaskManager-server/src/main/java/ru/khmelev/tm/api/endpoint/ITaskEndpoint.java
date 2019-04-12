@@ -7,7 +7,6 @@ import ru.khmelev.tm.entity.Task;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.Collection;
-import java.util.List;
 
 @WebService
 public interface ITaskEndpoint {
@@ -36,7 +35,7 @@ public interface ITaskEndpoint {
     @WebMethod
     void clearTask(@NotNull final Session session);
 
-    List<Task> listTaskFromProject(@NotNull Session session, @NotNull String idProject);
+    Collection<Task> listTaskFromProject(@NotNull Session session, @NotNull String idProject);
 
     void removeAllTaskFromProject(@NotNull Session session, @NotNull String idProject);
 }

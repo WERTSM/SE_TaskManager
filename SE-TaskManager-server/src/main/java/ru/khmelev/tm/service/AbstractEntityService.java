@@ -29,7 +29,7 @@ public abstract class AbstractEntityService<T extends Entity> extends AbstractSe
     }
 
     @NotNull
-    public T findEntity(@NotNull final String id, @NotNull final String userId) throws SQLException {
+    public T findEntity(@NotNull final String id, @NotNull final String userId) {
         if (!id.isEmpty() && !userId.isEmpty()) {
             return entityRepository.findOne(id, userId);
         }

@@ -7,10 +7,8 @@ import ru.khmelev.tm.api.service.IEntityService;
 import ru.khmelev.tm.api.service.ISerializationService;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.exception.ServiceException;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 
 public final class TaskService extends AbstractEntityService<Task> implements IEntityService<Task>, ISerializationService<Task>, ITaskService {
@@ -27,32 +25,12 @@ public final class TaskService extends AbstractEntityService<Task> implements IE
         };
     }
 
-    @NotNull
-    public List<Task> listTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
-        if (!idProject.isEmpty() && !userId.isEmpty()) {
-            List<Task> list = new ArrayList<>(taskRepository.findAll(userId));
-            Iterator<Task> it = list.iterator();
-            while (it.hasNext()) {
-                Task task = it.next();
-                if (!task.getIdProject().equals(idProject)) {
-                    it.remove();
-                }
-            }
-            return list;
-        }
-        throw new ServiceException();
+    public void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
+        taskRepository.removeAllTaskFromProject(idProject, userId);
     }
 
-    public void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
-        if (!idProject.isEmpty() && !userId.isEmpty()) {
-            List<Task> list = new ArrayList<>(taskRepository.findAll(userId));
-            Iterator<Task> it = list.iterator();
-            while (it.hasNext()) {
-                Task task = it.next();
-                if (task.getIdProject().equals(idProject)) {
-                    taskRepository.remove(task.getId(), userId);
-                }
-            }
-        }
+    @Override
+    public Collection<Task> listTaskFromProject(@NotNull String idProject, @NotNull String userId) {
+        return taskRepository.listTaskFromProject(idProject, userId);
     }
 }
