@@ -7,13 +7,12 @@ import ru.khmelev.tm.exception.ServiceException;
 
 import java.util.Collection;
 
-public abstract class AbstractIdentifiableService<T extends Identifiable> extends AbstractSerializationService<T> {
+public abstract class AbstractIdentifiableService<T extends Identifiable> {
 
     @NotNull
     private final IRepository<T> repository;
 
     AbstractIdentifiableService(@NotNull final IRepository<T> repository) {
-        super(repository);
         this.repository = repository;
     }
 

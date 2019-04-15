@@ -6,26 +6,21 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.entity.FieldConst;
 import ru.khmelev.tm.entity.Project;
+import ru.khmelev.tm.entity.Status;
 import ru.khmelev.tm.exception.RepositoryException;
+import ru.khmelev.tm.service.util.ConnectionJDBC;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ProjectRepository extends EntityRepository<Project> implements IProjectRepository {
+public class ProjectRepository implements IProjectRepository {
 
     private Connection connection;
 
     private Connection getConnection() {
-        {
-            try {
-                return DriverManager.getConnection("jdbc:mysql://localhost:3306/tm", "root", "root");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        throw new RepositoryException();
+       return ConnectionJDBC.getConnection();
     }
 
     @NotNull
@@ -38,6 +33,9 @@ public class ProjectRepository extends EntityRepository<Project> implements IPro
         project.setDescription(row.getString(FieldConst.DESCRIPTION));
         project.setDateStart(row.getDate(FieldConst.DATE_START));
         project.setDateFinish(row.getDate(FieldConst.DATE_FINISH));
+        project.setDateCreate(row.getDate(FieldConst.DATE_CREATE));
+        project.setStatus(Status.valueOf(row.getString(FieldConst.STATUS)));
+        project.setUserId(row.getString(FieldConst.USER_ID));
         return project;
     }
 

@@ -7,7 +7,7 @@ import ru.khmelev.tm.command.system.*;
 import ru.khmelev.tm.command.task.*;
 import ru.khmelev.tm.command.user.*;
 
-public final class Application {
+public final class ApplicationClient {
 
     @NotNull
     private static final Class[] CLASS = new Class[]{
@@ -35,16 +35,6 @@ public final class Application {
             UserSetPasswordCommand.class,
             UserProfileCommand.class,
             UserUpdateCommand.class,
-            SaveSerializationCommand.class,
-            SaveXMLCommand.class,
-            SaveJSONCommand.class,
-            SaveFasterXMLCommand.class,
-            SaveFasterXmlJSONCommand.class,
-            LoadSerializationCommand.class,
-            LoadXMLCommand.class,
-            LoadJSONCommand.class,
-            LoadFasterXMLCommand.class,
-            LoadFasterXmlJSONCommand.class,
             AboutCommand.class,
             ExitCommand.class
     };

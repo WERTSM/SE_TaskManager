@@ -5,7 +5,9 @@ import ru.khmelev.tm.entity.Identifiable;
 
 import java.util.Collection;
 
-public interface IRepository<T extends Identifiable> extends ISerializationRepository {
+public interface IRepository<T extends Identifiable> {
+
+    void persist(@NotNull String id, @NotNull final T entity);
 
     @NotNull T findOne(@NotNull final String id);
 
@@ -16,7 +18,4 @@ public interface IRepository<T extends Identifiable> extends ISerializationRepos
     void remove(@NotNull final String id);
 
     void removeAll();
-
-    @Override
-    @NotNull Collection<T> findAll(@NotNull final String userId);
 }

@@ -1,18 +1,15 @@
 package ru.khmelev.tm.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.repository.IUserRepository;
-import ru.khmelev.tm.api.service.ISerializationService;
 import ru.khmelev.tm.api.service.IService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.User;
 
-import java.util.List;
 import java.util.Objects;
 
-public final class UserService extends AbstractIdentifiableService<User> implements IService<User>, ISerializationService<User>, IUserService {
+public final class UserService extends AbstractIdentifiableService<User> implements IService<User>, IUserService {
 
     @NotNull
     private final IUserRepository userRepository;
@@ -41,6 +38,7 @@ public final class UserService extends AbstractIdentifiableService<User> impleme
                 if (user.getLogin().equals(login)) {
                     @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));
                     user.setHashPassword(password);
+                    userRepository.merge(user.getId(), user);
                 }
             }
         }
@@ -49,11 +47,5 @@ public final class UserService extends AbstractIdentifiableService<User> impleme
     @Override
     public User getUserFromSession(@NotNull final String userId) {
         return userRepository.findOne(userId);
-    }
-
-    @Override
-    protected TypeReference getTypeReference() {
-        return new TypeReference<List<User>>() {
-        };
     }
 }

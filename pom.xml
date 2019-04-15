@@ -100,7 +100,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>../lib/</classpathPrefix>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>ru.khmelev.tm.Application</mainClass>
+                            <mainClass>ru.khmelev.tm.ApplicationServer</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Built-By>WERTSM</Built-By>

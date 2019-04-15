@@ -8,8 +8,8 @@ import ru.khmelev.tm.api.endpoint.Task;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
-import ru.khmelev.tm.command.util.SortedTask;
 import ru.khmelev.tm.command.util.Sort;
+import ru.khmelev.tm.command.util.SortedTask;
 
 import java.io.IOException;
 import java.util.ArrayList;

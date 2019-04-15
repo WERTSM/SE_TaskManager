@@ -41,11 +41,6 @@
                                         http://localhost:2019/UserEndpoint?wsdl
                                     </wsdl>
                                 </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>
-                                        http://localhost:2019/SaveAndLoadEndpoint?wsdl
-                                    </wsdl>
-                                </wsdlOption>
                             </wsdlOptions>
                         </configuration>
                         <goals>

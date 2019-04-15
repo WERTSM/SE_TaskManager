@@ -18,8 +18,6 @@ public interface ServiceLocator {
 
     @NotNull ITerminalService getTerminalService();
 
-    @NotNull ISaveAndLoadEndpoint getSaveAndLoadEndpoint();
-
     @Nullable Session getSession();
 
     void setSession(@Nullable final Session session);

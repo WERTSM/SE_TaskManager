@@ -11,7 +11,6 @@ import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -79,6 +78,7 @@ public final class ProjectCreateCommand extends Command {
         project.setId(id);
 
         project.setDateCreate(Printer.printXMLDate(new Date()));
+
         project.setStatus(Status.PLANNED);
 
         @NotNull final String userId = session.getUserId();

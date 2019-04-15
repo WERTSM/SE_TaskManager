@@ -31,11 +31,11 @@ public final class Printer {
                     "[ ID = " + project.getId()
                             + "; Name = " + project.getName()
                             + "; Description = " + project.getDescription()
-                            //+ "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateStart()))
-                           // + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateFinish()))
+                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateStart()))
+                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateFinish()))
                             + "; Status = " + status.value()
                             + "; Name user = " + user.getLogin()
-                           // + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateCreate()))
+                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateCreate()))
                             + " ]");
         }
     }
@@ -46,12 +46,12 @@ public final class Printer {
                     "[ ID = " + task.getId()
                             + "; Name = " + task.getName()
                             + "; Description = " + task.getDescription()
-                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(task.getDateStart())
-                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(task.getDateFinish())
+                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateStart()))
+                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateFinish()))
                             + "; id Project= " + task.getIdProject()
                             + "; Status = " + task.getStatus().value()
                             + "; Name user = " + user.getLogin()
-                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(task.getDateCreate())
+                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateCreate()))
                             + " ]");
         }
     }
@@ -112,9 +112,9 @@ public final class Printer {
         @NotNull final String build = properties.getProperty("application.build");
 
         System.out.println("Вывод информации из application.properties: "
-                + "\nApplication login: " + name
-                + "\nApplication version: " + version
-                + "\nApplication build: " + build);
+                + "\nApplicationClient login: " + name
+                + "\nApplicationClient version: " + version
+                + "\nApplicationClient build: " + build);
     }
 
     public static void showManifest() {

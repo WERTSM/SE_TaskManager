@@ -1,6 +1,5 @@
 package ru.khmelev.tm.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.repository.ISessionRepository;
@@ -23,7 +22,7 @@ public class SessionService extends AbstractIdentifiableService<Session> impleme
     }
 
     public void setSession(@NotNull final Session session) {
-        createEntity(session.getUserId(), session);
+        createEntity(session.getId(), session);
     }
 
     public void removeSession(@NotNull final Session session) {
@@ -46,10 +45,5 @@ public class SessionService extends AbstractIdentifiableService<Session> impleme
     @NotNull
     public String getName(@NotNull final User user) {
         return user.getLogin();
-    }
-
-    @Override
-    protected TypeReference getTypeReference() {
-        throw new ServiceException();
     }
 }

@@ -6,7 +6,7 @@ import ru.khmelev.tm.entity.Identifiable;
 import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
 
-public interface IService<T extends Identifiable> extends ISerializationService<T> {
+public interface IService<T extends Identifiable> {
 
     void createEntity(@NotNull final String id, @NotNull final T entity);
 

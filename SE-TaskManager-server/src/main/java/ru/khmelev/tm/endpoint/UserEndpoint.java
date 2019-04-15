@@ -27,14 +27,9 @@ public final class UserEndpoint implements IUserEndpoint {
     @NotNull
     private IUserService userService;
 
-    @NotNull
-    private ServiceLocator serviceLocator;
-
-
-    public UserEndpoint(@NotNull final ISessionService sessionService, @NotNull final IUserService userService, @NotNull final ServiceLocator serviceLocator) {
+    public UserEndpoint(@NotNull final ISessionService sessionService, @NotNull final IUserService userService) {
         this.sessionService = sessionService;
         this.userService = userService;
-        this.serviceLocator = serviceLocator;
     }
 
     @Override

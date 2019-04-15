@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public enum Role {
 
-    ADMIN("Админ"), USER("Пользователь");
+    ADMIN("ADMIN"), USER("USER");
 
     String displayName;
 

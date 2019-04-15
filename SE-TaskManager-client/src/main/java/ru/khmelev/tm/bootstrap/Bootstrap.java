@@ -29,7 +29,6 @@ public final class Bootstrap implements ServiceLocator {
     @Nullable
     private Session session;
 
-
     @Getter
     @NotNull
     private final ProjectEndpointService projectEndpointService = new ProjectEndpointService();
@@ -41,9 +40,6 @@ public final class Bootstrap implements ServiceLocator {
     private final UserEndpointService userEndpointService = new UserEndpointService();
     @Getter
     @NotNull
-    private final SaveAndLoadEndpointService saveAndLoadEndpointService = new SaveAndLoadEndpointService();
-    @Getter
-    @NotNull
     private final IProjectEndpoint projectEndpoint = projectEndpointService.getProjectEndpointPort();
     @Getter
     @NotNull
@@ -53,15 +49,10 @@ public final class Bootstrap implements ServiceLocator {
     private final IUserEndpoint userEndpoint = userEndpointService.getUserEndpointPort();
     @Getter
     @NotNull
-    private final ISaveAndLoadEndpoint saveAndLoadEndpoint = saveAndLoadEndpointService.getSaveAndLoadEndpointPort();
-    @Getter
-    @NotNull
     private final ITerminalService terminalService = new TerminalService();
 
     public void init(Class[] commandClassArray) throws Exception {
         registrationCommands(commandClassArray);
-
-        defaultCommands();
         startCommands();
     }
 
@@ -84,27 +75,6 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private void defaultCommands() {
-        @NotNull User user = new User();
-        user.setLogin("user");
-        user.setHashPassword(PasswordHashUtil.md5("user"));
-        user.setRole(Role.USER);
-        //@NotNull String id = UUID.randomUUID().toString();
-        @NotNull String id = "11111111-1111-1111-1111-111111111111";
-        user.setId(id);
-        userEndpoint.createUser(id, user);
-        Session session = userEndpoint.userLogin("user", "user");
-        setSession(session);
-
-        user = new User();
-        user.setLogin("admin");
-        user.setHashPassword(PasswordHashUtil.md5("admin"));
-        user.setRole(Role.ADMIN);
-        id = UUID.randomUUID().toString();
-        user.setId(id);
-        userEndpoint.createUser(id, user);
-    }
-
     private void registrationCommands(@NotNull final Class[] commandClassArray) throws IllegalAccessException, InstantiationException {
         for (Class classCommand : commandClassArray) {
             if (classCommand.getSuperclass().equals(Command.class)) {
@@ -117,10 +87,17 @@ public final class Bootstrap implements ServiceLocator {
 
     private boolean permitCommand(@NotNull final Command commandString) {
 
-        if (commandString.isSecurity() && session == null) {
+        if (!commandString.isSecurity()) {
+            return true;
+        }
+
+
+        if (session == null) {
             System.out.println("Сначала зарегистрируйтесь");
             return false;
         }
+
+
 
         //if (session == null) {
 

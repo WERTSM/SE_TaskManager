@@ -5,26 +5,21 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.entity.FieldConst;
+import ru.khmelev.tm.entity.Status;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.RepositoryException;
+import ru.khmelev.tm.service.util.ConnectionJDBC;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TaskRepository extends EntityRepository<Task> implements ITaskRepository {
+public class TaskRepository implements ITaskRepository {
     private Connection connection;
 
     private Connection getConnection() {
-        {
-            try {
-                return DriverManager.getConnection("jdbc:mysql://localhost:3306/tm", "root", "root");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        throw new RepositoryException();
+        return ConnectionJDBC.getConnection();
     }
 
     @NotNull
@@ -37,6 +32,10 @@ public class TaskRepository extends EntityRepository<Task> implements ITaskRepos
         task.setDescription(row.getString(FieldConst.DESCRIPTION));
         task.setDateStart(row.getDate(FieldConst.DATE_START));
         task.setDateFinish(row.getDate(FieldConst.DATE_FINISH));
+        task.setDateCreate(row.getDate(FieldConst.DATE_CREATE));
+        task.setStatus(Status.valueOf(row.getString(FieldConst.STATUS)));
+        task.setIdProject(row.getString(FieldConst.PROJECT_ID));
+        task.setUserId(row.getString(FieldConst.USER_ID));
         return task;
     }
 

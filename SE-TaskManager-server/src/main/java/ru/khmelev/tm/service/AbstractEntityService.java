@@ -6,19 +6,17 @@ import ru.khmelev.tm.api.repository.IEntityRepository;
 import ru.khmelev.tm.entity.Entity;
 import ru.khmelev.tm.exception.ServiceException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractEntityService<T extends Entity> extends AbstractSerializationService<T> {
+public abstract class AbstractEntityService<T extends Entity> {
 
     @NotNull
     private final IEntityRepository<T> entityRepository;
 
     AbstractEntityService(@NotNull final IEntityRepository<T> entityRepository) {
-        super(entityRepository);
         this.entityRepository = entityRepository;
     }
 

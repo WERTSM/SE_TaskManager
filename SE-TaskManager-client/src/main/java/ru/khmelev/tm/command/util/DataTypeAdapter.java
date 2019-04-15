@@ -1,11 +1,12 @@
 package ru.khmelev.tm.command.util;
 
+import javax.xml.bind.DatatypeConverter;
 import java.util.Calendar;
 import java.util.Date;
-import javax.xml.bind.DatatypeConverter;
 
 public final class DataTypeAdapter {
-    private DataTypeAdapter() { }
+    private DataTypeAdapter() {
+    }
 
     public static Date parseDate(String s) {
         if (s == null) {

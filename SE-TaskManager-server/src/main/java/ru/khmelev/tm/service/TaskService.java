@@ -4,14 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.service.IEntityService;
-import ru.khmelev.tm.api.service.ISerializationService;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Task;
 
 import java.util.Collection;
 import java.util.List;
 
-public final class TaskService extends AbstractEntityService<Task> implements IEntityService<Task>, ISerializationService<Task>, ITaskService {
+public final class TaskService extends AbstractEntityService<Task> implements IEntityService<Task>, ITaskService {
     @NotNull
     private final ITaskRepository taskRepository;
 

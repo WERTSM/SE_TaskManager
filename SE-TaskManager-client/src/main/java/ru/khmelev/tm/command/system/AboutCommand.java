@@ -16,7 +16,7 @@ public class AboutCommand extends Command {
 
     @Override
     public String getDescriptionCommand() {
-        return "Application Information";
+        return "ApplicationClient Information";
     }
 
     @Override

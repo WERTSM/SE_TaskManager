@@ -5,27 +5,22 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.entity.FieldConst;
+import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.RepositoryException;
+import ru.khmelev.tm.service.util.ConnectionJDBC;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public final class UserRepository extends IdentifiableRepository<User> implements IUserRepository {
+public final class UserRepository implements IUserRepository {
 
     private Connection connection;
 
     private Connection getConnection() {
-        {
-            try {
-                return DriverManager.getConnection("jdbc:mysql://localhost:3306/tm", "root", "root");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        throw new RepositoryException();
+        return ConnectionJDBC.getConnection();
     }
 
     @NotNull
@@ -36,6 +31,7 @@ public final class UserRepository extends IdentifiableRepository<User> implement
         user.setId(row.getString(FieldConst.ID));
         user.setLogin(row.getString(FieldConst.LOGIN));
         user.setHashPassword(row.getString(FieldConst.HASH_PASSWORD));
+        user.setRole(Role.valueOf(row.getString(FieldConst.ROLE)));
         return user;
     }
 
@@ -47,8 +43,8 @@ public final class UserRepository extends IdentifiableRepository<User> implement
                 "id, " +
                 "login, " +
                 "hashPassword, " +
-                "role, " +
-                "VALUES (?, ?, ?, ?, ?);";
+                "role) " +
+                "VALUES (?, ?, ?, ?);";
         try {
             @NotNull final PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, id);
@@ -133,12 +129,10 @@ public final class UserRepository extends IdentifiableRepository<User> implement
     public void merge(@NotNull final String id, @NotNull final User user) {
         connection = getConnection();
 
-        @Nullable ResultSet resultSet = null;
-
-        @NotNull final String query = "UPDATE tm.project SET " +
-                "login, " +
-                "hashPassword, " +
-                "role, " +
+        @NotNull final String query = "UPDATE tm.user SET " +
+                "login = ?, " +
+                "hashPassword = ?, " +
+                "role = ? " +
                 "WHERE id = ?;";
         try {
             @NotNull final PreparedStatement statement = connection.prepareStatement(query);
@@ -163,7 +157,7 @@ public final class UserRepository extends IdentifiableRepository<User> implement
     public void remove(@NotNull final String id) {
         connection = getConnection();
 
-        @NotNull final String query = "DELETE FROM tm.project WHERE id = ?;";
+        @NotNull final String query = "DELETE FROM tm.user WHERE id = ?;";
         try {
             @NotNull final PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, id);
@@ -182,22 +176,6 @@ public final class UserRepository extends IdentifiableRepository<User> implement
 
     @Override
     public void removeAll() {
-        connection = getConnection();
-
-        @NotNull final String query = "DELETE FROM tm.user;";
-
-        try {
-            @NotNull final PreparedStatement statement = connection.prepareStatement(query);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RepositoryException();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        throw new RepositoryException();
     }
 }

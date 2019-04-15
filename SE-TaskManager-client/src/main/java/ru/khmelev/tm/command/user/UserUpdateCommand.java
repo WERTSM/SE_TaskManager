@@ -7,8 +7,10 @@ import ru.khmelev.tm.api.endpoint.Session;
 import ru.khmelev.tm.api.endpoint.User;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
+import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public final class UserUpdateCommand extends Command {
 
@@ -48,12 +50,17 @@ public final class UserUpdateCommand extends Command {
 
         System.out.println("Измените логин текущего пользователя");
         String login = serviceLocator.getTerminalService().readLine();
+        user.setLogin(login);
 
         System.out.println("Измените пароль текущего пользователя");
         String password = serviceLocator.getTerminalService().readLine();
+        if (password.isEmpty()) {
+            return;
+        }
+        @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5(password));
+        user.setHashPassword(hashPassword);
 
-        serviceLocator.getUserEndpoint().userSetPassword(session, userName, password);
-        user.setLogin(login);
+        serviceLocator.getUserEndpoint().editUser(session, user.getId(), user);
 
         System.out.println("!!!DONE!!!");
     }
