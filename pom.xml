@@ -157,7 +157,7 @@
         <connection>scm:git:https://github.com/WERTSM/SE_TaskManager.git</connection>
     </scm>
     <modules>
-        <module>SE-TaskManager-Server</module>
-        <module>SE-TaskManager-Client</module>
+        <module>taskmanager-server</module>
+        <module>taskmanager-client</module>
     </modules>
 </project>
