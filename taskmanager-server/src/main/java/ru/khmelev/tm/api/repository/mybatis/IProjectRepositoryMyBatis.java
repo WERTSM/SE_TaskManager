@@ -1,9 +1,6 @@
 package ru.khmelev.tm.api.repository.mybatis;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Project;
 
@@ -11,7 +8,20 @@ import java.util.Collection;
 
 public interface IProjectRepositoryMyBatis {
 
-    void persist(@NotNull final String id, @NotNull final Project project);
+    @Insert("INSERT INTO tm.project (" +
+            "id, " +
+            "name, " +
+            "description, " +
+            "dateStart, " +
+            "dateFinish, " +
+            "dateCreate ," +
+            "status ," +
+            "userId) " +
+            "VALUES (#{project.id}, #{project.name}, #{project.description}, #{project.dateStart}, #{project.dateFinish}, #{project.dateCreate}, #{project.status}, #{project.userId});")
+    void persist(
+            @Param("id") @NotNull final String id,
+            @Param("project") @NotNull final Project project
+    );
 
     @NotNull
     @Select("SELECT * FROM tm.project WHERE id = #{id} AND userId = #{userId}")
@@ -19,7 +29,6 @@ public interface IProjectRepositoryMyBatis {
             @Param("id") @NotNull final String id,
             @Param("userId") @NotNull final String userId
     );
-
 
     @NotNull
     @Select("SELECT * FROM tm.project WHERE userId = #{userId}")

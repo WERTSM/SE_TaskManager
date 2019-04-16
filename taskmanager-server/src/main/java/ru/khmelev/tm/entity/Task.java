@@ -22,7 +22,7 @@ public final class Task extends Entity implements Serializable {
 
     private Date dateFinish;
 
-    private String idProject;
+    private String projectId;
 
     private Status status;
 

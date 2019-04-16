@@ -21,7 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="dateCreate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateFinish" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateStart" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
- *         &lt;element name="idProject" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://endpoint.api.tm.khmelev.ru/}status" minOccurs="0"/&gt;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -37,7 +37,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "dateCreate",
     "dateFinish",
     "dateStart",
-    "idProject",
+    "projectId",
     "status",
     "userId"
 })
@@ -129,7 +129,7 @@ public class Task
     }
 
     /**
-     * Gets the value of the idProject property.
+     * Gets the value of the projectId property.
      * 
      * @return
      *     possible object is
@@ -141,7 +141,7 @@ public class Task
     }
 
     /**
-     * Sets the value of the idProject property.
+     * Sets the value of the projectId property.
      * 
      * @param value
      *     allowed object is

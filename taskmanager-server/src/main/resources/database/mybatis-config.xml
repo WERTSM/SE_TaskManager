@@ -17,7 +17,7 @@
     </environments>
     <mappers>
         <mapper class="ru.khmelev.tm.api.repository.mybatis.IProjectRepositoryMyBatis"/>
-        <!--<mapper class="ru.volnenko.tm.repository.ProjectRepository"/>-->
+        <mapper class="ru.khmelev.tm.api.repository.mybatis.ITaskRepositoryMyBatis"/>
         <!--<mapper class="ru.volnenko.tm.repository.TaskRepository"/>-->
         <!--<mapper class="ru.volnenko.tm.repository.ProjectRepository"/>-->
     </mappers>

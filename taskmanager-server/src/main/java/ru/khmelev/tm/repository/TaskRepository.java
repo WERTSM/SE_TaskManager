@@ -33,7 +33,7 @@ public class TaskRepository implements ITaskRepository {
         task.setDateFinish(row.getDate(FieldConst.DATE_FINISH));
         task.setDateCreate(row.getDate(FieldConst.DATE_CREATE));
         task.setStatus(Status.valueOf(row.getString(FieldConst.STATUS)));
-        task.setIdProject(row.getString(FieldConst.PROJECT_ID));
+        task.setProjectId(row.getString(FieldConst.PROJECT_ID));
         task.setUserId(row.getString(FieldConst.USER_ID));
         return task;
     }
@@ -61,7 +61,7 @@ public class TaskRepository implements ITaskRepository {
         statement.setDate(5, new Date(task.getDateFinish().getTime()));
         statement.setDate(6, new Date(task.getDateCreate().getTime()));
         statement.setString(7, task.getStatus().getDisplayName());
-        statement.setString(8, task.getIdProject());
+        statement.setString(8, task.getProjectId());
         statement.setString(9, task.getUserId());
         statement.executeUpdate();
     }
@@ -130,7 +130,7 @@ public class TaskRepository implements ITaskRepository {
         statement.setDate(4, new Date(task.getDateFinish().getTime()));
         statement.setDate(5, new Date(task.getDateCreate().getTime()));
         statement.setString(6, task.getStatus().getDisplayName());
-        statement.setString(7, task.getIdProject());
+        statement.setString(7, task.getProjectId());
         statement.setString(8, id);
         statement.setString(9, userId);
         statement.executeUpdate();

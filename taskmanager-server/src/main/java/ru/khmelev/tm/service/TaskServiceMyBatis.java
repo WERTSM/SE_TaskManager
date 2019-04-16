@@ -3,9 +3,8 @@ package ru.khmelev.tm.service;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.repository.mybatis.IProjectRepositoryMyBatis;
 import ru.khmelev.tm.api.repository.mybatis.ITaskRepositoryMyBatis;
-import ru.khmelev.tm.entity.Project;
+import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.service.util.MyBatisConfig;
 
@@ -14,20 +13,20 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class ProjectServiceMyBatis {
+public class TaskServiceMyBatis {
 
     @NotNull
     private final SqlSessionFactory sqlSessionFactory;
 
-    public ProjectServiceMyBatis() {
+    public TaskServiceMyBatis() {
         this.sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
     }
 
-    public void createEntity(@NotNull final String id, @NotNull final Project project) {
+    public void createEntity(@NotNull final String id, @NotNull final Task task) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            projectRepositoryMyBatis.persist(id, project);
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            taskRepositoryMyBatis.persist(id, task);
             sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
@@ -37,49 +36,49 @@ public class ProjectServiceMyBatis {
         }
     }
 
-    public Project findEntity(@NotNull final String id, @NotNull final String userId) {
+    public Task findEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            return projectRepositoryMyBatis.findOne(id, userId);
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            return taskRepositoryMyBatis.findOne(id, userId);
         } catch (Exception e) {
             throw new ServiceException(e);
         }
     }
 
     @NotNull
-    public Collection<Project> findAll(@NotNull final String userId) {
+    public Collection<Task> findAll(@NotNull final String userId) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            return projectRepositoryMyBatis.findAll(userId);
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            return taskRepositoryMyBatis.findAll(userId);
         } catch (Exception e) {
             throw new ServiceException(e);
         }
     }
 
-    public void editEntity(@NotNull final String id, @NotNull Project project, @NotNull final String userId) {
+    public void editEntity(@NotNull final String id, @NotNull Task task, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            projectRepositoryMyBatis.merge(id, project, userId);
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            taskRepositoryMyBatis.merge(id, task, userId);
             sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
-            throw new ServiceException(e);
+            throw new ServiceException();
         } finally {
             sqlSession.close();
         }
     }
 
     @NotNull
-    public Collection<Project> findAllName(@NotNull final String findParameter, @NotNull final String userId) {
+    public Collection<Task> findAllName(@NotNull final String findParameter, @NotNull final String userId) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            @NotNull final List<Project> list = new ArrayList<>(projectRepositoryMyBatis.findAll(userId));
-            final Iterator<Project> iterator = list.iterator();
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            @NotNull final List<Task> list = new ArrayList<>(taskRepositoryMyBatis.findAll(userId));
+            final Iterator<Task> iterator = list.iterator();
             while (iterator.hasNext()) {
                 if (!iterator.next().getName().contains(findParameter)) {
                     iterator.remove();
@@ -92,11 +91,11 @@ public class ProjectServiceMyBatis {
     }
 
     @NotNull
-    public Collection<Project> findAllDescription(@NotNull final String findParameter, @NotNull final String userId) {
+    public Collection<Task> findAllDescription(@NotNull final String findParameter, @NotNull final String userId) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            @NotNull final List<Project> list = new ArrayList<>(projectRepositoryMyBatis.findAll(userId));
-            final Iterator<Project> iterator = list.iterator();
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            @NotNull final List<Task> list = new ArrayList<>(taskRepositoryMyBatis.findAll(userId));
+            final Iterator<Task> iterator = list.iterator();
             while (iterator.hasNext()) {
                 if (!iterator.next().getDescription().contains(findParameter)) {
                     iterator.remove();
@@ -113,10 +112,8 @@ public class ProjectServiceMyBatis {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
             ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
-            taskRepositoryMyBatis.removeAllTaskFromProject(id, userId);
-            projectRepositoryMyBatis.remove(id, userId);
+            taskRepositoryMyBatis.remove(id, userId);
             sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
@@ -131,14 +128,41 @@ public class ProjectServiceMyBatis {
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            IProjectRepositoryMyBatis projectRepositoryMyBatis = sqlSession.getMapper(IProjectRepositoryMyBatis.class);
-            projectRepositoryMyBatis.removeAll(userId);
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            taskRepositoryMyBatis.removeAll(userId);
             sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
             throw new ServiceException(e);
         } finally {
             sqlSession.close();
+        }
+    }
+
+    public void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId) {
+        if (idProject.isEmpty() || userId.isEmpty()) throw new ServiceException();
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            taskRepositoryMyBatis.removeAllTaskFromProject(idProject, userId);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public Collection<Task> listTaskFromProject(@NotNull String idProject, @NotNull String userId) {
+        if (idProject.isEmpty() || userId.isEmpty()) throw new ServiceException();
+
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            ITaskRepositoryMyBatis taskRepositoryMyBatis = sqlSession.getMapper(ITaskRepositoryMyBatis.class);
+            return taskRepositoryMyBatis.listTaskFromProject(idProject, userId);
+        } catch (Exception e) {
+            throw new ServiceException(e);
         }
     }
 }

@@ -96,7 +96,7 @@ public final class TaskEndpoint implements ITaskEndpoint {
     @Override
     public Collection<Task> listTaskFromProject(
             @WebParam(name = "session") @NotNull final Session session,
-            @WebParam(name = "idProject") @NotNull final String idProject
+            @WebParam(name = "projectId") @NotNull final String idProject
     ) {
         sessionService.checkSession(session);
         return taskService.listTaskFromProject(idProject, session.getUserId());
@@ -105,7 +105,7 @@ public final class TaskEndpoint implements ITaskEndpoint {
     @Override
     public void removeAllTaskFromProject(
             @WebParam(name = "session") @NotNull final Session session,
-            @WebParam(name = "idProject") @NotNull final String idProject
+            @WebParam(name = "projectId") @NotNull final String idProject
     ) {
         sessionService.checkSession(session);
         taskService.removeAllTaskFromProject(idProject, session.getUserId());
