@@ -18,7 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://endpoint.api.tm.khmelev.ru/}identifiable"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="createDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="dateCreate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -31,7 +31,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "session", propOrder = {
-    "createDate",
+    "dateCreate",
     "signature",
     "userId"
 })
@@ -40,32 +40,32 @@ public class Session
 {
 
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar createDate;
+    protected XMLGregorianCalendar dateCreate;
     protected String signature;
     protected String userId;
 
     /**
-     * Gets the value of the createDate property.
+     * Gets the value of the dateCreate property.
      * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getCreateDate() {
-        return createDate;
+    public XMLGregorianCalendar getDateCreate() {
+        return dateCreate;
     }
 
     /**
-     * Sets the value of the createDate property.
+     * Sets the value of the dateCreate property.
      * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setCreateDate(XMLGregorianCalendar value) {
-        this.createDate = value;
+    public void setDateCreate(XMLGregorianCalendar value) {
+        this.dateCreate = value;
     }
 
     /**

@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
-import ru.khmelev.tm.bootstrap.ServiceLocator;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
@@ -73,12 +72,6 @@ public final class UserEndpoint implements IUserEndpoint {
     ) {
         sessionService.checkSession(session);
         userService.removeEntity(id);
-    }
-
-    @Override
-    public void clearUser(@WebParam(name = "session") @NotNull final Session session) {
-        sessionService.checkSession(session);
-        userService.clearEntity();
     }
 
     @Override

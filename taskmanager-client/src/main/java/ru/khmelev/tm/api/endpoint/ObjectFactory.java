@@ -24,8 +24,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _ClearUser_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "clearUser");
-    private final static QName _ClearUserResponse_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "clearUserResponse");
     private final static QName _CreateUser_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "createUser");
     private final static QName _CreateUserResponse_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "createUserResponse");
     private final static QName _EditUser_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "editUser");
@@ -54,22 +52,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link ClearUser }
-     * 
-     */
-    public ClearUser createClearUser() {
-        return new ClearUser();
-    }
-
-    /**
-     * Create an instance of {@link ClearUserResponse }
-     * 
-     */
-    public ClearUserResponse createClearUserResponse() {
-        return new ClearUserResponse();
     }
 
     /**
@@ -262,24 +244,6 @@ public class ObjectFactory {
      */
     public User createUser() {
         return new User();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ClearUser }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.khmelev.ru/", name = "clearUser")
-    public JAXBElement<ClearUser> createClearUser(ClearUser value) {
-        return new JAXBElement<ClearUser>(_ClearUser_QNAME, ClearUser.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ClearUserResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.khmelev.ru/", name = "clearUserResponse")
-    public JAXBElement<ClearUserResponse> createClearUserResponse(ClearUserResponse value) {
-        return new JAXBElement<ClearUserResponse>(_ClearUserResponse_QNAME, ClearUserResponse.class, null, value);
     }
 
     /**

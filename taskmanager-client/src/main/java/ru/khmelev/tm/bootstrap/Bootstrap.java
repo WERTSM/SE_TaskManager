@@ -7,28 +7,20 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.endpoint.*;
-import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
+import ru.khmelev.tm.endpoint.ProjectEndpointService;
+import ru.khmelev.tm.endpoint.TaskEndpointService;
+import ru.khmelev.tm.endpoint.UserEndpointService;
 import ru.khmelev.tm.service.TerminalService;
 
-import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
-import java.lang.Exception;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.UUID;
 
 public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
     private final SortedMap<String, Command> commandMap = new TreeMap<>();
-
-    @Setter
-    @Getter
-    @Nullable
-    private Session session;
-
     @Getter
     @NotNull
     private final ProjectEndpointService projectEndpointService = new ProjectEndpointService();
@@ -50,6 +42,10 @@ public final class Bootstrap implements ServiceLocator {
     @Getter
     @NotNull
     private final ITerminalService terminalService = new TerminalService();
+    @Setter
+    @Getter
+    @Nullable
+    private Session session;
 
     public void init(Class[] commandClassArray) throws Exception {
         registrationCommands(commandClassArray);
@@ -96,7 +92,6 @@ public final class Bootstrap implements ServiceLocator {
             System.out.println("Сначала зарегистрируйтесь");
             return false;
         }
-
 
 
         //if (session == null) {

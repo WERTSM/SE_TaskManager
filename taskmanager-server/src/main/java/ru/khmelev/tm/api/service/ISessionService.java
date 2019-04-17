@@ -5,6 +5,8 @@ import ru.khmelev.tm.entity.Session;
 
 public interface ISessionService extends IService<Session> {
 
+    void clearEntity();
+
     void setSession(@NotNull final Session session);
 
     void removeSession(@NotNull final Session session);

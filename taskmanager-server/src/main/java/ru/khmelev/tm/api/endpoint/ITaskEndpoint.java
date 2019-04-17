@@ -35,7 +35,7 @@ public interface ITaskEndpoint {
     @WebMethod
     void clearTask(@NotNull final Session session);
 
-    Collection<Task> listTaskFromProject(@NotNull Session session, @NotNull String idProject);
+    Collection<Task> listTaskFromProject(@NotNull Session session, @NotNull String projectId);
 
-    void removeAllTaskFromProject(@NotNull Session session, @NotNull String idProject);
+    void removeAllTaskFromProject(@NotNull Session session, @NotNull String projectId);
 }

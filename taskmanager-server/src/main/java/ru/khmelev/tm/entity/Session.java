@@ -17,12 +17,12 @@ public class Session extends Identifiable {
     @NotNull
     private String signature;
     @NotNull
-    private Date createDate;
+    private Date dateCreate;
 
     public Session() {
         this.id = "";
         this.signature = "";
         this.userId = "";
-        this.createDate = new Date();
+        this.dateCreate = new Date();
     }
 }

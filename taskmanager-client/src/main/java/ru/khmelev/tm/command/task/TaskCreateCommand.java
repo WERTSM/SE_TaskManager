@@ -86,11 +86,11 @@ public final class TaskCreateCommand extends Command {
         task.setUserId(userId);
 
         System.out.println("Id project or \'0\': ");
-        @NotNull String idProject = terminalService.readLine();
-        if (idProject.equals("0")) {
-            idProject = "00000000-0000-0000-0000-000000000000";
+        @NotNull String projectId = terminalService.readLine();
+        if (projectId.equals("0")) {
+            projectId = "00000000-0000-0000-0000-000000000000";
         }
-        task.setIdProject(idProject);
+        task.setProjectId(projectId);
 
         serviceLocator.getTaskEndpoint().createTask(session, id, task);
         System.out.println("!!!DONE!!!");

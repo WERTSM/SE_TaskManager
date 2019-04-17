@@ -51,7 +51,7 @@ public class Task
     protected XMLGregorianCalendar dateFinish;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateStart;
-    protected String idProject;
+    protected String projectId;
     @XmlSchemaType(name = "string")
     protected Status status;
     protected String userId;
@@ -136,8 +136,8 @@ public class Task
      *     {@link String }
      *     
      */
-    public String getIdProject() {
-        return idProject;
+    public String getProjectId() {
+        return projectId;
     }
 
     /**
@@ -148,8 +148,8 @@ public class Task
      *     {@link String }
      *     
      */
-    public void setIdProject(String value) {
-        this.idProject = value;
+    public void setProjectId(String value) {
+        this.projectId = value;
     }
 
     /**

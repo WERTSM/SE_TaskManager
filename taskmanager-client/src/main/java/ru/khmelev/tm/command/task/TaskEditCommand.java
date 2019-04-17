@@ -83,11 +83,11 @@ public final class TaskEditCommand extends Command {
         task.setDateFinish(Printer.printXMLDate(dateFinish));
 
         System.out.println("Id project or \'0\': ");
-        @NotNull String idProject = terminalService.readLine();
-        if (idProject.equals("0")) {
-            idProject = "00000000-0000-0000-0000-000000000000";
+        @NotNull String projectId = terminalService.readLine();
+        if (projectId.equals("0")) {
+            projectId = "00000000-0000-0000-0000-000000000000";
         }
-        task.setIdProject(idProject);
+        task.setProjectId(projectId);
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
         @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());

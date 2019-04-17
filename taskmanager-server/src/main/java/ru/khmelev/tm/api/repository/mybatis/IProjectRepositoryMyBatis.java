@@ -17,7 +17,7 @@ public interface IProjectRepositoryMyBatis {
             "dateCreate ," +
             "status ," +
             "userId) " +
-            "VALUES (#{project.id}, #{project.name}, #{project.description}, #{project.dateStart}, #{project.dateFinish}, #{project.dateCreate}, #{project.status}, #{project.userId});")
+            "VALUES (#{id}, #{project.name}, #{project.description}, #{project.dateStart}, #{project.dateFinish}, #{project.dateCreate}, #{project.status}, #{project.userId});")
     void persist(
             @Param("id") @NotNull final String id,
             @Param("project") @NotNull final Project project

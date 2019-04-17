@@ -96,18 +96,18 @@ public final class TaskEndpoint implements ITaskEndpoint {
     @Override
     public Collection<Task> listTaskFromProject(
             @WebParam(name = "session") @NotNull final Session session,
-            @WebParam(name = "projectId") @NotNull final String idProject
+            @WebParam(name = "projectId") @NotNull final String projectId
     ) {
         sessionService.checkSession(session);
-        return taskService.listTaskFromProject(idProject, session.getUserId());
+        return taskService.listTaskFromProject(projectId, session.getUserId());
     }
 
     @Override
     public void removeAllTaskFromProject(
             @WebParam(name = "session") @NotNull final Session session,
-            @WebParam(name = "projectId") @NotNull final String idProject
+            @WebParam(name = "projectId") @NotNull final String projectId
     ) {
         sessionService.checkSession(session);
-        taskService.removeAllTaskFromProject(idProject, session.getUserId());
+        taskService.removeAllTaskFromProject(projectId, session.getUserId());
     }
 }

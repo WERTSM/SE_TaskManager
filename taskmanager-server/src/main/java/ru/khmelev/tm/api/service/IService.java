@@ -3,7 +3,6 @@ package ru.khmelev.tm.api.service;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Identifiable;
 
-import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
 
 public interface IService<T extends Identifiable> {
@@ -17,6 +16,4 @@ public interface IService<T extends Identifiable> {
     void editEntity(@NotNull final String id, @NotNull final T entity);
 
     void removeEntity(@NotNull final String id);
-
-    void clearEntity();
 }

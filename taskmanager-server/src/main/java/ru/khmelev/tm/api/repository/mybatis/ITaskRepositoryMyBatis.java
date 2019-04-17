@@ -79,11 +79,11 @@ public interface ITaskRepositoryMyBatis {
 
     @Delete("DELETE FROM tm.task WHERE projectId = #{projectId} AND userId = #{userId};")
     void removeAllTaskFromProject(
-            @Param("projectId") @NotNull final String idProject,
+            @Param("projectId") @NotNull final String projectId,
             @Param("userId") @NotNull final String userId);
 
     @Select("SELECT * FROM tm.task WHERE projectId = #{projectId} AND userId = #{userId};")
     Collection<Task> listTaskFromProject(
-            @Param("projectId") String idProject,
+            @Param("projectId") String projectId,
             @Param("userId") String userId);
 }

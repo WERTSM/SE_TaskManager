@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public interface ITaskService extends IEntityService<Task> {
 
-    void removeAllTaskFromProject(@NotNull final String idProject, @NotNull final String userId);
+    void removeAllTaskFromProject(@NotNull final String projectId, @NotNull final String userId);
 
-    Collection<Task> listTaskFromProject(@NotNull final String idProject, @NotNull final String userId);
+    Collection<Task> listTaskFromProject(@NotNull final String projectId, @NotNull final String userId);
 }

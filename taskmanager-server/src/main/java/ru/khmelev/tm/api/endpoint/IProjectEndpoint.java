@@ -36,6 +36,5 @@ public interface IProjectEndpoint {
     void clearProject(@NotNull final Session session);
 
 
-
 }
 

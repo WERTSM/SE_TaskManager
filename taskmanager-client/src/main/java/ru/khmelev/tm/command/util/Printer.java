@@ -48,7 +48,7 @@ public final class Printer {
                             + "; Description = " + task.getDescription()
                             + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateStart()))
                             + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateFinish()))
-                            + "; id Project= " + task.getIdProject()
+                            + "; id Project= " + task.getProjectId()
                             + "; Status = " + task.getStatus().value()
                             + "; Name user = " + user.getLogin()
                             + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateCreate()))

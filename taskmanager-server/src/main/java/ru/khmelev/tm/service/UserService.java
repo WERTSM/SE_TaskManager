@@ -1,26 +1,98 @@
 package ru.khmelev.tm.service;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.repository.IUserRepository;
-import ru.khmelev.tm.api.service.IService;
+import ru.khmelev.tm.api.repository.mybatis.IUserRepositoryMyBatis;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.service.util.ConnectionJDBC;
+import ru.khmelev.tm.service.util.MyBatisConfig;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Objects;
 
-public final class UserService extends AbstractIdentifiableService<User> implements IService<User>, IUserService {
+public class UserService implements IUserService {
 
     @NotNull
-    private final IUserRepository userRepository;
+    private final SqlSessionFactory sqlSessionFactory;
 
-    public UserService(@NotNull final IUserRepository userRepository) {
-        super(userRepository);
-        this.userRepository = userRepository;
+    public UserService() {
+        this.sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
+    }
+
+    @Override
+    public void createEntity(@NotNull final String id, @NotNull final User user) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
+            userRepositoryMyBatis.persist(id, user);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @NotNull
+    @Override
+    public User findEntity(@NotNull final String id) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
+            return userRepositoryMyBatis.findOne(id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @NotNull
+    @Override
+    public Collection<User> findAll() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
+            return userRepositoryMyBatis.findAll();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void editEntity(@NotNull final String id, @NotNull User user) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
+            userRepositoryMyBatis.merge(id, user);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void removeEntity(@NotNull final String id) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
+            userRepositoryMyBatis.remove(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
     }
 
     @NotNull
@@ -37,30 +109,21 @@ public final class UserService extends AbstractIdentifiableService<User> impleme
 
     @Override
     public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
-        if (!login.isEmpty() && !pass.isEmpty()) {
-            for (User user : userRepository.findAll()) {
-                if (user.getLogin().equals(login)) {
-                    @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));
-                    user.setHashPassword(password);
-                    try (Connection connection = ConnectionJDBC.getConnection()) {
-                        userRepository.setConnection(connection);
-                        userRepository.merge(user.getId(), user);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
+        if (login.isEmpty() || pass.isEmpty()) throw new ServiceException();
+
+        Collection<User> users = findAll();
+        for (User user : users) {
+            if (user.getLogin().equals(login)) {
+                @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));
+                user.setHashPassword(password);
+                editEntity(user.getId(), user);
             }
         }
     }
 
+    @NotNull
     @Override
     public User getUserFromSession(@NotNull final String userId) {
-        try (Connection connection = ConnectionJDBC.getConnection()) {
-            userRepository.setConnection(connection);
-            return userRepository.findOne(userId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new ServiceException();
+        return findEntity(userId);
     }
 }

@@ -1,58 +1,129 @@
 package ru.khmelev.tm.service;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.repository.ISessionRepository;
-import ru.khmelev.tm.api.service.IService;
+import ru.khmelev.tm.api.repository.mybatis.ISessionRepositoryMyBatis;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.service.util.ConnectionJDBC;
+import ru.khmelev.tm.service.util.MyBatisConfig;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Objects;
 
-public class SessionService extends AbstractIdentifiableService<Session> implements IService<Session>, ISessionService {
+public class SessionService implements ISessionService {
 
     @NotNull
-    private final ISessionRepository sessionRepository;
+    private final SqlSessionFactory sqlSessionFactory;
 
-    private String password;
-
-    public SessionService(@NotNull final ISessionRepository sessionRepository) {
-        super(sessionRepository);
-        this.sessionRepository = sessionRepository;
+    public SessionService() {
+        this.sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
     }
 
-    public void setSession(@NotNull final Session session) {
-        createEntity(session.getId(), session);
-    }
-
-    public void removeSession(@NotNull final Session session) {
-        removeEntity(session.getUserId());
-    }
-
-    public void checkSession(@Nullable final Session session) {
-        try (Connection connection = ConnectionJDBC.getConnection()) {
-            sessionRepository.setConnection(connection);
-            assert session != null;
-            String signatureRepository = sessionRepository.findOne(session.getId()).getSignature();
-            if (!session.getSignature().equals(signatureRepository)) {
-                throw new ServiceException();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    @Override
+    public void createEntity(@NotNull final String id, @NotNull final Session session) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            ISessionRepositoryMyBatis sessionRepositoryMyBatis = sqlSession.getMapper(ISessionRepositoryMyBatis.class);
+            sessionRepositoryMyBatis.persist(id, session);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 
     @NotNull
-    public String getId(@NotNull final User user) {
-        return user.getId();
+    @Override
+    public Session findEntity(@NotNull final String id) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            ISessionRepositoryMyBatis sessionRepositoryMyBatis = sqlSession.getMapper(ISessionRepositoryMyBatis.class);
+            return sessionRepositoryMyBatis.findOne(id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
     }
 
     @NotNull
-    public String getName(@NotNull final User user) {
-        return user.getLogin();
+    @Override
+    public Collection<Session> findAll() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            ISessionRepositoryMyBatis sessionRepositoryMyBatis = sqlSession.getMapper(ISessionRepositoryMyBatis.class);
+            return sessionRepositoryMyBatis.findAll();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void editEntity(@NotNull final String id, @NotNull Session session) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            ISessionRepositoryMyBatis sessionRepositoryMyBatis = sqlSession.getMapper(ISessionRepositoryMyBatis.class);
+            sessionRepositoryMyBatis.merge(id, session);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void removeEntity(@NotNull final String id) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            ISessionRepositoryMyBatis sessionRepositoryMyBatis = sqlSession.getMapper(ISessionRepositoryMyBatis.class);
+            sessionRepositoryMyBatis.remove(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void clearEntity() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            ISessionRepositoryMyBatis sessionRepositoryMyBatis = sqlSession.getMapper(ISessionRepositoryMyBatis.class);
+            sessionRepositoryMyBatis.removeAll();
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new ServiceException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
+    public void setSession(@NotNull final Session session) {
+        createEntity(session.getId(), session);
+    }
+
+    @Override
+    public void removeSession(@NotNull final Session session) {
+        removeEntity(session.getUserId());
+    }
+
+    @Override
+    public void checkSession(@Nullable final Session session) {
+        if (!Objects.requireNonNull(session).getSignature().equals(findEntity(session.getId()).getSignature())) {
+            throw new ServiceException();
+        }
     }
 }

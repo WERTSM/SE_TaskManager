@@ -7,7 +7,6 @@ import ru.khmelev.tm.entity.User;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.sql.rowset.serial.SerialException;
 import java.util.Collection;
 
 @WebService
@@ -27,9 +26,6 @@ public interface IUserEndpoint {
 
     @WebMethod
     void removeUser(@NotNull final Session session, @NotNull String id);
-
-    @WebMethod
-    void clearUser(@NotNull final Session session);
 
     @WebMethod
     @Nullable Session userLogin(@NotNull final String login, @NotNull final String pass);

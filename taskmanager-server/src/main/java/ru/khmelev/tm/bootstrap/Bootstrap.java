@@ -5,10 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
-import ru.khmelev.tm.api.repository.IProjectRepository;
-import ru.khmelev.tm.api.repository.ISessionRepository;
-import ru.khmelev.tm.api.repository.ITaskRepository;
-import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.*;
 import ru.khmelev.tm.endpoint.ProjectEndpoint;
 import ru.khmelev.tm.endpoint.TaskEndpoint;
@@ -17,10 +13,6 @@ import ru.khmelev.tm.endpoint.UserEndpoint;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Role;
 import ru.khmelev.tm.entity.User;
-import ru.khmelev.tm.repository.ProjectRepository;
-import ru.khmelev.tm.repository.SessionRepository;
-import ru.khmelev.tm.repository.TaskRepository;
-import ru.khmelev.tm.repository.UserRepository;
 import ru.khmelev.tm.service.ProjectService;
 import ru.khmelev.tm.service.SessionService;
 import ru.khmelev.tm.service.TaskService;
@@ -31,34 +23,21 @@ import java.util.UUID;
 
 public final class Bootstrap implements ServiceLocator {
 
+    @Getter
     @NotNull
-    private final IProjectRepository projectRepository = new ProjectRepository();
-
-    @NotNull
-    private final ITaskRepository taskRepository = new TaskRepository();
-
-    @NotNull
-    private final IUserRepository userRepository = new UserRepository();
+    private final ITaskService taskService = new TaskService();
 
     @Getter
     @NotNull
-    private final ISessionRepository sessionRepository = new SessionRepository();
+    private final IProjectService projectService = new ProjectService();
 
     @Getter
     @NotNull
-    private final ITaskService taskService = new TaskService(taskRepository);
+    private final IUserService userService = new UserService();
 
     @Getter
     @NotNull
-    private final IProjectService projectService = new ProjectService(projectRepository, taskService);
-
-    @Getter
-    @NotNull
-    private final IUserService userService = new UserService(userRepository);
-
-    @Getter
-    @NotNull
-    private final ISessionService sessionService = new SessionService(sessionRepository);
+    private final ISessionService sessionService = new SessionService();
 
     @Getter
     @NotNull
