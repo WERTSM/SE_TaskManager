@@ -91,28 +91,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <outputDirectory>target/release/bin</outputDirectory>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>../lib/</classpathPrefix>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>ru.khmelev.tm.ApplicationServer</mainClass>
-                        </manifest>
-                        <manifestEntries>
-                            <Built-By>WERTSM</Built-By>
-                            <name>Sergey Khmelev</name>
-                            <mail>wertsm.java@gmail.com</mail>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.1</version>
                 <executions>
@@ -153,7 +131,7 @@
         </plugins>
         <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
     </build>
-     <scm>
+    <scm>
         <connection>scm:git:https://github.com/WERTSM/SE_TaskManager.git</connection>
     </scm>
     <modules>

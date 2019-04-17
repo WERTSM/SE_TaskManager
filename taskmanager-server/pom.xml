@@ -23,4 +23,30 @@
             <version>RELEASE</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <outputDirectory>target/release/bin</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>../lib/</classpathPrefix>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <mainClass>ru.khmelev.tm.ApplicationServer</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Built-By>WERTSM</Built-By>
+                            <name>Sergey Khmelev</name>
+                            <mail>wertsm.java@gmail.com</mail>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
