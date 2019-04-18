@@ -3,6 +3,8 @@ package ru.khmelev.tm.api.endpoint;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Session;
+import ru.khmelev.tm.entity.dto.ProjectDTO;
+import ru.khmelev.tm.entity.dto.SessionDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -12,29 +14,27 @@ import java.util.Collection;
 public interface IProjectEndpoint {
 
     @WebMethod
-    void createProject(@NotNull final Session session, @NotNull String id, @NotNull final Project project);
+    void createProject(@NotNull final SessionDTO sessionDTO, @NotNull String id, @NotNull final ProjectDTO projectDTO);
 
     @WebMethod
-    Project findProject(@NotNull final Session session, @NotNull final String id);
+    ProjectDTO findProject(@NotNull final SessionDTO sessionDTO, @NotNull final String id);
 
     @WebMethod
-    Collection<Project> findAllProject(@NotNull final Session session);
+    Collection<ProjectDTO> findAllProject(@NotNull final SessionDTO sessionDTO);
 
     @WebMethod
-    Collection<Project> findAllNameProject(@NotNull final Session session, @NotNull final String findParameter);
+    Collection<ProjectDTO> findAllNameProject(@NotNull final SessionDTO sessionDTO, @NotNull final String findParameter);
 
     @WebMethod
-    Collection<Project> findAllDescriptionProject(@NotNull final Session session, @NotNull final String findParameter);
+    Collection<ProjectDTO> findAllDescriptionProject(@NotNull final SessionDTO sessionDTO, @NotNull final String findParameter);
 
     @WebMethod
-    void editProject(@NotNull final Session session, @NotNull final String id, @NotNull final Project project);
+    void editProject(@NotNull final SessionDTO sessionDTO, @NotNull final String id, @NotNull final ProjectDTO projectDTO);
 
     @WebMethod
-    void removeProject(@NotNull final Session session, @NotNull final String id);
+    void removeProject(@NotNull final SessionDTO sessionDTO, @NotNull final String id);
 
     @WebMethod
-    void clearProject(@NotNull final Session session);
-
-
+    void clearProject(@NotNull final SessionDTO sessionDTO);
 }
 

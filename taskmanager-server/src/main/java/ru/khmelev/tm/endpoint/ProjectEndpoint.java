@@ -6,6 +6,8 @@ import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Session;
+import ru.khmelev.tm.entity.dto.ProjectDTO;
+import ru.khmelev.tm.entity.dto.SessionDTO;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -27,69 +29,69 @@ public class ProjectEndpoint implements IProjectEndpoint {
 
     @Override
     public void createProject(
-            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id,
-            @WebParam(name = "project") @NotNull final Project project
+            @WebParam(name = "project") @NotNull final ProjectDTO projectDTO
     ) {
-        sessionService.checkSession(session);
-        projectService.createEntity(id, project);
+        sessionService.checkSession(sessionDTO);
+        projectService.createEntity(id, projectDTO);
     }
 
     @Override
-    public Project findProject(
-            @WebParam(name = "session") @NotNull final Session session,
+    public ProjectDTO findProject(
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(session);
-        return projectService.findEntity(id, session.getUserId());
+        sessionService.checkSession(sessionDTO);
+        return projectService.findEntity(id, sessionDTO.getUserId());
     }
 
     @Override
-    public Collection<Project> findAllProject(@WebParam(name = "session") @NotNull final Session session) {
-        sessionService.checkSession(session);
-        return projectService.findAll(session.getUserId());
+    public Collection<ProjectDTO> findAllProject(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
+        sessionService.checkSession(sessionDTO);
+        return projectService.findAll(sessionDTO.getUserId());
     }
 
     @Override
-    public Collection<Project> findAllNameProject(
-            @WebParam(name = "session") @NotNull final Session session,
+    public Collection<ProjectDTO> findAllNameProject(
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "findParameter") @NotNull String findParameter
     ) {
-        sessionService.checkSession(session);
-        return projectService.findAllName(findParameter, session.getUserId());
+        sessionService.checkSession(sessionDTO);
+        return projectService.findAllName(findParameter, sessionDTO.getUserId());
     }
 
     @Override
-    public Collection<Project> findAllDescriptionProject(
-            @WebParam(name = "session") @NotNull final Session session,
+    public Collection<ProjectDTO> findAllDescriptionProject(
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "findParameter") @NotNull String findParameter
     ) {
-        sessionService.checkSession(session);
-        return projectService.findAllDescription(findParameter, session.getUserId());
+        sessionService.checkSession(sessionDTO);
+        return projectService.findAllDescription(findParameter, sessionDTO.getUserId());
     }
 
     @Override
     public void editProject(
-            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id,
-            @WebParam(name = "project") @NotNull Project project
+            @WebParam(name = "project") @NotNull ProjectDTO projectDTO
     ) {
-        sessionService.checkSession(session);
-        projectService.editEntity(id, project, session.getUserId());
+        sessionService.checkSession(sessionDTO);
+        projectService.editEntity(id, projectDTO, sessionDTO.getUserId());
     }
 
     @Override
     public void removeProject(
-            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(session);
-        projectService.removeEntity(id, session.getUserId());
+        sessionService.checkSession(sessionDTO);
+        projectService.removeEntity(id, sessionDTO.getUserId());
     }
 
     @Override
-    public void clearProject(@WebParam(name = "session") @NotNull final Session session) {
-        sessionService.checkSession(session);
-        projectService.clearEntity(session.getUserId());
+    public void clearProject(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
+        sessionService.checkSession(sessionDTO);
+        projectService.clearEntity(sessionDTO.getUserId());
     }
 }

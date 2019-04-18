@@ -2,27 +2,26 @@ package ru.khmelev.tm.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Getter
 @Setter
+@javax.persistence.Entity
+@Table(name = "session")
 public class Session extends Identifiable {
 
-    @NotNull
     private String id;
-    @NotNull
-    private String userId;
-    @NotNull
-    private String signature;
-    @NotNull
-    private Date dateCreate;
 
-    public Session() {
-        this.id = "";
-        this.signature = "";
-        this.userId = "";
-        this.dateCreate = new Date();
-    }
+    @JoinColumn(name = "userId")
+    @OneToOne
+    private User user;
+
+    private String signature;
+
+    private Date dateCreate;
 }

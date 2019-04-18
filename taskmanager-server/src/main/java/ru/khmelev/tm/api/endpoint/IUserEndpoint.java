@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.dto.SessionDTO;
+import ru.khmelev.tm.entity.dto.UserDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -13,35 +15,35 @@ import java.util.Collection;
 public interface IUserEndpoint {
 
     @WebMethod
-    void createUser(@NotNull final String id, @NotNull final User user);
+    void createUser(@NotNull final String id, @NotNull final UserDTO userDTO);
 
     @WebMethod
-    Collection<User> findAllUser(@NotNull final Session session);
+    Collection<UserDTO> findAllUser(@NotNull final SessionDTO sessionDTO);
 
     @WebMethod
-    User findUser(@NotNull final Session session, @NotNull String id);
+    UserDTO findUser(@NotNull final SessionDTO sessionDTO, @NotNull String id);
 
     @WebMethod
-    void editUser(@NotNull final Session session, @NotNull String id, User user);
+    void editUser(@NotNull final SessionDTO sessionDTO, @NotNull String id, UserDTO userDTO);
 
     @WebMethod
-    void removeUser(@NotNull final Session session, @NotNull String id);
+    void removeUser(@NotNull final SessionDTO sessionDTO, @NotNull String id);
 
     @WebMethod
-    @Nullable Session userLogin(@NotNull final String login, @NotNull final String pass);
+    @Nullable SessionDTO userLogin(@NotNull final String login, @NotNull final String pass);
 
     @WebMethod
-    void userLogOut(@NotNull final Session session);
+    void userLogOut(@NotNull final SessionDTO sessionDTO);
 
     @WebMethod
-    User getUserFromSession(@NotNull final Session session);
+    UserDTO getUserFromSession(@NotNull final SessionDTO sessionDTO);
 
     @WebMethod
-    void userSetPassword(@NotNull final Session session, @NotNull final String login, @NotNull final String password);
+    void userSetPassword(@NotNull final SessionDTO sessionDTO, @NotNull final String login, @NotNull final String password);
 
     @WebMethod
-    @NotNull String getId(@NotNull final User user);
+    @NotNull String getId(@NotNull final UserDTO userDTO);
 
     @WebMethod
-    @NotNull String getName(@NotNull final User user);
+    @NotNull String getName(@NotNull final UserDTO userDTO);
 }

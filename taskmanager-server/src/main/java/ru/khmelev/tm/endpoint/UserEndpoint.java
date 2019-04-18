@@ -7,6 +7,8 @@ import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.dto.SessionDTO;
+import ru.khmelev.tm.entity.dto.UserDTO;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -34,64 +36,64 @@ public final class UserEndpoint implements IUserEndpoint {
     @Override
     public void createUser(
             @WebParam(name = "id") @NotNull final String id,
-            @WebParam(name = "user") @NotNull final User user
+            @WebParam(name = "user") @NotNull final UserDTO user
     ) {
         userService.createEntity(id, user);
     }
 
     @Override
-    public Collection<User> findAllUser(@WebParam(name = "session") @NotNull final Session session) {
-        sessionService.checkSession(session);
+    public Collection<UserDTO> findAllUser(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
+        sessionService.checkSession(sessionDTO);
         return userService.findAll();
     }
 
     @Override
     @NotNull
-    public User findUser(
-            @WebParam(name = "session") @NotNull final Session session,
+    public UserDTO findUser(
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(session);
+        sessionService.checkSession(sessionDTO);
         return userService.findEntity(id);
     }
 
     @Override
     public void editUser(
-            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id,
-            @WebParam(name = "user") @NotNull User user
+            @WebParam(name = "user") @NotNull UserDTO user
     ) {
-        sessionService.checkSession(session);
+        sessionService.checkSession(sessionDTO);
         userService.editEntity(id, user);
     }
 
     @Override
     public void removeUser(
-            @WebParam(name = "session") @NotNull final Session session,
+            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(session);
+        sessionService.checkSession(sessionDTO);
         userService.removeEntity(id);
     }
 
     @Override
-    public Session userLogin(
+    public SessionDTO userLogin(
             @WebParam(name = "login") @NotNull final String login,
             @WebParam(name = "password") @NotNull final String pass
     ) {
         if (!login.isEmpty() && !pass.isEmpty()) {
-            for (User user : userService.findAll()) {
-                if (user.getLogin().equals(login)) {
+            for (UserDTO userDTO : userService.findAll()) {
+                if (userDTO.getLogin().equals(login)) {
                     String password = PasswordHashUtil.md5(pass);
-                    String passwordUserRepository = user.getHashPassword();
+                    String passwordUserRepository = userDTO.getHashPassword();
                     if (passwordUserRepository.equals(password)) {
-                        final Session session = new Session();
-                        session.setId(UUID.randomUUID().toString());
-                        session.setUserId(user.getId());
+                        final SessionDTO sessionDTO = new SessionDTO();
+                        sessionDTO.setId(UUID.randomUUID().toString());
+                        sessionDTO.setUserId(userDTO.getId());
                         Random random = new Random();
-                        session.setSignature(Objects.requireNonNull(sign(user, String.valueOf(random.nextInt(1000)), random.nextInt(1000))));
-                        sessionService.setSession(session);
-                        return session;
+                        sessionDTO.setSignature(Objects.requireNonNull(sign(userDTO, String.valueOf(random.nextInt(1000)), random.nextInt(1000))));
+                        sessionService.setSession(sessionDTO);
+                        return sessionDTO;
                     }
                 }
             }
@@ -100,35 +102,35 @@ public final class UserEndpoint implements IUserEndpoint {
     }
 
     @Override
-    public void userLogOut(@WebParam(name = "session") @NotNull final Session session) {
-        sessionService.checkSession(session);
-        sessionService.removeSession(session);
+    public void userLogOut(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
+        sessionService.checkSession(sessionDTO);
+        sessionService.removeSession(sessionDTO);
     }
 
     @Override
-    public void userSetPassword(@WebParam(name = "session") @NotNull final Session session,
+    public void userSetPassword(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
                                 @WebParam(name = "login") @NotNull final String login,
                                 @WebParam(name = "password") @NotNull final String pass
     ) {
-        sessionService.checkSession(session);
+        sessionService.checkSession(sessionDTO);
         userService.userSetPassword(login, pass);
     }
 
     @Override
-    public User getUserFromSession(@WebParam(name = "session") @NotNull final Session session) {
-        sessionService.checkSession(session);
-        return userService.getUserFromSession(session.getUserId());
+    public UserDTO getUserFromSession(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
+        sessionService.checkSession(sessionDTO);
+        return userService.getUserFromSession(sessionDTO.getUserId());
     }
 
     @NotNull
     @Override
-    public String getId(@WebParam(name = "user") @NotNull User user) {
-        return user.getId();
+    public String getId(@WebParam(name = "user") @NotNull UserDTO userDTO) {
+        return userDTO.getId();
     }
 
     @NotNull
     @Override
-    public String getName(@WebParam(name = "user") @NotNull User user) {
-        return user.getLogin();
+    public String getName(@WebParam(name = "user") @NotNull UserDTO userDTO) {
+        return userDTO.getLogin();
     }
 }

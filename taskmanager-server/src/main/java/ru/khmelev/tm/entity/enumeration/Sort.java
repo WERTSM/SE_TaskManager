@@ -1,4 +1,4 @@
-package ru.khmelev.tm.entity;
+package ru.khmelev.tm.entity.enumeration;
 
 public enum Sort {
 

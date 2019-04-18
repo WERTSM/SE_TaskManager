@@ -11,7 +11,8 @@ import ru.khmelev.tm.endpoint.TaskEndpoint;
 import ru.khmelev.tm.endpoint.TerminalEndpoint;
 import ru.khmelev.tm.endpoint.UserEndpoint;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
-import ru.khmelev.tm.entity.Role;
+import ru.khmelev.tm.entity.dto.UserDTO;
+import ru.khmelev.tm.entity.enumeration.Role;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.service.ProjectService;
 import ru.khmelev.tm.service.SessionService;
@@ -51,6 +52,8 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final IUserEndpoint userEndpoint = new UserEndpoint(sessionService, userService);
 
+
+
     @Getter
     @NotNull
     private final ITerminalService terminalService = new TerminalEndpoint();
@@ -66,21 +69,20 @@ public final class Bootstrap implements ServiceLocator {
 
 
     private void defaultCommands() {
-        @NotNull User user = new User();
-        user.setLogin("user");
-        user.setHashPassword(PasswordHashUtil.md5("user"));
-        user.setRole(Role.USER);
+        @NotNull UserDTO userDTO = new UserDTO();
+        userDTO.setLogin("user");
+        userDTO.setRole(Role.USER);
         //@NotNull String id = UUID.randomUUID().toString();
         @NotNull String id = "11111111-1111-1111-1111-111111111111";
-        user.setId(id);
-        userEndpoint.createUser(id, user);
+        userDTO.setId(id);
+        userEndpoint.createUser(id, userDTO);
 
-        user = new User();
-        user.setLogin("admin");
-        user.setHashPassword(PasswordHashUtil.md5("admin"));
-        user.setRole(Role.ADMIN);
+        userDTO = new UserDTO();
+        userDTO.setLogin("admin");
+        userDTO.setHashPassword(PasswordHashUtil.md5("admin"));
+        userDTO.setRole(Role.ADMIN);
         id = UUID.randomUUID().toString();
-        user.setId(id);
-        userEndpoint.createUser(id, user);
+        userDTO.setId(id);
+        userEndpoint.createUser(id, userDTO);
     }
 }

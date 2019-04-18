@@ -1,21 +1,20 @@
-package ru.khmelev.tm.entity;
+package ru.khmelev.tm.entity.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.khmelev.tm.api.dto.EntityDTO;
 import ru.khmelev.tm.entity.enumeration.Status;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
-@javax.persistence.Entity
-@Table(name = "project")
-public class Project extends Entity implements Serializable {
+public class ProjectDTO implements Serializable, EntityDTO {
+
+    private String id;
 
     private String name;
 
@@ -27,9 +26,7 @@ public class Project extends Entity implements Serializable {
 
     private Date dateCreate;
 
-    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Task> tasks;
+    private String userId;
 }

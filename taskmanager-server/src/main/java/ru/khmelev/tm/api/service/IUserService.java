@@ -2,8 +2,9 @@ package ru.khmelev.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.entity.dto.UserDTO;
 
-public interface IUserService extends IService<User> {
+public interface IUserService extends IService<UserDTO> {
 
     @NotNull String getId(@NotNull final User user);
 
@@ -11,5 +12,5 @@ public interface IUserService extends IService<User> {
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);
 
-    User getUserFromSession(@NotNull final String userId);
+    UserDTO getUserFromSession(@NotNull final String userId);
 }

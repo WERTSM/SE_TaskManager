@@ -1,87 +1,22 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.entity.User;
-import ru.khmelev.tm.entity.dto.UserDTO;
+import ru.khmelev.tm.exception.ServiceException;
+import ru.khmelev.tm.repository.UserRepository;
+import ru.khmelev.tm.service.util.HibernateUtil;
 
-import java.util.Collection;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
-public class UserService implements IUserService {
-    public UserService() {
-        super();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
-
-    @Override
-    public @NotNull String getId(@NotNull User user) {
-        return null;
-    }
-
-    @Override
-    public @NotNull String getName(@NotNull User user) {
-        return null;
-    }
-
-    @Override
-    public void userSetPassword(@NotNull String login, @NotNull String pass) {
-
-    }
-
-    @Override
-    public UserDTO getUserFromSession(@NotNull String userId) {
-        return null;
-    }
-
-    @Override
-    public void createEntity(@NotNull String id, @NotNull UserDTO entity) {
-
-    }
+public class UserServiceH {
 
     @NotNull
-    @Override
-    public UserDTO findEntity(@NotNull String id) {
-        return null;
-    }
+    private EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
+    @NotNull
+    private EntityManager entityManager;
 
-    @Override
-    public @NotNull Collection<UserDTO> findAll() {
-        return null;
-    }
-
-    @Override
-    public void editEntity(@NotNull String id, @NotNull UserDTO entity) {
-
-    }
-
-    @Override
-    public void removeEntity(@NotNull String id) {
-
-    }
     //    @NotNull
 //    private final SqlSessionFactory sqlSessionFactory;
 //
@@ -104,18 +39,15 @@ public class UserService implements IUserService {
 //        }
 //    }
 //
-//    @NotNull
-//    @Override
-//    public User findEntity(@NotNull final String id) {
-//        if (id.isEmpty()) throw new ServiceException();
-//
-//        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-//            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
-//            return userRepositoryMyBatis.findOne(id);
-//        } catch (Exception e) {
-//            throw new ServiceException(e);
-//        }
-//    }
+    @NotNull
+    public User findEntity(@NotNull final String id) throws Exception {
+        if (id.isEmpty()) throw new ServiceException();
+        entityManager = entityManagerFactory.createEntityManager();
+        @NotNull final EntityTransaction transaction = entityManager.getTransaction();
+        UserRepository userRepository = new UserRepository(entityManager);
+        transaction.begin();
+        return userRepository.findOne(id);
+    }
 //
 //    @NotNull
 //    @Override
