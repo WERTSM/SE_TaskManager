@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
-import ru.khmelev.tm.api.endpoint.Session;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 
@@ -21,9 +21,9 @@ public interface ServiceLocator {
 
     @NotNull ITerminalService getTerminalService();
 
-    @Nullable Session getSession();
+    @Nullable SessionDTO getSessionDTO();
 
-    void setSession(@Nullable final Session session);
+    void setSessionDTO(@Nullable final SessionDTO sessionDTO);
 
     Map<String, Command> getCommandMap();
 }

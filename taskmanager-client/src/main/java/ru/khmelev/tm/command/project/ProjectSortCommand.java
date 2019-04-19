@@ -2,9 +2,9 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.Project;
+import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
@@ -42,24 +42,24 @@ public class ProjectSortCommand extends Command {
         System.out.println("!!!Start command!!!");
         @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         @NotNull final Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
-        @NotNull final List<Project> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAllProject(session));
+        @NotNull final List<ProjectDTO> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAllProject(sessionDTO));
 
         @NotNull final SortedProject sortedEntity = new SortedProject();
 
         sortedEntity.sort(listProject, sortParameter);
 
-        for (Project project : listProject) {
-            Printer.showProject(project, serviceLocator.getUserEndpoint().getUserFromSession(session));
+        for (@NotNull ProjectDTO projectDTO : listProject) {
+            Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
         System.out.println("!!!DONE!!!");
     }

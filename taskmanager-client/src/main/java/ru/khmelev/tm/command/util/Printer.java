@@ -3,10 +3,10 @@ package ru.khmelev.tm.command.util;
 import com.jcabi.manifests.Manifests;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.Project;
+import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Status;
-import ru.khmelev.tm.api.endpoint.Task;
-import ru.khmelev.tm.api.endpoint.User;
+import ru.khmelev.tm.api.endpoint.TaskDTO;
+import ru.khmelev.tm.api.endpoint.UserDTO;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -24,81 +24,81 @@ public final class Printer {
     @NotNull
     private static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static void showProject(@NotNull final Project project, @Nullable final User user) {
-        if (user != null) {
-            Status status = project.getStatus();
+    public static void showProject(@NotNull final ProjectDTO projectDTO, @Nullable final UserDTO userDTO) {
+        if (userDTO != null) {
+            @NotNull final Status status = projectDTO.getStatus();
             System.out.println(
-                    "[ ID = " + project.getId()
-                            + "; Name = " + project.getName()
-                            + "; Description = " + project.getDescription()
-                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateStart()))
-                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateFinish()))
+                    "[ ID = " + projectDTO.getId()
+                            + "; Name = " + projectDTO.getName()
+                            + "; Description = " + projectDTO.getDescription()
+                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(projectDTO.getDateStart()))
+                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(projectDTO.getDateFinish()))
                             + "; Status = " + status.value()
-                            + "; Name user = " + user.getLogin()
-                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(project.getDateCreate()))
+                            + "; Name user = " + userDTO.getLogin()
+                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(projectDTO.getDateCreate()))
                             + " ]");
         }
     }
 
-    public static void showTask(@NotNull final Task task, @Nullable final User user) {
-        if (user != null) {
+    public static void showTask(@NotNull final TaskDTO taskDTO, @Nullable final UserDTO userDTO) {
+        if (userDTO != null) {
             System.out.println(
-                    "[ ID = " + task.getId()
-                            + "; Name = " + task.getName()
-                            + "; Description = " + task.getDescription()
-                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateStart()))
-                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateFinish()))
-                            + "; id Project= " + task.getProjectId()
-                            + "; Status = " + task.getStatus().value()
-                            + "; Name user = " + user.getLogin()
-                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(task.getDateCreate()))
+                    "[ ID = " + taskDTO.getId()
+                            + "; Name = " + taskDTO.getName()
+                            + "; Description = " + taskDTO.getDescription()
+                            + "; Start date = " + DEFAULT_DATE_FORMAT.format(printDate(taskDTO.getDateStart()))
+                            + "; Finish date = " + DEFAULT_DATE_FORMAT.format(printDate(taskDTO.getDateFinish()))
+                            + "; id Project= " + taskDTO.getProjectId()
+                            + "; Status = " + taskDTO.getStatus().value()
+                            + "; Name user = " + userDTO.getLogin()
+                            + "; Create date = " + DEFAULT_DATE_FORMAT.format(printDate(taskDTO.getDateCreate()))
                             + " ]");
         }
     }
 
-    public static void showListTask(@NotNull final Task task) {
+    public static void showListTask(@NotNull final TaskDTO taskDTO) {
         System.out.println(
-                "[ ID = " + task.getId()
-                        + "; Name = " + task.getName()
-                        + "; Description = " + task.getDescription()
+                "[ ID = " + taskDTO.getId()
+                        + "; Name = " + taskDTO.getName()
+                        + "; Description = " + taskDTO.getDescription()
                         + " ]");
     }
 
-    public static void showListProject(@NotNull final Project project) {
+    public static void showListProject(@NotNull final ProjectDTO projectDTO) {
         System.out.println(
-                "[ ID = " + project.getId()
-                        + "; Name = " + project.getName()
-                        + "; Description = " + project.getDescription()
+                "[ ID = " + projectDTO.getId()
+                        + "; Name = " + projectDTO.getName()
+                        + "; Description = " + projectDTO.getDescription()
                         + " ]");
     }
 
-    public static void showTaskInProject(@NotNull final Task task) {
+    public static void showTaskInProject(@NotNull final TaskDTO taskDTO) {
         System.out.println("Task in project: \n"
-                + "[ ID = " + task.getId()
-                + "; Name = " + task.getName()
-                + "; Description = " + task.getDescription()
-                + "; Status = " + task.getStatus().value()
-                + "; UserId = " + task.getUserId()
+                + "[ ID = " + taskDTO.getId()
+                + "; Name = " + taskDTO.getName()
+                + "; Description = " + taskDTO.getDescription()
+                + "; Status = " + taskDTO.getStatus().value()
+                + "; UserId = " + taskDTO.getUserId()
                 + " ]");
     }
 
-    public static void showListUser(@Nullable final User user) {
-        if (user != null) {
+    public static void showListUser(@Nullable final UserDTO userDTO) {
+        if (userDTO != null) {
             System.out.println(
-                    "[ ID = " + user.getId()
-                            + "; Login = " + user.getLogin()
-                            + "; Role = " + user.getRole().value()
+                    "[ ID = " + userDTO.getId()
+                            + "; Login = " + userDTO.getLogin()
+                            + "; Role = " + userDTO.getRole().value()
                             + " ]");
         }
     }
 
-    public static void showUser(@Nullable final User user) {
-        if (user != null) {
+    public static void showUser(@Nullable final UserDTO userDTO) {
+        if (userDTO != null) {
             System.out.println(
                     "Сейчас в системе:"
-                            + "[ ID = " + user.getId()
-                            + "; Login = " + user.getLogin()
-                            + "; Role = " + user.getRole().value()
+                            + "[ ID = " + userDTO.getId()
+                            + "; Login = " + userDTO.getLogin()
+                            + "; Role = " + userDTO.getRole().value()
                             + " ]");
         }
     }
@@ -135,22 +135,22 @@ public final class Printer {
         );
     }
 
-    @NotNull
+    @Nullable
     public static Date parse(@NotNull final String dateString) {
         try {
             return DEFAULT_DATE_FORMAT.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        return new Date(0,0,0,0,0,0);
     }
 
-    public static Date printDate(@NotNull final XMLGregorianCalendar XMLDate) {
+    static Date printDate(@NotNull final XMLGregorianCalendar XMLDate) {
         return XMLDate.toGregorianCalendar().getTime();
     }
 
     public static XMLGregorianCalendar printXMLDate(@NotNull final Date date) {
-        GregorianCalendar c = new GregorianCalendar();
+        @NotNull final GregorianCalendar c = new GregorianCalendar();
         c.setTime(date);
         try {
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);

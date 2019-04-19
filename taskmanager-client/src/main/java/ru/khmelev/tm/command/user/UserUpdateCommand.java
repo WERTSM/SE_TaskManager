@@ -3,8 +3,8 @@ package ru.khmelev.tm.command.user;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
-import ru.khmelev.tm.api.endpoint.User;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
+import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
@@ -38,29 +38,29 @@ public final class UserUpdateCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        User user = serviceLocator.getUserEndpoint().getUserFromSession(session);
-        Printer.showUser(user);
+        @NotNull final UserDTO userDTO = serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO);
+        Printer.showUser(userDTO);
 
-        @NotNull final String userName = serviceLocator.getUserEndpoint().getName(user);
+        @NotNull final String userName = serviceLocator.getUserEndpoint().getName(userDTO);
 
         System.out.println("Измените логин текущего пользователя");
-        String login = serviceLocator.getTerminalService().readLine();
-        user.setLogin(login);
+        @NotNull final String login = serviceLocator.getTerminalService().readLine();
+        userDTO.setLogin(login);
 
         System.out.println("Измените пароль текущего пользователя");
-        String password = serviceLocator.getTerminalService().readLine();
+        @NotNull final String password = serviceLocator.getTerminalService().readLine();
         if (password.isEmpty()) {
             return;
         }
         @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5(password));
-        user.setHashPassword(hashPassword);
+        userDTO.setHashPassword(hashPassword);
 
-        serviceLocator.getUserEndpoint().editUser(session, user.getId(), user);
+        serviceLocator.getUserEndpoint().editUser(sessionDTO, userDTO.getId(), userDTO);
 
         System.out.println("!!!DONE!!!");
     }

@@ -31,7 +31,7 @@ public final class UserProfileCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        Printer.showUser(serviceLocator.getUserEndpoint().getUserFromSession(Objects.requireNonNull(serviceLocator.getSession())));
+        Printer.showUser(serviceLocator.getUserEndpoint().getUserFromSession(Objects.requireNonNull(serviceLocator.getSessionDTO())));
         System.out.println("!!!DONE!!!");
     }
 }

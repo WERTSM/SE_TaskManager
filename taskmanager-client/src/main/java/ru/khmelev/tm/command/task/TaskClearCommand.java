@@ -3,7 +3,7 @@ package ru.khmelev.tm.command.task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
 public final class TaskClearCommand extends Command {
@@ -31,14 +31,14 @@ public final class TaskClearCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
-        serviceLocator.getTaskEndpoint().clearTask(session);
+        serviceLocator.getTaskEndpoint().clearTask(sessionDTO);
         System.out.println("!!!DONE!!!");
     }
 }

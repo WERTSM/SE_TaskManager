@@ -5,8 +5,6 @@ import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
-import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.entity.dto.SessionDTO;
 import ru.khmelev.tm.entity.dto.UserDTO;
 

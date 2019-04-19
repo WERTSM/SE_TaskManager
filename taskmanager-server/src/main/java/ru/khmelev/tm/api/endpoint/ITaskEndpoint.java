@@ -38,6 +38,4 @@ public interface ITaskEndpoint {
     void clearTask(@NotNull final SessionDTO sessionDTO);
 
     Collection<TaskDTO> listTaskFromProject(@NotNull SessionDTO sessionDTO, @NotNull String projectId);
-
-    void removeAllTaskFromProject(@NotNull SessionDTO sessionDTO, @NotNull String projectId);
 }

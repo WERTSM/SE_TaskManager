@@ -3,8 +3,8 @@ package ru.khmelev.tm.command.user;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
-import ru.khmelev.tm.api.endpoint.User;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
+import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 
@@ -34,15 +34,15 @@ public final class UserListCommand extends Command {
     public void execute() {
         System.out.println("!!!Start command!!!");
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
-        for (User userok : serviceLocator.getUserEndpoint().findAllUser(session)) {
-            Printer.showListUser(userok);
+        for (@NotNull UserDTO userDTO : serviceLocator.getUserEndpoint().findAllUser(sessionDTO)) {
+            Printer.showListUser(userDTO);
         }
         System.out.println("!!!DONE!!!");
     }

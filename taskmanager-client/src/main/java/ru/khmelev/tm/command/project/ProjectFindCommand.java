@@ -3,9 +3,9 @@ package ru.khmelev.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
-import ru.khmelev.tm.api.endpoint.Project;
+import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 
@@ -39,32 +39,32 @@ public class ProjectFindCommand extends Command {
         System.out.println("!!!Start command!!!");
         @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("Выберите парамер поиска: (login, description)");
         @NotNull final String findParameter = serviceLocator.getTerminalService().readLine();
 
-        @NotNull final Collection<Project> listProject;
+        @NotNull final Collection<ProjectDTO> listProject;
 
         if ("login".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть имени:");
             @NotNull final String name = serviceLocator.getTerminalService().readLine();
-            listProject = serviceLocator.getProjectEndpoint().findAllNameProject(session, name);
+            listProject = serviceLocator.getProjectEndpoint().findAllNameProject(sessionDTO, name);
         } else if ("description".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть описания:");
             @NotNull final String description = serviceLocator.getTerminalService().readLine();
-            listProject = serviceLocator.getProjectEndpoint().findAllDescriptionProject(session, description);
+            listProject = serviceLocator.getProjectEndpoint().findAllDescriptionProject(sessionDTO, description);
         } else {
             throw new IllegalArgumentException("Неправильный параметр " + findParameter);
         }
 
-        for (Project project : listProject) {
-            Printer.showProject(project, serviceLocator.getUserEndpoint().getUserFromSession(session));
+        for (@NotNull ProjectDTO projectDTO : listProject) {
+            Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
     }
 }

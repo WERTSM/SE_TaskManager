@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
-import ru.khmelev.tm.api.endpoint.Task;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
+import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 
@@ -39,32 +39,32 @@ public class TaskFindCommand extends Command {
         System.out.println("!!!Start command!!!");
         @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("Выберите парамер поиска: (login, description)");
         @NotNull final String findParameter = serviceLocator.getTerminalService().readLine();
 
-        @NotNull final Collection<Task> listTask;
+        @NotNull final Collection<TaskDTO> listTask;
 
         if ("login".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть имени:");
             @NotNull final String name = serviceLocator.getTerminalService().readLine();
-            listTask = serviceLocator.getTaskEndpoint().findAllNameTask(session, name);
+            listTask = serviceLocator.getTaskEndpoint().findAllNameTask(sessionDTO, name);
         } else if ("description".equalsIgnoreCase(findParameter)) {
             System.out.println("Введите часть описания:");
             @NotNull final String description = serviceLocator.getTerminalService().readLine();
-            listTask = serviceLocator.getTaskEndpoint().findAllDescriptionTask(session, description);
+            listTask = serviceLocator.getTaskEndpoint().findAllDescriptionTask(sessionDTO, description);
         } else {
             throw new IllegalArgumentException("Неправильный параметр " + findParameter);
         }
 
-        for (Task task : listTask) {
-            Printer.showTask(task, serviceLocator.getUserEndpoint().getUserFromSession(session));
+        for (@NotNull TaskDTO taskDTO : listTask) {
+            Printer.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
     }
 }

@@ -6,9 +6,9 @@ import ru.khmelev.tm.entity.dto.UserDTO;
 
 public interface IUserService extends IService<UserDTO> {
 
-    @NotNull String getId(@NotNull final User user);
+    @NotNull String getId(@NotNull final UserDTO user);
 
-    @NotNull String getName(@NotNull final User user);
+    @NotNull String getName(@NotNull final UserDTO user);
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);
 

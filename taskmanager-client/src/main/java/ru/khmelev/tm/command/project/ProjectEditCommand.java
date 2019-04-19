@@ -43,12 +43,12 @@ public final class ProjectEditCommand extends Command {
 
         @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("ID project: ");
         @NotNull final String id = terminalService.readLine();
@@ -56,41 +56,41 @@ public final class ProjectEditCommand extends Command {
             return;
         }
 
-        Project project = projectEndpoint.findProject(session, id);
+        @NotNull final ProjectDTO projectDTO = projectEndpoint.findProject(sessionDTO, id);
 
         System.out.println("Name project: ");
         @NotNull final String name = terminalService.readLine();
         if (name.isEmpty()) {
             return;
         }
-        project.setName(name);
+        projectDTO.setName(name);
 
         System.out.println("Description: ");
         @NotNull final String description = terminalService.readLine();
         if (description.isEmpty()) {
             return;
         }
-        project.setDescription(description);
+        projectDTO.setDescription(description);
 
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        @NotNull String dateStartString = terminalService.readLine();
+        @NotNull final String dateStartString = terminalService.readLine();
 
         @NotNull final Date dateStart = Printer.parse(dateStartString);
-        project.setDateStart(printXMLDate(dateStart));
+        projectDTO.setDateStart(printXMLDate(dateStart));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull String dateFinishString = terminalService.readLine();
 
         @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-        project.setDateFinish(printXMLDate(dateFinish));
+        projectDTO.setDateFinish(printXMLDate(dateFinish));
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
-        @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
-        project.setStatus(status);
+        @NotNull final Status status = Status.valueOf(terminalService.readLine().toUpperCase());
+        projectDTO.setStatus(status);
 
-        project.setDateCreate(Printer.printXMLDate(new Date()));
+        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
 
-        projectEndpoint.editProject(session, id, project);
+        projectEndpoint.editProject(sessionDTO, id, projectDTO);
         System.out.println("!!!DONE!!!");
     }
 }

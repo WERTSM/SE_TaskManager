@@ -9,20 +9,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for session complex type.
+ * <p>Java class for sessionDTO complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="session"&gt;
+ * &lt;complexType name="sessionDTO"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://endpoint.api.tm.khmelev.ru/}identifiable"&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="dateCreate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
- *     &lt;/extension&gt;
+ *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
@@ -30,17 +31,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "session", propOrder = {
+@XmlType(name = "sessionDTO", propOrder = {
     "dateCreate",
+    "id",
     "signature",
     "userId"
 })
-public class Session
-    extends Identifiable
-{
+public class SessionDTO {
 
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateCreate;
+    protected String id;
     protected String signature;
     protected String userId;
 
@@ -66,6 +67,30 @@ public class Session
      */
     public void setDateCreate(XMLGregorianCalendar value) {
         this.dateCreate = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setId(String value) {
+        this.id = value;
     }
 
     /**

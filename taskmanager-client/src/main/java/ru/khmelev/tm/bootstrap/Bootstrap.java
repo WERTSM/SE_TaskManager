@@ -45,7 +45,7 @@ public final class Bootstrap implements ServiceLocator {
     @Setter
     @Getter
     @Nullable
-    private Session session;
+    private SessionDTO sessionDTO;
 
     public void init(Class[] commandClassArray) throws Exception {
         registrationCommands(commandClassArray);
@@ -82,35 +82,28 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     private boolean permitCommand(@NotNull final Command commandString) {
-
         if (!commandString.isSecurity()) {
             return true;
         }
 
-
-        if (session == null) {
+        if (sessionDTO == null) {
             System.out.println("Сначала зарегистрируйтесь");
             return false;
         }
 
-
-        //if (session == null) {
-
-        //}
-
-        if ("user-login".equals(commandString.getNameCommand()) && session != null) {
+        if ("user-login".equals(commandString.getNameCommand()) && sessionDTO != null) {
             System.out.println("Сначала выйдете из программы");
             return false;
         }
 
-        if (session != null && userEndpoint.findUser(session, session.getUserId()).getRole() == Role.ADMIN) {
+        if (sessionDTO != null && userEndpoint.findUser(sessionDTO, sessionDTO.getUserId()).getRole() == Role.ADMIN) {
             return true;
         }
-        if (session != null && commandString.getRoleCommand() == userEndpoint.findUser(session, session.getUserId()).getRole()) {
+        if (sessionDTO != null && commandString.getRoleCommand() == userEndpoint.findUser(sessionDTO, sessionDTO.getUserId()).getRole()) {
             return true;
         }
 
-        if (session != null && userEndpoint.findUser(session, session.getUserId()).getRole() != Role.ADMIN) {
+        if (sessionDTO != null && userEndpoint.findUser(sessionDTO, sessionDTO.getUserId()).getRole() != Role.ADMIN) {
             System.out.println("Не хватает прав");
             return false;
         }

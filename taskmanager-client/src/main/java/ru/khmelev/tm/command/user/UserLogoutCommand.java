@@ -28,8 +28,8 @@ public final class UserLogoutCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        serviceLocator.getUserEndpoint().userLogOut(serviceLocator.getSession());
-        serviceLocator.setSession(null);
+        serviceLocator.getUserEndpoint().userLogOut(serviceLocator.getSessionDTO());
+        serviceLocator.setSessionDTO(null);
         System.out.println("!!!DONE!!!");
     }
 }

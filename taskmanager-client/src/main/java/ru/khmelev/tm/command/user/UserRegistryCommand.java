@@ -2,7 +2,7 @@ package ru.khmelev.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.User;
+import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 
@@ -36,17 +36,17 @@ public final class UserRegistryCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
-        @NotNull final User user = new User();
+        @NotNull final UserDTO userDTO = new UserDTO();
 
         @NotNull final String id = UUID.randomUUID().toString();
-        user.setId(id);
+        userDTO.setId(id);
 
         System.out.println("Введите логин нового пользователя: ");
         @NotNull final String login = serviceLocator.getTerminalService().readLine();
         if (login.isEmpty()) {
             return;
         }
-        user.setLogin(login);
+        userDTO.setLogin(login);
 
         System.out.println("Введите пароль для нового пользователя");
         @NotNull final String password = serviceLocator.getTerminalService().readLine();
@@ -54,7 +54,7 @@ public final class UserRegistryCommand extends Command {
             return;
         }
         @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5(password));
-        user.setHashPassword(hashPassword);
+        userDTO.setHashPassword(hashPassword);
 
         System.out.println("Введите тип пользователся (admin/user): ");
         @NotNull final String roleUser = serviceLocator.getTerminalService().readLine();
@@ -62,9 +62,9 @@ public final class UserRegistryCommand extends Command {
             return;
         }
         @NotNull final Role role = Role.valueOf(roleUser.toUpperCase());
-        user.setRole(role);
+        userDTO.setRole(role);
 
-        serviceLocator.getUserEndpoint().createUser(id, user);
+        serviceLocator.getUserEndpoint().createUser(id, userDTO);
         System.out.println("!!!DONE!!!");
     }
 }

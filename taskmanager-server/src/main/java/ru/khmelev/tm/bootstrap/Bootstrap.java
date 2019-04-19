@@ -52,8 +52,6 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final IUserEndpoint userEndpoint = new UserEndpoint(sessionService, userService);
 
-
-
     @Getter
     @NotNull
     private final ITerminalService terminalService = new TerminalEndpoint();

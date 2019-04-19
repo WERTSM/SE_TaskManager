@@ -3,7 +3,7 @@ package ru.khmelev.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
 import java.io.IOException;
@@ -33,17 +33,17 @@ public final class ProjectRemoveCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("ID project: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
 
-        serviceLocator.getProjectEndpoint().removeProject(session, id);
+        serviceLocator.getProjectEndpoint().removeProject(sessionDTO, id);
         System.out.println("!!!DONE!!!");
     }
 }

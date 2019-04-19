@@ -1,5 +1,6 @@
 package ru.khmelev.tm.command.system;
 
+import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
@@ -23,6 +24,7 @@ public final class HelpCommand extends Command {
         return false;
     }
 
+
     @Override
     public Role getRoleCommand() {
         return Role.USER;
@@ -30,10 +32,10 @@ public final class HelpCommand extends Command {
 
     @Override
     public void execute() {
-        SortedMap<String, Command> mapCommand = new TreeMap<>(serviceLocator.getCommandMap());
+        @NotNull final SortedMap<String, Command> mapCommand = new TreeMap<>(serviceLocator.getCommandMap());
 
         System.out.println("-----------------*********** WELCOME TO TASK MANAGER ************-----------------\n");
-        for (Command command : mapCommand.values()) {
+        for (@NotNull Command command : mapCommand.values()) {
             System.out.println(command.getNameCommand() + " : " + command.getDescriptionCommand());
         }
         System.out.println("----------------- ********************************************** -----------------\n");

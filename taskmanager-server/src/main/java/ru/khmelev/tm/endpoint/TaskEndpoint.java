@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.ITaskService;
-import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.entity.dto.SessionDTO;
 import ru.khmelev.tm.entity.dto.TaskDTO;
 
@@ -102,14 +100,5 @@ public final class TaskEndpoint implements ITaskEndpoint {
     ) {
         sessionService.checkSession(sessionDTO);
         return taskService.listTaskFromProject(projectId, sessionDTO.getUserId());
-    }
-
-    @Override
-    public void removeAllTaskFromProject(
-            @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
-            @WebParam(name = "projectId") @NotNull final String projectId
-    ) {
-        sessionService.checkSession(sessionDTO);
-        taskService.removeAllTaskFromProject(projectId, sessionDTO.getUserId());
     }
 }

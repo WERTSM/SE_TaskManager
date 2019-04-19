@@ -3,8 +3,8 @@ package ru.khmelev.tm.command.task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
-import ru.khmelev.tm.api.endpoint.Task;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
+import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 
@@ -33,15 +33,15 @@ public final class TaskListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
-        for (Task task : serviceLocator.getTaskEndpoint().findAllTAsk(session)) {
-            Printer.showListTask(task);
+        for (@NotNull TaskDTO taskDTO : serviceLocator.getTaskEndpoint().findAllTAsk(sessionDTO)) {
+            Printer.showListTask(taskDTO);
         }
         System.out.println("!!!DONE!!!");
     }

@@ -9,23 +9,25 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for task complex type.
+ * <p>Java class for projectDTO complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="task"&gt;
+ * &lt;complexType name="projectDTO"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://endpoint.api.tm.khmelev.ru/}entity"&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="dateCreate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateFinish" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateStart" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
- *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://endpoint.api.tm.khmelev.ru/}status" minOccurs="0"/&gt;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
- *     &lt;/extension&gt;
+ *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
@@ -33,17 +35,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "task", propOrder = {
+@XmlType(name = "projectDTO", propOrder = {
     "dateCreate",
     "dateFinish",
     "dateStart",
-    "projectId",
+    "description",
+    "id",
+    "name",
     "status",
     "userId"
 })
-public class Task
-    extends Entity
-{
+public class ProjectDTO {
 
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateCreate;
@@ -51,7 +53,9 @@ public class Task
     protected XMLGregorianCalendar dateFinish;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateStart;
-    protected String projectId;
+    protected String description;
+    protected String id;
+    protected String name;
     @XmlSchemaType(name = "string")
     protected Status status;
     protected String userId;
@@ -129,27 +133,75 @@ public class Task
     }
 
     /**
-     * Gets the value of the projectId property.
+     * Gets the value of the description property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getProjectId() {
-        return projectId;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * Sets the value of the projectId property.
+     * Sets the value of the description property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setProjectId(String value) {
-        this.projectId = value;
+    public void setDescription(String value) {
+        this.description = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setId(String value) {
+        this.id = value;
+    }
+
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
     }
 
     /**

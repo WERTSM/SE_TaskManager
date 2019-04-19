@@ -1,113 +1,57 @@
 package ru.khmelev.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.exception.RepositoryException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.Collection;
 
-public final class UserRepository {
+public final class UserRepository implements IUserRepository {
 
     @NotNull
     private final EntityManager entityManager;
-    private Object TypedQuery;
 
-    public UserRepository(EntityManager entityManager) {
+    public UserRepository(@NotNull final EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    @Override
+    public void persist(@NotNull final User user) {
+        entityManager.persist(user);
+    }
 
-    //    @Nullable
-//    @Setter
-//    private Connection connection;
-//
-//    @NotNull
-//    @SneakyThrows
-//    private User fetch(@Nullable final ResultSet row) {
-//        @NotNull final User user = new User();
-//        assert row != null;
-//        user.setId(row.getString(FieldConst.ID));
-//        user.setLogin(row.getString(FieldConst.LOGIN));
-//        user.setHashPassword(row.getString(FieldConst.HASH_PASSWORD));
-//        user.setRole(Role.valueOf(row.getString(FieldConst.ROLE)));
-//        return user;
-//    }
-//
-//    @Override
-//    public void persist(@NotNull final String id, @NotNull final User user) throws SQLException {
-//        @NotNull final String query = "INSERT INTO tm.user (" +
-//                "id, " +
-//                "login, " +
-//                "hashPassword, " +
-//                "role) " +
-//                "VALUES (?, ?, ?, ?);";
-//
-//        assert connection != null;
-//        @NotNull final PreparedStatement statement = connection.prepareStatement(query);
-//        statement.setString(1, id);
-//        statement.setString(2, user.getLogin());
-//        statement.setString(3, user.getHashPassword());
-//        statement.setString(4, user.getRole().displayName());
-//        statement.executeUpdate();
-//    }
-//
+    @Override
     @NotNull
     public User findOne(@NotNull final String id) {
-
-        String query1 = "SELECT user FROM User user WHERE id = :id";
-        javax.persistence.TypedQuery<User> typedQuery = entityManager.createQuery(query1, User.class);
+        @NotNull final String query = "SELECT user FROM User user WHERE id = :id";
+        @NotNull final TypedQuery<User> typedQuery = entityManager.createQuery(query, User.class);
         typedQuery.setParameter("id", id);
         return typedQuery.getSingleResult();
     }
 
+    @Override
+    @NotNull
+    public Collection<User> findAll() {
+        @NotNull final String query = "Select user from User user";
+        @NotNull final TypedQuery<User> typedQuery = entityManager.createQuery(query, User.class);
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public void merge(@NotNull final User user) {
+        entityManager.merge(user);
+    }
+
+    @Override
+    public void remove(@NotNull final User user) {
+        entityManager.remove(user);
+    }
+
+    @Override
+    public void removeAll(@NotNull final String userId) {
+        throw new RepositoryException();
+    }
 }
-//
-//    @Override
-//    @NotNull
-//    @SneakyThrows
-//    public Collection<User> findAll() {
-//        @Nullable ResultSet resultSet = null;
-//        @NotNull final List<User> result = new ArrayList<>();
-//
-//        @NotNull final String query = "SELECT * FROM tm.user;";
-//
-//        assert connection != null;
-//        @NotNull final PreparedStatement statement = connection.prepareStatement(query);
-//        resultSet = statement.executeQuery();
-//        while (resultSet.next()) {
-//            result.add(fetch(resultSet));
-//        }
-//        resultSet.close();
-//        return result;
-//    }
-//
-//    @Override
-//    public void merge(@NotNull final String id, @NotNull final User user) throws SQLException {
-//        @NotNull final String query = "UPDATE tm.user SET " +
-//                "login = ?, " +
-//                "hashPassword = ?, " +
-//                "role = ? " +
-//                "WHERE id = ?;";
-//
-//        assert connection != null;
-//        @NotNull final PreparedStatement statement = connection.prepareStatement(query);
-//        statement.setString(1, user.getLogin());
-//        statement.setString(2, user.getHashPassword());
-//        statement.setString(3, user.getRole().displayName());
-//        statement.setString(4, id);
-//        statement.executeUpdate();
-//    }
-//
-//    @Override
-//    public void remove(@NotNull final String id) throws SQLException {
-//        @NotNull final String query = "DELETE FROM tm.user WHERE id = ?;";
-//
-//        assert connection != null;
-//        @NotNull final PreparedStatement statement = connection.prepareStatement(query);
-//        statement.setString(1, id);
-//        statement.executeUpdate();
-//    }
-//
-//    @Override
-//    public void removeAll() {
-//        throw new RepositoryException();
-//    }

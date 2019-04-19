@@ -231,19 +231,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Session }
+     * Create an instance of {@link SessionDTO }
      * 
      */
-    public Session createSession() {
-        return new Session();
+    public SessionDTO createSessionDTO() {
+        return new SessionDTO();
     }
 
     /**
-     * Create an instance of {@link User }
+     * Create an instance of {@link UserDTO }
      * 
      */
-    public User createUser() {
-        return new User();
+    public UserDTO createUserDTO() {
+        return new UserDTO();
     }
 
     /**

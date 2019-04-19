@@ -2,195 +2,182 @@ package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.service.IUserService;
+import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
 import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.entity.dto.UserDTO;
+import ru.khmelev.tm.exception.ServiceException;
+import ru.khmelev.tm.repository.UserRepository;
+import ru.khmelev.tm.service.util.HibernateUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 public class UserService implements IUserService {
-    public UserService() {
-        super();
-    }
+
+    @NotNull
+    private final EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
+
+    private EntityManager entityManager;
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
+    public void createEntity(@NotNull final String id, @NotNull final UserDTO userDTO) {
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
+            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
+            transaction.begin();
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+            @NotNull final User user = new User();
+            user.setId(id);
+            fromDTOToUser(userDTO, user);
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
+            userRepository.persist(user);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ServiceException(e);
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
-
-    @Override
-    public @NotNull String getId(@NotNull User user) {
-        return null;
-    }
-
-    @Override
-    public @NotNull String getName(@NotNull User user) {
-        return null;
-    }
-
-    @Override
-    public void userSetPassword(@NotNull String login, @NotNull String pass) {
-
-    }
-
-    @Override
-    public UserDTO getUserFromSession(@NotNull String userId) {
-        return null;
-    }
-
-    @Override
-    public void createEntity(@NotNull String id, @NotNull UserDTO entity) {
-
+        } finally {
+            entityManager.close();
+        }
     }
 
     @NotNull
     @Override
-    public UserDTO findEntity(@NotNull String id) {
-        return null;
+    public UserDTO findEntity(@NotNull final String id) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
+            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
+            transaction.begin();
+            @NotNull final User user = userRepository.findOne(id);
+            return fromUserToDTO(user);
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ServiceException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @NotNull
+    @Override
+    public Collection<UserDTO> findAll() {
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
+            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
+            transaction.begin();
+
+            @NotNull final Collection<User> list = userRepository.findAll();
+            @NotNull final List<UserDTO> listDTO = new ArrayList<>();
+            for (User user : list) {
+                listDTO.add(fromUserToDTO(user));
+            }
+            transaction.commit();
+            return listDTO;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ServiceException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public @NotNull Collection<UserDTO> findAll() {
-        return null;
+    public void editEntity(@NotNull final String id, @NotNull UserDTO userDTO) {
+        if (id.isEmpty()) throw new ServiceException();
+
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
+            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
+            transaction.begin();
+
+            @NotNull final User user = userRepository.findOne(id);
+            userRepository.merge(fromDTOToUser(userDTO, user));
+            transaction.commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ServiceException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public void editEntity(@NotNull String id, @NotNull UserDTO entity) {
+    public void removeEntity(@NotNull final String id) {
+        if (id.isEmpty()) throw new ServiceException();
 
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
+            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
+            transaction.begin();
+            userRepository.remove(userRepository.findOne(id));
+            transaction.commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ServiceException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @NotNull
+    @Override
+    public String getId(@NotNull final UserDTO userDTO) {
+        return userDTO.getId();
+    }
+
+    @NotNull
+    @Override
+    public String getName(@NotNull final UserDTO userDTO) {
+        return userDTO.getLogin();
     }
 
     @Override
-    public void removeEntity(@NotNull String id) {
+    public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
+        if (login.isEmpty() || pass.isEmpty()) throw new ServiceException();
 
+        @NotNull final Collection<UserDTO> users = findAll();
+        for (UserDTO userDTO : users) {
+            if (userDTO.getLogin().equals(login)) {
+                @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));
+                userDTO.setHashPassword(password);
+                editEntity(userDTO.getId(), userDTO);
+            }
+        }
     }
-    //    @NotNull
-//    private final SqlSessionFactory sqlSessionFactory;
-//
-//    public UserService() {
-//        this.sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
-//    }
-//
-//    @Override
-//    public void createEntity(@NotNull final String id, @NotNull final User user) {
-//        SqlSession sqlSession = sqlSessionFactory.openSession();
-//        try {
-//            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
-//            userRepositoryMyBatis.persist(id, user);
-//            sqlSession.commit();
-//        } catch (Exception e) {
-//            sqlSession.rollback();
-//            throw new ServiceException(e);
-//        } finally {
-//            sqlSession.close();
-//        }
-//    }
-//
-//    @NotNull
-//    @Override
-//    public User findEntity(@NotNull final String id) {
-//        if (id.isEmpty()) throw new ServiceException();
-//
-//        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-//            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
-//            return userRepositoryMyBatis.findOne(id);
-//        } catch (Exception e) {
-//            throw new ServiceException(e);
-//        }
-//    }
-//
-//    @NotNull
-//    @Override
-//    public Collection<User> findAll() {
-//        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-//            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
-//            return userRepositoryMyBatis.findAll();
-//        } catch (Exception e) {
-//            throw new ServiceException(e);
-//        }
-//    }
-//
-//    @Override
-//    public void editEntity(@NotNull final String id, @NotNull User user) {
-//        if (id.isEmpty()) throw new ServiceException();
-//
-//        SqlSession sqlSession = sqlSessionFactory.openSession();
-//        try {
-//            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
-//            userRepositoryMyBatis.merge(id, user);
-//            sqlSession.commit();
-//        } catch (Exception e) {
-//            sqlSession.rollback();
-//            throw new ServiceException(e);
-//        } finally {
-//            sqlSession.close();
-//        }
-//    }
-//
-//    @Override
-//    public void removeEntity(@NotNull final String id) {
-//        if (id.isEmpty()) throw new ServiceException();
-//
-//        SqlSession sqlSession = sqlSessionFactory.openSession();
-//        try {
-//            IUserRepositoryMyBatis userRepositoryMyBatis = sqlSession.getMapper(IUserRepositoryMyBatis.class);
-//            userRepositoryMyBatis.remove(id);
-//            sqlSession.commit();
-//        } catch (Exception e) {
-//            sqlSession.rollback();
-//            throw new ServiceException(e);
-//        } finally {
-//            sqlSession.close();
-//        }
-//    }
-//
-//    @NotNull
-//    @Override
-//    public String getId(@NotNull final User user) {
-//        return user.getId();
-//    }
-//
-//    @NotNull
-//    @Override
-//    public String getName(@NotNull final User user) {
-//        return user.getLogin();
-//    }
-//
-//    @Override
-//    public void userSetPassword(@NotNull final String login, @NotNull final String pass) {
-//        if (login.isEmpty() || pass.isEmpty()) throw new ServiceException();
-//
-//        Collection<User> users = findAll();
-//        for (User user : users) {
-//            if (user.getLogin().equals(login)) {
-//                @NotNull final String password = Objects.requireNonNull(PasswordHashUtil.md5(pass));
-//                user.setHashPassword(password);
-//                editEntity(user.getId(), user);
-//            }
-//        }
-//    }
-//
-//    @NotNull
-//    @Override
-//    public User getUserFromSession(@NotNull final String userId) {
-//        return findEntity(userId);
-//    }
+
+    @NotNull
+    @Override
+    public UserDTO getUserFromSession(@NotNull final String userId) {
+        return findEntity(userId);
+    }
+
+    @NotNull
+    private User fromDTOToUser(@NotNull final UserDTO userDTO, @NotNull final User user) {
+        user.setLogin(userDTO.getLogin());
+        user.setHashPassword(userDTO.getHashPassword());
+        user.setRole(userDTO.getRole());
+        return user;
+    }
+
+    @NotNull
+    private UserDTO fromUserToDTO(@NotNull final User user) {
+        @NotNull final UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setLogin(user.getLogin());
+        userDTO.setHashPassword(user.getHashPassword());
+        userDTO.setRole(user.getRole());
+        return userDTO;
+    }
 }

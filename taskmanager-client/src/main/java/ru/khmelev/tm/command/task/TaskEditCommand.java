@@ -41,12 +41,12 @@ public final class TaskEditCommand extends Command {
 
         @NotNull final ITaskEndpoint taskService = serviceLocator.getTaskEndpoint();
 
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("ID task: ");
         @NotNull final String id = terminalService.readLine();
@@ -54,47 +54,47 @@ public final class TaskEditCommand extends Command {
             return;
         }
 
-        @NotNull final Task task = serviceLocator.getTaskEndpoint().findTask(session, id);
+        @NotNull final TaskDTO taskDTO = serviceLocator.getTaskEndpoint().findTask(sessionDTO, id);
 
         System.out.println("Name task: ");
         @NotNull final String name = terminalService.readLine();
         if (name.isEmpty()) {
             return;
         }
-        task.setName(name);
+        taskDTO.setName(name);
 
         System.out.println("Description task: ");
         @NotNull final String description = terminalService.readLine();
         if (description.isEmpty()) {
             return;
         }
-        task.setDescription(description);
+        taskDTO.setDescription(description);
 
         System.out.println("Start date: \"dd.MM.yyyy\" ");
-        @NotNull String dateStartString = terminalService.readLine();
+        @NotNull final String dateStartString = terminalService.readLine();
 
         @NotNull final Date dateStart = Printer.parse(dateStartString);
-        task.setDateStart(Printer.printXMLDate(dateStart));
+        taskDTO.setDateStart(Printer.printXMLDate(dateStart));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull String dateFinishString = terminalService.readLine();
 
         @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-        task.setDateFinish(Printer.printXMLDate(dateFinish));
+        taskDTO.setDateFinish(Printer.printXMLDate(dateFinish));
 
         System.out.println("Id project or \'0\': ");
         @NotNull String projectId = terminalService.readLine();
         if (projectId.equals("0")) {
             projectId = "00000000-0000-0000-0000-000000000000";
         }
-        task.setProjectId(projectId);
+        taskDTO.setProjectId(projectId);
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
-        @NotNull Status status = Status.valueOf(terminalService.readLine().toUpperCase());
+        @NotNull final Status status = Status.valueOf(terminalService.readLine().toUpperCase());
 
-        task.setStatus(status);
+        taskDTO.setStatus(status);
 
-        taskService.editEntityTask(session, id, task);
+        taskService.editEntityTask(sessionDTO, id, taskDTO);
         System.out.println("!!!DONE!!!");
     }
 }

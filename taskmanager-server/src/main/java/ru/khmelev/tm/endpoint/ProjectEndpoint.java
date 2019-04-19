@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ISessionService;
-import ru.khmelev.tm.entity.Project;
-import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.dto.ProjectDTO;
 import ru.khmelev.tm.entity.dto.SessionDTO;
 

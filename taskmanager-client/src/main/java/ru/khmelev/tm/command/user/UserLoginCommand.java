@@ -1,7 +1,8 @@
 package ru.khmelev.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
 import java.io.IOException;
@@ -33,16 +34,16 @@ public final class UserLoginCommand extends Command {
         System.out.println("!!!Start command!!!");
 
         System.out.println("Введите логин пользователя");
-        String login = serviceLocator.getTerminalService().readLine();
+        @NotNull final String login = serviceLocator.getTerminalService().readLine();
 
         System.out.println("Введите пароль пользователя");
-        String password = serviceLocator.getTerminalService().readLine();
+        @NotNull final String password = serviceLocator.getTerminalService().readLine();
 
-        Session session = serviceLocator.getUserEndpoint().userLogin(login, password);
+        @NotNull final SessionDTO sessionDTO = serviceLocator.getUserEndpoint().userLogin(login, password);
 
-        if (session != null) {
+        if (sessionDTO != null) {
             System.out.println("OK");
-            serviceLocator.setSession(session);
+            serviceLocator.setSessionDTO(sessionDTO);
         } else {
             System.out.println("NO OK");
         }

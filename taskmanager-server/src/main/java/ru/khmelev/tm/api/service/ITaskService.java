@@ -8,7 +8,5 @@ import java.util.Collection;
 
 public interface ITaskService extends IEntityService<TaskDTO> {
 
-    void removeAllTaskFromProject(@NotNull final String projectId, @NotNull final String userId);
-
     Collection<TaskDTO> listTaskFromProject(@NotNull final String projectId, @NotNull final String userId);
 }

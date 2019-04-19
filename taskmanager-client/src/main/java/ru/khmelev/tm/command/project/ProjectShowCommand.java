@@ -2,10 +2,10 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.Project;
+import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.Session;
-import ru.khmelev.tm.api.endpoint.Task;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
+import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.command.util.Printer;
 
@@ -36,22 +36,22 @@ public final class ProjectShowCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        @Nullable final Session session = serviceLocator.getSession();
-        if (session == null) {
+        @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
+        if (sessionDTO == null) {
             return;
         }
 
-        @NotNull final String userId = session.getUserId();
+        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("ID project: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
 
-        @NotNull final Project project = serviceLocator.getProjectEndpoint().findProject(session, id);
+        @NotNull final ProjectDTO projectDTO = serviceLocator.getProjectEndpoint().findProject(sessionDTO, id);
 
-        Printer.showProject(project, serviceLocator.getUserEndpoint().getUserFromSession(session));
+        Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
 
-        for (@NotNull Task task : serviceLocator.getTaskEndpoint().listTaskFromProject(session, id)) {
-            Printer.showTaskInProject(task);
+        for (@NotNull TaskDTO taskDTO : serviceLocator.getTaskEndpoint().listTaskFromProject(sessionDTO, id)) {
+            Printer.showTaskInProject(taskDTO);
         }
         System.out.println("!!!DONE!!!");
     }
