@@ -6,8 +6,8 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.command.util.Printer;
-import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
+import ru.khmelev.tm.util.PasswordHashUtil;
+import ru.khmelev.tm.util.Printer;
 
 import java.io.IOException;
 import java.util.Objects;

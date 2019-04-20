@@ -2,8 +2,8 @@ package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.service.IProjectService;
-import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.dto.ProjectDTO;
+import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.UserRepository;

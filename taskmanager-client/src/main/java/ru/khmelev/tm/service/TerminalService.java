@@ -2,7 +2,7 @@ package ru.khmelev.tm.service;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.api.service.ITerminalService;
+import ru.khmelev.tm.api.ITerminalService;
 
 import java.io.BufferedReader;
 import java.io.IOException;

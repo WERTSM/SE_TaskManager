@@ -2,13 +2,13 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.Status;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
-import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.command.util.Printer;
+import ru.khmelev.tm.util.Printer;
 
 import java.io.IOException;
 import java.util.Date;

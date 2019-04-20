@@ -1,4 +1,4 @@
-package ru.khmelev.tm.api.service;
+package ru.khmelev.tm.api;
 
 import org.jetbrains.annotations.NotNull;
 

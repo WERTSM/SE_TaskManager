@@ -2,14 +2,13 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
-import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.command.util.Printer;
-import ru.khmelev.tm.command.util.Sort;
-import ru.khmelev.tm.command.util.SortedProject;
+import ru.khmelev.tm.enumeration.Sort;
+import ru.khmelev.tm.util.Printer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,16 +46,12 @@ public class ProjectSortCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         @NotNull final Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
         @NotNull final List<ProjectDTO> listProject = new ArrayList<>(serviceLocator.getProjectEndpoint().findAllProject(sessionDTO));
 
-        @NotNull final SortedProject sortedEntity = new SortedProject();
-
-        sortedEntity.sort(listProject, sortParameter);
+        Sort.sortProject(listProject, sortParameter);
 
         for (@NotNull ProjectDTO projectDTO : listProject) {
             Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));

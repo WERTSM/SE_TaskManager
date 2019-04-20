@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "user")
 public class User extends Identifiable implements Serializable {
 
-    @Column(name="login", unique = true)
+    @Column(name = "login", unique = true)
     private String login;
 
     private String hashPassword;

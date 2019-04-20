@@ -1,4 +1,4 @@
-package ru.khmelev.tm.bootstrap;
+package ru.khmelev.tm.api;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -6,7 +6,6 @@ import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
-import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
 
 import java.util.Map;

@@ -2,9 +2,8 @@ package ru.khmelev.tm.command;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.bootstrap.ServiceLocator;
-
 
 import java.io.IOException;
 

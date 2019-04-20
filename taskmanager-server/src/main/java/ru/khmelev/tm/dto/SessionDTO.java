@@ -10,18 +10,15 @@ import java.util.Date;
 @Setter
 public class SessionDTO implements IdentifiableDTO {
 
+    private String id;
+    private String userId;
+    private String signature;
+    private Date dateCreate;
+
     public SessionDTO() {
         this.id = "";
         this.signature = "";
         this.userId = "";
         this.dateCreate = new Date();
     }
-
-    private String id;
-
-    private String userId;
-
-    private String signature;
-
-    private Date dateCreate;
 }

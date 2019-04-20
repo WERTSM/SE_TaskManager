@@ -2,14 +2,13 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
-import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.command.util.Printer;
-import ru.khmelev.tm.command.util.Sort;
-import ru.khmelev.tm.command.util.SortedTask;
+import ru.khmelev.tm.enumeration.Sort;
+import ru.khmelev.tm.util.Printer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class TaskSortCommand extends Command {
 
     @Override
     public String getNameCommand() {
-        return "task-soQrt";
+        return "task-sort";
     }
 
     @Override
@@ -47,16 +46,12 @@ public class TaskSortCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("Сортировать по дате создания, начала, завершения (create, start, finish) или статусу (status)?");
         Sort sortParameter = Sort.valueOf(terminalService.readLine().toUpperCase());
 
         @NotNull final List<TaskDTO> listTask = new ArrayList<>(serviceLocator.getTaskEndpoint().findAllTAsk(sessionDTO));
 
-        @NotNull final SortedTask sortedEntity = new SortedTask();
-
-        sortedEntity.sort(listTask, sortParameter);
+        Sort.sortTask(listTask, sortParameter);
 
         for (@NotNull TaskDTO taskDTO : listTask) {
             Printer.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));

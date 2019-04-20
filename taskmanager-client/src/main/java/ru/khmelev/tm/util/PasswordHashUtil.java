@@ -1,4 +1,4 @@
-package ru.khmelev.tm.endpoint.util;
+package ru.khmelev.tm.util;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

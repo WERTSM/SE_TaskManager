@@ -2,12 +2,12 @@ package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.service.IUserService;
-import ru.khmelev.tm.util.PasswordHashUtil;
-import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.dto.UserDTO;
+import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.repository.UserRepository;
 import ru.khmelev.tm.util.HibernateUtil;
+import ru.khmelev.tm.util.PasswordHashUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

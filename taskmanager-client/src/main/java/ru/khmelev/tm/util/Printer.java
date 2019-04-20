@@ -1,4 +1,4 @@
-package ru.khmelev.tm.command.util;
+package ru.khmelev.tm.util;
 
 import com.jcabi.manifests.Manifests;
 import org.jetbrains.annotations.NotNull;
@@ -142,10 +142,10 @@ public final class Printer {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new Date(0,0,0,0,0,0);
+        return new Date(0, 0, 0, 0, 0, 0);
     }
 
-    static Date printDate(@NotNull final XMLGregorianCalendar XMLDate) {
+    public static Date printDate(@NotNull final XMLGregorianCalendar XMLDate) {
         return XMLDate.toGregorianCalendar().getTime();
     }
 

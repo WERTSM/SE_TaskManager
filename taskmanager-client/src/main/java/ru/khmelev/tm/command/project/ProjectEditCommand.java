@@ -2,15 +2,15 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.*;
-import ru.khmelev.tm.api.service.ITerminalService;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.command.util.Printer;
+import ru.khmelev.tm.util.Printer;
 
 import java.io.IOException;
 import java.util.Date;
 
-import static ru.khmelev.tm.command.util.Printer.printXMLDate;
+import static ru.khmelev.tm.util.Printer.printXMLDate;
 
 public final class ProjectEditCommand extends Command {
 

@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
-import ru.khmelev.tm.util.PasswordHashUtil;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.UserDTO;
+import ru.khmelev.tm.util.PasswordHashUtil;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
