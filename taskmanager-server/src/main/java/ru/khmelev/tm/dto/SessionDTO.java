@@ -1,4 +1,4 @@
-package ru.khmelev.tm.entity.dto;
+package ru.khmelev.tm.dto;
 
 import lombok.Getter;
 import lombok.Setter;

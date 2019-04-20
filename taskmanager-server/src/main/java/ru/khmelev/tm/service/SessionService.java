@@ -4,11 +4,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.dto.SessionDTO;
+import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.repository.SessionRepository;
 import ru.khmelev.tm.repository.UserRepository;
-import ru.khmelev.tm.service.util.HibernateUtil;
+import ru.khmelev.tm.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

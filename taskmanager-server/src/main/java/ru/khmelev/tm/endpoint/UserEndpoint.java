@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
-import ru.khmelev.tm.endpoint.util.PasswordHashUtil;
-import ru.khmelev.tm.entity.dto.SessionDTO;
-import ru.khmelev.tm.entity.dto.UserDTO;
+import ru.khmelev.tm.util.PasswordHashUtil;
+import ru.khmelev.tm.dto.SessionDTO;
+import ru.khmelev.tm.dto.UserDTO;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-import static ru.khmelev.tm.endpoint.util.SignatureUtil.sign;
+import static ru.khmelev.tm.util.SignatureUtil.sign;
 
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public final class UserEndpoint implements IUserEndpoint {

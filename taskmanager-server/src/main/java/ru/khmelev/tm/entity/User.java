@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.entity.enumeration.Role;
+import ru.khmelev.tm.enumeration.Role;
 
 import javax.persistence.*;
 import java.io.Serializable;

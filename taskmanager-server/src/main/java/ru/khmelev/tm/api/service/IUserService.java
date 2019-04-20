@@ -1,8 +1,7 @@
 package ru.khmelev.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.entity.User;
-import ru.khmelev.tm.entity.dto.UserDTO;
+import ru.khmelev.tm.dto.UserDTO;
 
 public interface IUserService extends IService<UserDTO> {
 

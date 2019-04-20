@@ -1,6 +1,6 @@
 package ru.khmelev.tm.api.dto;
 
-import ru.khmelev.tm.entity.enumeration.Status;
+import ru.khmelev.tm.enumeration.Status;
 
 import java.util.Date;
 

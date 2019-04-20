@@ -1,10 +1,10 @@
-package ru.khmelev.tm.entity.dto;
+package ru.khmelev.tm.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.khmelev.tm.api.dto.IdentifiableDTO;
-import ru.khmelev.tm.entity.enumeration.Role;
+import ru.khmelev.tm.enumeration.Role;
 
 import java.io.Serializable;
 

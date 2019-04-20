@@ -1,8 +1,7 @@
 package ru.khmelev.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.entity.dto.TaskDTO;
+import ru.khmelev.tm.dto.TaskDTO;
 
 import java.util.Collection;
 

@@ -1,8 +1,7 @@
 package ru.khmelev.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.dto.SessionDTO;
+import ru.khmelev.tm.dto.SessionDTO;
 
 public interface ISessionService extends IService<SessionDTO> {
 

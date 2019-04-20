@@ -3,7 +3,7 @@ package ru.khmelev.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.khmelev.tm.entity.enumeration.Status;
+import ru.khmelev.tm.enumeration.Status;
 
 import javax.persistence.*;
 import java.io.Serializable;

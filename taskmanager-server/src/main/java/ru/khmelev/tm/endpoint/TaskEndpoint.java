@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.ITaskService;
-import ru.khmelev.tm.entity.dto.SessionDTO;
-import ru.khmelev.tm.entity.dto.TaskDTO;
+import ru.khmelev.tm.dto.SessionDTO;
+import ru.khmelev.tm.dto.TaskDTO;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;

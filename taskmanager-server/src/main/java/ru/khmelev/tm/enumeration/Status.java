@@ -1,4 +1,4 @@
-package ru.khmelev.tm.entity.enumeration;
+package ru.khmelev.tm.enumeration;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package ru.khmelev.tm.service.util;
+package ru.khmelev.tm.util;
 
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;

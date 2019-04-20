@@ -2,10 +2,8 @@ package ru.khmelev.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.entity.Session;
-import ru.khmelev.tm.entity.User;
-import ru.khmelev.tm.entity.dto.SessionDTO;
-import ru.khmelev.tm.entity.dto.UserDTO;
+import ru.khmelev.tm.dto.SessionDTO;
+import ru.khmelev.tm.dto.UserDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;

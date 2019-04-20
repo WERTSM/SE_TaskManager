@@ -3,12 +3,12 @@ package ru.khmelev.tm.service;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.entity.Task;
-import ru.khmelev.tm.entity.dto.TaskDTO;
+import ru.khmelev.tm.dto.TaskDTO;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.TaskRepository;
 import ru.khmelev.tm.repository.UserRepository;
-import ru.khmelev.tm.service.util.HibernateUtil;
+import ru.khmelev.tm.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
