@@ -10,6 +10,8 @@ import ru.khmelev.tm.repository.SessionRepository;
 import ru.khmelev.tm.repository.UserRepository;
 import ru.khmelev.tm.util.HibernateUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,10 +20,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+@ApplicationScoped
 public class SessionService implements ISessionService {
 
-    @NotNull
-    private final EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
+    @Inject
+    private EntityManagerFactory entityManagerFactory;
 
     private EntityManager entityManager;
 

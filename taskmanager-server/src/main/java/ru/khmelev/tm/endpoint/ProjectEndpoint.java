@@ -7,10 +7,14 @@ import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.dto.SessionDTO;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 
+@Singleton
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IProjectEndpoint")
 public class ProjectEndpoint implements IProjectEndpoint {
 
@@ -20,6 +24,7 @@ public class ProjectEndpoint implements IProjectEndpoint {
     @NotNull
     private final ISessionService sessionService;
 
+    @Inject
     public ProjectEndpoint(@NotNull final ISessionService sessionService, @NotNull final IProjectService projectService) {
         this.projectService = projectService;
         this.sessionService = sessionService;

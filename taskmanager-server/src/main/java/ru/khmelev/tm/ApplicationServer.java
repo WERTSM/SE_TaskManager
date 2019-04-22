@@ -2,12 +2,19 @@ package ru.khmelev.tm;
 
 import ru.khmelev.tm.bootstrap.Bootstrap;
 
+import javax.enterprise.inject.se.SeContainerInitializer;
+
 public final class ApplicationServer {
     public static void main(String[] args) {
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.init();
+        SeContainerInitializer.newInstance()
+                .addPackages(ApplicationServer.class).initialize().select(Bootstrap.class).get().init();
     }
+
+
+    //Bootstrap bootstrap = new Bootstrap();
+    //bootstrap.init();
 }
+
 
 //        ProjectService psh = new ProjectService();
 //

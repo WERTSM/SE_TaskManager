@@ -11,40 +11,42 @@ import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.endpoint.ProjectEndpointService;
 import ru.khmelev.tm.endpoint.TaskEndpointService;
 import ru.khmelev.tm.endpoint.UserEndpointService;
-import ru.khmelev.tm.service.TerminalService;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public final class Bootstrap implements ServiceLocator {
+@ApplicationScoped
+@Getter
+public class Bootstrap implements ServiceLocator {
 
-    @Getter
     @NotNull
     private final SortedMap<String, Command> commandMap = new TreeMap<>();
-    @Getter
+
     @NotNull
-    private final ProjectEndpointService projectEndpointService = new ProjectEndpointService();
-    @Getter
+    private final IProjectEndpoint projectEndpoint = new ProjectEndpointService().getProjectEndpointPort();
+
     @NotNull
-    private final TaskEndpointService taskEndpointService = new TaskEndpointService();
-    @Getter
+    private final ITaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
+
     @NotNull
-    private final UserEndpointService userEndpointService = new UserEndpointService();
-    @Getter
-    @NotNull
-    private final IProjectEndpoint projectEndpoint = projectEndpointService.getProjectEndpointPort();
-    @Getter
-    @NotNull
-    private final ITaskEndpoint taskEndpoint = taskEndpointService.getTaskEndpointPort();
-    @Getter
-    @NotNull
-    private final IUserEndpoint userEndpoint = userEndpointService.getUserEndpointPort();
-    @Getter
-    @NotNull
-    private final ITerminalService terminalService = new TerminalService();
+    private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
+
+    @Inject
+    private ProjectEndpointService projectEndpointService;
+
+    @Inject
+    private TaskEndpointService taskEndpointService;
+
+    @Inject
+    private UserEndpointService userEndpointService;
+
+    @Inject
+    private ITerminalService terminalService;
+
     @Setter
-    @Getter
     @Nullable
     private SessionDTO sessionDTO;
 

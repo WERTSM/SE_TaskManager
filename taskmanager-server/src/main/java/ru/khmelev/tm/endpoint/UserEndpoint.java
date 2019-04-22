@@ -8,6 +8,8 @@ import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
@@ -17,8 +19,9 @@ import java.util.UUID;
 
 import static ru.khmelev.tm.util.SignatureUtil.sign;
 
+@Singleton
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
-public final class UserEndpoint implements IUserEndpoint {
+public class UserEndpoint implements IUserEndpoint {
 
     @NotNull
     private ISessionService sessionService;
@@ -26,6 +29,7 @@ public final class UserEndpoint implements IUserEndpoint {
     @NotNull
     private IUserService userService;
 
+    @Inject
     public UserEndpoint(@NotNull final ISessionService sessionService, @NotNull final IUserService userService) {
         this.sessionService = sessionService;
         this.userService = userService;

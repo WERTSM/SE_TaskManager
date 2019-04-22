@@ -9,6 +9,8 @@ import ru.khmelev.tm.command.system.HelpCommand;
 import ru.khmelev.tm.command.task.*;
 import ru.khmelev.tm.command.user.*;
 
+import javax.enterprise.inject.se.SeContainerInitializer;
+
 public final class ApplicationClient {
 
     @NotNull
@@ -43,7 +45,9 @@ public final class ApplicationClient {
 
     public static void main(String[] args) throws Exception {
         System.setProperty("org.apache.logging.log4j.simplelog.StatusLogger.level", "INFO");
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.init(CLASS);
+
+        SeContainerInitializer.newInstance()
+                .addPackages(ApplicationClient.class).initialize()
+                .select(Bootstrap.class).get().init(CLASS);
     }
 }

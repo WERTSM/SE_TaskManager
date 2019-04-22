@@ -12,16 +12,20 @@ import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+@ApplicationScoped
 public class HibernateUtil {
 
     @Nullable
     private static EntityManagerFactory entityManagerFactory;
 
+    @Produces
     @NotNull
     public static EntityManagerFactory getEntityManagerFactory() {
         if (entityManagerFactory == null) {
