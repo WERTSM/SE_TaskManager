@@ -12,6 +12,7 @@
         <module>taskmanager-server</module>
         <module>taskmanager-client</module>
     </modules>
+
     <developers>
         <developer>
             <id>WERTSM</id>
@@ -148,5 +149,4 @@
     <scm>
         <connection>scm:git:https://github.com/WERTSM/SE_TaskManager.git</connection>
     </scm>
-
 </project>
