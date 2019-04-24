@@ -8,6 +8,7 @@ import ru.khmelev.tm.enumeration.Status;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Setter
 @Getter

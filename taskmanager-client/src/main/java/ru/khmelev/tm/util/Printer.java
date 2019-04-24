@@ -135,7 +135,7 @@ public final class Printer {
         );
     }
 
-    @Nullable
+    @NotNull
     public static Date parse(@NotNull final String dateString) {
         try {
             return DEFAULT_DATE_FORMAT.parse(dateString);
@@ -149,11 +149,14 @@ public final class Printer {
         return XMLDate.toGregorianCalendar().getTime();
     }
 
+    @Nullable
     public static XMLGregorianCalendar printXMLDate(@NotNull final Date date) {
         @NotNull final GregorianCalendar c = new GregorianCalendar();
         c.setTime(date);
         try {
-            return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            xmlGregorianCalendar.setMillisecond(0);
+            return xmlGregorianCalendar;
         } catch (DatatypeConfigurationException e) {
             e.printStackTrace();
         }

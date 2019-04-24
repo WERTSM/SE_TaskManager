@@ -25,23 +25,14 @@ public class Bootstrap implements ServiceLocator {
     @NotNull
     private final SortedMap<String, Command> commandMap = new TreeMap<>();
 
-    @NotNull
-    private final IProjectEndpoint projectEndpoint = new ProjectEndpointService().getProjectEndpointPort();
-
-    @NotNull
-    private final ITaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
-
-    @NotNull
-    private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
+    @Inject
+    private IProjectEndpoint projectEndpoint;
 
     @Inject
-    private ProjectEndpointService projectEndpointService;
+    private ITaskEndpoint taskEndpoint;
 
     @Inject
-    private TaskEndpointService taskEndpointService;
-
-    @Inject
-    private UserEndpointService userEndpointService;
+    private IUserEndpoint userEndpoint;
 
     @Inject
     private ITerminalService terminalService;
