@@ -11,9 +11,16 @@
 
     <artifactId>taskmanager-client</artifactId>
 
+    <properties>
+        <skip-tests>true</skip-tests>
+    </properties>
+
     <profiles>
         <profile>
             <id>integration-tests</id>
+            <properties>
+                <skip-tests>false</skip-tests>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -35,6 +42,9 @@
         </profile>
         <profile>
             <id>generate-sources</id>
+            <properties>
+                <skip-tests>true</skip-tests>
+            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -92,14 +102,14 @@
     <build>
         <testSourceDirectory>${basedir}/src/test/ru/khmelev/tm</testSourceDirectory>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>2.12.2</version>-->
-                <!--<configuration>-->
-                    <!--<skipTests>true</skipTests>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.2</version>
+                <configuration>
+                    <skipTests>${skip-tests}</skipTests>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.webcohesion.enunciate</groupId>
                 <artifactId>enunciate-maven-plugin</artifactId>
