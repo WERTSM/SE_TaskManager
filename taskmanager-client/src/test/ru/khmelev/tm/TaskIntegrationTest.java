@@ -58,8 +58,8 @@ public class TaskIntegrationTest {
     public void createAndFindTask() {
         @NotNull final TaskDTO taskDTO = new TaskDTO();
         taskDTO.setId(UUID.randomUUID().toString());
-        taskDTO.setName("ProjectNameTest");
-        taskDTO.setDescription("ProjectDescriptionTest");
+        taskDTO.setName("TaskNameTest");
+        taskDTO.setDescription("TaskDescriptionTest");
         taskDTO.setDateCreate(Printer.printXMLDate(new Date()));
         taskDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
         taskDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
@@ -79,6 +79,148 @@ public class TaskIntegrationTest {
         Assert.assertEquals(taskDTOFromServer.getStatus(), taskDTO.getStatus());
         Assert.assertEquals(taskDTOFromServer.getProjectId(), taskDTO.getProjectId());
         Assert.assertEquals(taskDTOFromServer.getUserId(), taskDTO.getUserId());
+    }
+
+    @Test
+    public void findAllTask() {
+        @NotNull final TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(UUID.randomUUID().toString());
+        taskDTO.setName("TaskNameTest");
+        taskDTO.setDescription("TaskDescriptionTest");
+        taskDTO.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
+        taskDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        taskDTO.setStatus(Status.INPROGRESS);
+        taskDTO.setProjectId(testProjectDTO.getId());
+        taskDTO.setUserId(testUserDTO.getId());
+
+        taskEndpoint.createTask(sessionDTO, taskDTO.getId(), taskDTO);
+
+        @NotNull final TaskDTO taskDTO2 = new TaskDTO();
+        taskDTO2.setId(UUID.randomUUID().toString());
+        taskDTO2.setName("TaskNameTest2");
+        taskDTO2.setDescription("TaskDescriptionTest2");
+        taskDTO2.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO2.setDateStart(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        taskDTO2.setDateFinish(Printer.printXMLDate(Printer.parse("03.03.2003")));
+        taskDTO2.setStatus(Status.INPROGRESS);
+        taskDTO2.setProjectId(testProjectDTO.getId());
+        taskDTO2.setUserId(testUserDTO.getId());
+
+        taskEndpoint.createTask(sessionDTO, taskDTO2.getId(), taskDTO2);
+
+        Assert.assertEquals(taskEndpoint.findAllTAsk(sessionDTO).size(), 2);
+
+        @NotNull final TaskDTO taskDTOFromServer = taskEndpoint.findTask(sessionDTO, taskDTO.getId());
+        Assert.assertEquals(taskDTOFromServer.getId(), taskDTO.getId());
+        Assert.assertEquals(taskDTOFromServer.getName(), taskDTO.getName());
+        Assert.assertEquals(taskDTOFromServer.getDescription(), taskDTO.getDescription());
+        Assert.assertEquals(taskDTOFromServer.getDateStart(), taskDTO.getDateStart());
+        Assert.assertEquals(taskDTOFromServer.getDateFinish(), taskDTO.getDateFinish());
+        Assert.assertEquals(taskDTOFromServer.getDateCreate(), taskDTO.getDateCreate());
+        Assert.assertEquals(taskDTOFromServer.getStatus(), taskDTO.getStatus());
+        Assert.assertEquals(taskDTOFromServer.getProjectId(), taskDTO.getProjectId());
+        Assert.assertEquals(taskDTOFromServer.getUserId(), taskDTO.getUserId());
+
+        @NotNull final TaskDTO taskDTOFromServer2 = taskEndpoint.findTask(sessionDTO, taskDTO2.getId());
+        Assert.assertEquals(taskDTOFromServer2.getId(), taskDTO2.getId());
+        Assert.assertEquals(taskDTOFromServer2.getName(), taskDTO2.getName());
+        Assert.assertEquals(taskDTOFromServer2.getDescription(), taskDTO2.getDescription());
+        Assert.assertEquals(taskDTOFromServer2.getDateStart(), taskDTO2.getDateStart());
+        Assert.assertEquals(taskDTOFromServer2.getDateFinish(), taskDTO2.getDateFinish());
+        Assert.assertEquals(taskDTOFromServer2.getDateCreate(), taskDTO2.getDateCreate());
+        Assert.assertEquals(taskDTOFromServer2.getStatus(), taskDTO2.getStatus());
+        Assert.assertEquals(taskDTOFromServer2.getProjectId(), taskDTO.getProjectId());
+        Assert.assertEquals(taskDTOFromServer2.getUserId(), taskDTO2.getUserId());
+    }
+
+    @Test
+    public void editTask() {
+        @NotNull final TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(UUID.randomUUID().toString());
+        taskDTO.setName("TaskNameTest");
+        taskDTO.setDescription("TaskDescriptionTest");
+        taskDTO.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
+        taskDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        taskDTO.setStatus(Status.INPROGRESS);
+        taskDTO.setProjectId(testProjectDTO.getId());
+        taskDTO.setUserId(testUserDTO.getId());
+
+        taskEndpoint.createTask(sessionDTO, taskDTO.getId(), taskDTO);
+
+        @NotNull final TaskDTO editTaskDTO = taskDTO;
+        editTaskDTO.setName("ProjectEditNameTest");
+        editTaskDTO.setDescription("ProjectEditDescriptionTest");
+        editTaskDTO.setDateStart(Printer.printXMLDate(Printer.parse("11.11.2100")));
+        editTaskDTO.setDateFinish(Printer.printXMLDate(Printer.parse("12.12.2102")));
+        editTaskDTO.setStatus(Status.DONE);
+
+        taskEndpoint.editTask(sessionDTO, taskDTO.getId(), editTaskDTO);
+
+        @NotNull final TaskDTO taskDTOFromServer = taskEndpoint.findTask(sessionDTO, taskDTO.getId());
+
+        Assert.assertEquals(taskDTOFromServer.getId(), editTaskDTO.getId());
+        Assert.assertEquals(taskDTOFromServer.getName(), editTaskDTO.getName());
+        Assert.assertEquals(taskDTOFromServer.getDescription(), editTaskDTO.getDescription());
+        Assert.assertEquals(taskDTOFromServer.getDateStart(), editTaskDTO.getDateStart());
+        Assert.assertEquals(taskDTOFromServer.getDateFinish(), editTaskDTO.getDateFinish());
+        Assert.assertEquals(taskDTOFromServer.getDateCreate(), editTaskDTO.getDateCreate());
+        Assert.assertEquals(taskDTOFromServer.getStatus(), editTaskDTO.getStatus());
+        Assert.assertEquals(taskDTOFromServer.getUserId(), editTaskDTO.getUserId());
+    }
+
+    @Test
+    public void removeTask() {
+        @NotNull final TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(UUID.randomUUID().toString());
+        taskDTO.setName("TaskNameTest");
+        taskDTO.setDescription("TaskDescriptionTest");
+        taskDTO.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
+        taskDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        taskDTO.setStatus(Status.INPROGRESS);
+        taskDTO.setProjectId(testProjectDTO.getId());
+        taskDTO.setUserId(testUserDTO.getId());
+
+        taskEndpoint.createTask(sessionDTO, taskDTO.getId(), taskDTO);
+
+        taskEndpoint.removeTask(sessionDTO, taskDTO.getId());
+
+        Assert.assertEquals(taskEndpoint.findAllTAsk(sessionDTO).size(), 0);
+    }
+
+    @Test
+    public void clearTask() {
+        @NotNull final TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(UUID.randomUUID().toString());
+        taskDTO.setName("TaskNameTest");
+        taskDTO.setDescription("TaskDescriptionTest");
+        taskDTO.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
+        taskDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        taskDTO.setStatus(Status.INPROGRESS);
+        taskDTO.setProjectId(testProjectDTO.getId());
+        taskDTO.setUserId(testUserDTO.getId());
+
+        taskEndpoint.createTask(sessionDTO, taskDTO.getId(), taskDTO);
+
+        @NotNull final TaskDTO taskDTO2 = new TaskDTO();
+        taskDTO2.setId(UUID.randomUUID().toString());
+        taskDTO2.setName("TaskNameTest2");
+        taskDTO2.setDescription("TaskDescriptionTest2");
+        taskDTO2.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO2.setDateStart(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        taskDTO2.setDateFinish(Printer.printXMLDate(Printer.parse("03.03.2003")));
+        taskDTO2.setStatus(Status.INPROGRESS);
+        taskDTO2.setProjectId(testProjectDTO.getId());
+        taskDTO2.setUserId(testUserDTO.getId());
+
+        taskEndpoint.createTask(sessionDTO, taskDTO2.getId(), taskDTO2);
+
+        taskEndpoint.clearTask(sessionDTO);
+
+        Assert.assertEquals(taskEndpoint.findAllTAsk(sessionDTO).size(), 0);
     }
 
     @After

@@ -27,7 +27,7 @@ public interface ITaskEndpoint {
     Collection<TaskDTO> findAllDescriptionTask(@NotNull final SessionDTO sessionDTO, @NotNull final String findParameter);
 
     @WebMethod
-    void editEntityTask(@NotNull final SessionDTO sessionDTO, @NotNull final String id, @NotNull final TaskDTO taskDTO);
+    void editTask(@NotNull final SessionDTO sessionDTO, @NotNull final String id, @NotNull final TaskDTO taskDTO);
 
     @WebMethod
     void removeTask(@NotNull final SessionDTO sessionDTO, @NotNull final String id);

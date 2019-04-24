@@ -94,7 +94,7 @@ public final class TaskEditCommand extends Command {
 
         taskDTO.setStatus(status);
 
-        taskService.editEntityTask(sessionDTO, id, taskDTO);
+        taskService.editTask(sessionDTO, id, taskDTO);
         System.out.println("!!!DONE!!!");
     }
 }

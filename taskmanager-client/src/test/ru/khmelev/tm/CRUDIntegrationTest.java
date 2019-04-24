@@ -1,1 +1,2 @@
-public interface CRUDIntegrationTest {}
+public interface CRUDIntegrationTest {
+}

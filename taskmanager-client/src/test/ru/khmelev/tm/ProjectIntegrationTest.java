@@ -126,15 +126,15 @@ public class ProjectIntegrationTest {
         projectEndpoint.createProject(sessionDTO, projectDTO.getId(), projectDTO);
 
         @NotNull final ProjectDTO editProjectDTO = projectDTO;
-        projectDTO.setName("ProjectEditNameTest");
-        projectDTO.setDescription("ProjectEditDescriptionTest");
-        projectDTO.setDateStart(Printer.printXMLDate(Printer.parse("11.11.2100")));
-        projectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("12.12.2102")));
-        projectDTO.setStatus(Status.DONE);
+        editProjectDTO.setName("ProjectEditNameTest");
+        editProjectDTO.setDescription("ProjectEditDescriptionTest");
+        editProjectDTO.setDateStart(Printer.printXMLDate(Printer.parse("11.11.2100")));
+        editProjectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("12.12.2102")));
+        editProjectDTO.setStatus(Status.DONE);
 
         projectEndpoint.editProject(sessionDTO, projectDTO.getId(), editProjectDTO);
 
-        @NotNull final ProjectDTO projectDTOfromServer = projectEndpoint.findProject(sessionDTO, editProjectDTO.getId());
+        @NotNull final ProjectDTO projectDTOfromServer = projectEndpoint.findProject(sessionDTO, projectDTO.getId());
 
         Assert.assertEquals(projectDTOfromServer.getId(), editProjectDTO.getId());
         Assert.assertEquals(projectDTOfromServer.getName(), editProjectDTO.getName());

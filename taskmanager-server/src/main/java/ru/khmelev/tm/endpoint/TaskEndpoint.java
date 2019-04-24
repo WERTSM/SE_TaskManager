@@ -73,7 +73,7 @@ public class TaskEndpoint implements ITaskEndpoint {
     }
 
     @Override
-    public void editEntityTask(
+    public void editTask(
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id,
             @WebParam(name = "task") @NotNull TaskDTO taskDTO
