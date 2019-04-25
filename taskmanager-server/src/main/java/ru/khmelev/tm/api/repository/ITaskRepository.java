@@ -1,10 +1,13 @@
 package ru.khmelev.tm.api.repository;
 
+import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.entity.Task;
 
 import java.util.Collection;
 
+@Repository(forEntity = Task.class)
 public interface ITaskRepository {
 
     void persist(@NotNull final Task task);

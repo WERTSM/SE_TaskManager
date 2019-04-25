@@ -1,10 +1,12 @@
 package ru.khmelev.tm.api.repository;
 
+import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.User;
 
 import java.util.Collection;
 
+@Repository(forEntity = User.class)
 public interface IUserRepository {
     void persist(@NotNull User user);
 
