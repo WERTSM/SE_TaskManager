@@ -38,8 +38,6 @@ public final class TaskRemoveCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("ID task: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
         if (id.isEmpty()) {

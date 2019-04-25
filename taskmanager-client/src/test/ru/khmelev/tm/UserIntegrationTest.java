@@ -17,7 +17,8 @@ import java.util.UUID;
 @Category(IUserIntegrationTest.class)
 public class UserIntegrationTest {
 
-    private IUserEndpoint userEndpoint = new EndpointService().getUserEndpointService();
+    @NotNull
+    private final IUserEndpoint userEndpoint = new EndpointService().getUserEndpointService();
 
     private SessionDTO sessionDTO;
 
@@ -57,7 +58,13 @@ public class UserIntegrationTest {
 
         @NotNull final SessionDTO sessionDTO2 = userEndpoint.userLogin("test2", "test2");
 
-        Assert.assertEquals(userEndpoint.findAllUser(sessionDTO).size(), 2);
+        @NotNull int count = 0;
+        for (@NotNull UserDTO userDTO3 : userEndpoint.findAllUser(sessionDTO)) {
+            if (userDTO3.getLogin().equals("test") || userDTO3.getLogin().equals("test2")) {
+                count++;
+            }
+        }
+        Assert.assertEquals(count, 2);
 
         @NotNull final UserDTO userDTOFromServer = userEndpoint.findUser(sessionDTO, testUserDTO.getId());
         Assert.assertEquals(userDTOFromServer.getId(), testUserDTO.getId());
@@ -103,7 +110,13 @@ public class UserIntegrationTest {
 
         userEndpoint.removeUser(sessionDTO, userDTO2.getId());
 
-        Assert.assertEquals(userEndpoint.findAllUser(sessionDTO).size(), 1);
+        @NotNull boolean resultRemoveUser = true;
+        for (@NotNull UserDTO userDTO3 : userEndpoint.findAllUser(sessionDTO)) {
+            if (userDTO3.getLogin().equals("test2")) {
+                resultRemoveUser = false;
+            }
+        }
+        Assert.assertTrue(resultRemoveUser);
     }
 
     @After

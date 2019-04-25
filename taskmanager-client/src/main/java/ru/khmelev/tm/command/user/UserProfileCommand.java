@@ -2,7 +2,7 @@ package ru.khmelev.tm.command.user;
 
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.util.Objects;
 
@@ -31,7 +31,7 @@ public final class UserProfileCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        Printer.showUser(serviceLocator.getUserEndpoint().getUserFromSession(Objects.requireNonNull(serviceLocator.getSessionDTO())));
+        PrinterUtil.showUser(serviceLocator.getUserEndpoint().getUserFromSession(Objects.requireNonNull(serviceLocator.getSessionDTO())));
         System.out.println("!!!DONE!!!");
     }
 }

@@ -6,7 +6,7 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 public final class TaskListCommand extends Command {
 
@@ -38,10 +38,8 @@ public final class TaskListCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         for (@NotNull TaskDTO taskDTO : serviceLocator.getTaskEndpoint().findAllTAsk(sessionDTO)) {
-            Printer.showListTask(taskDTO);
+            PrinterUtil.showListTask(taskDTO);
         }
         System.out.println("!!!DONE!!!");
     }

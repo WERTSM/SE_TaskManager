@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.endpoint.EndpointService;
+import ru.khmelev.tm.util.ConverterUtil;
 import ru.khmelev.tm.util.PasswordHashUtil;
-import ru.khmelev.tm.util.Printer;
 
 import java.util.Date;
 import java.util.Objects;
@@ -16,9 +16,11 @@ import java.util.UUID;
 @Category(IProjectIntegrationTest.class)
 public class ProjectIntegrationTest {
 
-    private IProjectEndpoint projectEndpoint = new EndpointService().getProjectEndpointService();
+    @NotNull
+    private final IProjectEndpoint projectEndpoint = new EndpointService().getProjectEndpointService();
 
-    private IUserEndpoint userEndpoint = new EndpointService().getUserEndpointService();
+    @NotNull
+    private final IUserEndpoint userEndpoint = new EndpointService().getUserEndpointService();
 
     private SessionDTO sessionDTO;
 
@@ -43,9 +45,9 @@ public class ProjectIntegrationTest {
         projectDTO.setId(UUID.randomUUID().toString());
         projectDTO.setName("ProjectNameTest");
         projectDTO.setDescription("ProjectDescriptionTest");
-        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
-        projectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        projectDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("01.01.2000"))));
+        projectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
         projectDTO.setStatus(Status.INPROGRESS);
         projectDTO.setUserId(testUserDTO.getId());
 
@@ -68,9 +70,9 @@ public class ProjectIntegrationTest {
         projectDTO.setId(UUID.randomUUID().toString());
         projectDTO.setName("ProjectNameTest");
         projectDTO.setDescription("ProjectDescriptionTest");
-        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
-        projectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        projectDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("01.01.2000"))));
+        projectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
         projectDTO.setStatus(Status.INPROGRESS);
         projectDTO.setUserId(testUserDTO.getId());
 
@@ -80,9 +82,9 @@ public class ProjectIntegrationTest {
         projectDTO2.setId(UUID.randomUUID().toString());
         projectDTO2.setName("ProjectNameTest2");
         projectDTO2.setDescription("ProjectDescriptionTest2");
-        projectDTO2.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO2.setDateStart(Printer.printXMLDate(Printer.parse("02.02.2002")));
-        projectDTO2.setDateFinish(Printer.printXMLDate(Printer.parse("03.03.2003")));
+        projectDTO2.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO2.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
+        projectDTO2.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("03.03.2003"))));
         projectDTO2.setStatus(Status.INPROGRESS);
         projectDTO2.setUserId(testUserDTO.getId());
 
@@ -117,9 +119,9 @@ public class ProjectIntegrationTest {
         projectDTO.setId(UUID.randomUUID().toString());
         projectDTO.setName("ProjectNameTest");
         projectDTO.setDescription("ProjectDescriptionTest");
-        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
-        projectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        projectDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("01.01.2000"))));
+        projectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
         projectDTO.setStatus(Status.INPROGRESS);
         projectDTO.setUserId(testUserDTO.getId());
 
@@ -128,8 +130,8 @@ public class ProjectIntegrationTest {
         @NotNull final ProjectDTO editProjectDTO = projectDTO;
         editProjectDTO.setName("ProjectEditNameTest");
         editProjectDTO.setDescription("ProjectEditDescriptionTest");
-        editProjectDTO.setDateStart(Printer.printXMLDate(Printer.parse("11.11.2100")));
-        editProjectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("12.12.2102")));
+        editProjectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("11.11.2100"))));
+        editProjectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("12.12.2102"))));
         editProjectDTO.setStatus(Status.DONE);
 
         projectEndpoint.editProject(sessionDTO, projectDTO.getId(), editProjectDTO);
@@ -152,9 +154,9 @@ public class ProjectIntegrationTest {
         projectDTO.setId(UUID.randomUUID().toString());
         projectDTO.setName("ProjectNameTest");
         projectDTO.setDescription("ProjectDescriptionTest");
-        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
-        projectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        projectDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("01.01.2000"))));
+        projectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
         projectDTO.setStatus(Status.INPROGRESS);
         projectDTO.setUserId(testUserDTO.getId());
 
@@ -171,9 +173,9 @@ public class ProjectIntegrationTest {
         projectDTO.setId(UUID.randomUUID().toString());
         projectDTO.setName("ProjectNameTest");
         projectDTO.setDescription("ProjectDescriptionTest");
-        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO.setDateStart(Printer.printXMLDate(Printer.parse("01.01.2000")));
-        projectDTO.setDateFinish(Printer.printXMLDate(Printer.parse("02.02.2002")));
+        projectDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("01.01.2000"))));
+        projectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
         projectDTO.setStatus(Status.INPROGRESS);
         projectDTO.setUserId(testUserDTO.getId());
 
@@ -183,9 +185,9 @@ public class ProjectIntegrationTest {
         projectDTO2.setId(UUID.randomUUID().toString());
         projectDTO2.setName("ProjectNameTest2");
         projectDTO2.setDescription("ProjectDescriptionTest2");
-        projectDTO2.setDateCreate(Printer.printXMLDate(new Date()));
-        projectDTO2.setDateStart(Printer.printXMLDate(Printer.parse("02.02.2002")));
-        projectDTO2.setDateFinish(Printer.printXMLDate(Printer.parse("03.03.2003")));
+        projectDTO2.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
+        projectDTO2.setDateStart(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("02.02.2002"))));
+        projectDTO2.setDateFinish(ConverterUtil.convertFromDateToXMLDate(Objects.requireNonNull(ConverterUtil.convertFromStringToDate("03.03.2003"))));
         projectDTO2.setStatus(Status.INPROGRESS);
         projectDTO2.setUserId(testUserDTO.getId());
 

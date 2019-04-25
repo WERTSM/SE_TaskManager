@@ -7,7 +7,7 @@ import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PasswordHashUtil;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -44,9 +44,7 @@ public final class UserUpdateCommand extends Command {
         }
 
         @NotNull final UserDTO userDTO = serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO);
-        Printer.showUser(userDTO);
-
-        @NotNull final String userName = serviceLocator.getUserEndpoint().getName(userDTO);
+        PrinterUtil.showUser(userDTO);
 
         System.out.println("Измените логин текущего пользователя");
         @NotNull final String login = serviceLocator.getTerminalService().readLine();

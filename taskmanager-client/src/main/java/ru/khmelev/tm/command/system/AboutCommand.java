@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,13 +38,13 @@ public class AboutCommand extends Command {
         @NotNull final ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         @Nullable final InputStream inputStreamProperties = classloader.getResourceAsStream("application.properties");
         if (inputStreamProperties != null) {
-            Printer.showProperties(inputStreamProperties);
+            PrinterUtil.showProperties(inputStreamProperties);
         }
         if (inputStreamProperties != null) {
             inputStreamProperties.close();
         }
 
-        Printer.showManifest();
+        PrinterUtil.showManifest();
         System.out.println("!!!DONE!!!");
     }
 }

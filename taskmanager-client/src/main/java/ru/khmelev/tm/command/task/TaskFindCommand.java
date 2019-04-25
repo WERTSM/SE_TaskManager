@@ -7,7 +7,7 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -37,7 +37,6 @@ public class TaskFindCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
 
         @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
         if (sessionDTO == null) {
@@ -64,7 +63,7 @@ public class TaskFindCommand extends Command {
         }
 
         for (@NotNull TaskDTO taskDTO : listTask) {
-            Printer.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+            PrinterUtil.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
     }
 }

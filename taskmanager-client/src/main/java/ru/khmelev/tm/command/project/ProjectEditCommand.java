@@ -5,12 +5,11 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.ConverterUtil;
 
 import java.io.IOException;
 import java.util.Date;
-
-import static ru.khmelev.tm.util.Printer.printXMLDate;
+import java.util.Objects;
 
 public final class ProjectEditCommand extends Command {
 
@@ -75,20 +74,20 @@ public final class ProjectEditCommand extends Command {
         System.out.println("Start date: \"dd.MM.yyyy\" ");
         @NotNull final String dateStartString = terminalService.readLine();
 
-        @NotNull final Date dateStart = Printer.parse(dateStartString);
-        projectDTO.setDateStart(printXMLDate(dateStart));
+        @NotNull final Date dateStart = Objects.requireNonNull(ConverterUtil.convertFromStringToDate(dateStartString));
+        projectDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(dateStart));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull String dateFinishString = terminalService.readLine();
 
-        @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-        projectDTO.setDateFinish(printXMLDate(dateFinish));
+        @NotNull final Date dateFinish = Objects.requireNonNull(ConverterUtil.convertFromStringToDate(dateFinishString));
+        projectDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(dateFinish));
 
         System.out.println("Status: (PLANNED, INPROGRESS, DONE)");
         @NotNull final Status status = Status.valueOf(terminalService.readLine().toUpperCase());
         projectDTO.setStatus(status);
 
-        projectDTO.setDateCreate(Printer.printXMLDate(new Date()));
+        projectDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
 
         projectEndpoint.editProject(sessionDTO, id, projectDTO);
         System.out.println("!!!DONE!!!");

@@ -2,12 +2,11 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -37,14 +36,11 @@ public class ProjectFindCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
 
         @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
         if (sessionDTO == null) {
             return;
         }
-
-        @NotNull final String userId = sessionDTO.getUserId();
 
         System.out.println("Выберите парамер поиска: (login, description)");
         @NotNull final String findParameter = serviceLocator.getTerminalService().readLine();
@@ -64,7 +60,7 @@ public class ProjectFindCommand extends Command {
         }
 
         for (@NotNull ProjectDTO projectDTO : listProject) {
-            Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+            PrinterUtil.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
     }
 }

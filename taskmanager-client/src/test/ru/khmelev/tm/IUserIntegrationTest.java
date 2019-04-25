@@ -1,2 +1,2 @@
-public interface IUserIntegrationTest extends CRUDIntegrationTest {
+interface IUserIntegrationTest extends CRUDIntegrationTest {
 }

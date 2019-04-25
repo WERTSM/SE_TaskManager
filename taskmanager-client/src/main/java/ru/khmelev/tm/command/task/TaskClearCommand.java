@@ -1,6 +1,5 @@
 package ru.khmelev.tm.command.task;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
@@ -35,8 +34,6 @@ public final class TaskClearCommand extends Command {
         if (sessionDTO == null) {
             return;
         }
-
-        @NotNull final String userId = sessionDTO.getUserId();
 
         serviceLocator.getTaskEndpoint().clearTask(sessionDTO);
         System.out.println("!!!DONE!!!");

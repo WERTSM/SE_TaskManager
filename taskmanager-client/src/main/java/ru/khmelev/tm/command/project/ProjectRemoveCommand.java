@@ -38,8 +38,6 @@ public final class ProjectRemoveCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("ID project: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
 

@@ -1,2 +1,2 @@
-public interface ITaskIntegrationTest extends CRUDIntegrationTest {
+interface ITaskIntegrationTest extends CRUDIntegrationTest {
 }

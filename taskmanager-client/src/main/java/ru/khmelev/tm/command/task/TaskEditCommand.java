@@ -5,10 +5,11 @@ import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.ConverterUtil;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 
 public final class TaskEditCommand extends Command {
 
@@ -46,8 +47,6 @@ public final class TaskEditCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("ID task: ");
         @NotNull final String id = terminalService.readLine();
         if (id.isEmpty()) {
@@ -73,14 +72,14 @@ public final class TaskEditCommand extends Command {
         System.out.println("Start date: \"dd.MM.yyyy\" ");
         @NotNull final String dateStartString = terminalService.readLine();
 
-        @NotNull final Date dateStart = Printer.parse(dateStartString);
-        taskDTO.setDateStart(Printer.printXMLDate(dateStart));
+        @NotNull final Date dateStart = Objects.requireNonNull(ConverterUtil.convertFromStringToDate(dateStartString));
+        taskDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate(dateStart));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull String dateFinishString = terminalService.readLine();
 
-        @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-        taskDTO.setDateFinish(Printer.printXMLDate(dateFinish));
+        @NotNull final Date dateFinish = Objects.requireNonNull(ConverterUtil.convertFromStringToDate(dateFinishString));
+        taskDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(dateFinish));
 
         System.out.println("Id project or \'0\': ");
         @NotNull String projectId = terminalService.readLine();

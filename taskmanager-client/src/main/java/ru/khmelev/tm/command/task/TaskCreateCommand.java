@@ -8,10 +8,11 @@ import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.Status;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.ConverterUtil;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 public final class TaskCreateCommand extends Command {
@@ -65,19 +66,19 @@ public final class TaskCreateCommand extends Command {
         System.out.println("Start date: \"dd.MM.yyyy\" ");
         @NotNull final String dateStartString = terminalService.readLine();
 
-        @NotNull final Date dateStart = Printer.parse(dateStartString);
-        taskDTO.setDateStart(Printer.printXMLDate((dateStart)));
+        @NotNull final Date dateStart = Objects.requireNonNull(ConverterUtil.convertFromStringToDate(dateStartString));
+        taskDTO.setDateStart(ConverterUtil.convertFromDateToXMLDate((dateStart)));
 
         System.out.println("Finish date: \"dd.MM.yyyy\" ");
         @NotNull final String dateFinishString = terminalService.readLine();
 
-        @NotNull final Date dateFinish = Printer.parse(dateFinishString);
-        taskDTO.setDateFinish(Printer.printXMLDate(dateFinish));
+        @NotNull final Date dateFinish = Objects.requireNonNull(ConverterUtil.convertFromStringToDate(dateFinishString));
+        taskDTO.setDateFinish(ConverterUtil.convertFromDateToXMLDate(dateFinish));
 
         @NotNull final String id = UUID.randomUUID().toString();
         taskDTO.setId(id);
 
-        taskDTO.setDateCreate(Printer.printXMLDate(new Date()));
+        taskDTO.setDateCreate(ConverterUtil.convertFromDateToXMLDate(new Date()));
 
         taskDTO.setStatus(Status.PLANNED);
 

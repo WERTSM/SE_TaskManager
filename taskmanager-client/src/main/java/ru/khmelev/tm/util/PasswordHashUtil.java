@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class PasswordHashUtil {
+
     @Nullable
     public static String md5(@Nullable final String md5) {
         if (md5 == null) return null;

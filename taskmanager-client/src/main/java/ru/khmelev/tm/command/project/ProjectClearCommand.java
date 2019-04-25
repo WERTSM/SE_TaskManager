@@ -1,8 +1,6 @@
 package ru.khmelev.tm.command.project;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
@@ -37,11 +35,7 @@ public final class ProjectClearCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
-        for (@NotNull ProjectDTO projectDTO : serviceLocator.getProjectEndpoint().findAllProject(sessionDTO)) {
-            serviceLocator.getProjectEndpoint().clearProject(sessionDTO);
-        }
+        serviceLocator.getProjectEndpoint().clearProject(sessionDTO);
         System.out.println("!!!DONE!!!");
     }
 }

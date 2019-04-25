@@ -1,2 +1,2 @@
-public interface IProjectIntegrationTest extends CRUDIntegrationTest {
+interface IProjectIntegrationTest extends CRUDIntegrationTest {
 }

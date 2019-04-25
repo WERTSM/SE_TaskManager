@@ -3,7 +3,7 @@ package ru.khmelev.tm.enumeration;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.ConverterUtil;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +27,7 @@ public enum Sort {
                     if (projectDTO1.equals(projectDTO2)) {
                         return 0;
                     }
-                    return Printer.printDate(projectDTO1.getDateCreate()).compareTo(Printer.printDate(projectDTO2.getDateCreate()));
+                    return ConverterUtil.convertFromXMLDateToDate(projectDTO1.getDateCreate()).compareTo(ConverterUtil.convertFromXMLDateToDate(projectDTO2.getDateCreate()));
                 }
             });
         }
@@ -38,7 +38,7 @@ public enum Sort {
                     if (projectDTO1.equals(projectDTO2)) {
                         return 0;
                     }
-                    return Printer.printDate(projectDTO1.getDateStart()).compareTo(Printer.printDate(projectDTO2.getDateStart()));
+                    return ConverterUtil.convertFromXMLDateToDate(projectDTO1.getDateStart()).compareTo(ConverterUtil.convertFromXMLDateToDate(projectDTO2.getDateStart()));
                 }
             });
         }
@@ -49,7 +49,7 @@ public enum Sort {
                     if (projectDTO1.equals(projectDTO2)) {
                         return 0;
                     }
-                    return Printer.printDate(projectDTO1.getDateFinish()).compareTo(Printer.printDate(projectDTO2.getDateFinish()));
+                    return ConverterUtil.convertFromXMLDateToDate(projectDTO1.getDateFinish()).compareTo(ConverterUtil.convertFromXMLDateToDate(projectDTO2.getDateFinish()));
                 }
             });
         }
@@ -74,7 +74,7 @@ public enum Sort {
                     if (taskDTO1.equals(taskDTO2)) {
                         return 0;
                     }
-                    return Printer.printDate(taskDTO1.getDateCreate()).compareTo(Printer.printDate(taskDTO2.getDateCreate()));
+                    return ConverterUtil.convertFromXMLDateToDate(taskDTO1.getDateCreate()).compareTo(ConverterUtil.convertFromXMLDateToDate(taskDTO2.getDateCreate()));
                 }
             });
         }
@@ -85,7 +85,7 @@ public enum Sort {
                     if (taskDTO1.equals(taskDTO2)) {
                         return 0;
                     }
-                    return Printer.printDate(taskDTO1.getDateStart()).compareTo(Printer.printDate(taskDTO2.getDateStart()));
+                    return ConverterUtil.convertFromXMLDateToDate(taskDTO1.getDateStart()).compareTo(ConverterUtil.convertFromXMLDateToDate(taskDTO2.getDateStart()));
                 }
             });
         }
@@ -96,7 +96,7 @@ public enum Sort {
                     if (taskDTO1.equals(taskDTO2)) {
                         return 0;
                     }
-                    return Printer.printDate(taskDTO1.getDateFinish()).compareTo(Printer.printDate(taskDTO2.getDateFinish()));
+                    return ConverterUtil.convertFromXMLDateToDate(taskDTO1.getDateFinish()).compareTo(ConverterUtil.convertFromXMLDateToDate(taskDTO2.getDateFinish()));
                 }
             });
         }

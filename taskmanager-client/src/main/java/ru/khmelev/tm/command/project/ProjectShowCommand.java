@@ -7,7 +7,7 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 
@@ -41,17 +41,15 @@ public final class ProjectShowCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("ID project: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
 
         @NotNull final ProjectDTO projectDTO = serviceLocator.getProjectEndpoint().findProject(sessionDTO, id);
 
-        Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+        PrinterUtil.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
 
         for (@NotNull TaskDTO taskDTO : serviceLocator.getTaskEndpoint().listTaskFromProject(sessionDTO, id)) {
-            Printer.showTaskInProject(taskDTO);
+            PrinterUtil.showTaskInProject(taskDTO);
         }
         System.out.println("!!!DONE!!!");
     }

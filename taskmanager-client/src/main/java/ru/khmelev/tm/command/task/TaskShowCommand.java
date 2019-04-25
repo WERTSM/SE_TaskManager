@@ -6,7 +6,7 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 
@@ -40,8 +40,6 @@ public final class TaskShowCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         System.out.println("ID task: ");
         @NotNull final String id = serviceLocator.getTerminalService().readLine();
         if (id.isEmpty()) {
@@ -49,7 +47,7 @@ public final class TaskShowCommand extends Command {
         }
         @NotNull final TaskDTO taskDTO = serviceLocator.getTaskEndpoint().findTask(sessionDTO, id);
 
-        Printer.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+        PrinterUtil.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         System.out.println("!!!DONE!!!");
     }
 }

@@ -6,7 +6,7 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 public final class UserListCommand extends Command {
 
@@ -39,10 +39,8 @@ public final class UserListCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         for (@NotNull UserDTO userDTO : serviceLocator.getUserEndpoint().findAllUser(sessionDTO)) {
-            Printer.showListUser(userDTO);
+            PrinterUtil.showListUser(userDTO);
         }
         System.out.println("!!!DONE!!!");
     }

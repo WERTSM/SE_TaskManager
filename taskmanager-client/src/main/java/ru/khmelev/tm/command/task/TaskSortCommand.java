@@ -8,7 +8,7 @@ import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.enumeration.Sort;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class TaskSortCommand extends Command {
         Sort.sortTask(listTask, sortParameter);
 
         for (@NotNull TaskDTO taskDTO : listTask) {
-            Printer.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+            PrinterUtil.showTask(taskDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
         System.out.println("!!!DONE!!!");
     }

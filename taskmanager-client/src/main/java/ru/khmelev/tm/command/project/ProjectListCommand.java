@@ -7,7 +7,7 @@ import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 public final class ProjectListCommand extends Command {
 
@@ -41,10 +41,8 @@ public final class ProjectListCommand extends Command {
             return;
         }
 
-        @NotNull final String userId = sessionDTO.getUserId();
-
         for (@NotNull ProjectDTO projectDTO : projectEndpoint.findAllProject(sessionDTO)) {
-            Printer.showListProject(projectDTO);
+            PrinterUtil.showListProject(projectDTO);
         }
         System.out.println("!!!DONE!!!");
     }

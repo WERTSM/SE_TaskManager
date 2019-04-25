@@ -8,7 +8,7 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.enumeration.Sort;
-import ru.khmelev.tm.util.Printer;
+import ru.khmelev.tm.util.PrinterUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class ProjectSortCommand extends Command {
         Sort.sortProject(listProject, sortParameter);
 
         for (@NotNull ProjectDTO projectDTO : listProject) {
-            Printer.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+            PrinterUtil.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
         }
         System.out.println("!!!DONE!!!");
     }
