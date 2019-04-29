@@ -1,14 +1,13 @@
 package ru.khmelev.tm.service;
 
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.dto.TaskDTO;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.repository.ProjectRepository;
 import ru.khmelev.tm.repository.TaskRepository;
 import ru.khmelev.tm.repository.UserRepository;
-import ru.khmelev.tm.util.HibernateUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,6 +22,8 @@ import java.util.List;
 @ApplicationScoped
 public class TaskService implements ITaskService {
 
+    @Inject
+    IProjectRepository projectRepository;
     @Inject
     private EntityManagerFactory entityManagerFactory;
 
@@ -248,14 +249,13 @@ public class TaskService implements ITaskService {
     @NotNull
     private Task fromDTOToTask(@NotNull final TaskDTO taskDTO, @NotNull final Task task) {
         @NotNull final UserRepository userRepository = new UserRepository(entityManager);
-        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
         task.setName(taskDTO.getName());
         task.setDescription(taskDTO.getDescription());
         task.setDateStart(taskDTO.getDateStart());
         task.setDateFinish(taskDTO.getDateFinish());
         task.setDateCreate(taskDTO.getDateCreate());
         task.setStatus(taskDTO.getStatus());
-        task.setProject(projectRepository.findOne(taskDTO.getProjectId(), taskDTO.getUserId()));
+        task.setProject(projectRepository.findById(taskDTO.getProjectId(), taskDTO.getUserId()));
         task.setUser(userRepository.findOne(taskDTO.getUserId()));
         return task;
     }

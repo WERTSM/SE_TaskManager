@@ -14,11 +14,7 @@ import javax.persistence.EntityManagerFactory;
 @ApplicationScoped
 public class EntityManagerProducer {
 
-    @NotNull
-    private static final String UNIT_NAME = "ENTERPRISE";
-
     @Inject
-    @PersistenceUnitName(UNIT_NAME)
     private EntityManagerFactory entityManagerFactory;
 
     @NotNull

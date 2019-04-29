@@ -1,6 +1,7 @@
 package ru.khmelev.tm.api.repository;
 
 import org.apache.deltaspike.data.api.Query;
+import org.apache.deltaspike.data.api.QueryParam;
 import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Project;
@@ -12,14 +13,18 @@ public interface IProjectRepository {
 
     void persist(@NotNull Project project);
 
-    @NotNull Project findOne(@NotNull final String id, @NotNull final String userId);
+    @NotNull
+    @Query(value = "Select project from Project project where project.id = :id and userId = :userId")
+    Project findById(@NotNull @QueryParam("id") final String id, @NotNull @QueryParam("userId") final String userId);
 
-//    @Query(named = )
-    @NotNull Collection<Project> findAll(@NotNull final String userId);
+    @NotNull
+    @Query(value = "Select project from Project project where userId = :userId")
+    Collection<Project> findAll(@NotNull @QueryParam("userId") final String userId);
 
     void merge(@NotNull final Project project);
 
     void remove(@NotNull final Project project);
 
-    void removeAll(@NotNull final String userId);
+    @Query(value = "DELETE FROM Project project WHERE project.userId = :userId")
+    void removeAll(@NotNull @QueryParam("userId") final String userId);
 }
