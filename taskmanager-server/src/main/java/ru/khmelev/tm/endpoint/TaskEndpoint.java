@@ -6,6 +6,7 @@ import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.TaskDTO;
+import ru.khmelev.tm.exception.EndpointException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,7 +36,8 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "id") @NotNull final String id,
             @WebParam(name = "task") @NotNull final TaskDTO taskDTO
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         taskService.createEntity(id, taskDTO);
     }
 
@@ -44,13 +46,15 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return taskService.findEntity(id, sessionDTO.getUserId());
     }
 
     @Override
     public Collection<TaskDTO> findAllTAsk(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return taskService.findAll(sessionDTO.getUserId());
     }
 
@@ -59,7 +63,8 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "findParameter") @NotNull String findParameter
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return taskService.findAllName(findParameter, sessionDTO.getUserId());
     }
 
@@ -68,7 +73,8 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "findParameter") @NotNull String findParameter
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return taskService.findAllDescription(findParameter, sessionDTO.getUserId());
     }
 
@@ -78,7 +84,8 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "id") @NotNull final String id,
             @WebParam(name = "task") @NotNull TaskDTO taskDTO
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         taskService.editEntity(id, taskDTO, sessionDTO.getUserId());
     }
 
@@ -87,13 +94,15 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         taskService.removeEntity(id, sessionDTO.getUserId());
     }
 
     @Override
     public void clearTask(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         taskService.clearEntity(sessionDTO.getUserId());
     }
 
@@ -102,7 +111,8 @@ public class TaskEndpoint implements ITaskEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "projectId") @NotNull final String projectId
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return taskService.listTaskFromProject(projectId, sessionDTO.getUserId());
     }
 }

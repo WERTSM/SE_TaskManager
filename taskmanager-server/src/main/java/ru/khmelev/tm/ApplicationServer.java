@@ -9,61 +9,8 @@ public final class ApplicationServer {
         SeContainerInitializer.newInstance()
                 .addPackages(ApplicationServer.class).initialize().select(Bootstrap.class).get().init();
     }
-
-
-    //Bootstrap bootstrap = new Bootstrap();
-    //bootstrap.init();
 }
 
-
-//        ProjectService psh = new ProjectService();
-//
-//        ProjectDTO projectDTO = new ProjectDTO();
-//
-//        projectDTO.setId("123456789");
-//        projectDTO.setName("MEDVEDEV");
-//        projectDTO.setDescription("sdadsa");
-//        projectDTO.setDateStart(new Date());
-//        projectDTO.setDateFinish(new Date());
-//        projectDTO.setDateCreate(new Date());
-//        projectDTO.setStatus(Status.PLANNED);
-//        projectDTO.setUserId("11111111-1111-1111-1111-111111111111");
-// psh.createEntity(projectDTO.getId(), projectDTO);
-
-
-//psh.removeEntity("12345", projectDTO.getUserId());
-
-
-//  System.out.println(psh.findEntity("1234567", "11111111-1111-1111-1111-111111111111").getName());
-//        for (ProjectDTO pr : psh.findAll("11111111-1111-1111-1111-111111111111")) {
-//            System.out.println(pr.getName());
-//        }
-
-//
-//        ProjectDTO projectDTO2 = new ProjectDTO();
-//
-//        projectDTO2.setId("123456789");
-//        projectDTO2.setName("!!!PUTIN!!!");
-//        projectDTO2.setDescription("1111111111wwwwwwwwwwwwwwwwwwwww");
-//        projectDTO2.setDateStart(new Date());
-//        projectDTO2.setDateFinish(new Date());
-//        projectDTO2.setDateCreate(new Date());
-//        projectDTO2.setStatus(Status.PLANNED);
-//        projectDTO2.setUserId("11111111-1111-1111-1111-111111111111");
-//
-//psh.editEntity(projectDTO2.getId(),projectDTO2, projectDTO.getUserId());
-
-//psh.removeEntity(projectDTO.getId(), projectDTO2.getUserId());
-
-// psh.clearEntity(projectDTO2.getUserId());
-
-//
-//        TaskService tsh = new TaskService();
-//
-//        TaskDTO taskDTO = new TaskDTO();
-//
-//        taskDTO.setId("12345678910");
-//        taskDTO.setName("MEDVEDEV");
 //        taskDTO.setDescription("sdadsa");
 //        taskDTO.setDateStart(new Date());
 //        taskDTO.setDateFinish(new Date());

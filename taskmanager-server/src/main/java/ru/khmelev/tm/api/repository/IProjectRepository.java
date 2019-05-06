@@ -1,5 +1,6 @@
 package ru.khmelev.tm.api.repository;
 
+import org.apache.deltaspike.data.api.Modifying;
 import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.QueryParam;
 import org.apache.deltaspike.data.api.Repository;
@@ -25,6 +26,7 @@ public interface IProjectRepository {
 
     void remove(@NotNull final Project project);
 
-    @Query(value = "DELETE FROM Project project WHERE project.userId = :userId")
+    @Modifying
+    @Query(value = "DELETE FROM Project WHERE userId = :userId")
     void removeAll(@NotNull @QueryParam("userId") final String userId);
 }

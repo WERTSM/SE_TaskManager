@@ -11,5 +11,5 @@ public interface IUserService extends IService<UserDTO> {
 
     void userSetPassword(@NotNull final String login, @NotNull final String pass);
 
-    UserDTO getUserFromSession(@NotNull final String userId);
+    UserDTO getUserDTOFromSession(@NotNull final String userId);
 }

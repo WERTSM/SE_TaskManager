@@ -3,15 +3,14 @@ package ru.khmelev.tm.service;
 import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.api.repository.IProjectRepository;
+import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.repository.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -21,32 +20,33 @@ import java.util.List;
 public class ProjectService implements IProjectService {
 
     @Inject
-    private
-    IProjectRepository projectRepository;
+    private IProjectRepository projectRepository;
 
     @Inject
-    private
-    EntityManager entityManager;
-    @Transactional
+    private IUserRepository userRepository;
+
     @Override
+    @Transactional
     public void createEntity(@NotNull final String id, @NotNull final ProjectDTO projectDTO) {
         @NotNull final Project project = new Project();
         project.setId(id);
         fromDTOToProject(projectDTO, project);
         projectRepository.persist(project);
     }
-    @Transactional
+
     @NotNull
     @Override
+    @Transactional
     public ProjectDTO findEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         @NotNull final Project project = projectRepository.findById(id, userId);
         return fromProjectToDTO(project);
     }
-    @Transactional
+
     @NotNull
     @Override
+    @Transactional
     public Collection<ProjectDTO> findAll(@NotNull final String userId) {
         if (userId.isEmpty()) throw new ServiceException();
 
@@ -57,17 +57,19 @@ public class ProjectService implements IProjectService {
         }
         return listDTO;
     }
-    @Transactional
+
     @Override
+    @Transactional
     public void editEntity(@NotNull final String id, @NotNull ProjectDTO projectDTO, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         Project project = projectRepository.findById(id, userId);
         projectRepository.merge(fromDTOToProject(projectDTO, project));
     }
-    @Transactional
+
     @NotNull
     @Override
+    @Transactional
     public Collection<ProjectDTO> findAllName(@NotNull final String findParameter, @NotNull final String userId) {
         if (findParameter.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
@@ -84,9 +86,10 @@ public class ProjectService implements IProjectService {
         }
         return listDTO;
     }
-    @Transactional
+
     @NotNull
     @Override
+    @Transactional
     public Collection<ProjectDTO> findAllDescription(@NotNull final String findParameter,
                                                      @NotNull final String userId) {
         if (findParameter.isEmpty() || userId.isEmpty()) throw new ServiceException();
@@ -104,31 +107,31 @@ public class ProjectService implements IProjectService {
         }
         return listDTO;
     }
-    @Transactional
+
     @Override
+    @Transactional
     public void removeEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
         projectRepository.remove(projectRepository.findById(id, userId));
     }
-    @Transactional
+
     @Override
+    @Transactional
     public void clearEntity(@NotNull final String userId) {
         if (userId.isEmpty()) throw new ServiceException();
-
         projectRepository.removeAll(userId);
     }
-    @Transactional
+
     @NotNull
     private Project fromDTOToProject(@NotNull final ProjectDTO projectDTO, @NotNull final Project project) {
-        @NotNull final UserRepository userRepository = new UserRepository(entityManager);
         project.setName(projectDTO.getName());
         project.setDescription(projectDTO.getDescription());
         project.setDateStart(projectDTO.getDateStart());
         project.setDateFinish(projectDTO.getDateFinish());
         project.setDateCreate(projectDTO.getDateCreate());
         project.setStatus(projectDTO.getStatus());
-        project.setUser(userRepository.findOne(projectDTO.getUserId()));
+        project.setUser(userRepository.findById(projectDTO.getUserId()));
         return project;
     }
 

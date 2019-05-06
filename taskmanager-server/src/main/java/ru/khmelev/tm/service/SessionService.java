@@ -1,20 +1,19 @@
 package ru.khmelev.tm.service;
 
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.repository.ISessionRepository;
+import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.entity.Session;
+import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
-import ru.khmelev.tm.repository.SessionRepository;
-import ru.khmelev.tm.repository.UserRepository;
-import ru.khmelev.tm.util.HibernateUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,155 +23,83 @@ import java.util.Objects;
 public class SessionService implements ISessionService {
 
     @Inject
-    private EntityManagerFactory entityManagerFactory;
+    private ISessionRepository sessionRepository;
 
+    @Inject
+    private IUserRepository userRepository;
+
+    @Inject
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public void createEntity(@NotNull final String id, @NotNull final SessionDTO sessionDTO) {
-        try {
-            entityManager = entityManagerFactory.createEntityManager();
-            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
-            transaction.begin();
-
-            @NotNull final Session session = new Session();
-            session.setId(id);
-            fromDTOToSession(sessionDTO, session);
-
-            sessionRepository.persist(session);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new ServiceException(e);
-        } finally {
-            entityManager.close();
-        }
+        @NotNull final Session session = new Session();
+        session.setId(id);
+        fromDTOToSession(sessionDTO, session);
+        sessionRepository.persist(session);
+        entityManager.getTransaction().commit();
     }
 
     @NotNull
     @Override
+    @Transactional
     public SessionDTO findEntity(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
+        @NotNull final Session session = sessionRepository.findById(id);
+        return fromSessionToDTO(session);
+    }
 
-        try {
-            entityManager = entityManagerFactory.createEntityManager();
-            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
-            transaction.begin();
-            @NotNull final Session session = sessionRepository.findOne(id);
-            return fromSessionToDTO(session);
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new ServiceException(e);
-        } finally {
-            entityManager.close();
-        }
+    @Override
+    @Transactional
+    public void setUser(@NotNull final String id, @Nullable final User user) {
+        @NotNull final Session session = sessionRepository.findById(id);
+        session.setUser(user);
     }
 
     @NotNull
     @Override
+    @Transactional
     public Collection<SessionDTO> findAll() {
-        try {
-            entityManager = entityManagerFactory.createEntityManager();
-            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
-            transaction.begin();
-
-            @NotNull final Collection<Session> list = sessionRepository.findAll();
-            @NotNull final List<SessionDTO> listDTO = new ArrayList<>();
-            for (Session session : list) {
-                listDTO.add(fromSessionToDTO(session));
-            }
-            transaction.commit();
-            return listDTO;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new ServiceException(e);
-        } finally {
-            entityManager.close();
+        @NotNull final Collection<Session> list = sessionRepository.findAll();
+        @NotNull final List<SessionDTO> listDTO = new ArrayList<>();
+        for (Session session : list) {
+            listDTO.add(fromSessionToDTO(session));
         }
+        return listDTO;
     }
 
     @Override
+    @Transactional
     public void editEntity(@NotNull final String id, @NotNull SessionDTO sessionDTO) {
         if (id.isEmpty()) throw new ServiceException();
-
-        try {
-            entityManager = entityManagerFactory.createEntityManager();
-            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
-            transaction.begin();
-
-            @NotNull final Session session = sessionRepository.findOne(id);
-            sessionRepository.merge(fromDTOToSession(sessionDTO, session));
-            transaction.commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new ServiceException(e);
-        } finally {
-            entityManager.close();
-        }
+        @NotNull final Session session = sessionRepository.findById(id);
+        sessionRepository.merge(fromDTOToSession(sessionDTO, session));
     }
 
     @Override
+    @Transactional
     public void removeEntity(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
-
-        try {
-            entityManager = entityManagerFactory.createEntityManager();
-            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
-            transaction.begin();
-            sessionRepository.remove(sessionRepository.findOne(id));
-            transaction.commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new ServiceException(e);
-        } finally {
-            entityManager.close();
-        }
+        sessionRepository.remove(sessionRepository.findById(id));
     }
 
     @Override
+    @Transactional
     public void clearEntity() {
-        try {
-            entityManager = entityManagerFactory.createEntityManager();
-            @NotNull final EntityTransaction transaction = entityManager.getTransaction();
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
-            transaction.begin();
-            sessionRepository.removeAll();
-            transaction.commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new ServiceException(e);
-        } finally {
-            entityManager.close();
-        }
+        sessionRepository.removeAll();
     }
 
     @Override
-    public void setSession(@NotNull final SessionDTO sessionDTO) {
-        createEntity(sessionDTO.getId(), sessionDTO);
-    }
-
-    @Override
-    public void removeSession(@NotNull final SessionDTO sessionDTO) {
-        removeEntity(sessionDTO.getUserId());
-    }
-
-    @Override
-    public void checkSession(@Nullable final SessionDTO sessionDTO) {
-        if (!Objects.requireNonNull(sessionDTO).getSignature().equals(findEntity(sessionDTO.getId()).getSignature())) {
-            throw new ServiceException();
-        }
+    @Transactional
+    public boolean checkSession(@Nullable final SessionDTO sessionDTO) {
+        return Objects.requireNonNull(sessionDTO).getSignature().equals(findEntity(sessionDTO.getId()).getSignature());
     }
 
     private Session fromDTOToSession(@NotNull final SessionDTO sessionDTO, @NotNull final Session session) {
-        @NotNull final UserRepository userRepository = new UserRepository(entityManager);
         session.setSignature(sessionDTO.getSignature());
         session.setDateCreate(sessionDTO.getDateCreate());
-        session.setUser(userRepository.findOne(sessionDTO.getUserId()));
+        session.setUser(userRepository.findById(sessionDTO.getUserId()));
         return session;
     }
 
@@ -181,7 +108,11 @@ public class SessionService implements ISessionService {
         sessionDTO.setId(session.getId());
         sessionDTO.setSignature(session.getSignature());
         sessionDTO.setDateCreate(session.getDateCreate());
-        sessionDTO.setUserId(session.getUser().getId());
+        if (session.getUser() == null) {
+            sessionDTO.setUserId(null);
+        } else {
+            sessionDTO.setUserId(session.getUser().getId());
+        }
         return sessionDTO;
     }
 }

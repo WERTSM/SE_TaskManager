@@ -6,8 +6,8 @@ import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.dto.SessionDTO;
+import ru.khmelev.tm.exception.EndpointException;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jws.WebParam;
@@ -36,7 +36,8 @@ public class ProjectEndpoint implements IProjectEndpoint {
             @WebParam(name = "id") @NotNull final String id,
             @WebParam(name = "project") @NotNull final ProjectDTO projectDTO
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         projectService.createEntity(id, projectDTO);
     }
 
@@ -45,13 +46,15 @@ public class ProjectEndpoint implements IProjectEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return projectService.findEntity(id, sessionDTO.getUserId());
     }
 
     @Override
     public Collection<ProjectDTO> findAllProject(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return projectService.findAll(sessionDTO.getUserId());
     }
 
@@ -60,7 +63,8 @@ public class ProjectEndpoint implements IProjectEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "findParameter") @NotNull String findParameter
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return projectService.findAllName(findParameter, sessionDTO.getUserId());
     }
 
@@ -69,7 +73,8 @@ public class ProjectEndpoint implements IProjectEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "findParameter") @NotNull String findParameter
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         return projectService.findAllDescription(findParameter, sessionDTO.getUserId());
     }
 
@@ -79,7 +84,8 @@ public class ProjectEndpoint implements IProjectEndpoint {
             @WebParam(name = "id") @NotNull final String id,
             @WebParam(name = "project") @NotNull ProjectDTO projectDTO
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         projectService.editEntity(id, projectDTO, sessionDTO.getUserId());
     }
 
@@ -88,13 +94,15 @@ public class ProjectEndpoint implements IProjectEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         projectService.removeEntity(id, sessionDTO.getUserId());
     }
 
     @Override
     public void clearProject(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        sessionService.checkSession(sessionDTO);
+        if (!sessionService.checkSession(sessionDTO))
+            throw new EndpointException();
         projectService.clearEntity(sessionDTO.getUserId());
     }
 }
