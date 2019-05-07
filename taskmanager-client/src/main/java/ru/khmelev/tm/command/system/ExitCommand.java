@@ -3,7 +3,10 @@ package ru.khmelev.tm.command.system;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
-public final class ExitCommand extends Command {
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class ExitCommand extends Command {
 
     @Override
     public String getNameCommand() {

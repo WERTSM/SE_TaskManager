@@ -2,13 +2,26 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
-public final class TaskListCommand extends Command {
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+@ApplicationScoped
+public class TaskListCommand extends Command {
+
+    @Inject
+    private ITaskEndpoint taskEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
 
     @Override
     public String getNameCommand() {
@@ -38,7 +51,7 @@ public final class TaskListCommand extends Command {
             return;
         }
 
-        for (@NotNull TaskDTO taskDTO : serviceLocator.getTaskEndpoint().findAllTAsk(sessionDTO)) {
+        for (@NotNull TaskDTO taskDTO : taskEndpoint.findAllTAsk(sessionDTO)) {
             PrinterUtil.showListTask(taskDTO);
         }
         System.out.println("!!!DONE!!!");

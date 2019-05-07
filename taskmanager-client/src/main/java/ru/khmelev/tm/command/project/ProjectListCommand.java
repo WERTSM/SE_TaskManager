@@ -2,6 +2,7 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ProjectDTO;
 import ru.khmelev.tm.api.endpoint.Role;
@@ -9,7 +10,19 @@ import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
-public final class ProjectListCommand extends Command {
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+@ApplicationScoped
+public class ProjectListCommand extends Command {
+
+    @Inject
+    private
+    IProjectEndpoint projectEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
 
     @Override
     public String getNameCommand() {
@@ -34,8 +47,6 @@ public final class ProjectListCommand extends Command {
     @Override
     public void execute() {
         System.out.println("!!!Start command!!!");
-        @NotNull final IProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
-
         @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
         if (sessionDTO == null) {
             return;

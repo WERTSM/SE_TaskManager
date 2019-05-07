@@ -1,16 +1,28 @@
 package ru.khmelev.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
-public final class UserRegistryCommand extends Command {
+@ApplicationScoped
+public class UserRegistryCommand extends Command {
+
+    @Inject
+    private IUserEndpoint userEndpoint;
+
+    @Inject
+    private
+    ITerminalService terminalService;
 
     @Override
     public String getNameCommand() {
@@ -42,14 +54,14 @@ public final class UserRegistryCommand extends Command {
         userDTO.setId(id);
 
         System.out.println("Введите логин нового пользователя: ");
-        @NotNull final String login = serviceLocator.getTerminalService().readLine();
+        @NotNull final String login = terminalService.readLine();
         if (login.isEmpty()) {
             return;
         }
         userDTO.setLogin(login);
 
         System.out.println("Введите пароль для нового пользователя");
-        @NotNull final String password = serviceLocator.getTerminalService().readLine();
+        @NotNull final String password = terminalService.readLine();
         if (password.isEmpty()) {
             return;
         }
@@ -57,14 +69,14 @@ public final class UserRegistryCommand extends Command {
         userDTO.setHashPassword(hashPassword);
 
         System.out.println("Введите тип пользователся (admin/user): ");
-        @NotNull final String roleUser = serviceLocator.getTerminalService().readLine();
+        @NotNull final String roleUser = terminalService.readLine();
         if (roleUser.isEmpty()) {
             return;
         }
         @NotNull final Role role = Role.valueOf(roleUser.toUpperCase());
         userDTO.setRole(role);
 
-        serviceLocator.getUserEndpoint().createUser(id, userDTO);
+        userEndpoint.createUser(id, userDTO);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -2,13 +2,30 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 
-public final class TaskRemoveCommand extends Command {
+@ApplicationScoped
+public class TaskRemoveCommand extends Command {
+
+    @Inject
+    private ITaskEndpoint taskEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
+
+    @Inject
+    private
+    ITerminalService terminalService;
 
     @Override
     public String getNameCommand() {
@@ -39,12 +56,12 @@ public final class TaskRemoveCommand extends Command {
         }
 
         System.out.println("ID task: ");
-        @NotNull final String id = serviceLocator.getTerminalService().readLine();
+        @NotNull final String id = terminalService.readLine();
         if (id.isEmpty()) {
             return;
         }
 
-        serviceLocator.getTaskEndpoint().removeTask(sessionDTO, id);
+        taskEndpoint.removeTask(sessionDTO, id);
         System.out.println("!!!DONE!!!");
     }
 }

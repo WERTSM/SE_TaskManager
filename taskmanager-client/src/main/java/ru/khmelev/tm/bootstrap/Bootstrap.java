@@ -1,35 +1,31 @@
 package ru.khmelev.tm.bootstrap;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.ServiceLocator;
-import ru.khmelev.tm.api.endpoint.*;
+import ru.khmelev.tm.api.endpoint.IUserEndpoint;
+import ru.khmelev.tm.api.endpoint.Role;
+import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
-import ru.khmelev.tm.endpoint.ProjectEndpointService;
-import ru.khmelev.tm.endpoint.TaskEndpointService;
-import ru.khmelev.tm.endpoint.UserEndpointService;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+@NoArgsConstructor
 @ApplicationScoped
-@Getter
 public class Bootstrap implements ServiceLocator {
 
+    @Getter
     @NotNull
     private final SortedMap<String, Command> commandMap = new TreeMap<>();
-
-    @Inject
-    private IProjectEndpoint projectEndpoint;
-
-    @Inject
-    private ITaskEndpoint taskEndpoint;
 
     @Inject
     private IUserEndpoint userEndpoint;
@@ -37,6 +33,7 @@ public class Bootstrap implements ServiceLocator {
     @Inject
     private ITerminalService terminalService;
 
+    @Getter
     @Setter
     @Nullable
     private SessionDTO sessionDTO;
@@ -68,8 +65,7 @@ public class Bootstrap implements ServiceLocator {
     private void registrationCommands(@NotNull final Class[] commandClassArray) throws IllegalAccessException, InstantiationException {
         for (Class classCommand : commandClassArray) {
             if (classCommand.getSuperclass().equals(Command.class)) {
-                Command command = (Command) classCommand.newInstance();
-                command.setServiceLocator(this);
+                Command command = (Command) CDI.current().select(classCommand).get();
                 commandMap.put(command.getNameCommand(), command);
             }
         }

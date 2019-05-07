@@ -2,16 +2,36 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.khmelev.tm.api.endpoint.ProjectDTO;
-import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.SessionDTO;
-import ru.khmelev.tm.api.endpoint.TaskDTO;
+import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 
-public final class ProjectShowCommand extends Command {
+@ApplicationScoped
+public class ProjectShowCommand extends Command {
+
+    @Inject
+    private
+    IProjectEndpoint projectEndpoint;
+
+    @Inject
+    private IUserEndpoint userEndpoint;
+
+    @Inject
+    private ITaskEndpoint taskEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
+
+    @Inject
+    private
+    ITerminalService terminalService;
 
     @Override
     public String getNameCommand() {
@@ -42,13 +62,13 @@ public final class ProjectShowCommand extends Command {
         }
 
         System.out.println("ID project: ");
-        @NotNull final String id = serviceLocator.getTerminalService().readLine();
+        @NotNull final String id = terminalService.readLine();
 
-        @NotNull final ProjectDTO projectDTO = serviceLocator.getProjectEndpoint().findProject(sessionDTO, id);
+        @NotNull final ProjectDTO projectDTO = projectEndpoint.findProject(sessionDTO, id);
 
-        PrinterUtil.showProject(projectDTO, serviceLocator.getUserEndpoint().getUserFromSession(sessionDTO));
+        PrinterUtil.showProject(projectDTO, userEndpoint.getUserFromSession(sessionDTO));
 
-        for (@NotNull TaskDTO taskDTO : serviceLocator.getTaskEndpoint().listTaskFromProject(sessionDTO, id)) {
+        for (@NotNull TaskDTO taskDTO : taskEndpoint.listTaskFromProject(sessionDTO, id)) {
             PrinterUtil.showTaskInProject(taskDTO);
         }
         System.out.println("!!!DONE!!!");

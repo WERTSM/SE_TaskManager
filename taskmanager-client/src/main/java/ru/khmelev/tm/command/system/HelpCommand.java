@@ -1,13 +1,21 @@
 package ru.khmelev.tm.command.system;
 
 import org.jetbrains.annotations.NotNull;
+import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public final class HelpCommand extends Command {
+@ApplicationScoped
+public class HelpCommand extends Command {
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
 
     @Override
     public String getNameCommand() {

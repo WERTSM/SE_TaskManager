@@ -1,11 +1,24 @@
 package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
-public final class TaskClearCommand extends Command {
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+@ApplicationScoped
+public class TaskClearCommand extends Command {
+
+    @Inject
+    private ITaskEndpoint taskEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
 
     @Override
     public String getNameCommand() {
@@ -35,7 +48,7 @@ public final class TaskClearCommand extends Command {
             return;
         }
 
-        serviceLocator.getTaskEndpoint().clearTask(sessionDTO);
+        taskEndpoint.clearTask(sessionDTO);
         System.out.println("!!!DONE!!!");
     }
 }

@@ -3,19 +3,31 @@ package ru.khmelev.tm.command.task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.ITerminalService;
-import ru.khmelev.tm.api.endpoint.Role;
-import ru.khmelev.tm.api.endpoint.SessionDTO;
-import ru.khmelev.tm.api.endpoint.Status;
-import ru.khmelev.tm.api.endpoint.TaskDTO;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.ConverterUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-public final class TaskCreateCommand extends Command {
+@ApplicationScoped
+public class TaskCreateCommand extends Command {
+
+    @Inject
+    private ITaskEndpoint taskEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
+
+    @Inject
+    private
+    ITerminalService terminalService;
 
     @Override
     public String getNameCommand() {
@@ -40,7 +52,6 @@ public final class TaskCreateCommand extends Command {
     @Override
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
-        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
 
         @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
         if (sessionDTO == null) {
@@ -92,7 +103,7 @@ public final class TaskCreateCommand extends Command {
         }
         taskDTO.setProjectId(projectId);
 
-        serviceLocator.getTaskEndpoint().createTask(sessionDTO, id, taskDTO);
+        taskEndpoint.createTask(sessionDTO, id, taskDTO);
         System.out.println("!!!DONE!!!");
     }
 }

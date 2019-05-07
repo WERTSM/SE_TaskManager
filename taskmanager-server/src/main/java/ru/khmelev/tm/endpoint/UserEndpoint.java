@@ -112,6 +112,7 @@ public class UserEndpoint implements IUserEndpoint {
     public void userLogOut(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
         if (!sessionService.checkSession(sessionDTO))
             throw new EndpointException();
+        sessionService.setUser(sessionDTO.getId(), null);
         sessionService.removeEntity(sessionDTO.getId());
     }
 

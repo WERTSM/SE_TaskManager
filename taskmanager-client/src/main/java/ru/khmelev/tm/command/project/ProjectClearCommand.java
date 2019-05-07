@@ -1,11 +1,25 @@
 package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
-public final class ProjectClearCommand extends Command {
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+@ApplicationScoped
+public class ProjectClearCommand extends Command {
+
+    @Inject
+    private
+    IProjectEndpoint projectEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
 
     @Override
     public String getNameCommand() {
@@ -35,7 +49,7 @@ public final class ProjectClearCommand extends Command {
             return;
         }
 
-        serviceLocator.getProjectEndpoint().clearProject(sessionDTO);
+        projectEndpoint.clearProject(sessionDTO);
         System.out.println("!!!DONE!!!");
     }
 }

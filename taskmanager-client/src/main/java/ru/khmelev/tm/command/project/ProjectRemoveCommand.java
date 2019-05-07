@@ -2,13 +2,31 @@ package ru.khmelev.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.ServiceLocator;
+import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 
-public final class ProjectRemoveCommand extends Command {
+@ApplicationScoped
+public class ProjectRemoveCommand extends Command {
+
+    @Inject
+    private
+    IProjectEndpoint projectEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
+
+    @Inject
+    private
+    ITerminalService terminalService;
 
     @Override
     public String getNameCommand() {
@@ -39,9 +57,9 @@ public final class ProjectRemoveCommand extends Command {
         }
 
         System.out.println("ID project: ");
-        @NotNull final String id = serviceLocator.getTerminalService().readLine();
+        @NotNull final String id = terminalService.readLine();
 
-        serviceLocator.getProjectEndpoint().removeProject(sessionDTO, id);
+        projectEndpoint.removeProject(sessionDTO, id);
         System.out.println("!!!DONE!!!");
     }
 }

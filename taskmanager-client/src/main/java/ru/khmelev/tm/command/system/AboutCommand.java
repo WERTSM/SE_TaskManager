@@ -6,9 +6,11 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.io.InputStream;
 
+@ApplicationScoped
 public class AboutCommand extends Command {
 
     @Override

@@ -1,17 +1,14 @@
 package ru.khmelev.tm.command;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.Role;
 
 import java.io.IOException;
 
+@NoArgsConstructor
 public abstract class Command {
-
-    @Getter
-    @Setter
-    protected ServiceLocator serviceLocator;
 
     @Getter
     private String nameCommand;

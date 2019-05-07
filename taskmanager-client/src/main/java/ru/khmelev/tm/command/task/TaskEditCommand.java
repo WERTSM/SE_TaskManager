@@ -3,15 +3,30 @@ package ru.khmelev.tm.command.task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.khmelev.tm.api.ITerminalService;
+import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.*;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.ConverterUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
-public final class TaskEditCommand extends Command {
+@ApplicationScoped
+public class TaskEditCommand extends Command {
+
+    @Inject
+    private ITaskEndpoint taskEndpoint;
+
+    @Inject
+    private
+    ServiceLocator serviceLocator;
+
+    @Inject
+    private
+    ITerminalService terminalService;
 
     @Override
     public String getNameCommand() {
@@ -38,10 +53,6 @@ public final class TaskEditCommand extends Command {
     public void execute() throws IOException {
         System.out.println("!!!Start command!!!");
 
-        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
-
-        @NotNull final ITaskEndpoint taskService = serviceLocator.getTaskEndpoint();
-
         @Nullable final SessionDTO sessionDTO = serviceLocator.getSessionDTO();
         if (sessionDTO == null) {
             return;
@@ -53,7 +64,7 @@ public final class TaskEditCommand extends Command {
             return;
         }
 
-        @NotNull final TaskDTO taskDTO = serviceLocator.getTaskEndpoint().findTask(sessionDTO, id);
+        @NotNull final TaskDTO taskDTO = taskEndpoint.findTask(sessionDTO, id);
 
         System.out.println("Name task: ");
         @NotNull final String name = terminalService.readLine();
@@ -93,7 +104,7 @@ public final class TaskEditCommand extends Command {
 
         taskDTO.setStatus(status);
 
-        taskService.editTask(sessionDTO, id, taskDTO);
+        taskEndpoint.editTask(sessionDTO, id, taskDTO);
         System.out.println("!!!DONE!!!");
     }
 }
