@@ -9,6 +9,7 @@ import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.entity.Session;
 import ru.khmelev.tm.entity.User;
+import ru.khmelev.tm.exception.EndpointException;
 import ru.khmelev.tm.exception.ServiceException;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -92,8 +93,10 @@ public class SessionService implements ISessionService {
 
     @Override
     @Transactional
-    public boolean checkSession(@Nullable final SessionDTO sessionDTO) {
-        return Objects.requireNonNull(sessionDTO).getSignature().equals(findEntity(sessionDTO.getId()).getSignature());
+    public void checkSession(@Nullable final SessionDTO sessionDTO) {
+        if (!Objects.requireNonNull(sessionDTO).getSignature().equals(findEntity(sessionDTO.getId()).getSignature())) {
+            throw new EndpointException();
+        }
     }
 
     private Session fromDTOToSession(@NotNull final SessionDTO sessionDTO, @NotNull final Session session) {

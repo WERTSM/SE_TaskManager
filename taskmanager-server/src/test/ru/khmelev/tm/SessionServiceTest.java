@@ -13,6 +13,7 @@ import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.enumeration.Role;
+import ru.khmelev.tm.exception.EndpointException;
 import ru.khmelev.tm.util.ConverterUtil;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
@@ -182,28 +183,10 @@ public class SessionServiceTest {
         Assert.assertEquals(sessionService.findAll().size(), 0);
     }
 
-
-    @Test
+    @Test(expected = EndpointException.class)
     public void checkSession() {
-        @NotNull final UserDTO userDTO2 = new UserDTO();
-        userDTO2.setId(UUID.randomUUID().toString());
-        @NotNull final String hashPassword = Objects.requireNonNull(PasswordHashUtil.md5("test4"));
-        userDTO2.setHashPassword(hashPassword);
-        userDTO2.setLogin("test4");
-        userDTO2.setRole(Role.ADMIN);
-        userService.createEntity(userDTO2.getId(), userDTO2);
-
-        @NotNull final SessionDTO sessionDTO2 = new SessionDTO();
-        sessionDTO2.setId(UUID.randomUUID().toString());
-        sessionDTO2.setDateCreate(new Date());
-        Random random = new Random();
-        sessionDTO2.setSignature(Objects.requireNonNull(sign(userDTO2, String.valueOf(random.nextInt(1000)), random.nextInt(1000))));
-        sessionDTO2.setUserId(userDTO2.getId());
-        sessionService.createEntity(sessionDTO2.getId(), sessionDTO2);
-
-        Assert.assertTrue(sessionService.checkSession(sessionDTO2));
-
-        userService.removeEntity(userDTO2.getId());
+        testSessionDTO.setSignature("hacker");
+        sessionService.checkSession(testSessionDTO);
     }
 
     @Test

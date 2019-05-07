@@ -6,7 +6,6 @@ import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.UserDTO;
-import ru.khmelev.tm.exception.EndpointException;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
 import javax.inject.Inject;
@@ -46,8 +45,7 @@ public class UserEndpoint implements IUserEndpoint {
 
     @Override
     public Collection<UserDTO> findAllUser(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         return userService.findAll();
     }
 
@@ -57,8 +55,7 @@ public class UserEndpoint implements IUserEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         return userService.findEntity(id);
     }
 
@@ -68,8 +65,7 @@ public class UserEndpoint implements IUserEndpoint {
             @WebParam(name = "id") @NotNull final String id,
             @WebParam(name = "user") @NotNull UserDTO user
     ) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         userService.editEntity(id, user);
     }
 
@@ -78,8 +74,7 @@ public class UserEndpoint implements IUserEndpoint {
             @WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
             @WebParam(name = "id") @NotNull final String id
     ) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         userService.removeEntity(id);
     }
 
@@ -110,8 +105,7 @@ public class UserEndpoint implements IUserEndpoint {
 
     @Override
     public void userLogOut(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         sessionService.setUser(sessionDTO.getId(), null);
         sessionService.removeEntity(sessionDTO.getId());
     }
@@ -121,15 +115,13 @@ public class UserEndpoint implements IUserEndpoint {
                                 @WebParam(name = "login") @NotNull final String login,
                                 @WebParam(name = "password") @NotNull final String pass
     ) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         userService.userSetPassword(login, pass);
     }
 
     @Override
     public UserDTO getUserFromSession(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) {
-        if (!sessionService.checkSession(sessionDTO))
-            throw new EndpointException();
+        sessionService.checkSession(sessionDTO);
         return userService.getUserDTOFromSession(sessionDTO.getUserId());
     }
 
