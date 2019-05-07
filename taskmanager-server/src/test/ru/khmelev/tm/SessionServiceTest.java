@@ -75,6 +75,7 @@ public class SessionServiceTest {
     public void setUser() {
         sessionService.setUser(testSessionDTO.getId(), null);
         Assert.assertNull(sessionService.findEntity(testSessionDTO.getId()).getUserId());
+        sessionService.removeEntity(testSessionDTO.getId());
     }
 
     @Test
