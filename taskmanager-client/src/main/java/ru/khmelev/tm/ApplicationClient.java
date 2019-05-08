@@ -6,6 +6,7 @@ import ru.khmelev.tm.command.project.*;
 import ru.khmelev.tm.command.system.AboutCommand;
 import ru.khmelev.tm.command.system.ExitCommand;
 import ru.khmelev.tm.command.system.HelpCommand;
+import ru.khmelev.tm.command.system.ServerInfoCommand;
 import ru.khmelev.tm.command.task.*;
 import ru.khmelev.tm.command.user.*;
 
@@ -40,7 +41,8 @@ public final class ApplicationClient {
             UserProfileCommand.class,
             UserUpdateCommand.class,
             AboutCommand.class,
-            ExitCommand.class
+            ExitCommand.class,
+            ServerInfoCommand.class
     };
 
     public static void main(String[] args) throws Exception {

@@ -45,4 +45,6 @@ public interface IUserEndpoint {
 
     @WebMethod
     @NotNull String getName(@NotNull final UserDTO userDTO);
+
+    @NotNull String serverInfo();
 }

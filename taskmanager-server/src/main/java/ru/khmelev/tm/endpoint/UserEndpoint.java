@@ -7,6 +7,7 @@ import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.util.PasswordHashUtil;
+import ru.khmelev.tm.util.PropertyServerUtil;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,6 +29,9 @@ public class UserEndpoint implements IUserEndpoint {
 
     @NotNull
     private IUserService userService;
+
+    @Inject
+    private PropertyServerUtil propertiesUtil;
 
     @Inject
     public UserEndpoint(@NotNull final ISessionService sessionService, @NotNull final IUserService userService) {
@@ -135,5 +139,11 @@ public class UserEndpoint implements IUserEndpoint {
     @Override
     public String getName(@WebParam(name = "user") @NotNull UserDTO userDTO) {
         return userDTO.getLogin();
+    }
+
+    @NotNull
+    @Override
+    public String serverInfo() {
+        return "HOST: " + propertiesUtil.getHost() + "\nPORT: " + propertiesUtil.getPort();
     }
 }

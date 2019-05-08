@@ -40,6 +40,8 @@ public class ObjectFactory {
     private final static QName _GetUserFromSessionResponse_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "getUserFromSessionResponse");
     private final static QName _RemoveUser_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "removeUser");
     private final static QName _RemoveUserResponse_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "removeUserResponse");
+    private final static QName _ServerInfo_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "serverInfo");
+    private final static QName _ServerInfoResponse_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "serverInfoResponse");
     private final static QName _UserLogOut_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "userLogOut");
     private final static QName _UserLogOutResponse_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "userLogOutResponse");
     private final static QName _UserLogin_QNAME = new QName("http://endpoint.api.tm.khmelev.ru/", "userLogin");
@@ -180,6 +182,22 @@ public class ObjectFactory {
      */
     public RemoveUserResponse createRemoveUserResponse() {
         return new RemoveUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link ServerInfo }
+     * 
+     */
+    public ServerInfo createServerInfo() {
+        return new ServerInfo();
+    }
+
+    /**
+     * Create an instance of {@link ServerInfoResponse }
+     * 
+     */
+    public ServerInfoResponse createServerInfoResponse() {
+        return new ServerInfoResponse();
     }
 
     /**
@@ -388,6 +406,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.api.tm.khmelev.ru/", name = "removeUserResponse")
     public JAXBElement<RemoveUserResponse> createRemoveUserResponse(RemoveUserResponse value) {
         return new JAXBElement<RemoveUserResponse>(_RemoveUserResponse_QNAME, RemoveUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ServerInfo }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.khmelev.ru/", name = "serverInfo")
+    public JAXBElement<ServerInfo> createServerInfo(ServerInfo value) {
+        return new JAXBElement<ServerInfo>(_ServerInfo_QNAME, ServerInfo.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ServerInfoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.khmelev.ru/", name = "serverInfoResponse")
+    public JAXBElement<ServerInfoResponse> createServerInfoResponse(ServerInfoResponse value) {
+        return new JAXBElement<ServerInfoResponse>(_ServerInfoResponse_QNAME, ServerInfoResponse.class, null, value);
     }
 
     /**
