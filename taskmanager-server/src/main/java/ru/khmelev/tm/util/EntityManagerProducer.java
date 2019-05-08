@@ -1,5 +1,6 @@
 package ru.khmelev.tm.util;
 
+import org.apache.deltaspike.jpa.api.entitymanager.PersistenceUnitName;
 import org.apache.deltaspike.jpa.api.transaction.TransactionScoped;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +15,7 @@ import javax.persistence.EntityManagerFactory;
 public class EntityManagerProducer {
 
     @Inject
+    @PersistenceUnitName("ENTERPRISE")
     private EntityManagerFactory entityManagerFactory;
 
     @NotNull

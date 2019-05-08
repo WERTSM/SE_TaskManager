@@ -51,6 +51,33 @@ public class ProjectServiceTest {
     }
 
     @Test
+    public void createAndFindEntityHibernateSecondTwoLevelCash() {
+        @NotNull final ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setId(UUID.randomUUID().toString());
+        projectDTO.setName("ProjectNameTest");
+        projectDTO.setDescription("ProjectDescriptionTest");
+        projectDTO.setDateCreate(new Date());
+        projectDTO.setDateStart(ConverterUtil.convertFromStringToDate("01.01.2000"));
+        projectDTO.setDateFinish(ConverterUtil.convertFromStringToDate("02.02.2002"));
+        projectDTO.setStatus(Status.INPROGRESS);
+        projectDTO.setUserId(testUserDTO.getId());
+
+        projectService.createEntity(projectDTO.getId(), projectDTO);
+
+        for (int i = 0; i < 100; i++) {
+            @NotNull ProjectDTO projectDTOfromServer = projectService.findEntity(projectDTO.getId(), sessionDTO.getUserId());
+            Assert.assertEquals(projectDTOfromServer.getId(), projectDTO.getId());
+            Assert.assertEquals(projectDTOfromServer.getName(), projectDTO.getName());
+            Assert.assertEquals(projectDTOfromServer.getDescription(), projectDTO.getDescription());
+            Assert.assertEquals(ConverterUtil.convertDateFormat(projectDTOfromServer.getDateStart()), ConverterUtil.convertDateFormat(projectDTO.getDateStart()));
+            Assert.assertEquals(ConverterUtil.convertDateFormat(projectDTOfromServer.getDateFinish()), ConverterUtil.convertDateFormat(projectDTO.getDateFinish()));
+            Assert.assertEquals(ConverterUtil.convertDateFormat(projectDTOfromServer.getDateCreate()), ConverterUtil.convertDateFormat(projectDTO.getDateCreate()));
+            Assert.assertEquals(projectDTOfromServer.getStatus(), projectDTO.getStatus());
+            Assert.assertEquals(projectDTOfromServer.getUserId(), projectDTO.getUserId());
+        }
+    }
+
+    @Test
     public void createAndFindEntity() {
         @NotNull final ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setId(UUID.randomUUID().toString());
@@ -249,6 +276,6 @@ public class ProjectServiceTest {
 
     @After
     public void deleteTestEntity() {
-        userEndpoint.removeUser(sessionDTO, testUserDTO.getId());
+        userService.removeEntity(testUserDTO.getId());
     }
 }

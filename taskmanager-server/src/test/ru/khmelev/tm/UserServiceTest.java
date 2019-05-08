@@ -9,8 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.IUserService;
+import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.enumeration.Role;
+import ru.khmelev.tm.util.ConverterUtil;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
 import javax.inject.Inject;

@@ -7,6 +7,7 @@ import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
 import ru.khmelev.tm.entity.Session;
 
+import javax.persistence.QueryHint;
 import java.util.Collection;
 
 @Repository(forEntity = Session.class)
@@ -15,11 +16,11 @@ public interface ISessionRepository {
     void persist(@NotNull final Session session);
 
     @NotNull
-    @Query(value = "SELECT session FROM Session session WHERE id = :id")
+    @Query(value = "Select session from Session session where session.id = :id", hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     Session findById(@NotNull @QueryParam("id") final String id);
 
     @NotNull
-    @Query(value = "Select session from Session session")
+    @Query(hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")}, value = "Select session from Session session")
     Collection<Session> findAll();
 
     void merge(@NotNull final Session session);

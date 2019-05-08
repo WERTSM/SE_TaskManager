@@ -62,7 +62,7 @@ public class Bootstrap implements ServiceLocator {
         }
     }
 
-    private void registrationCommands(@NotNull final Class[] commandClassArray) throws IllegalAccessException, InstantiationException {
+    private void registrationCommands(@NotNull final Class[] commandClassArray){
         for (Class classCommand : commandClassArray) {
             if (classCommand.getSuperclass().equals(Command.class)) {
                 Command command = (Command) CDI.current().select(classCommand).get();

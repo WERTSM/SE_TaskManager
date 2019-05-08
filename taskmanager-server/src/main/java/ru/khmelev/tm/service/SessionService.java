@@ -14,7 +14,6 @@ import ru.khmelev.tm.exception.ServiceException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,9 +28,6 @@ public class SessionService implements ISessionService {
     @Inject
     private IUserRepository userRepository;
 
-    @Inject
-    private EntityManager entityManager;
-
     @Override
     @Transactional
     public void createEntity(@NotNull final String id, @NotNull final SessionDTO sessionDTO) {
@@ -39,7 +35,6 @@ public class SessionService implements ISessionService {
         session.setId(id);
         fromDTOToSession(sessionDTO, session);
         sessionRepository.persist(session);
-        entityManager.getTransaction().commit();
     }
 
     @NotNull

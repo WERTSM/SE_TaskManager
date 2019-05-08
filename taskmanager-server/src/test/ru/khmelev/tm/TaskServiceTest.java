@@ -71,6 +71,35 @@ public class TaskServiceTest {
     }
 
     @Test
+    public void createAndFindEntityHibernateSecondTwoLevelCash() {
+        @NotNull final TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(UUID.randomUUID().toString());
+        taskDTO.setName("TaskNameTest");
+        taskDTO.setDescription("TaskDescriptionTest");
+        taskDTO.setDateCreate(new Date());
+        taskDTO.setDateStart(ConverterUtil.convertFromStringToDate("01.01.2000"));
+        taskDTO.setDateFinish(ConverterUtil.convertFromStringToDate("02.02.2002"));
+        taskDTO.setStatus(Status.INPROGRESS);
+        taskDTO.setProjectId(testProjectDTO.getId());
+        taskDTO.setUserId(testUserDTO.getId());
+
+        taskService.createEntity(taskDTO.getId(), taskDTO);
+
+        for (int i = 0; i < 30; i++) {
+            @NotNull final TaskDTO taskDTOFromServer = taskService.findEntity(taskDTO.getId(), sessionDTO.getUserId());
+            Assert.assertEquals(taskDTOFromServer.getId(), taskDTO.getId());
+            Assert.assertEquals(taskDTOFromServer.getName(), taskDTO.getName());
+            Assert.assertEquals(taskDTOFromServer.getDescription(), taskDTO.getDescription());
+            Assert.assertEquals(ConverterUtil.convertDateFormat(taskDTOFromServer.getDateStart()), ConverterUtil.convertDateFormat(taskDTO.getDateStart()));
+            Assert.assertEquals(ConverterUtil.convertDateFormat(taskDTOFromServer.getDateFinish()), ConverterUtil.convertDateFormat(taskDTO.getDateFinish()));
+            Assert.assertEquals(ConverterUtil.convertDateFormat(taskDTOFromServer.getDateCreate()), ConverterUtil.convertDateFormat(taskDTO.getDateCreate()));
+            Assert.assertEquals(taskDTOFromServer.getStatus(), taskDTO.getStatus());
+            Assert.assertEquals(taskDTOFromServer.getProjectId(), taskDTO.getProjectId());
+            Assert.assertEquals(taskDTOFromServer.getUserId(), taskDTO.getUserId());
+        }
+    }
+
+    @Test
     public void createAndFindEntity() {
         @NotNull final TaskDTO taskDTO = new TaskDTO();
         taskDTO.setId(UUID.randomUUID().toString());
@@ -312,6 +341,6 @@ public class TaskServiceTest {
 
     @After
     public void deleteTestEntity() {
-        userEndpoint.removeUser(sessionDTO, testUserDTO.getId());
+        userService.removeEntity(testUserDTO.getId());
     }
 }
