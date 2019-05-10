@@ -41,7 +41,7 @@ public class ConverterUtil {
         c.setTime(date);
         try {
             XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-            xmlGregorianCalendar.setMillisecond(0);
+            xmlGregorianCalendar.setTime(0, 0, 0, 0);
             return xmlGregorianCalendar;
         } catch (DatatypeConfigurationException e) {
             e.printStackTrace();
