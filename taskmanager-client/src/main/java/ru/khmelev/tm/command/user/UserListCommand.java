@@ -12,9 +12,6 @@ import ru.khmelev.tm.api.endpoint.UserDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 @Component
 public class UserListCommand extends Command {
 

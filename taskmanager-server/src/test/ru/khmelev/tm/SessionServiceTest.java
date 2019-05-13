@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
@@ -19,7 +20,6 @@ import ru.khmelev.tm.util.ConverterUtil;
 import ru.khmelev.tm.util.PasswordHashUtil;
 import ru.khmelev.tm.util.SpringJPATestingConfigUtil;
 
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
@@ -31,13 +31,13 @@ import static ru.khmelev.tm.util.SignatureUtil.sign;
 @ContextConfiguration(classes = SpringJPATestingConfigUtil.class)
 public class SessionServiceTest {
 
-    @Inject
+    @Autowired
     private ISessionService sessionService;
 
-    @Inject
+    @Autowired
     private IUserService userService;
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
     private UserDTO testUserDTO;

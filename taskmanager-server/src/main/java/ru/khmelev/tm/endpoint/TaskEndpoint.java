@@ -1,6 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
@@ -8,13 +9,10 @@ import ru.khmelev.tm.api.service.ITaskService;
 import ru.khmelev.tm.dto.SessionDTO;
 import ru.khmelev.tm.dto.TaskDTO;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 
-@Singleton
 @Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.ITaskEndpoint")
 public class TaskEndpoint implements ITaskEndpoint {
@@ -25,7 +23,7 @@ public class TaskEndpoint implements ITaskEndpoint {
     @NotNull
     private final ISessionService sessionService;
 
-    @Inject
+    @Autowired
     public TaskEndpoint(@NotNull final ISessionService sessionService, @NotNull final ITaskService taskService) {
         this.sessionService = sessionService;
         this.taskService = taskService;

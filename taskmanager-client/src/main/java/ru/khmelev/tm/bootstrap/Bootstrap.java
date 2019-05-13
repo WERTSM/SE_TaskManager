@@ -1,7 +1,6 @@
 package ru.khmelev.tm.bootstrap;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,9 +14,6 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -67,7 +63,7 @@ public class Bootstrap implements ServiceLocator {
         }
     }
 
-    private void registrationCommands(@NotNull final Class[] commandClassArray){
+    private void registrationCommands(@NotNull final Class[] commandClassArray) {
         for (Class classCommand : commandClassArray) {
             if (classCommand.getSuperclass().equals(Command.class)) {
                 Command command = (Command) applicationContext.getBean(classCommand);

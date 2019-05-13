@@ -54,11 +54,8 @@ public class SpringJPAConfigUtil {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(
-            final LocalContainerEntityManagerFactoryBean emf
-    ) {
-        final JpaTransactionManager transactionManager =
-                new JpaTransactionManager();
+    public PlatformTransactionManager transactionManager(final LocalContainerEntityManagerFactoryBean emf) {
+        final JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf.getObject());
         return transactionManager;
     }

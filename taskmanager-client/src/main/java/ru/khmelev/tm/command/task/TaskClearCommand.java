@@ -9,9 +9,6 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.command.Command;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 @Component
 public class TaskClearCommand extends Command {
 

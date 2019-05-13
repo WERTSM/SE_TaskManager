@@ -12,9 +12,6 @@ import ru.khmelev.tm.api.endpoint.TaskDTO;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 @Component
 public class TaskListCommand extends Command {
 

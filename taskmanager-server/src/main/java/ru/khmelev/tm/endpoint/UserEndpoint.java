@@ -1,6 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
@@ -10,8 +11,6 @@ import ru.khmelev.tm.dto.UserDTO;
 import ru.khmelev.tm.util.PasswordHashUtil;
 import ru.khmelev.tm.util.PropertyServerUtil;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
@@ -21,7 +20,6 @@ import java.util.UUID;
 
 import static ru.khmelev.tm.util.SignatureUtil.sign;
 
-@Singleton
 @Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public class UserEndpoint implements IUserEndpoint {
@@ -32,10 +30,10 @@ public class UserEndpoint implements IUserEndpoint {
     @NotNull
     private IUserService userService;
 
-    @Inject
+    @Autowired
     private PropertyServerUtil propertiesUtil;
 
-    @Inject
+    @Autowired
     public UserEndpoint(@NotNull final ISessionService sessionService, @NotNull final IUserService userService) {
         this.sessionService = sessionService;
         this.userService = userService;

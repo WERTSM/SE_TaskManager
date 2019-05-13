@@ -47,9 +47,9 @@ public class SpringJPATestingConfigUtil {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(final LocalContainerEntityManagerFactoryBean managerFactoryBean) {
+    public PlatformTransactionManager transactionManager(final LocalContainerEntityManagerFactoryBean emf) {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(managerFactoryBean.getObject());
+        transactionManager.setEntityManagerFactory(emf.getObject());
         return transactionManager;
     }
 }

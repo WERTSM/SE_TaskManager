@@ -11,8 +11,6 @@ import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.enumeration.Sort;
 import ru.khmelev.tm.util.PrinterUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

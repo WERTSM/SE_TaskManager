@@ -7,9 +7,6 @@ import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 @Component
 public class UserLogoutCommand extends Command {
 

@@ -1,6 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.service.IProjectService;
@@ -8,13 +9,10 @@ import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.dto.SessionDTO;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 
-@Singleton
 @Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IProjectEndpoint")
 public class ProjectEndpoint implements IProjectEndpoint {
@@ -25,7 +23,7 @@ public class ProjectEndpoint implements IProjectEndpoint {
     @NotNull
     private final ISessionService sessionService;
 
-    @Inject
+    @Autowired
     public ProjectEndpoint(@NotNull final ISessionService sessionService, @NotNull final IProjectService projectService) {
         this.projectService = projectService;
         this.sessionService = sessionService;

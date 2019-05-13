@@ -8,8 +8,6 @@ import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.Objects;
 
 @Component

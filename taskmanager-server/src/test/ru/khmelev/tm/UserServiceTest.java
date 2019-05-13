@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
@@ -15,7 +16,6 @@ import ru.khmelev.tm.enumeration.Role;
 import ru.khmelev.tm.util.PasswordHashUtil;
 import ru.khmelev.tm.util.SpringJPATestingConfigUtil;
 
-import javax.inject.Inject;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -23,10 +23,10 @@ import java.util.UUID;
 @ContextConfiguration(classes = SpringJPATestingConfigUtil.class)
 public class UserServiceTest {
 
-    @Inject
+    @Autowired
     private IUserService userService;
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
     private UserDTO testUserDTO;

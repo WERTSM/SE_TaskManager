@@ -6,8 +6,6 @@ import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
-import javax.inject.Inject;
-
 @Component
 public class ServerInfoCommand extends Command {
 
