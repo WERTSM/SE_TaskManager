@@ -3,19 +3,19 @@ package ru.khmelev.tm.util;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.Properties;
 
-@ApplicationScoped
+@Component
 public class PropertyServerUtil {
+
+    @NotNull
+    private final Properties properties = new Properties();
 
     public PropertyServerUtil() {
         loadProperty();
     }
-
-    @NotNull
-    private final Properties properties = new Properties();
 
     @SneakyThrows
     private void loadProperty() {

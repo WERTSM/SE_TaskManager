@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
@@ -19,19 +22,21 @@ import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-@NoArgsConstructor
-@ApplicationScoped
+@Component
 public class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
     private final SortedMap<String, Command> commandMap = new TreeMap<>();
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
-    @Inject
+    @Autowired
     private ITerminalService terminalService;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Getter
     @Setter
@@ -65,7 +70,7 @@ public class Bootstrap implements ServiceLocator {
     private void registrationCommands(@NotNull final Class[] commandClassArray){
         for (Class classCommand : commandClassArray) {
             if (classCommand.getSuperclass().equals(Command.class)) {
-                Command command = (Command) CDI.current().select(classCommand).get();
+                Command command = (Command) applicationContext.getBean(classCommand);
                 commandMap.put(command.getNameCommand(), command);
             }
         }

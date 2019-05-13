@@ -1,7 +1,9 @@
 package ru.khmelev.tm.service;
 
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.IProjectService;
@@ -9,20 +11,18 @@ import ru.khmelev.tm.dto.ProjectDTO;
 import ru.khmelev.tm.entity.Project;
 import ru.khmelev.tm.exception.ServiceException;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-@ApplicationScoped
+@Service
 public class ProjectService implements IProjectService {
 
-    @Inject
+    @Autowired
     private IProjectRepository projectRepository;
 
-    @Inject
+    @Autowired
     private IUserRepository userRepository;
 
     @Override
@@ -31,7 +31,7 @@ public class ProjectService implements IProjectService {
         @NotNull final Project project = new Project();
         project.setId(id);
         fromDTOToProject(projectDTO, project);
-        projectRepository.persist(project);
+        projectRepository.save(project);
     }
 
     @NotNull
@@ -40,7 +40,7 @@ public class ProjectService implements IProjectService {
     public ProjectDTO findEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
-        @NotNull final Project project = projectRepository.findById(id, userId);
+        @NotNull final Project project = projectRepository.findOne(id, userId);
         return fromProjectToDTO(project);
     }
 
@@ -63,8 +63,8 @@ public class ProjectService implements IProjectService {
     public void editEntity(@NotNull final String id, @NotNull ProjectDTO projectDTO, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
-        Project project = projectRepository.findById(id, userId);
-        projectRepository.merge(fromDTOToProject(projectDTO, project));
+        Project project = projectRepository.findOne(id, userId);
+        projectRepository.save(fromDTOToProject(projectDTO, project));
     }
 
     @NotNull
@@ -113,7 +113,7 @@ public class ProjectService implements IProjectService {
     public void removeEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
 
-        projectRepository.remove(projectRepository.findById(id, userId));
+        projectRepository.delete(projectRepository.findOne(id, userId));
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ProjectService implements IProjectService {
         project.setDateFinish(projectDTO.getDateFinish());
         project.setDateCreate(projectDTO.getDateCreate());
         project.setStatus(projectDTO.getStatus());
-        project.setUser(userRepository.findById(projectDTO.getUserId()));
+        project.setUser(userRepository.findOne(projectDTO.getUserId()));
         return project;
     }
 

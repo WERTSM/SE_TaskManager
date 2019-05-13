@@ -1,6 +1,8 @@
 package ru.khmelev.tm;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.khmelev.tm.bootstrap.Bootstrap;
 import ru.khmelev.tm.command.project.*;
 import ru.khmelev.tm.command.system.AboutCommand;
@@ -9,8 +11,7 @@ import ru.khmelev.tm.command.system.HelpCommand;
 import ru.khmelev.tm.command.system.ServerInfoCommand;
 import ru.khmelev.tm.command.task.*;
 import ru.khmelev.tm.command.user.*;
-
-import javax.enterprise.inject.se.SeContainerInitializer;
+import ru.khmelev.tm.util.SpringJPAConfigUtil;
 
 public final class ApplicationClient {
 
@@ -48,8 +49,7 @@ public final class ApplicationClient {
     public static void main(String[] args) throws Exception {
         System.setProperty("org.apache.logging.log4j.simplelog.StatusLogger.level", "INFO");
 
-        SeContainerInitializer.newInstance()
-                .addPackages(ApplicationClient.class).initialize()
-                .select(Bootstrap.class).get().init(CLASS);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringJPAConfigUtil.class);
+        applicationContext.getBean(Bootstrap.class).init(CLASS);
     }
 }

@@ -2,6 +2,8 @@ package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.*;
@@ -15,20 +17,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
+@Component
 public class TaskSortCommand extends Command {
 
-    @Inject
+    @Autowired
     private ITaskEndpoint taskEndpoint;
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
-    @Inject
+    @Autowired
     private
     ServiceLocator serviceLocator;
 
-    @Inject
+    @Autowired
     private
     ITerminalService terminalService;
 

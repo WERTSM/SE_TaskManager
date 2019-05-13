@@ -1,14 +1,17 @@
 package ru.khmelev.tm.command.system;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
 import javax.inject.Inject;
 
+@Component
 public class ServerInfoCommand extends Command {
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
     public String getNameCommand() {

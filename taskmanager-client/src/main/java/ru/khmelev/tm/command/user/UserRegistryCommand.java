@@ -1,6 +1,8 @@
 package ru.khmelev.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.ITerminalService;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
@@ -14,13 +16,13 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
-@ApplicationScoped
+@Component
 public class UserRegistryCommand extends Command {
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
-    @Inject
+    @Autowired
     private
     ITerminalService terminalService;
 

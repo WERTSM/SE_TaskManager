@@ -1,42 +1,44 @@
 package ru.khmelev.tm.bootstrap;
 
-import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
+import ru.khmelev.tm.endpoint.ProjectEndpoint;
+import ru.khmelev.tm.endpoint.TaskEndpoint;
+import ru.khmelev.tm.endpoint.UserEndpoint;
+import ru.khmelev.tm.service.SessionService;
 import ru.khmelev.tm.util.PropertyServerUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.xml.ws.Endpoint;
 
-@Getter
-@ApplicationScoped
+@Component
 public class Bootstrap implements ServiceLocator {
 
-    @Inject
+    @Autowired
     private IProjectEndpoint projectEndpoint;
 
-    @Inject
+    @Autowired
     private ITaskEndpoint taskEndpoint;
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
-    @Inject
+    @Autowired
     private PropertyServerUtil propertiesUtil;
 
-    @Inject
+    @Autowired
     private ISessionService sessionService;
 
     public void init() {
 
         sessionService.clearEntity();
 
-        Endpoint.publish("http://" + propertiesUtil.getHost() +":" + propertiesUtil.getPort() + "/ProjectEndpoint", projectEndpoint);
-        Endpoint.publish("http://" + propertiesUtil.getHost() +":" + propertiesUtil.getPort() + "/TaskEndpoint", taskEndpoint);
-        Endpoint.publish("http://" + propertiesUtil.getHost() +":" + propertiesUtil.getPort() + "/UserEndpoint", userEndpoint);
+        Endpoint.publish("http://" + propertiesUtil.getHost() + ":" + propertiesUtil.getPort() + "/ProjectEndpoint", projectEndpoint);
+        Endpoint.publish("http://" + propertiesUtil.getHost() + ":" + propertiesUtil.getPort() + "/TaskEndpoint", taskEndpoint);
+        Endpoint.publish("http://" + propertiesUtil.getHost() + ":" + propertiesUtil.getPort() + "/UserEndpoint", userEndpoint);
 
         System.out.println("Server port:" + propertiesUtil.getPort() + " started!");
     }

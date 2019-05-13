@@ -1,6 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.ITaskService;
@@ -14,6 +15,7 @@ import javax.jws.WebService;
 import java.util.Collection;
 
 @Singleton
+@Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.ITaskEndpoint")
 public class TaskEndpoint implements ITaskEndpoint {
 

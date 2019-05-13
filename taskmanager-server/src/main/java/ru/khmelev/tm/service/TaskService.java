@@ -1,7 +1,9 @@
 package ru.khmelev.tm.service;
 
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.khmelev.tm.api.repository.IProjectRepository;
 import ru.khmelev.tm.api.repository.ITaskRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
@@ -10,23 +12,21 @@ import ru.khmelev.tm.dto.TaskDTO;
 import ru.khmelev.tm.entity.Task;
 import ru.khmelev.tm.exception.ServiceException;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-@ApplicationScoped
+@Service
 public class TaskService implements ITaskService {
 
-    @Inject
+    @Autowired
     private ITaskRepository taskRepository;
 
-    @Inject
+    @Autowired
     private IProjectRepository projectRepository;
 
-    @Inject
+    @Autowired
     private IUserRepository userRepository;
 
     @Override
@@ -36,7 +36,7 @@ public class TaskService implements ITaskService {
         task.setId(id);
         fromDTOToTask(taskDTO, task);
 
-        taskRepository.persist(task);
+        taskRepository.save(task);
     }
 
     @NotNull
@@ -44,7 +44,7 @@ public class TaskService implements ITaskService {
     @Transactional
     public TaskDTO findEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
-        @NotNull final Task task = taskRepository.findById(id, userId);
+        @NotNull final Task task = taskRepository.findOne(id, userId);
         return fromTaskToDTO(task);
     }
 
@@ -65,8 +65,8 @@ public class TaskService implements ITaskService {
     @Transactional
     public void editEntity(@NotNull final String id, @NotNull TaskDTO taskDTO, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
-        @NotNull final Task task = taskRepository.findById(id, userId);
-        taskRepository.merge(fromDTOToTask(taskDTO, task));
+        @NotNull final Task task = taskRepository.findOne(id, userId);
+        taskRepository.save(fromDTOToTask(taskDTO, task));
     }
 
     @NotNull
@@ -111,7 +111,7 @@ public class TaskService implements ITaskService {
     @Transactional
     public void removeEntity(@NotNull final String id, @NotNull final String userId) {
         if (id.isEmpty() || userId.isEmpty()) throw new ServiceException();
-        taskRepository.remove(taskRepository.findById(id, userId));
+        taskRepository.delete(taskRepository.findOne(id, userId));
     }
 
     @Override
@@ -143,8 +143,8 @@ public class TaskService implements ITaskService {
         task.setDateFinish(taskDTO.getDateFinish());
         task.setDateCreate(taskDTO.getDateCreate());
         task.setStatus(taskDTO.getStatus());
-        task.setProject(projectRepository.findById(taskDTO.getProjectId(), taskDTO.getUserId()));
-        task.setUser(userRepository.findById(taskDTO.getUserId()));
+        task.setProject(projectRepository.findOne(taskDTO.getProjectId(), taskDTO.getUserId()));
+        task.setUser(userRepository.findOne(taskDTO.getUserId()));
         return task;
     }
 

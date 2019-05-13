@@ -1,11 +1,12 @@
 package ru.khmelev.tm.command.system;
 
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 
 import javax.enterprise.context.ApplicationScoped;
 
-@ApplicationScoped
+@Component
 public class ExitCommand extends Command {
 
     @Override

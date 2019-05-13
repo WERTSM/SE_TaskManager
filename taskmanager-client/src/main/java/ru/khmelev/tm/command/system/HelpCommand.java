@@ -1,6 +1,8 @@
 package ru.khmelev.tm.command.system;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
@@ -10,10 +12,10 @@ import javax.inject.Inject;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-@ApplicationScoped
+@Component
 public class HelpCommand extends Command {
 
-    @Inject
+    @Autowired
     private
     ServiceLocator serviceLocator;
 

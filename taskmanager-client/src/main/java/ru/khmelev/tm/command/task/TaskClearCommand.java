@@ -1,6 +1,8 @@
 package ru.khmelev.tm.command.task;
 
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.ITaskEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
@@ -10,13 +12,13 @@ import ru.khmelev.tm.command.Command;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@Component
 public class TaskClearCommand extends Command {
 
-    @Inject
+    @Autowired
     private ITaskEndpoint taskEndpoint;
 
-    @Inject
+    @Autowired
     private
     ServiceLocator serviceLocator;
 

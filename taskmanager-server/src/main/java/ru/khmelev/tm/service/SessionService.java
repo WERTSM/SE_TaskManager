@@ -1,8 +1,10 @@
 package ru.khmelev.tm.service;
 
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.khmelev.tm.api.repository.ISessionRepository;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.ISessionService;
@@ -12,20 +14,18 @@ import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.EndpointException;
 import ru.khmelev.tm.exception.ServiceException;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationScoped
+@Service
 public class SessionService implements ISessionService {
 
-    @Inject
+    @Autowired
     private ISessionRepository sessionRepository;
 
-    @Inject
+    @Autowired
     private IUserRepository userRepository;
 
     @Override
@@ -34,7 +34,7 @@ public class SessionService implements ISessionService {
         @NotNull final Session session = new Session();
         session.setId(id);
         fromDTOToSession(sessionDTO, session);
-        sessionRepository.persist(session);
+        sessionRepository.save(session);
     }
 
     @NotNull
@@ -42,14 +42,14 @@ public class SessionService implements ISessionService {
     @Transactional
     public SessionDTO findEntity(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
-        @NotNull final Session session = sessionRepository.findById(id);
+        @NotNull final Session session = sessionRepository.findOne(id);
         return fromSessionToDTO(session);
     }
 
     @Override
     @Transactional
     public void setUser(@NotNull final String id, @Nullable final User user) {
-        @NotNull final Session session = sessionRepository.findById(id);
+        @NotNull final Session session = sessionRepository.findOne(id);
         session.setUser(user);
     }
 
@@ -69,15 +69,15 @@ public class SessionService implements ISessionService {
     @Transactional
     public void editEntity(@NotNull final String id, @NotNull SessionDTO sessionDTO) {
         if (id.isEmpty()) throw new ServiceException();
-        @NotNull final Session session = sessionRepository.findById(id);
-        sessionRepository.merge(fromDTOToSession(sessionDTO, session));
+        @NotNull final Session session = sessionRepository.findOne(id);
+        sessionRepository.save(fromDTOToSession(sessionDTO, session));
     }
 
     @Override
     @Transactional
     public void removeEntity(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
-        sessionRepository.remove(sessionRepository.findById(id));
+        sessionRepository.delete(sessionRepository.findOne(id));
     }
 
     @Override
@@ -97,7 +97,7 @@ public class SessionService implements ISessionService {
     private Session fromDTOToSession(@NotNull final SessionDTO sessionDTO, @NotNull final Session session) {
         session.setSignature(sessionDTO.getSignature());
         session.setDateCreate(sessionDTO.getDateCreate());
-        session.setUser(userRepository.findById(sessionDTO.getUserId()));
+        session.setUser(userRepository.findOne(sessionDTO.getUserId()));
         return session;
     }
 

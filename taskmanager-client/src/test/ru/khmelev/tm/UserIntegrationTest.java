@@ -4,21 +4,27 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.api.endpoint.SessionDTO;
 import ru.khmelev.tm.api.endpoint.UserDTO;
-import ru.khmelev.tm.endpoint.EndpointService;
 import ru.khmelev.tm.util.PasswordHashUtil;
+import ru.khmelev.tm.util.SpringJPAConfigUtil;
 
 import java.util.Objects;
 import java.util.UUID;
 
 @Category(IUserIntegrationTest.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringJPAConfigUtil.class)
 public class UserIntegrationTest {
 
-    @NotNull
-    private final IUserEndpoint userEndpoint = new EndpointService().getUserEndpointService();
+    @Autowired
+    private IUserEndpoint userEndpoint;
 
     private SessionDTO sessionDTO;
 

@@ -1,6 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.ISessionService;
 import ru.khmelev.tm.api.service.IUserService;
@@ -21,6 +22,7 @@ import java.util.UUID;
 import static ru.khmelev.tm.util.SignatureUtil.sign;
 
 @Singleton
+@Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IUserEndpoint")
 public class UserEndpoint implements IUserEndpoint {
 

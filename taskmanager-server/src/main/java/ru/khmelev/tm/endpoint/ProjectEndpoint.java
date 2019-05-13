@@ -1,6 +1,7 @@
 package ru.khmelev.tm.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.IProjectEndpoint;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ISessionService;
@@ -14,6 +15,7 @@ import javax.jws.WebService;
 import java.util.Collection;
 
 @Singleton
+@Component
 @WebService(endpointInterface = "ru.khmelev.tm.api.endpoint.IProjectEndpoint")
 public class ProjectEndpoint implements IProjectEndpoint {
 

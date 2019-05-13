@@ -1,5 +1,7 @@
 package ru.khmelev.tm.command.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.ServiceLocator;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.endpoint.Role;
@@ -10,13 +12,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Objects;
 
-@ApplicationScoped
+@Component
 public class UserProfileCommand extends Command {
 
-    @Inject
+    @Autowired
     private IUserEndpoint userEndpoint;
 
-    @Inject
+    @Autowired
     private
     ServiceLocator serviceLocator;
 

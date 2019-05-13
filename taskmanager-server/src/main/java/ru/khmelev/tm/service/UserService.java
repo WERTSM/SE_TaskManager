@@ -1,7 +1,9 @@
 package ru.khmelev.tm.service;
 
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.khmelev.tm.api.repository.IUserRepository;
 import ru.khmelev.tm.api.service.IUserService;
 import ru.khmelev.tm.dto.UserDTO;
@@ -9,17 +11,15 @@ import ru.khmelev.tm.entity.User;
 import ru.khmelev.tm.exception.ServiceException;
 import ru.khmelev.tm.util.PasswordHashUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationScoped
+@Service
 public class UserService implements IUserService {
 
-    @Inject
+    @Autowired
     private IUserRepository userRepository;
 
     @Override
@@ -29,7 +29,7 @@ public class UserService implements IUserService {
         user.setId(id);
         fromDTOToUser(userDTO, user);
 
-        userRepository.persist(user);
+        userRepository.save(user);
     }
 
     @NotNull
@@ -37,7 +37,7 @@ public class UserService implements IUserService {
     @Transactional
     public UserDTO findEntity(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
-        @NotNull final User user = userRepository.findById(id);
+        @NotNull final User user = userRepository.findOne(id);
         return fromUserToDTO(user);
     }
 
@@ -57,15 +57,15 @@ public class UserService implements IUserService {
     @Transactional
     public void editEntity(@NotNull final String id, @NotNull UserDTO userDTO) {
         if (id.isEmpty()) throw new ServiceException();
-        @NotNull final User user = userRepository.findById(id);
-        userRepository.merge(fromDTOToUser(userDTO, user));
+        @NotNull final User user = userRepository.findOne(id);
+        userRepository.save(fromDTOToUser(userDTO, user));
     }
 
     @Override
     @Transactional
     public void removeEntity(@NotNull final String id) {
         if (id.isEmpty()) throw new ServiceException();
-        userRepository.remove(userRepository.findById(id));
+        userRepository.delete(userRepository.findOne(id));
     }
 
     @NotNull

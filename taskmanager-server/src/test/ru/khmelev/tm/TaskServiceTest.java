@@ -1,12 +1,13 @@
 package ru.khmelev.tm;
 
-import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.khmelev.tm.api.endpoint.IUserEndpoint;
 import ru.khmelev.tm.api.service.IProjectService;
 import ru.khmelev.tm.api.service.ITaskService;
@@ -19,11 +20,13 @@ import ru.khmelev.tm.enumeration.Role;
 import ru.khmelev.tm.enumeration.Status;
 import ru.khmelev.tm.util.ConverterUtil;
 import ru.khmelev.tm.util.PasswordHashUtil;
+import ru.khmelev.tm.util.SpringJPATestingConfigUtil;
 
 import javax.inject.Inject;
 import java.util.*;
 
-@RunWith(CdiTestRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringJPATestingConfigUtil.class)
 public class TaskServiceTest {
 
     @Inject

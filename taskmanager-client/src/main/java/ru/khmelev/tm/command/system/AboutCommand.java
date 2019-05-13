@@ -2,6 +2,7 @@ package ru.khmelev.tm.command.system;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 import ru.khmelev.tm.api.endpoint.Role;
 import ru.khmelev.tm.command.Command;
 import ru.khmelev.tm.util.PrinterUtil;
@@ -10,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.io.InputStream;
 
-@ApplicationScoped
+@Component
 public class AboutCommand extends Command {
 
     @Override

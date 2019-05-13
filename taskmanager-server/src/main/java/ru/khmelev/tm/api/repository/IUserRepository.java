@@ -1,27 +1,26 @@
 package ru.khmelev.tm.api.repository;
 
-import org.apache.deltaspike.data.api.Query;
-import org.apache.deltaspike.data.api.QueryParam;
-import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import ru.khmelev.tm.entity.User;
 
 import javax.persistence.QueryHint;
-import java.util.Collection;
+import java.util.List;
 
-@Repository(forEntity = User.class)
-public interface IUserRepository {
-
-    void persist(@NotNull User user);
-
-    @Query(value = "SELECT user FROM User user WHERE id = :id", hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    @NotNull User findById(@NotNull @QueryParam("id") final String id);
+@Repository
+public interface IUserRepository extends JpaRepository<User, String> {
 
     @NotNull
-    @Query(value = "Select user from User user", hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")})
-    Collection<User> findAll();
+    @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
+    @Query(value = "SELECT user FROM User user WHERE id = :id")
+    User findOne(@NotNull @Param("id") final String id);
 
-    void merge(@NotNull User user);
-
-    void remove(@NotNull User user);
+    @NotNull
+    @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
+    @Query(value = "Select user from User user")
+    List<User> findAll();
 }
