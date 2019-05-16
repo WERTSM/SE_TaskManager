@@ -1,0 +1,3 @@
+Start-process -FilePath "java.exe" -ArgumentList "-Dserver.port=2019 -jar C:\Users\s.khmelev\Documents\SE_TaskManager\taskmanager-server\target\release\bin\taskmanager-server-1.0-SNAPSHOT-r168.jar"
+Start-process -FilePath "java.exe" -ArgumentList "-Dserver.port=2020 -jar C:\Users\s.khmelev\Documents\SE_TaskManager\taskmanager-server\target\release\bin\taskmanager-server-1.0-SNAPSHOT-r168.jar"
+Start-process -FilePath "java.exe" -ArgumentList "-Dserver.port=2021 -jar C:\Users\s.khmelev\Documents\SE_TaskManager\taskmanager-server\target\release\bin\taskmanager-server-1.0-SNAPSHOT-r168.jar"

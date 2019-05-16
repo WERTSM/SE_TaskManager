@@ -1,0 +1,1 @@
+Start-process -FilePath "java.exe" -ArgumentList "-jar C:\Users\s.khmelev\Documents\SE_TaskManager\taskmanager-client\target\release\bin\taskmanager-client-1.0-SNAPSHOT-r327.jar"
